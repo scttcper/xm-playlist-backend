@@ -1,5 +1,7 @@
 # xm-playlist-backend
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/scttcper/xm-playlist-backend.svg)](https://greenkeeper.io/)
+
 [![Dependency Status][david-img]][david-url]
 [![build status][travis-img]][travis-url]
 [![coverage status][coveralls-img]][coveralls-url]
