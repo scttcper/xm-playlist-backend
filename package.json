@@ -37,7 +37,7 @@
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
-    "coveralls": "^2.11.15",
+    "coveralls": "^2.11.16",
     "eslint": "^3.14.0",
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-formatter-pretty": "^1.1.0",
