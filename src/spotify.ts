@@ -1,11 +1,12 @@
-const got = require('got');
-const _ = require('lodash');
+import * as request from 'request-promise-native';
+import * as _ from 'lodash';
 
-const mongo = require('./mongo');
-const tracks = require('./tracks');
+import { Track, Spotify } from '../models';
+import { findOrCreateTrack } from './tracks';
+import { encode } from '../src/util';
 
-function parseSpotify(obj) {
-  const cover = _.first(obj.album.images) || {};
+export function parseSpotify(obj: any) {
+  const cover = _.first<any>(obj.album.images) || {};
   return {
     cover: cover.url,
     spotifyId: obj.id,
@@ -15,24 +16,24 @@ function parseSpotify(obj) {
   };
 }
 
-async function searchTrack(stream) {
+export async function searchTrack(stream) {
   const a = stream.artists.join('+');
   let t = stream.name.replace(/[ ](mix)/i, '');
   const url = `https://api.spotify.com/v1/search?q=artist:${a}+track:${t}+&limit=1&type=track`;
-  const res = await got(url, { json: true }).then(r => r.body);
+  const res = await request.get(url, { json: true, simple: true, gzip: true });
   if (res.tracks.items.length > 0) {
     return parseSpotify(_.first(res.tracks.items));
   }
   t = t.split('-')[0];
   const url2 = `https://api.spotify.com/v1/search?q=track:${t}+&limit=1&type=track`;
-  const res2 = await got(url2, { json: true }).then(r => r.body);
+  const res2 = await request.get(url2, { json: true, simple: true, gzip: true });
   if (res2.tracks.items.length > 0) {
     return parseSpotify(_.first(res2.tracks.items));
   }
-  return Promise.reject();
+  return Promise.reject('failed');
 }
 
-async function get(songId) {
+export async function get(songId) {
   const db = await mongo;
   return db.collection('spotify')
     .findOne({ songId })
@@ -41,12 +42,12 @@ async function get(songId) {
     });
 }
 
-async function findAndCache(songId) {
+export async function findAndCache(songId) {
   const doc = await get(songId);
   if (doc) {
     return doc;
   }
-  const track = await tracks.getTrack(songId);
+  const track = await Track.findOne({ where: { songId: encode(songId) } });
   let search;
   try {
     search = await searchTrack(track);
@@ -58,9 +59,3 @@ async function findAndCache(songId) {
   db.collection('spotify').insertOne(search).catch();
   return search;
 }
-
-
-exports.parseSpotify = parseSpotify;
-exports.searchTrack = searchTrack;
-exports.get = get;
-exports.findAndCache = findAndCache;

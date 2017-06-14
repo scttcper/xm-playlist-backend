@@ -1,22 +1,25 @@
-const debug = require('debug')('xmplaylist:index');
-const Koa = require('koa');
-const logger = require('koa-logger');
-const router = require('koa-router')();
-const cors = require('kcors');
-const _ = require('lodash');
+import * as debug from 'debug';
+import * as Koa from 'koa';
+import * as kcors from 'kcors';
+import * as logger from 'koa-logger';
+import * as koaRaven from 'koa2-raven';
+import * as Raven from 'raven';
+import * as Router from 'koa-router';
+import * as _ from 'lodash';
 
-const config = require('../config');
-const channels = require('./channels');
+import config from '../config';
+import { channels } from './channels';
 const stream = require('./stream');
 const tracks = require('./tracks');
 const spotify = require('./spotify');
 
-
+const log = debug('xmplaylist');
 const app = new Koa();
-module.exports = app;
+export default app;
 app.proxy = true;
+const router = new Router();
 
-app.use(cors());
+app.use(kcors());
 if (process.env.NODE_ENV === 'dev') {
   app.use(logger());
 }
@@ -85,5 +88,5 @@ app
 
 if (!module.parent) {
   app.listen(config.port);
-  debug('listening on port:', config.port);
+  log('listening on port:', config.port);
 }

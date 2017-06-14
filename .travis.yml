@@ -1,17 +1,10 @@
 sudo: false
 language: node_js
 node_js:
-  - "7"
+  - 8
 services:
-  - mongodb
-# until travis has mongodb > 3
-addons:
-  apt:
-    sources:
-    - mongodb-3.0-precise
-    packages:
-    - mongodb-org-server
+  - postgresql
 script:
-  - yarn coverage
+  - npm run coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
