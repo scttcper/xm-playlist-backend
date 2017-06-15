@@ -17,8 +17,12 @@
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
     "koa-logger": "^3.0.0",
+<<<<<<< HEAD
     "koa-router": "^7.2.0",
     "koa2-raven": "^4.0.9",
+=======
+    "koa-router": "^7.1.1",
+>>>>>>> master
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "mongodb": "^2.2.28",
