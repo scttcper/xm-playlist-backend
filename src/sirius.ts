@@ -8,7 +8,7 @@ import { getLast } from './plays';
 import { Track, ArtistTrack, Play, ArtistTrackInstance, Artist } from '../models';
 import { channels } from './channels';
 import { encode } from './util';
-// const spotify = require('./spotify');
+import { spotifyFindAndCache } from './spotify';
 
 // http://www.siriusxm.com/metadata/pdt/en-us/json/channels/thebeat/timestamp/02-25-08:10:00
 const baseurl = 'http://www.siriusxm.com';
@@ -45,11 +45,10 @@ export async function checkEndpoint(channel) {
   const dateString = moment.utc().format('MM-DD-HH:mm:00');
   const url = `${baseurl}/metadata/pdt/en-us/json/channels/${channel.id}/timestamp/${dateString}`;
   log(url);
-  const req = request.get(url, { json: true, gzip: true, simple: true });
   const last = await getLast(channel);
   let res;
   try {
-    res = await Promise.all([req, last]);
+    res = await request.get(url, { json: true, gzip: true, simple: true });
   } catch (e) {
     return false;
   }
@@ -60,20 +59,21 @@ export async function checkEndpoint(channel) {
   if (['^I', ''].includes(newSong.songId) || newSong.name[0] === '#') {
     return false;
   }
-  if (last && last.get('songId') === newSong.songId) {
+  newSong.songId = encode(newSong.songId);
+  if (last && last.get('track').songId === newSong.songId) {
     return false;
   }
+  const track = await insertPlay(newSong);
   // TODO: announce
   log(newSong);
-  // try {
-  //   if (process.env.NODE_ENV !== 'test') {
-  //     spotify.findAndCache(newSong.songId);
-  //   }
-  // } catch (e) {
-  //   log(`${newSong.songId} not found on spotify`);
-  // }
+  try {
+    if (process.env.NODE_ENV !== 'test') {
+      spotifyFindAndCache(track.get('id'));
+    }
+  } catch (e) {
+    log(`${newSong.songId} not found on spotify`);
+  }
 
-  await insertPlay(newSong);
   return Promise.resolve(true);
 }
 
@@ -91,11 +91,7 @@ function findOrCreateArtists(artists: string[]) {
 async function insertPlay(data: any) {
   const artists = await findOrCreateArtists(data.artists);
   const [track, created] = await Track
-    .findOrCreate({
-      where: {
-        songId: encode(data.songId),
-      },
-    });
+    .findOrCreate({ where: { songId: data.songId } });
   if (!created) {
     track.increment('plays');
   } else {
@@ -113,4 +109,5 @@ async function insertPlay(data: any) {
     { channel: chan.number, trackId: track.get('id'), startTime: new Date(data.startTime) },
     { returning: false },
   );
+  return track;
 }

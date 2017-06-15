@@ -19,6 +19,8 @@ let config = {
   },
   port: 5000,
   dsn: '',
+  spotifyClientId: '',
+  spotifyClientSecret: '',
 };
 
 const filename = `./config.${env}`;

@@ -1,11 +1,15 @@
 import * as moment from 'moment';
 
-import { Play, PlayAttributes } from '../models';
+import { Play, PlayAttributes, Track } from '../models';
 import { Channel } from './channels';
 
 export async function getLast(channel: Channel) {
   return await Play
-    .findOne({ where: { channel: channel.number }, order: [['id', 'DESC']] });
+    .findOne({
+      where: { channel: channel.number },
+      order: [['id', 'DESC']],
+      include: [{ model: Track }],
+    });
 }
 
 export async function getRecent(channel, last) {

@@ -28,6 +28,7 @@ export const Track = sequelize.define<TrackInstance, TrackAttributes>('track', {
 export interface ArtistAttributes {
   id?: number;
   name?: string;
+  artist_track: ArtistTrackAttributes;
 }
 export type ArtistInstance = Sequelize.Instance<ArtistAttributes>;
 export const Artist = sequelize.define<ArtistInstance, ArtistAttributes>('artist', {

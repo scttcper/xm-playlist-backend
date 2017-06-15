@@ -13,5 +13,5 @@ async function updateAll() {
 
 if (!module.parent) {
   log('cron running');
-  setInterval(async () => await updateAll(), 15000);
+  setInterval(async () => await updateAll(), 10000);
 }
