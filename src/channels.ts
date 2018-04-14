@@ -313,9 +313,9 @@ export const channels: Channel[] = [
     playlist: '3unI3vzoWlLSJzoeitejbC',
   },
   {
-    id: '8124',
+    id: '9471',
     number: 43,
-    name: 'Backspin',
+    name: "LL COOL J's Rock The Bells Radio",
     genre: 'Hip-Hop',
     desc: 'Classic Hip-Hop-XL',
     playlist: '6dJf2NJOX1l0mWoXFf1Hki',
@@ -383,11 +383,11 @@ export const channels: Channel[] = [
     playlist: '7DEiHntTkFb4TcJcRCJhL0',
   },
   {
-    id: 'area33',
+    id: '9472',
     number: 52,
-    name: 'Electric Area',
+    name: "Diplo's Revolution",
     genre: 'Dance/Electronic',
-    desc: 'EDM DJ Mix Shows',
+    desc: 'Top Rhythmic Music',
     playlist: '5HpCrxQKRXg7YnYBdBY4eT',
   },
   {
