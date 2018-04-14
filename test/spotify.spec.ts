@@ -4,6 +4,9 @@ import { setup } from '../models/dbinit';
 import { searchTrack } from '../src/spotify';
 
 describe('spotify', function() {
+  beforeEach(function() {
+    this.timeout(10000);
+  });
   it('should find Say My Name', async function() {
     const name = 'Say My Name (Remix)';
     const artists = ['ODESZA', 'Cedric Gervais', 'Zyra'];
