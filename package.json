@@ -47,7 +47,7 @@
     "@types/delay": "^2.0.1",
     "@types/lodash": "^4.14.108",
     "@types/mocha": "^5.2.0",
-    "@types/node": "^10.0.0",
+    "@types/node": "9.6.6",
     "@types/puppeteer": "^1.2.3",
     "@types/raven": "^2.5.1",
     "@types/redis": "^2.8.6",
