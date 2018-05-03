@@ -16,6 +16,7 @@ async function main() {
   }&response_type=code&redirect_uri=https://example.com/&scope=playlist-modify-public&state=xmplaylist`;
   try {
     browser = await puppeteer.launch({
+      appMode: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browser.newPage();
@@ -23,8 +24,10 @@ async function main() {
     await page.click('.btn,.btn-sm');
     await page.type('input#login-username', config.spotifyUsername);
     await page.type('input#login-password', config.spotifyPassword);
-    await page.click('.btn-green');
+    await page.click('#login-button');
+    console.log('Waiting for navigation');
     const res = await page.waitForNavigation();
+    console.log('NOT CAUGHT BY RECAPTCHA');
     const codeUrl = await res.url();
     const qs: any = querystring.parse(url.parse(codeUrl).query);
     code = qs.code;
