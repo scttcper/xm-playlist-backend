@@ -4,6 +4,7 @@ import * as supertest from 'supertest';
 import channelMetadataResponse from './mock/channelMetadataResponse';
 
 import { setup } from '../models/dbinit';
+import { Channel } from '../src/channels';
 import { server } from '../src/index';
 import { insertPlay } from '../src/sirius';
 
@@ -18,10 +19,11 @@ const play = {
   songId: 'JE84MGF3',
 };
 
-const channel = {
+const channel: Channel = {
   id: '90salternative',
   number: 34,
   name: 'Lithium',
+  playlist: '',
   genre: 'Rock',
   desc: "'90s Alternative/Grunge",
 };
