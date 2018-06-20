@@ -47,7 +47,7 @@ export function parseChannelMetadataResponse(meta: any, currentEvent: any) {
 export async function checkEndpoint(channel: Channel) {
   const now = new Date();
   const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-  const dateString = dateFmt(utc, 'MM-DD-HH:mm:00');
+  const dateString = dateFmt(utc, 'MM-dd-HH:mm:00');
   const url = `${baseurl}/metadata/pdt/en-us/json/channels/${channel.id}/timestamp/${dateString}`;
   log(url);
   let res;

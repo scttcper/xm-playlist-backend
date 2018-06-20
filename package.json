@@ -24,7 +24,7 @@
     "hapi-raven": "^7.0.0",
     "hoek": "^5.0.3",
     "joi": "^13.4.0",
-    "date-fns": "^2.0.0-alpha.7",
+    "date-fns": "^2.0.0-alpha.10",
     "debug": "^3.1.0",
     "delay": "^3.0.0",
     "lodash": "^4.17.10",
