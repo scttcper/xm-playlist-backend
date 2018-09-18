@@ -43,17 +43,16 @@ export const Artist = sequelize.define<ArtistInstance, ArtistAttributes>('artist
 });
 
 export interface ArtistTrackAttributes {
-  trackId: number | string;
-  artistId: number;
+  trackId?: number | string;
+  artistId?: number;
 }
 export type ArtistTrackInstance = Sequelize.Instance<ArtistTrackAttributes>;
-export const ArtistTrack = sequelize.define<ArtistTrackInstance, ArtistTrackAttributes>('artist_track', {
-}, {
+export const ArtistTrack = sequelize.define<ArtistTrackInstance, ArtistTrackAttributes>('artist_track', {}, {
   timestamps: false,
 });
 
 export interface PlayAttributes {
-  trackId: number | string;
+  trackId?: number | string;
   startTime?: Date;
   channel?: number;
   track?: TrackAttributes;

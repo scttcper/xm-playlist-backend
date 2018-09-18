@@ -1,4 +1,4 @@
-import * as delay from 'delay';
+import delay from 'delay';
 
 import { Artist, ArtistTrack, Play, Spotify, Track } from './index';
 

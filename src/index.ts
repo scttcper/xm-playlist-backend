@@ -18,7 +18,7 @@ const options: ServerOptions = {
 
 const ravenPlugin: any = {
   name: 'hapi-raven',
-  register: require('hapi-raven').register,
+  plugin: require('hapi-raven'),
   options: {
     dsn: config.dsn,
   },
@@ -56,9 +56,9 @@ if (!module.parent) {
   register
     .then(() => server.start())
     .then()
-    .then((ser) => {
+    .then(ser => {
       console.log('Server running at:', server.info.uri);
       return server;
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 }

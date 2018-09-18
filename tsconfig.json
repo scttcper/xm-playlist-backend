@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2015",
     "sourceMap": true,
     "lib": ["dom", "es2017"],
-    "outDir": "build",
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "outDir": "build"
   },
   "include": [
     "src/**/*",

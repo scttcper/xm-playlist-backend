@@ -1,5 +1,5 @@
 import * as debug from 'debug';
-import * as delay from 'delay';
+import delay from 'delay';
 import * as pForever from 'p-forever';
 import * as Raven from 'raven';
 
