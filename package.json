@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "build": "rimraf build; tsc -p tsconfig.json",
+    "prebuild": "rimraf build",
+    "build": "tsc -p tsconfig.json",
     "start": "NODE_ENV=dev DEBUG=xmplaylist* nodemon --exec 'ts-node' src/index.ts",
     "scanner": "NODE_ENV=dev DEBUG=xmplaylist* nodemon --exec 'ts-node' src/scanner.ts",
     "test": "NODE_ENV=test mocha --exit --require test/tshook.js test/*.spec.ts",
