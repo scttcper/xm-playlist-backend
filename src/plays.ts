@@ -5,10 +5,12 @@ import { col, fn, Op } from 'sequelize';
 import { Artist, Play, Spotify, Track } from '../models';
 import { Channel } from './channels';
 
-export async function getLast(channel: Channel) {
+export async function getLast(channel: Channel, startTime: Date) {
   return Play.findOne({
-    where: { channel: channel.number },
-    order: [['startTime', 'DESC']],
+    where: {
+      channel: channel.number,
+      startTime,
+    },
     include: [{ model: Track }],
   }).then(n => (n ? n.toJSON() : undefined));
 }

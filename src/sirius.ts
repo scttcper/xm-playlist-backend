@@ -76,20 +76,19 @@ export async function checkEndpoint(channel: Channel) {
   if (['^I', ''].includes(newSong.songId) || newSong.name[0] === '#') {
     return false;
   }
-  const last = await getLast(channel);
+  const alreadyPlayed = await getLast(channel, newSong.startTime);
   newSong.songId = encode(newSong.songId);
-  if (last && last.track.songId === newSong.songId) {
+  if (alreadyPlayed) {
     return false;
   }
   const track = await insertPlay(newSong, channel);
-  // TODO: announce
   log(newSong);
 
   if (process.env.NODE_ENV !== 'test') {
     spotifyFindAndCache(track)
       .then(async (doc) => {
         log('DAYS', differenceInDays(new Date(), doc.get('createdAt')));
-        if (differenceInDays(new Date(), doc.get('createdAt')) > 10) {
+        if (differenceInDays(new Date(), doc.get('createdAt')) > 15) {
           await Spotify.findOne({ where: { trackId: track.id } }).then((d) => d.destroy());
           return matchSpotify(track, false);
         }
