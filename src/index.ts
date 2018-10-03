@@ -1,3 +1,5 @@
+// tslint:disable:no-require-imports
+
 import { Server, ServerOptions } from 'hapi';
 
 import config from '../config';
@@ -54,9 +56,8 @@ server.route(serverRoutes);
 if (!module.parent) {
   const register = server.register([ravenPlugin, goodPlugin]);
   register
-    .then(() => server.start())
-    .then()
-    .then(ser => {
+    .then(async () => server.start())
+    .then(() => {
       console.log('Server running at:', server.info.uri);
       return server;
     })

@@ -12,6 +12,7 @@
     "test": "NODE_ENV=test mocha --exit --require test/tshook.js test/*.spec.ts",
     "coverage": "NODE_ENV=test nyc npm run test",
     "lint": "tslint -p tsconfig.json --format stylish \"src/**/*.ts\"",
+    "lint:fix": "tslint -p tsconfig.json --fix --format stylish \"src/**/*.ts\"",
     "setupdb": "NODE_ENV=dev ts-node models/dbinit.ts"
   },
   "dependencies": {

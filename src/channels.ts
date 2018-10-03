@@ -1,3 +1,4 @@
+// tslint:disable:comment-format
 // https://www.siriusxm.com/albumart/Live/Default/DefaultMDS_m_52.jpg
 export interface Channel {
   id: string;

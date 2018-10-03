@@ -1,6 +1,6 @@
 import * as Boom from 'boom';
 import { subDays } from 'date-fns';
-import { Request, ResponseToolkit, ServerRoute } from 'hapi';
+import { ServerRoute } from 'hapi';
 import { assert } from 'hoek';
 import * as Joi from 'joi';
 import * as _ from 'lodash';
@@ -10,6 +10,7 @@ import { Artist, Play, Spotify, Track } from '../models';
 import { channels } from './channels';
 import { getRecent, popular } from './plays';
 import { playsByDay } from './tracks';
+
 
 const channelRoute: ServerRoute = {
   path: '/channel/{id}',
@@ -25,10 +26,10 @@ const channelRoute: ServerRoute = {
       },
     },
   },
-  handler: (req: Request, h: ResponseToolkit) => {
+  handler: (req) => {
     const channel = channels.find(_.matchesProperty('id', req.params.id));
     assert(!_.isUndefined(channel), Boom.notFound('Channel not Found'));
-    const query: any = req.query as any;
+    const query = req.query as any;
     if (query.last) {
       const last = new Date(parseInt(query.last as string, 10));
       return getRecent(channel, last);
@@ -48,7 +49,7 @@ const newestRoute: ServerRoute = {
       },
     },
   },
-  handler: async (req: Request, h: ResponseToolkit) => {
+  handler: async (req) => {
     const channel = channels.find(_.matchesProperty('id', req.params.id));
     assert(!_.isUndefined(channel), Boom.notFound('Channel not Found'));
     const thirtyDays = subDays(new Date(), 30);
@@ -81,7 +82,7 @@ const popularRoute: ServerRoute = {
       },
     },
   },
-  handler: (req: Request, h: ResponseToolkit) => {
+  handler: (req) => {
     const channel = channels.find(_.matchesProperty('id', req.params.id));
     assert(!_.isUndefined(channel), Boom.notFound('Channel not Found'));
     return popular(channel);
@@ -99,8 +100,8 @@ const trackRoute: ServerRoute = {
       },
     },
   },
-  handler: async (req: Request, h: ResponseToolkit) => {
-    const id: number = Number(req.params.id);
+  handler: async (req) => {
+    const id = Number(req.params.id);
     const res: any = await Track.findById(id, {
       include: [Artist, Spotify],
     }).then((t) => t.toJSON());
@@ -120,8 +121,8 @@ const trackActivityRoute: ServerRoute = {
       },
     },
   },
-  handler: (req: Request, h: ResponseToolkit) => {
-    const id: number = Number(req.params.id);
+  handler: (req) => {
+    const id = Number(req.params.id);
     return playsByDay(id);
   },
 };
@@ -140,7 +141,7 @@ const artistRoute: ServerRoute = {
       },
     },
   },
-  handler: async (req: Request, h: ResponseToolkit) => {
+  handler: async (req) => {
     const artistId = req.params.id;
     const channel = channels.find(_.matchesProperty('id', req.params.id));
     assert(!_.isUndefined(artistId), Boom.notFound('Artist ID required'));

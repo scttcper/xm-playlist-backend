@@ -56,7 +56,7 @@ export async function getToken(): Promise<string> {
   if (cache) {
     return cache;
   }
-  const auth = new Buffer(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
+  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
   const options: request.Options = {
     uri: 'https://accounts.spotify.com/api/token',
     headers: { Authorization: `Basic ${auth}` },
@@ -82,7 +82,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
       ),
     ),
   );
-  // console.log('CLEAN: ', cleanTrack, cleanArtists);
+  // Console.log('CLEAN: ', cleanTrack, cleanArtists);
   const token = await getToken();
   const options: request.Options = {
     uri: `https://api.spotify.com/v1/search`,
@@ -95,14 +95,14 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
     json: true,
     gzip: true,
   };
-  // console.log('ORIGINAL:', options.qs.q);
+  // Console.log('ORIGINAL:', options.qs.q);
   const res = await request.get(options);
   if (res.tracks.items.length > 0) {
     return parseSpotify(_.first(res.tracks.items));
   }
   const youtube = await search(`${cleanTrack} ${cleanArtists}`);
   if (!youtube) {
-    // console.log('youtube failed');
+    // Console.log('youtube failed');
     return Promise.reject('Youtube failed');
   }
   options.qs.q = Util.cleanupExtra(
@@ -112,7 +112,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
       ),
     ),
   ) + optionalBlacklist(youtube, youtube);
-  // console.log('GOOGLE:', options.qs.q);
+  // Console.log('GOOGLE:', options.qs.q);
   const res2 = await request.get(options);
   if (res2.tracks.items.length > 0) {
     return parseSpotify(_.first(res2.tracks.items));
@@ -163,7 +163,7 @@ export async function getUserToken(code: string): Promise<string> {
   if (cache) {
     return cache;
   }
-  const auth = new Buffer(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
+  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
   const options: request.Options = {
     uri: 'https://accounts.spotify.com/api/token',
     headers: { Authorization: `Basic ${auth}` },

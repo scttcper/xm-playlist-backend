@@ -1,9 +1,10 @@
 {
-  "extends": [
-    "tslint-xo/space",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint-xo/space", "tslint-config-prettier"],
   "rules": {
-    "semicolon": [true, "always"]
+    "semicolon": [true, "always"],
+    "import-name": [true, { "underscore": "_" }],
+    "await-promise": false,
+    "underscore-consistent-invocation": false,
+    "promise-function-async": false
   }
 }

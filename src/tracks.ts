@@ -11,9 +11,7 @@ import {
 import { encode } from '../src/util';
 
 export function findOrCreateArtists(artists: string[]): Promise<any[]> {
-  const promises: Array<
-    Promise<ArtistTrackInstance>
-  > = artists.map(async (name): Promise<any> => {
+  const promises: Promise<ArtistTrackInstance>[] = artists.map(async (name): Promise<any> => {
     const artist = await Artist.findOne({ where: { name } });
     if (artist) {
       return artist;
@@ -32,16 +30,16 @@ export async function findOrCreateTrack(data) {
   });
   if (!created) {
     track.increment('plays');
-  } else {
-    await track.update({ name: data.name });
-    const at = artists.map((artist) => {
-      return {
-        artistId: artist.get('id'),
-        trackId: track.get('id'),
-      };
-    });
-    await ArtistTrack.bulkCreate(at, { returning: false });
+    return;
   }
+  await track.update({ name: data.name });
+  const at = artists.map((artist) => {
+    return {
+      artistId: artist.get('id'),
+      trackId: track.get('id'),
+    };
+  });
+  await ArtistTrack.bulkCreate(at, { returning: false });
 }
 
 export async function playsByDay(trackId: number) {

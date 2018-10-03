@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 export function encode(unencoded: string) {
-  return new Buffer(unencoded || '')
+  return Buffer.from(unencoded || '')
     .toString('base64')
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
@@ -9,14 +9,14 @@ export function encode(unencoded: string) {
 }
 
 export function decode(encoded: string) {
-  encoded = encoded.replace(/-/g, '+').replace(/_/g, '/');
+  let enc = encoded.replace(/-/g, '+').replace(/_/g, '/');
   while (encoded.length % 4) {
-    encoded += '=';
+    enc += '=';
   }
-  return new Buffer(encoded || '', 'base64').toString('utf8');
+  return Buffer.from(enc || '', 'base64').toString('utf8');
 }
 
-/* remove ft feat */
+// Remove ft feat
 export function cleanFt(str: string) {
   return str
     .replace('f.', '')
@@ -24,12 +24,12 @@ export function cleanFt(str: string) {
     .replace(' ft ', ' ');
 }
 
-/* remove clean */
+// Remove clean
 export function cleanClean(str: string) {
   return str.replace(/(\(|\[)clean(\)|\])/i, '');
 }
 
-/* remove OFFICAL MUSIC VIDEO Lyrics */
+// Remove OFFICAL MUSIC VIDEO Lyrics
 export function cleanMusicVideo(str: string) {
   return str
     .replace(/(\(|\[)Official(\)|\])/i, '')
@@ -38,6 +38,7 @@ export function cleanMusicVideo(str: string) {
 }
 
 export function cleanSpaces(str: string) {
+  // tslint:disable-next-line:no-regex-spaces
   return _.trim(str.replace(/  +/g, ' '));
 }
 
@@ -69,6 +70,6 @@ export function cleanupExtra(str: string) {
     .replace('(', ' ')
     .replace(')', ' ')
     .replace('!', ' ');
-  const words = cleanStr.split(' ').filter((n) => n.length > 1);
+  const words = cleanStr.split(' ').filter(n => n.length > 1);
   return words.join(' ');
 }
