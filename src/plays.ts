@@ -2,20 +2,15 @@ import { subDays } from 'date-fns';
 import * as _ from 'lodash';
 import { col, fn, Op } from 'sequelize';
 
-import {
-  Artist,
-  Play,
-  Spotify,
-  Track,
-} from '../models';
+import { Artist, Play, Spotify, Track } from '../models';
 import { Channel } from './channels';
 
-export async function getLast(channel: Channel): Promise<any> {
+export async function getLast(channel: Channel) {
   return Play.findOne({
     where: { channel: channel.number },
     order: [['startTime', 'DESC']],
     include: [{ model: Track }],
-  });
+  }).then(n => n.toJSON());
 }
 
 export async function getRecent(channel: Channel, last?: Date): Promise<any> {
@@ -30,7 +25,7 @@ export async function getRecent(channel: Channel, last?: Date): Promise<any> {
       { model: Track, include: [{ model: Artist }, { model: Spotify }] },
     ],
     limit: 20,
-  }).then((t) => t.map((n) => n.toJSON()));
+  }).then(t => t.map(n => n.toJSON()));
 }
 
 export async function popular(channel: Channel, limit = 50) {
@@ -46,20 +41,20 @@ export async function popular(channel: Channel, limit = 50) {
       [fn('COUNT', col('trackId')), 'count'],
     ],
     group: [['trackId']],
-  }).then((t) => t.map((n) => n.toJSON()));
+  }).then(t => t.map(n => n.toJSON()));
   lastThirty = lastThirty
     .filter((n: any) => n.count > 1)
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
-  const ids = lastThirty.map((n) => n.trackId);
+  const ids = lastThirty.map(n => n.trackId);
   const keyed: any = _.keyBy(lastThirty, _.identity('trackId'));
   const tracks = await Track.findAll({
     where: {
       id: { [Op.in]: ids },
     },
     include: [Artist, Spotify],
-  }).then((t) =>
-    t.map((n) => {
+  }).then(t =>
+    t.map(n => {
       const res: any = n.toJSON();
       res.count = keyed[res.id].count;
       return res;

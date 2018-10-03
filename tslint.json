@@ -1,18 +1,9 @@
 {
-  "extends": "tslint:latest",
+  "extends": [
+    "tslint-xo/space",
+    "tslint-config-prettier"
+  ],
   "rules": {
-    "quotemark": [true, "single", "avoid-escape"],
-    "no-var-requires": false,
-    "object-literal-sort-keys": false,
-    "interface-name": false,
-    "no-console": false,
-    "no-unused-variable": true,
-    "ordered-imports": [
-      true,
-      {
-        "import-sources-order": "lowercase-last",
-        "named-imports-order": "lowercase-first"
-      }
-    ]
+    "semicolon": [true, "always"]
   }
 }

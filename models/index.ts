@@ -1,3 +1,5 @@
+// tslint:disable:variable-name
+
 import * as Sequelize from 'sequelize';
 
 import config from '../config';

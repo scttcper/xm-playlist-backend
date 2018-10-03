@@ -16,12 +16,12 @@ import { matchSpotify, spotifyFindAndCache } from './spotify';
 import { findOrCreateArtists } from './tracks';
 import { encode } from './util';
 
-// https://www.siriusxm.com/metadata/pdt/en-us/json/channels/thebeat/timestamp/02-25-08:10:00
+// Link - https://www.siriusxm.com/metadata/pdt/en-us/json/channels/thebeat/timestamp/02-25-08:10:00
 const baseurl = 'https://www.siriusxm.com';
 const log = debug('xmplaylist');
 
 export function parseArtists(artists: string): string[] {
-  // splits artists into an array
+  // Splits artists into an array
   return artists.match(/(?:\/\\|[^/\\])+/g);
 }
 export function parseName(name: string) {
@@ -53,7 +53,7 @@ export async function checkEndpoint(channel: Channel) {
   let res;
   try {
     res = await request.get(url, { json: true, gzip: true, simple: true });
-  } catch (e) {
+  } catch {
     return false;
   }
   if (!res.channelMetadataResponse || !res.channelMetadataResponse.status) {
