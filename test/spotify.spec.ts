@@ -19,18 +19,6 @@ describe('spotify', function() {
     const res = await searchTrack(artists, name);
     expect(res.spotifyId).to.eq('4HMfSzk0UsiRhulF0eb1M9');
   });
-  it('should find Feel Your Love', async function() {
-    const name = 'Feel Your Love';
-    const artists = ['Flux Pavillion', 'NGHTMRE'];
-    const res = await searchTrack(artists, name);
-    expect(res.spotifyId).to.eq('0YzwCpQVGtg4P2oFAC95bm');
-  });
-  it('should find The Right Song', async function() {
-    const name = 'The Right Song';
-    const artists = ['Tiesto', 'Oliver Heldens', 'Natalie LaRos'];
-    const res = await searchTrack(artists, name);
-    expect(res.spotifyId).to.eq('6Jao8qdCB3VYG4PhPzCEIm');
-  });
   it('should find False Alarm-Hook N Sling Mix', async function() {
     const name = 'False Alarm-Hook N Sling Mix';
     const artists = ['Matoma'];

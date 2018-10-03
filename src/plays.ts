@@ -10,7 +10,7 @@ export async function getLast(channel: Channel) {
     where: { channel: channel.number },
     order: [['startTime', 'DESC']],
     include: [{ model: Track }],
-  }).then(n => n.toJSON());
+  }).then(n => (n ? n.toJSON() : undefined));
 }
 
 export async function getRecent(channel: Channel, last?: Date): Promise<any> {
