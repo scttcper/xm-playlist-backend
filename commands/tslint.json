@@ -1,6 +1,5 @@
 {
   "extends": [
-    "tslint:latest",
     "../tslint.json"
   ],
   "rules": {

@@ -5,6 +5,6 @@
     "import-name": [true, { "underscore": "_" }],
     "await-promise": false,
     "underscore-consistent-invocation": false,
-    "promise-function-async": false
+    "promise-function-async": false,
   }
 }
