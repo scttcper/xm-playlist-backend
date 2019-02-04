@@ -2,14 +2,7 @@ import { differenceInDays, format as dateFmt } from 'date-fns';
 import * as debug from 'debug';
 import * as request from 'request-promise-native';
 
-import {
-  Artist,
-  ArtistTrack,
-  Play,
-  Spotify,
-  Track,
-  TrackAttributes,
-} from '../models';
+import { Artist, ArtistTrack, Play, Spotify, Track, TrackAttributes } from '../models';
 import { Channel } from './channels';
 import { getLast } from './plays';
 import { matchSpotify, spotifyFindAndCache } from './spotify';
@@ -48,7 +41,9 @@ export async function checkEndpoint(channel: Channel) {
   const now = new Date();
   const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const dateString = dateFmt(utc, 'MM-dd-HH:mm:00');
-  const url = `${baseurl}/metadata/pdt/en-us/json/channels/${channel.id}/timestamp/${dateString}`;
+  const url = `${baseurl}/metadata/pdt/en-us/json/channels/${
+    channel.id
+  }/timestamp/${dateString}`;
   log(url);
   let res;
   try {
@@ -86,20 +81,23 @@ export async function checkEndpoint(channel: Channel) {
 
   if (process.env.NODE_ENV !== 'test') {
     spotifyFindAndCache(track)
-      .then(async (doc) => {
+      .then(async doc => {
         log('DAYS', differenceInDays(new Date(), doc.get('createdAt')));
         if (differenceInDays(new Date(), doc.get('createdAt')) > 15) {
-          await Spotify.findOne({ where: { trackId: track.id } }).then((d) => d.destroy());
+          await Spotify.findOne({ where: { trackId: track.id } }).then(d => d.destroy());
           return matchSpotify(track, false);
         }
         return doc;
       })
-      .catch((err) => log('spotifyFindAndCacheError', err));
+      .catch(err => log('spotifyFindAndCacheError', err));
   }
   return true;
 }
 
-export async function insertPlay(data: any, channel: Channel): Promise<TrackAttributes> {
+export async function insertPlay(
+  data: any,
+  channel: Channel,
+): Promise<TrackAttributes> {
   const artists = await findOrCreateArtists(data.artists);
   let track = await Track.findOne({ where: { songId: data.songId } });
   if (track) {
@@ -109,7 +107,7 @@ export async function insertPlay(data: any, channel: Channel): Promise<TrackAttr
       songId: data.songId,
       name: data.name,
     });
-    const at = artists.map((artist) => {
+    const at = artists.map(artist => {
       return {
         artistId: artist.get('id'),
         trackId: track.get('id'),
@@ -118,9 +116,13 @@ export async function insertPlay(data: any, channel: Channel): Promise<TrackAttr
     await ArtistTrack.bulkCreate(at, { returning: false });
   }
   await Play.create(
-    { channel: channel.number, trackId: track.get('id'), startTime: new Date(data.startTime) },
+    {
+      channel: channel.number,
+      trackId: track.get('id'),
+      startTime: new Date(data.startTime),
+    },
     { returning: false },
   );
-  const final = await Track.findById(track.get('id'), { include: [Artist, Spotify]});
+  const final = await Track.findByPk(track.get('id'), { include: [Artist, Spotify] });
   return final.toJSON();
 }

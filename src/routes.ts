@@ -102,9 +102,7 @@ const trackRoute: ServerRoute = {
   },
   handler: async (req) => {
     const id = Number(req.params.id);
-    const res: any = await Track.findById(id, {
-      include: [Artist, Spotify],
-    }).then((t) => t.toJSON());
+    const res: any = await Track.findByPk(id, { include: [Artist, Spotify] }).then((t) => t.toJSON());
     res.playsByDay = await playsByDay(id);
     return res;
   },
@@ -168,7 +166,7 @@ const artistRoute: ServerRoute = {
         .catch(() => []);
     }
     const res: any = {};
-    res.artist = await Artist.findById(artistId);
+    res.artist = await Artist.findByPk(artistId);
     res.tracks = await Track.findAll({
       where: { id: { [Op.in]: trackIds } },
       include: [Artist, Spotify],
