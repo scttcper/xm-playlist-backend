@@ -1,8 +1,7 @@
-import * as Boom from 'boom';
+import Boom from 'boom';
 import { subDays } from 'date-fns';
 import { ServerRoute } from '@hapi/hapi';
-import { assert } from 'hoek';
-import * as Joi from 'joi';
+import Joi from '@hapi/joi';
 import * as _ from 'lodash';
 import { Op, literal } from 'sequelize';
 
