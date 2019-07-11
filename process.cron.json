@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "xmcron",
-      "script": "build/src/scanner.js",
+      "script": "dist/src/scanner.js",
       "env": {
         "NODE_ENV": "prod"
       }

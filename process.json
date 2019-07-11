@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "xm",
-      "script": "build/src/index.js",
+      "script": "dist/src/index.js",
       "env": {
         "NODE_ENV": "prod"
       }
