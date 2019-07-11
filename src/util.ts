@@ -5,7 +5,7 @@ export function encode(unencoded: string) {
     .toString('base64')
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
-    .replace(/=+$/, '');
+    .replace(/[=]+$/, '');
 }
 
 export function decode(encoded: string) {
@@ -13,6 +13,7 @@ export function decode(encoded: string) {
   while (encoded.length % 4) {
     enc += '=';
   }
+
   return Buffer.from(enc || '', 'base64').toString('utf8');
 }
 
@@ -54,6 +55,7 @@ export function cleanCutoff(str: string) {
   if (str.length === 35) {
     return str.replace(/\s(\w+)$/, '');
   }
+
   return str;
 }
 

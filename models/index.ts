@@ -1,98 +1,113 @@
+/* eslint-disable lines-between-class-members */
+/* eslint-disable new-cap */
 // tslint:disable:variable-name
 
 import * as Sequelize from 'sequelize';
 
 import config from '../config';
 
-export const sequelize = new Sequelize(
+export const sequelize = new Sequelize.Sequelize(
   config.database,
   config.username,
   config.password,
   config.db,
 );
 
-export interface TrackAttributes {
-  id?: number;
-  songId?: string;
-  name?: string;
-  plays?: number;
-  artists?: ArtistAttributes[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  spotify?: SpotifyAttributes;
+export class Track extends Sequelize.Model {
+  id!: number;
+  songId!: string;
+  name!: string;
+  plays!: number;
+  artists!: Artist[];
+  createdAt!: Date;
+  updatedAt!: Date;
+  spotify!: Spotify;
 }
-export type TrackInstance = Sequelize.Instance<TrackAttributes>;
-export const Track = sequelize.define<TrackInstance, TrackAttributes>('track', {
-  songId: { type: Sequelize.STRING(15), unique: true },
-  name: { type: Sequelize.STRING(200) },
-  plays: { type: Sequelize.INTEGER, defaultValue: 1 },
-}, {
-  indexes: [
-    { fields: ['createdAt'] },
-  ],
-});
 
-export interface ArtistAttributes {
-  id?: number;
-  name?: string;
-  artist_track?: ArtistTrackAttributes;
-}
-export type ArtistInstance = Sequelize.Instance<ArtistAttributes>;
-export const Artist = sequelize.define<ArtistInstance, ArtistAttributes>('artist', {
-  name: { type: Sequelize.STRING(120), unique: true },
-}, {
-  timestamps: false,
-});
+Track.init(
+  {
+    songId: { type: Sequelize.STRING(15), unique: true },
+    name: { type: Sequelize.STRING(200) },
+    plays: { type: Sequelize.INTEGER, defaultValue: 1 },
+  },
+  {
+    modelName: 'tracks',
+    sequelize,
+    indexes: [{ fields: ['createdAt'] }],
+  },
+);
 
-export interface ArtistTrackAttributes {
-  trackId?: number | string;
-  artistId?: number;
+export class Artist extends Sequelize.Model {
+  id!: number;
+  name!: string;
+  artist_track!: ArtistTrack;
 }
-export type ArtistTrackInstance = Sequelize.Instance<ArtistTrackAttributes>;
-export const ArtistTrack = sequelize.define<ArtistTrackInstance, ArtistTrackAttributes>('artist_track', {}, {
-  timestamps: false,
-});
+Artist.init(
+  {
+    name: { type: Sequelize.STRING(120), unique: true },
+  },
+  {
+    modelName: 'artists',
+    sequelize,
+    timestamps: false,
+  },
+);
 
-export interface PlayAttributes {
-  trackId?: number | string;
-  startTime?: Date;
-  channel?: number;
-  track?: TrackAttributes;
-}
-export type PlayInstance = Sequelize.Instance<PlayAttributes>;
-export const Play = sequelize.define<PlayInstance, PlayAttributes>('play', {
-  channel: { type: Sequelize.INTEGER },
-  startTime: { type: Sequelize.DATE },
-}, {
-  timestamps: false,
-  indexes: [
-    { fields: ['startTime'] },
-  ],
-});
+export class ArtistTrack extends Sequelize.Model {}
+ArtistTrack.init(
+  {},
+  {
+    modelName: 'artist_tracks',
+    sequelize,
+    timestamps: false,
+  },
+);
 
-export interface SpotifyAttributes {
-  id?: number;
-  trackId?: number;
-  cover?: string;
-  url?: string;
-  spotifyId?: string;
-  spotifyName?: string;
-  durationMs?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+export class Play extends Sequelize.Model {
+  trackId!: number | string;
+  startTime!: Date;
+  channel!: number;
+  track!: Track;
 }
-export type SpotifyInstance = Sequelize.Instance<SpotifyAttributes>;
-export const Spotify = sequelize.define<SpotifyInstance, SpotifyAttributes>('spotify', {
-  spotifyId: { type: Sequelize.STRING(50) },
-  spotifyName: { type: Sequelize.STRING(200) },
-  cover: { type: Sequelize.STRING(200) },
-  url: { type: Sequelize.STRING(200) },
-  durationMs: { type: Sequelize.INTEGER },
-}, {
-  indexes: [
-    { fields: ['trackId'], unique: true },
-  ],
-});
+Play.init(
+  {
+    channel: { type: Sequelize.INTEGER },
+    startTime: { type: Sequelize.DATE },
+  },
+  {
+    modelName: 'plays',
+    sequelize,
+    timestamps: false,
+    indexes: [{ fields: ['startTime'] }],
+  },
+);
+
+export class Spotify extends Sequelize.Model {
+  id!: number;
+  trackId!: number;
+  cover!: string;
+  url!: string;
+  spotifyId!: string;
+  spotifyName!: string;
+  durationMs!: number;
+  createdAt!: Date;
+  updatedAt!: Date;
+}
+
+Spotify.init(
+  {
+    spotifyId: { type: Sequelize.STRING(50) },
+    spotifyName: { type: Sequelize.STRING(200) },
+    cover: { type: Sequelize.STRING(200) },
+    url: { type: Sequelize.STRING(200) },
+    durationMs: { type: Sequelize.INTEGER },
+  },
+  {
+    modelName: 'spotifies',
+    sequelize,
+    indexes: [{ fields: ['trackId'], unique: true }],
+  },
+);
 
 Track.belongsToMany(Artist, { through: ArtistTrack });
 Play.belongsTo(Track);

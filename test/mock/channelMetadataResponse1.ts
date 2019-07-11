@@ -17,9 +17,9 @@ export default {
         baseUrl: 'https://www.siriusxm.com/albumart/',
         epgInfo: {
           program: {
-            description: "The world's EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro",
+            description: 'The world\'s EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro',
             episodes: {
-              description: "The world's EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro",
+              description: 'The world\'s EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro',
               duration: 14400,
               episodeId: 3329394,
               firstRun: false,
@@ -34,7 +34,7 @@ export default {
             title: '#bpm with @GothamTommy',
           },
           segment: {
-            description: "The world's EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro",
+            description: 'The world\'s EDM leader! Spinning the EDM hits, remixes, and club hits that bring the energy and passion of a weekend party into every day and night.   #bpm @sxmElectro',
             duration: 14400,
             segmentId: 3329394,
             startTime: '2016-10-27T10:00:00Z',

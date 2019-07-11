@@ -17,9 +17,9 @@ export default {
         baseUrl: 'http://www.siriusxm.com/albumart/',
         epgInfo: {
           program: {
-            description: "Grunge and '90s Alternative Rock. You'll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.",
+            description: 'Grunge and \'90s Alternative Rock. You\'ll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.',
             episodes: {
-              description: "Grunge and '90s Alternative Rock. You'll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.",
+              description: 'Grunge and \'90s Alternative Rock. You\'ll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.',
               duration: 21600,
               episodeId: 3671949,
               firstRun: false,
@@ -34,7 +34,7 @@ export default {
             title: 'Lithium',
           },
           segment: {
-            description: "Grunge and '90s Alternative Rock. You'll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.",
+            description: 'Grunge and \'90s Alternative Rock. You\'ll hear Pearl Jam, Green Day, Smashing Pumpkins, Soundgarden, Foo Fighters, Radiohead, Alice In Chains, The Offspring, Stone Temple Pilots, Weezer, Nirvana and many more.',
             duration: 21600,
             segmentId: 3671949,
             startTime: '2017-06-20T00:00:00Z',
@@ -45,7 +45,7 @@ export default {
         siriusXMId: 412455789,
         song: {
           album: {
-            name: "Greatest Hits '93- '03",
+            name: 'Greatest Hits \'93- \'03',
           },
           composer: '',
           creativeArts: [

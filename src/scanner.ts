@@ -1,21 +1,19 @@
-import * as debug from 'debug';
+import debug from 'debug';
 import delay from 'delay';
-import * as pForever from 'p-forever';
-import * as Raven from 'raven';
+import pForever from 'p-forever';
+import Sentry from '@sentry/node';
 
-import config from '../config';
 import { channels } from './channels';
 import { checkEndpoint } from './sirius';
 
 const log = debug('xmplaylist');
-
-const sentry = Raven.config(config.dsn, { autoBreadcrumbs: false }).install();
 
 async function updateAll() {
   for (const channel of channels) {
     await checkEndpoint(channel).catch((e: Error) => catchError(e));
     await delay(300);
   }
+
   return updateAll();
 }
 
@@ -26,6 +24,6 @@ if (!module.parent) {
 
 function catchError(err: Error) {
   log(err);
-  sentry.captureException(err);
+  Sentry.captureException(err);
   process.exit(0);
 }

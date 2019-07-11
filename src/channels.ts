@@ -14,7 +14,7 @@ export const channels: Channel[] = [
     number: 2,
     name: 'SiriusXM Hits 1',
     genre: 'Pop',
-    desc: "Today's Pop Hits",
+    desc: 'Today\'s Pop Hits',
     playlist: '40al90DcGyME5Hri3nxE9P',
   },
   {
@@ -28,7 +28,7 @@ export const channels: Channel[] = [
   {
     id: '9406',
     number: 4,
-    name: "Pitbull's Globalization",
+    name: 'Pitbull\'s Globalization',
     genre: 'Pop',
     desc: 'Worldwide Rhythmic Hits',
     playlist: '6WV3W3FH1mgK9Ao3mRlsdW',
@@ -36,41 +36,41 @@ export const channels: Channel[] = [
   {
     id: 'siriusgold',
     number: 5,
-    name: "'50s on 5",
+    name: '\'50s on 5',
     genre: 'Pop',
-    desc: "'50s Pop Hits",
+    desc: '\'50s Pop Hits',
     playlist: '0MQHK3oxSSaqQgIEd7sqCm',
   },
   {
     id: '60svibrations',
     number: 6,
-    name: "'60s on 6",
+    name: '\'60s on 6',
     genre: 'Pop',
-    desc: "'60s Pop Hits w/ Cousin Brucie",
+    desc: '\'60s Pop Hits w/ Cousin Brucie',
     playlist: '1TKPtgYaVx2XXDHyXG8vTr',
   },
   {
     id: 'totally70s',
     number: 7,
-    name: "'70s on 7",
+    name: '\'70s on 7',
     genre: 'Pop',
-    desc: "'70s Pop Hits",
+    desc: '\'70s Pop Hits',
     playlist: '54XRfhXgr5N5QT4LRJ5Elf',
   },
   {
     id: 'big80s',
     number: 8,
-    name: "'80s on 8",
+    name: '\'80s on 8',
     genre: 'Pop',
-    desc: "'80s Pop Hits",
+    desc: '\'80s Pop Hits',
     playlist: '47uqNTJniFyzXf5UMli4E7',
   },
   {
     id: '8206',
     number: 9,
-    name: "'90s on 9",
+    name: '\'90s on 9',
     genre: 'Pop',
-    desc: "'90s Pop Hits",
+    desc: '\'90s Pop Hits',
     playlist: '3sZC2O1CF7b32afyxMohFs',
   },
   {
@@ -145,7 +145,7 @@ export const channels: Channel[] = [
     number: 21,
     name: 'Underground Garage',
     genre: 'Rock',
-    desc: "Little Steven's Garage Rock",
+    desc: 'Little Steven\'s Garage Rock',
     playlist: '1CRqLRDsoD0PJOJa4M87F4',
   },
   // {
@@ -175,7 +175,7 @@ export const channels: Channel[] = [
     number: 25,
     name: 'Classic Rewind',
     genre: 'Rock',
-    desc: "'70s/'80s Classic Rock",
+    desc: '\'70s/\'80s Classic Rock',
     playlist: '7vTtnf3vjVvzvlCMGOrWyC',
   },
   {
@@ -183,7 +183,7 @@ export const channels: Channel[] = [
     number: 26,
     name: 'Classic Vinyl',
     genre: 'Rock',
-    desc: "'60s/'70s Classic Rock",
+    desc: '\'60s/\'70s Classic Rock',
     playlist: '78n3FrbkunJt6IH5TUZ8Ni',
   },
   {
@@ -238,7 +238,7 @@ export const channels: Channel[] = [
     number: 33,
     name: '1st Wave',
     genre: 'Rock',
-    desc: "'80s Alternative/New Wave",
+    desc: '\'80s Alternative/New Wave',
     playlist: '5PirJdWNH0K8FecVmIZDog',
   },
   {
@@ -246,7 +246,7 @@ export const channels: Channel[] = [
     number: 34,
     name: 'Lithium',
     genre: 'Rock',
-    desc: "'90s Alternative/Grunge",
+    desc: '\'90s Alternative/Grunge',
     playlist: '0NSVcRasPeL716J4CCA4sX',
   },
   {
@@ -276,9 +276,9 @@ export const channels: Channel[] = [
   {
     id: 'buzzsaw',
     number: 38,
-    name: "Ozzy's Boneyard",
+    name: 'Ozzy\'s Boneyard',
     genre: 'Rock',
-    desc: "Ozzy's Classic Hard Rock",
+    desc: 'Ozzy\'s Classic Hard Rock',
     playlist: '3v2ddXnIRIq8A33FQH2DaJ',
   },
   {
@@ -286,7 +286,7 @@ export const channels: Channel[] = [
     number: 39,
     name: 'Hair Nation',
     genre: 'Rock',
-    desc: "'80s Hair Bands",
+    desc: '\'80s Hair Bands',
     playlist: '1lsFTg8ohGiqf1JHnwIrmB',
   },
   {
@@ -316,7 +316,7 @@ export const channels: Channel[] = [
   {
     id: '9471',
     number: 43,
-    name: "LL COOL J's Rock The Bells Radio",
+    name: 'LL COOL J\'s Rock The Bells Radio',
     genre: 'Hip-Hop',
     desc: 'Classic Hip-Hop-XL',
     playlist: '6dJf2NJOX1l0mWoXFf1Hki',
@@ -326,7 +326,7 @@ export const channels: Channel[] = [
     number: 44,
     name: 'Hip-Hop Nation',
     genre: 'Hip-Hop',
-    desc: "Today's Hip-Hop Hits-XL",
+    desc: 'Today\'s Hip-Hop Hits-XL',
     playlist: '1gjLA07Y6zdKtSdGx4NR0f',
   },
   {
@@ -334,7 +334,7 @@ export const channels: Channel[] = [
     number: 45,
     name: 'Shade 45',
     genre: 'Hip-Hop',
-    desc: "Eminem's Hip-Hop Channel XL",
+    desc: 'Eminem\'s Hip-Hop Channel XL',
     playlist: '0p3t02TwsD8urU3ZNqVfMp',
   },
   {
@@ -342,7 +342,7 @@ export const channels: Channel[] = [
     number: 46,
     name: 'The Heat',
     genre: 'R&B',
-    desc: "Today's R&B Hits",
+    desc: 'Today\'s R&B Hits',
     playlist: '0S2qEvq6d9pDwmhdHSSNIy',
   },
   {
@@ -350,7 +350,7 @@ export const channels: Channel[] = [
     number: 47,
     name: 'SiriusXM FLY',
     genre: 'R&B',
-    desc: "'90s & 2000s Hip-Hop/R&B - XL",
+    desc: '\'90s & 2000s Hip-Hop/R&B - XL',
     playlist: '4iCBk59izwYcvP4pzplQLg',
   },
   // {
@@ -372,7 +372,7 @@ export const channels: Channel[] = [
     number: 50,
     name: 'The Groove',
     genre: 'R&B',
-    desc: "'70s/'80s R&B",
+    desc: '\'70s/\'80s R&B',
     playlist: '0U3AEZcxXPCKYXimd8C3KE',
   },
   {
@@ -386,7 +386,7 @@ export const channels: Channel[] = [
   {
     id: '9472',
     number: 52,
-    name: "Diplo's Revolution",
+    name: 'Diplo\'s Revolution',
     genre: 'Dance/Electronic',
     desc: 'Top Rhythmic Music',
     playlist: '5HpCrxQKRXg7YnYBdBY4eT',
@@ -404,7 +404,7 @@ export const channels: Channel[] = [
     number: 54,
     name: 'Studio 54 Radio',
     genre: 'Dance/Electronic',
-    desc: "'70s-2000s Dance Hits",
+    desc: '\'70s-2000s Dance Hits',
     playlist: '2gKrN0ChUDzaWkTpmvgsDf',
   },
   {
@@ -412,7 +412,7 @@ export const channels: Channel[] = [
     number: 55,
     name: 'The Garth Channel',
     genre: 'Country',
-    desc: "Garth's Own Channel, 24/7",
+    desc: 'Garth\'s Own Channel, 24/7',
     playlist: '1F3Y68SEvPruvDQ9P1wICu',
   },
   {
@@ -420,7 +420,7 @@ export const channels: Channel[] = [
     number: 56,
     name: 'The Highway',
     genre: 'Country',
-    desc: "Today's Country Hits",
+    desc: 'Today\'s Country Hits',
     playlist: '1NEhiGacNUMoSdH4pI73yr',
   },
   {
@@ -428,7 +428,7 @@ export const channels: Channel[] = [
     number: 57,
     name: 'No Shoes Radio',
     genre: 'Country',
-    desc: "Kenny Chesney's Music Channel",
+    desc: 'Kenny Chesney\'s Music Channel',
     playlist: '6MQ1c1ixTNbgP74sMJASgm',
   },
   {
@@ -436,15 +436,15 @@ export const channels: Channel[] = [
     number: 58,
     name: 'Prime Country',
     genre: 'Country',
-    desc: "'80s/'90s Country Hits",
+    desc: '\'80s/\'90s Country Hits',
     playlist: '7jnOANbKO2EHLg4bjCD4IO',
   },
   {
     id: 'theroadhouse',
     number: 59,
-    name: "Willie's Roadhouse",
+    name: 'Willie\'s Roadhouse',
     genre: 'Country',
-    desc: "Willie's Classic Country",
+    desc: 'Willie\'s Classic Country',
     playlist: '0VTk5reFEU3RCTFMJsepOF',
   },
   {
@@ -452,7 +452,7 @@ export const channels: Channel[] = [
     number: 60,
     name: 'Outlaw Country',
     genre: 'Country',
-    desc: "Rockin' Country Rebels",
+    desc: 'Rockin\' Country Rebels',
     playlist: '7q3kzMhlxwd9eoo9ZCPfSq',
   },
   {

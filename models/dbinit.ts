@@ -9,7 +9,7 @@ export function setup(force = false): any {
     .then(() => ArtistTrack.sync(opt))
     .then(() => Play.sync(opt))
     .then(() => Spotify.sync(opt))
-    .then(() => delay(2000));
+    .then(async () => delay(2000));
 }
 
 if (!module.parent) {

@@ -24,5 +24,6 @@ export async function search(query: string): Promise<string | false> {
   if (list) {
     return list.snippet.title;
   }
+
   return false;
 }

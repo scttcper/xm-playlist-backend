@@ -12,14 +12,14 @@ export default {
       currentEvent: {
         artists: {
           id: '',
-          name: "SIRIUS XM 60's on 6",
+          name: 'SIRIUS XM 60\'s on 6',
         },
         baseUrl: 'http://www.siriusxm.com/albumart/',
         epgInfo: {
           program: {
-            description: "It started with the Twist and ended with Woodstock, all '60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.",
+            description: 'It started with the Twist and ended with Woodstock, all \'60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.',
             episodes: {
-              description: "It started with the Twist and ended with Woodstock, all '60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.",
+              description: 'It started with the Twist and ended with Woodstock, all \'60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.',
               duration: 25200,
               episodeId: 3670126,
               firstRun: false,
@@ -34,7 +34,7 @@ export default {
             title: '60s on 6',
           },
           segment: {
-            description: "It started with the Twist and ended with Woodstock, all '60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.",
+            description: 'It started with the Twist and ended with Woodstock, all \'60s hits from Motown and surf music to the British Invasion and folk rock. Hear the Beatles, the Supremes, the Rolling Stones, Aretha Franklin, The Four Seasons and more.',
             duration: 25200,
             segmentId: 3670126,
             startTime: '2017-06-19T23:00:00Z',
@@ -45,7 +45,7 @@ export default {
         siriusXMId: 412452208,
         song: {
           album: {
-            name: "SIRIUS XM 60's on 6",
+            name: 'SIRIUS XM 60\'s on 6',
           },
           composer: '',
           creativeArts: [

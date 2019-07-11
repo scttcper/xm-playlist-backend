@@ -1,8 +1,8 @@
 import { differenceInDays, format as dateFmt } from 'date-fns';
-import * as debug from 'debug';
-import * as request from 'request-promise-native';
+import debug from 'debug';
+import request from 'request-promise-native';
 
-import { Artist, ArtistTrack, Play, Spotify, Track, TrackAttributes } from '../models';
+import { Artist, ArtistTrack, Play, Spotify, Track } from '../models';
 import { Channel } from './channels';
 import { getLast } from './plays';
 import { matchSpotify, spotifyFindAndCache } from './spotify';
@@ -13,10 +13,12 @@ import { encode } from './util';
 const baseurl = 'https://www.siriusxm.com';
 const log = debug('xmplaylist');
 
-export function parseArtists(artists: string): string[] {
+export function parseArtists(artists: string) {
   // Splits artists into an array
-  return artists.match(/(?:\/\\|[^/\\])+/g);
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  return artists.match(/(?:\/\\|[^/\\])+/g) as RegExpMatchArray;
 }
+
 export function parseName(name: string) {
   return name.split(' #')[0];
 }
@@ -39,6 +41,7 @@ export function parseChannelMetadataResponse(meta: any, currentEvent: any) {
 
 export async function checkEndpoint(channel: Channel) {
   const now = new Date();
+  // eslint-disable-next-line no-mixed-operators
   const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   const dateString = dateFmt(utc, 'MM-dd-HH:mm:00');
   const url = `${baseurl}/metadata/pdt/en-us/json/channels/${
@@ -51,11 +54,13 @@ export async function checkEndpoint(channel: Channel) {
   } catch {
     return false;
   }
+
   if (!res.channelMetadataResponse || !res.channelMetadataResponse.status) {
     return false;
   }
+
   const meta = res.channelMetadataResponse.metaData;
-  const currentEvent = meta.currentEvent;
+  const { currentEvent } = meta;
   if (
     !currentEvent.song ||
     !currentEvent.song.id ||
@@ -68,14 +73,16 @@ export async function checkEndpoint(channel: Channel) {
   }
 
   const newSong = parseChannelMetadataResponse(meta, currentEvent);
-  if (['^I', ''].includes(newSong.songId) || newSong.name[0] === '#') {
+  if (['^I', ''].includes(newSong.songId) || newSong.name.startsWith('#')) {
     return false;
   }
+
   const alreadyPlayed = await getLast(channel, newSong.startTime);
   newSong.songId = encode(newSong.songId);
   if (alreadyPlayed) {
     return false;
   }
+
   const track = await insertPlay(newSong, channel);
   log(newSong);
 
@@ -87,22 +94,25 @@ export async function checkEndpoint(channel: Channel) {
           await Spotify.findOne({ where: { trackId: track.id } }).then(d => d.destroy());
           return matchSpotify(track, false);
         }
+
         return doc;
       })
       .catch(err => log('spotifyFindAndCacheError', err));
   }
+
   return true;
 }
 
 export async function insertPlay(
   data: any,
   channel: Channel,
-): Promise<TrackAttributes> {
+): Promise<Track> {
   const artists = await findOrCreateArtists(data.artists);
   let track = await Track.findOne({ where: { songId: data.songId } });
   if (track) {
     track.increment('plays');
   } else {
+    // eslint-disable-next-line require-atomic-updates
     track = await Track.create({
       songId: data.songId,
       name: data.name,
@@ -115,6 +125,7 @@ export async function insertPlay(
     });
     await ArtistTrack.bulkCreate(at, { returning: false });
   }
+
   await Play.create(
     {
       channel: channel.number,

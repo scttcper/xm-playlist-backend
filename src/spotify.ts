@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import * as request from 'request-promise-native';
 
 import config from '../config';
-import { Spotify, TrackAttributes } from '../models';
+import { Spotify, Track } from '../models';
 import { channels } from './channels';
 import { popular } from './plays';
 import { client, getCache } from './redis';
@@ -43,10 +43,11 @@ export function parseSpotify(obj: any): SpotifyParsed {
 
 export function optionalBlacklist(track: string, artists: string) {
   const all = track.toLowerCase() + artists.toLowerCase();
-  return blacklist.map((b) => {
+  return blacklist.map(b => {
     if (!all.includes(b)) {
       return ` NOT ${b}`;
     }
+
     return '';
   }).join('');
 }
@@ -56,10 +57,12 @@ export async function getToken(): Promise<string> {
   if (cache) {
     return cache;
   }
+
   const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
   const options: request.Options = {
     uri: 'https://accounts.spotify.com/api/token',
     headers: { Authorization: `Basic ${auth}` },
+    // eslint-disable-next-line @typescript-eslint/camelcase
     form: { grant_type: 'client_credentials' },
     json: true,
     gzip: true,
@@ -85,7 +88,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   // Console.log('CLEAN: ', cleanTrack, cleanArtists);
   const token = await getToken();
   const options: request.Options = {
-    uri: `https://api.spotify.com/v1/search`,
+    uri: 'https://api.spotify.com/v1/search',
     qs: {
       q: `${cleanTrack} ${cleanArtists} ${optionalBlacklist(cleanTrack, cleanArtists)}`,
       type: 'track',
@@ -100,11 +103,13 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   if (res.tracks.items.length > 0) {
     return parseSpotify(_.first(res.tracks.items));
   }
+
   const youtube = await search(`${cleanTrack} ${cleanArtists}`);
   if (!youtube) {
     // Console.log('youtube failed');
-    return Promise.reject('Youtube failed');
+    throw new Error('Youtube failed')
   }
+
   options.qs.q = Util.cleanupExtra(
     Util.cleanRemix(
       Util.cleanFt(
@@ -117,21 +122,19 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   if (res2.tracks.items.length > 0) {
     return parseSpotify(_.first(res2.tracks.items));
   }
-  return Promise.reject('Everything Failed');
+
+  throw new Error('Everything Failed');
 }
 
-export async function matchSpotify(track: TrackAttributes, update = false): Promise<any> {
-  let s;
-  try {
-    s = await searchTrack(track.artists.map((n) => n.name), track.name);
-  } catch (e) {
-    return Promise.reject(e);
-  }
+export async function matchSpotify(track: Track, update = false): Promise<any> {
+  const s = await searchTrack(track.artists.map(n => n.name), track.name);
+
   if (!s || !s.spotifyName) {
-    return Promise.reject('Failed');
+    throw new Error('Failed');
   }
+
   if (update) {
-    return Spotify.findOne({ where: { trackId: track.id } }).then((doc) => doc.update({
+    return Spotify.findOne({ where: { trackId: track.id } }).then(doc => doc.update({
       trackId: track.id,
       cover: s.cover,
       durationMs: s.durationMs,
@@ -140,6 +143,7 @@ export async function matchSpotify(track: TrackAttributes, update = false): Prom
       url: s.url,
     }));
   }
+
   return Spotify.create({
     trackId: track.id,
     cover: s.cover,
@@ -150,11 +154,12 @@ export async function matchSpotify(track: TrackAttributes, update = false): Prom
   });
 }
 
-export async function spotifyFindAndCache(track: TrackAttributes): Promise<any> {
+export async function spotifyFindAndCache(track: Track): Promise<any> {
   const doc = await Spotify.findOne({ where: { trackId: track.id } });
   if (doc) {
     return doc;
   }
+
   return matchSpotify(track);
 }
 
@@ -163,12 +168,15 @@ export async function getUserToken(code: string): Promise<string> {
   if (cache) {
     return cache;
   }
+
   const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
   const options: request.Options = {
     uri: 'https://accounts.spotify.com/api/token',
     headers: { Authorization: `Basic ${auth}` },
     form: {
-      redirect_uri: `https://example.com/`,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      redirect_uri: 'https://example.com/',
+      // eslint-disable-next-line @typescript-eslint/camelcase
       grant_type: 'authorization_code',
       code,
       state: 'xmplaylist',
@@ -212,7 +220,7 @@ export async function removeFromPlaylist(code: string, playlistId: string, track
   };
   const chunks = _.chunk(trackIds, 100);
   for (const chunk of chunks) {
-    options.body.tracks = chunk.map((n) => {
+    options.body.tracks = chunk.map(n => {
       return { uri: n };
     });
     await request.delete(options);
@@ -229,33 +237,36 @@ export async function playlistTracks(code: string, playlistId: string) {
   };
   let res = await request.get(options);
   const items: string[] = [];
-  res.items.forEach((n) => items.push(n.track.uri));
+  res.items.forEach(n => items.push(n.track.uri));
   while (res.next) {
     options.uri = res.next;
     res = await request.get(options);
-    res.items.forEach((n) => items.push(n.track.uri));
+    res.items.forEach(n => items.push(n.track.uri));
   }
+
   return items;
 }
 
 export async function updatePlaylists(code: string) {
   for (const chan of channels) {
     let trackIds = await popular(chan, 1000)
-      .then((t) => t.map((n) => {
+      .then(t => t.map(n => {
         if (!n.spotify) {
+          // eslint-disable-next-line array-callback-return
           return;
         }
+
         return `spotify:track:${n.spotify.spotifyId}`;
       }));
     trackIds = _.uniq(_.compact(trackIds));
     const current = await playlistTracks(code, chan.playlist)
-      .catch((e) => {
+      .catch(e => {
         console.error('GET TRACKS?', e);
         return [];
       });
     const toRemove = _.difference(current, trackIds);
-    await removeFromPlaylist(code, chan.playlist, toRemove).catch((e) => console.error('REMOVE', e));
+    await removeFromPlaylist(code, chan.playlist, toRemove).catch(e => console.error('REMOVE', e));
     const toAdd = _.pullAll(trackIds, current);
-    await addToPlaylist(code, chan.playlist, toAdd).catch((e) => console.error('ADD ERROR', e));
+    await addToPlaylist(code, chan.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
   }
 }

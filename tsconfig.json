@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
+    "lib": ["es2018"],
+    "target": "es2017",
     "module": "commonjs",
-    "target": "es2015",
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "declaration": true,
     "sourceMap": true,
-    "lib": ["dom", "es2017"],
-    "outDir": "build"
+    "inlineSources": true,
+    "outDir": "dist"
   },
   "include": [
     "src/**/*",

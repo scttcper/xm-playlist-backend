@@ -1,14 +1,7 @@
-import delay from 'delay';
-import * as puppeteer from 'puppeteer';
-import * as querystring from 'querystring';
-import * as Raven from 'raven';
-import * as url from 'url';
 import * as inquirer from 'inquirer';
 
 import config from '../config';
 import { updatePlaylists } from '../src/spotify';
-
-const sentry = Raven.config(config.dsn, { autoBreadcrumbs: false }).install();
 
 async function main() {
   const path = `https://accounts.spotify.com/authorize?client_id=${
@@ -46,19 +39,20 @@ async function main() {
   //   }
   // }
   const answers = await inquirer.prompt<any>([
-    { name: 'code', type: 'input', message: 'Gib code' }
+    { name: 'code', type: 'input', message: 'Gib code' },
   ]);
-  const code: string = answers.code;
+  const { code } = answers;
   if (!code) {
     throw new Error('No update code');
   }
+
   try {
     await updatePlaylists(code);
   } catch (err) {
     console.error(err);
-    sentry.captureException(err);
     throw err;
   }
+
   console.log('success');
 }
 

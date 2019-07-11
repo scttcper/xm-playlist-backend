@@ -1,4 +1,5 @@
-import * as debug from 'debug';
+import debug from 'debug';
+import { Dialect } from 'sequelize';
 
 const log = debug('xmplaylist');
 const env = process.env.NODE_ENV || 'test';
@@ -10,7 +11,7 @@ let config = {
   password: '',
   db: {
     host: 'localhost',
-    dialect: 'postgres',
+    dialect: 'postgres' as Dialect,
     pool: {
       max: 5,
       min: 0,
@@ -30,6 +31,7 @@ let config = {
 
 const filename = `./config.${env}`;
 log(`Using: ${filename}`);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const imported = require(filename);
 config = { ...config, ...imported };
 

@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import * as nock from 'nock';
-import * as supertest from 'supertest';
-import channelMetadataResponse from './mock/channelMetadataResponse';
+import supertest from 'supertest';
 
 import { setup } from '../models/dbinit';
 import { Channel } from '../src/channels';
@@ -25,16 +23,16 @@ const channel: Channel = {
   name: 'Lithium',
   playlist: '',
   genre: 'Rock',
-  desc: "'90s Alternative/Grunge",
+  desc: '\'90s Alternative/Grunge',
 };
 
-describe('index', function() {
-  beforeEach(function() {
+describe('index', () => {
+  beforeEach(function () {
     this.timeout(10000);
     return setup(true);
   });
-  it('should parse metadata response', async function() {
-    const t = await insertPlay(play, channel);
+  it('should parse metadata response', async () => {
+    await insertPlay(play, channel);
     const res = await supertest(server.listener)
       .get('/channel/90salternative')
       .expect(200);

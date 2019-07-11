@@ -1,11 +1,11 @@
 import { subDays } from 'date-fns';
 import * as _ from 'lodash';
-import { col, fn, Op } from 'sequelize';
+import { col, fn, Op, literal } from 'sequelize';
 
 import { Artist, Play, Spotify, Track } from '../models';
 import { Channel } from './channels';
 
-export async function getLast(channel: Channel, startTime: Date) {
+export async function getLast(channel: Channel, startTime: any) {
   return Play.findOne({
     where: {
       channel: channel.number,
@@ -20,6 +20,7 @@ export async function getRecent(channel: Channel, last?: Date): Promise<any> {
   if (last) {
     where.startTime = { [Op.lt]: last };
   }
+
   return Play.findAll({
     where,
     order: [['startTime', 'DESC']],
@@ -38,11 +39,11 @@ export async function popular(channel: Channel, limit = 50) {
       startTime: { [Op.gt]: thirtyDays },
     },
     attributes: [
-      fn('DISTINCT', col('trackId')),
+      literal('DISTINCT "trackId"') as any,
       'trackId',
       [fn('COUNT', col('trackId')), 'count'],
     ],
-    group: [['trackId']],
+    group: ['trackId'],
   }).then(t => t.map(n => n.toJSON()));
   lastThirty = lastThirty
     .filter((n: any) => n.count > 1)

@@ -1,6 +1,7 @@
 // tslint:disable:no-require-imports
 
-import { Server, ServerOptions } from 'hapi';
+import { Server, ServerOptions } from '@hapi/hapi';
+import * as Sentry from '@sentry/node';
 
 import config from '../config';
 import { serverRoutes } from './routes';
@@ -10,12 +11,11 @@ const options: ServerOptions = {
   port: config.port,
 };
 
+const client = Sentry.init({ dsn: config.dsn });
+
 const ravenPlugin: any = {
-  name: 'hapi-raven',
-  plugin: require('hapi-raven'),
-  options: {
-    dsn: config.dsn,
-  },
+  plugin: require('hapi-sentry'),
+  options: { client: { dsn: config.dsn, client } },
 };
 
 const goodPlugin: any = {
