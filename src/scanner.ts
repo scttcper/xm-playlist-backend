@@ -5,6 +5,7 @@ import Sentry from '@sentry/node';
 
 import { channels } from './channels';
 import { checkEndpoint } from './sirius';
+import config from '../config';
 
 const log = debug('xmplaylist');
 
@@ -18,6 +19,7 @@ async function updateAll() {
 }
 
 if (!module.parent) {
+  Sentry.init({ dsn: config.dsn });
   log('cron running');
   pForever(() => updateAll()).catch((e: Error) => catchError(e));
 }

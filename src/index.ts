@@ -11,11 +11,11 @@ const options: ServerOptions = {
   port: config.port,
 };
 
-const client = Sentry.init({ dsn: config.dsn });
+Sentry.init({ dsn: config.dsn });
 
 const ravenPlugin: any = {
   plugin: require('hapi-sentry'),
-  options: { client: { dsn: config.dsn, client } },
+  options: { client: { dsn: config.dsn, client: Sentry } },
 };
 
 const goodPlugin: any = {
