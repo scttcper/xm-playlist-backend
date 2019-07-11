@@ -150,7 +150,10 @@ const artistRoute: ServerRoute = {
   handler: async req => {
     const artistId = req.params.id;
     const channel = channels.find(_.matchesProperty('id', req.params.id));
-    assert(!_.isUndefined(artistId), Boom.notFound('Artist ID required'));
+    if (!_.isUndefined(artistId)) {
+      throw Boom.notFound('Artist ID required');
+    }
+
     let trackIds = await Track.findAll({
       attributes: ['id'],
       include: [
