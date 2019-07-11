@@ -1,7 +1,7 @@
 import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 
 import { channels } from './channels';
 import { checkEndpoint } from './sirius';
