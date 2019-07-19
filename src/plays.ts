@@ -32,7 +32,7 @@ export async function getRecent(channel: Channel, last?: Date): Promise<any> {
 }
 
 export async function popular(channel: Channel, limit = 50) {
-  const thirtyDays = subDays(new Date(), 400);
+  const thirtyDays = subDays(new Date(), 30);
   let lastThirty: any = await Play.findAll({
     where: {
       channel: channel.number,
