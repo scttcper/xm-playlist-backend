@@ -82,11 +82,10 @@ export async function checkEndpoint(channel: Channel) {
     artists,
     // artistsId: song.artists.id,
     startTime: new Date(startTime),
-    songId: song.legacyIds.siriusXMId,
+    songId: song.galaxyAssetId,
   };
 
   const alreadyPlayed = await getLast(channel, newSong.startTime);
-  newSong.songId = encode(newSong.songId);
   if (alreadyPlayed) {
     log('SKIPPING BECAUSE ITS ALREADY RECORDED')
     return false;
