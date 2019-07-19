@@ -300,7 +300,7 @@ export const channels: Channel[] = [
   {
     id: 'faction',
     number: 41,
-    name: 'Faction',
+    name: 'Faction Punk',
     genre: 'Rock',
     desc: 'Punk & Beats w/ Jason Ellis XL',
     playlist: '3HRoF7JJ3UcyRoc49eGNpZ',
@@ -316,7 +316,7 @@ export const channels: Channel[] = [
   {
     id: '9471',
     number: 43,
-    name: 'LL COOL J\'s Rock The Bells Radio',
+    name: 'Rock The Bells Radio',
     genre: 'Hip-Hop',
     desc: 'Classic Hip-Hop-XL',
     playlist: '6dJf2NJOX1l0mWoXFf1Hki',
