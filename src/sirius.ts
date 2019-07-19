@@ -1,4 +1,4 @@
-import { differenceInDays, format as dateFmt } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 import debug from 'debug';
 import request from 'request-promise-native';
 
@@ -9,8 +9,6 @@ import { matchSpotify, spotifyFindAndCache } from './spotify';
 import { findOrCreateArtists } from './tracks';
 import { encode } from './util';
 
-// Link - https://www.siriusxm.com/metadata/pdt/en-us/json/channels/thebeat/timestamp/02-25-08:10:00
-const baseurl = 'https://www.siriusxm.com';
 const log = debug('xmplaylist');
 
 export function parseArtists(artists: string) {
@@ -40,46 +38,57 @@ export function parseChannelMetadataResponse(meta: any, currentEvent: any) {
 }
 
 export async function checkEndpoint(channel: Channel) {
-  const now = new Date();
-  // eslint-disable-next-line no-mixed-operators
-  const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-  const dateString = dateFmt(utc, 'MM-dd-HH:mm:00');
-  const url = `${baseurl}/metadata/pdt/en-us/json/channels/${
-    channel.id
-  }/timestamp/${dateString}`;
-  log(url);
+  // const dateString = dateFmt(utc, 'MM-dd-HH:mm:00');
+  const url = 'http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink';
+  // log(url);
   let res;
   try {
-    res = await request.get(url, { json: true, gzip: true, simple: true });
+    const qs = {
+      deepLinkId: channel.name.replace(/\W+/g, ''),
+      'deepLink-type': 'live',
+    };
+    res = await request.get(url, { qs, json: true, gzip: true, simple: true });
   } catch {
     return false;
   }
 
-  if (!res.channelMetadataResponse || !res.channelMetadataResponse.status) {
-    return false;
+  let song;
+  let cut;
+  let startTime;
+  try {
+    // eslint-disable-next-line
+    const markerLists = res.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse.liveChannelResponses[0].markerLists;
+    cut = markerLists.find(n => n.layer === 'cut');
+    // console.log(cut.markers[0]);
+    song = cut.markers[0].cut;
+    startTime = cut.markers[0].timestamp.absolute;
+    // console.log(song);
+  } catch {
+    return;
   }
 
-  const meta = res.channelMetadataResponse.metaData;
-  const { currentEvent } = meta;
-  if (
-    !currentEvent.song ||
-    !currentEvent.song.id ||
-    !currentEvent.artists ||
-    !currentEvent.artists.id ||
-    !currentEvent.artists.name ||
-    !currentEvent.song.name
-  ) {
-    return false;
+  if (song.cutContentType !== 'Song') {
+    log('SKIPPING BECAUSE ITS NOT A SONG');
+    return;
   }
 
-  const newSong = parseChannelMetadataResponse(meta, currentEvent);
-  if (['^I', ''].includes(newSong.songId) || newSong.name.startsWith('#')) {
-    return false;
-  }
+  const artists = parseArtists(song.artists[0].name);
+  const name = parseName(song.title);
+  const newSong = {
+    channelId: channel.id,
+    channelName: channel.name,
+    channelNumber: channel.number,
+    name,
+    artists,
+    // artistsId: song.artists.id,
+    startTime: new Date(startTime),
+    songId: song.legacyIds.siriusXMId,
+  };
 
   const alreadyPlayed = await getLast(channel, newSong.startTime);
   newSong.songId = encode(newSong.songId);
   if (alreadyPlayed) {
+    log('SKIPPING BECAUSE ITS ALREADY RECORDED')
     return false;
   }
 
