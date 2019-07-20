@@ -1,5 +1,5 @@
 import { addDays, subDays } from 'date-fns';
-import { col, fn, Op } from 'sequelize';
+import { col, fn, Op, literal } from 'sequelize';
 
 import {
   Artist,
@@ -45,10 +45,10 @@ export async function findOrCreateTrack(data) {
 
 export async function playsByDay(trackId: number) {
   let daysago = subDays(new Date(), 30);
-  const plays: any = await Play.findAll({
+  const plays: any[] = await Play.findAll({
     where: { trackId, startTime: { [Op.gt]: daysago } },
     attributes: [
-      [fn('date_trunc', 'day', col('startTime')), 'day'],
+      [literal('date_trunc(\'day\', "startTime" AT TIME ZONE \'US/Pacific\')'), 'day'],
       [fn('COUNT', 'trackId'), 'count'],
     ],
     group: ['day'],
