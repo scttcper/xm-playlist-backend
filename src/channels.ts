@@ -706,13 +706,14 @@ export const channels: Channel[] = [
   //   genre: 'Rock',
   //   desc: 'Tom Petty’s Buried Treasure 24/7',
   // },
-  // {
-  //   id: '9447',
-  //   number: 713,
-  //   name: 'The Emo Project',
-  //   genre: 'Rock',
-  //   desc: 'Emotionally Driven Alt Rock',
-  // },
+  {
+    id: '9447',
+    number: 713,
+    name: 'The Emo Project',
+    genre: 'Rock',
+    desc: 'Emotionally Driven Alt Rock',
+    playlist: '78boQ0amoXinbWAbBWGgpd',
+  },
   // {
   //   id: '9375',
   //   number: 715,
