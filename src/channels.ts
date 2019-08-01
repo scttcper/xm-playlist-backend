@@ -299,7 +299,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'faction',
-    number: 41,
+    number: 314,
     name: 'Faction Punk',
     genre: 'Rock',
     desc: 'Punk & Beats w/ Jason Ellis XL',
@@ -623,7 +623,7 @@ export const channels: Channel[] = [
   // },
   {
     id: '9413',
-    number: 314,
+    number: 41,
     name: 'SiriusXM Turbo',
     genre: 'Rock',
     desc: 'Hard Rock from the \'90s/2000s',
