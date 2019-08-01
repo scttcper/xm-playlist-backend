@@ -298,12 +298,12 @@ export const channels: Channel[] = [
     playlist: '002KgHoHT4zKaarhGgpWhu',
   },
   {
-    id: 'faction',
+    id: '9413',
     number: 41,
-    name: 'Faction Punk',
+    name: 'SiriusXM Turbo',
     genre: 'Rock',
-    desc: 'Punk & Beats w/ Jason Ellis XL',
-    playlist: '3HRoF7JJ3UcyRoc49eGNpZ',
+    desc: 'Hard Rock from the \'90s/2000s',
+    playlist: '2rXLvsVeVTcpZrbesfRxFw',
   },
   {
     id: 'reggaerhythms',
@@ -622,12 +622,12 @@ export const channels: Channel[] = [
   //   desc: 'Rock & Roll Jukebox Songs',
   // },
   {
-    id: '9413',
+    id: 'faction',
     number: 314,
-    name: 'SiriusXM Turbo',
+    name: 'Faction Punk',
     genre: 'Rock',
-    desc: 'Hard Rock from the \'90s/2000s',
-    playlist: '2rXLvsVeVTcpZrbesfRxFw',
+    desc: 'Punk & Beats w/ Jason Ellis XL',
+    playlist: '3HRoF7JJ3UcyRoc49eGNpZ',
   },
   // {
   //   id: '9176',
