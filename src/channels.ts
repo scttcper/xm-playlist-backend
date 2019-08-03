@@ -722,13 +722,14 @@ export const channels: Channel[] = [
     desc: 'First-generation Indie Rock',
     playlist: '1D8g8Vvz4qr3jtlTYJuX1x',
   },
-  // {
-  //   id: '9375',
-  //   number: 715,
-  //   name: 'Classic Rock Party',
-  //   genre: 'Rock',
-  //   desc: 'Non-Stop Classic Rock',
-  // },
+  {
+    id: '9375',
+    number: 715,
+    name: 'Classic Rock Party',
+    genre: 'Rock',
+    desc: 'Non-Stop Classic Rock',
+    playlist: '19DiREdiropsGcjcNIXFY8',
+  },
   // {
   //   id: '9139',
   //   number: 716,
