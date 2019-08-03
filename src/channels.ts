@@ -714,6 +714,14 @@ export const channels: Channel[] = [
     desc: 'Emotionally Driven Alt Rock',
     playlist: '78boQ0amoXinbWAbBWGgpd',
   },
+  {
+    id: '9451',
+    number: 714,
+    name: 'Indie 1.0',
+    genre: 'Rock',
+    desc: 'First-generation Indie Rock',
+    playlist: '1D8g8Vvz4qr3jtlTYJuX1x',
+  },
   // {
   //   id: '9375',
   //   number: 715,
