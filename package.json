@@ -69,6 +69,7 @@
   "engines": {
     "node": ">= 8"
   },
+  "repository": "scttcper/xm-playlist-backend",
   "keywords": [
     "xm",
     "sirius",
