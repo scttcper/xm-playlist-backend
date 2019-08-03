@@ -7,7 +7,6 @@ import { Channel } from './channels';
 import { getLast } from './plays';
 import { matchSpotify, spotifyFindAndCache } from './spotify';
 import { findOrCreateArtists } from './tracks';
-import { encode } from './util';
 
 const log = debug('xmplaylist');
 
@@ -87,7 +86,7 @@ export async function checkEndpoint(channel: Channel) {
 
   const alreadyPlayed = await getLast(channel, newSong.startTime);
   if (alreadyPlayed) {
-    log('SKIPPING BECAUSE ITS ALREADY RECORDED')
+    log('SKIPPING BECAUSE ITS ALREADY RECORDED');
     return false;
   }
 

@@ -48,6 +48,7 @@ export function cleanRemix(str: string) {
 }
 
 export function cleanYear(str: string) {
+  // eslint-disable-next-line no-useless-escape
   return str.replace(/\((\'?)[0-9]+\)/, '');
 }
 
