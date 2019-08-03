@@ -720,7 +720,7 @@ export const channels: Channel[] = [
     name: 'Indie 1.0',
     genre: 'Rock',
     desc: 'First-generation Indie Rock',
-  //  playlist: '', TODO(scttcper): Create a Spotify playlist for Indie 1.0.
+    playlist: '1D8g8Vvz4qr3jtlTYJuX1x',
   },
   // {
   //   id: '9375',
