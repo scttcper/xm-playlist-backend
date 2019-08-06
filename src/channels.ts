@@ -112,13 +112,14 @@ export const channels: Channel[] = [
     desc: 'Bright Pop Hits',
     playlist: '4U1w1DNhpN6Y8ZvxvJpwn0',
   },
-  // {
-  //   id: 'siriuslove',
-  //   number: 17,
-  //   name: 'SiriusXM Love',
-  //   genre: 'Pop',
-  //   desc: 'Love Songs',
-  // },
+  {
+    id: '9450',
+    number: 17,
+    name: 'PopRocks',
+    genre: 'Pop',
+    desc: 'Rock & Pop from the '90s & 2Ks',
+    playlist: '', // TODO(scttcper): Create a Spotify playlist
+  },
   // {
   //   id: '9446',
   //   number: 18,
