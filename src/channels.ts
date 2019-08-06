@@ -118,7 +118,7 @@ export const channels: Channel[] = [
     name: 'PopRocks',
     genre: 'Pop',
     desc: 'Rock & Pop from the '90s & 2Ks',
-    playlist: '', // TODO(scttcper): Create a Spotify playlist
+    playlist: '1PcSu1p5PaLOssq9VnW30g',
   },
   // {
   //   id: '9446',
