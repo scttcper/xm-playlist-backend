@@ -1,4 +1,5 @@
 import * as inquirer from 'inquirer';
+import URL from 'url';
 
 import config from '../config';
 import { updatePlaylists } from '../src/spotify';
@@ -10,9 +11,13 @@ async function main() {
   console.log(path);
 
   const answers = await inquirer.prompt<any>([
-    { name: 'code', type: 'input', message: 'Gib code' },
+    { name: 'url', type: 'input', message: 'Gib code' },
   ]);
-  const { code } = answers;
+  const { url } = answers;
+
+  // eslint-disable-next-line prefer-destructuring
+  const code = URL.parse(url, true).query.code as string;
+
   if (!code) {
     throw new Error('No update code');
   }

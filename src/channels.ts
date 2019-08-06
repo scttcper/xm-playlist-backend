@@ -117,7 +117,7 @@ export const channels: Channel[] = [
     number: 17,
     name: 'PopRocks',
     genre: 'Pop',
-    desc: 'Rock & Pop from the '90s & 2Ks',
+    desc: 'Rock & Pop from the \'90s & 2Ks',
     playlist: '1PcSu1p5PaLOssq9VnW30g',
   },
   // {
