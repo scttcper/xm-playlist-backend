@@ -507,13 +507,14 @@ export const channels: Channel[] = [
     desc: 'Classic Jazz',
     playlist: '3mDuSPlntj533CvZXvMnDS',
   },
-  // {
-  //   id: 'spa73',
-  //   number: 68,
-  //   name: 'Spa',
-  //   genre: 'Jazz/Standards',
-  //   desc: 'New Age',
-  // },
+  {
+    id: 'Spa',
+    number: 68,
+    name: 'Spa',
+    genre: 'Jazz/Standards',
+    desc: 'New Age',
+    playlist: '', // TODO(scttcper): Create a Spotify playlist.
+  },
   // {
   //   id: '8215',
   //   number: 69,
