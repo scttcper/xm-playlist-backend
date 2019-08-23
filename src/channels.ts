@@ -508,13 +508,14 @@ export const channels: Channel[] = [
     desc: 'Classic Jazz',
     playlist: '3mDuSPlntj533CvZXvMnDS',
   },
-  // {
-  //   id: 'spa73',
-  //   number: 68,
-  //   name: 'Spa',
-  //   genre: 'Jazz',
-  //   desc: 'New Age',
-  // },
+  {
+    id: 'Spa',
+    number: 68,
+    name: 'Spa',
+    genre: 'Jazz',
+    desc: 'New Age',
+    playlist: '6nDBgy12A29JltPBr9dhH9',
+  },
   // {
   //   id: '8215',
   //   number: 69,
