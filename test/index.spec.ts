@@ -1,5 +1,6 @@
-import { expect } from 'chai';
 import supertest from 'supertest';
+import { sequelize } from '../models/index';
+import { client } from '../src/redis';
 
 import { setup } from '../models/dbinit';
 import { Channel } from '../src/channels';
@@ -27,15 +28,18 @@ const channel: Channel = {
 };
 
 describe('index', () => {
-  beforeEach(function () {
-    this.timeout(10000);
+  beforeEach(() => {
     return setup(true);
+  });
+  afterAll(done => {
+    sequelize.close();
+    client.quit(done);
   });
   it('should parse metadata response', async () => {
     await insertPlay(play, channel);
     const res = await supertest(server.listener)
       .get('/channel/90salternative')
       .expect(200);
-    expect(res.body.length).to.eq(1);
+    expect(res.body.length).toBe(1);
   });
 });

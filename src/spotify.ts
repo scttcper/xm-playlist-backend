@@ -106,8 +106,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
 
   const youtube = await search(`${cleanTrack} ${cleanArtists}`);
   if (!youtube) {
-    // Console.log('youtube failed');
-    throw new Error('Youtube failed')
+    throw new Error('Youtube failed');
   }
 
   options.qs.q = Util.cleanupExtra(

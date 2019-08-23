@@ -1,9 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types" : ["mocha", "node"],
-    "target": "es6",
-    "lib": ["dom", "es2017"],
+    "types" : ["jest", "node"],
     "baseUrl": "."
   },
   "include": ["**/*.spec.ts"],
