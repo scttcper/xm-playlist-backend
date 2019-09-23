@@ -107,9 +107,15 @@ const trackRoute: ServerRoute = {
   },
   handler: async req => {
     const id = Number(req.params.id);
-    const res: any = await Track.findByPk(id, {
+    const resData = await Track.findByPk(id, {
       include: [Artist, Spotify],
-    }).then(t => t.toJSON());
+    });
+
+    if (!resData) {
+      throw Boom.notFound('Track not Found');
+    }
+
+    const res = await resData.toJSON();
     res.playsByDay = await playsByDay(id);
     return res;
   },
