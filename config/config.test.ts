@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   username: '',
   database: 'xmtest',
   password: '',

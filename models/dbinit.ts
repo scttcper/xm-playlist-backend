@@ -1,5 +1,3 @@
-import delay from 'delay';
-
 import { Artist, ArtistTrack, Play, Spotify, Track } from './index';
 
 export function setup(force = false): any {
@@ -8,8 +6,7 @@ export function setup(force = false): any {
     .then(() => Artist.sync(opt))
     .then(() => ArtistTrack.sync(opt))
     .then(() => Play.sync(opt))
-    .then(() => Spotify.sync(opt))
-    .then(async () => delay(2000));
+    .then(() => Spotify.sync(opt));
 }
 
 if (!module.parent) {

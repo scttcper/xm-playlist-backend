@@ -1,4 +1,3 @@
-// tslint:disable:comment-format
 // https://www.siriusxm.com/albumart/Live/Default/DefaultMDS_m_52.jpg
 export interface Channel {
   id: string;
@@ -8,6 +7,7 @@ export interface Channel {
   desc: string;
   playlist: string;
 }
+
 export const channels: Channel[] = [
   {
     id: 'siriushits1',

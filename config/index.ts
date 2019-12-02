@@ -32,7 +32,7 @@ let config = {
 const filename = `./config.${env}`;
 log(`Using: ${filename}`);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const imported = require(filename);
+const imported = require(filename).default;
 config = { ...config, ...imported };
 
 export default config;

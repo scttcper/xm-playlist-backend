@@ -1,0 +1,188 @@
+@import '~@fortawesome/fontawesome-svg-core/styles.css';
+
+@import url('https://fonts.googleapis.com/css?family=Calistoga&display=swap');
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+// $font-size-base: 14px;
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #8e8e93;
+$gray-700: #495057 !default;
+$gray-800: #263238;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$grays: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$grays: map-merge(
+  (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900
+  ),
+  $grays
+);
+
+$blue:    #4055A8;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(
+  (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+  ),
+  $colors
+);
+
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-800;
+
+$theme-colors: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+$h1-font-size:                $font-size-base * 2;
+$h2-font-size:                $font-size-base * 1.75;
+$h3-font-size:                $font-size-base * 1.5;
+$h4-font-size:                $font-size-base * 1.25;
+$h5-font-size:                $font-size-base * 1;
+$h6-font-size:                $font-size-base;
+
+
+$container-max-widths: (
+  sm: 574px,
+  md: 720px,
+  lg: 980px,
+  xl: 980px,
+);
+
+$enable-shadows: false;
+$enable-gradients: false;
+
+$navbar-dark-color: $white;
+$navbar-padding-y: $spacer / 4;
+
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import "~bootstrap/scss/images";
+// @import "~bootstrap/scss/code";
+@import '~bootstrap/scss/grid';
+// @import "~bootstrap/scss/tables";
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/transitions';
+// @import "~bootstrap/scss/dropdown";
+// @import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+// @import "~bootstrap/scss/custom-forms";
+// @import "~bootstrap/scss/nav";
+@import '~bootstrap/scss/navbar';
+@import '~bootstrap/scss/card';
+// @import "~bootstrap/scss/breadcrumb";
+// @import "~bootstrap/scss/pagination";
+// @import "~bootstrap/scss/badge";
+// @import "~bootstrap/scss/jumbotron";
+// @import '~bootstrap/scss/alert';
+// @import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+// @import '~bootstrap/scss/list-group';
+// @import "~bootstrap/scss/close";
+// @import "~bootstrap/scss/modal";
+// @import "~bootstrap/scss/tooltip";
+// @import "~bootstrap/scss/popover";
+// @import "~bootstrap/scss/carousel";
+@import '~bootstrap/scss/utilities';
+@import '~bootstrap/scss/print';
+
+body {
+  background: #D9E2EC;
+}
+
+.navbar-brand {
+  font-family: 'Calistoga', cursive;
+}
+
+.text-splash {
+  color: #7B8794 !important;
+}
+
+.text-xs {
+  font-size: 70%;
+}
+
+.shadow-light {
+  background: #fff;
+  box-shadow: 0 4px 6px hsla(0, 0%, .7, .1);
+}
+
+.radius-media-left {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.radius-media-right {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.btn-spotify {
+  color: #20d75f !important;
+  background: #000;
+}
+
+.btn-primary {
+  color: #fff !important;
+}
