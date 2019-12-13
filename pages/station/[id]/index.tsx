@@ -4,32 +4,39 @@ import fetch from 'isomorphic-unfetch';
 import { NextComponentType, NextPageContext } from 'next';
 import Link from 'next/link';
 import Navbar from 'react-bootstrap/Navbar';
-import { channels } from '../../src/channels';
+import { channels } from '../../../src/channels';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Error from 'next/error';
-
-import { AppLayout } from '../../components/AppLayout';
+import { AppLayout } from '../../../components/AppLayout';
+import Head from 'next/head';
+import AdSense from 'react-adsense';
+import { StationNavigation } from '../../../components/StationNavigation';
 
 const Station: NextComponentType<
-  NextPageContext,
-  { recent: any[] },
-  { recent: any[]; channelId: string }
+NextPageContext,
+{ recent: any[] },
+{ recent: any[]; channelId: string }
 > = props => {
   const channel = channels.find(x => x.id === props.channelId);
+  const recent = props.recent || [];
   if (!channel) {
     return <Error statusCode={404} />;
   }
 
   return (
     <AppLayout>
+      <Head>
+        <title>{channel.name} Recently Played</title>
+      </Head>
       <div className="bg-light">
-        <div className="container" style={{ paddingBottom: '2rem' }}>
+        <div className="container" style={{ paddingBottom: '2.5rem' }}>
           <div className="row">
-            <div className="col-12 p-3">
+            <div className="col-12 col-lg-6 p-2">
               <div className="media">
                 <img
+                  style={{ maxWidth: '120px' }}
                   src={`/static/img/${channel.id}.png`}
-                  className="img-fluid rounded-lg bg-dark mr-3 p-2 col-3 col-lg-2"
+                  className="img-fluid rounded-lg bg-dark mr-3 p-1"
                   alt="..."
                 />
                 <div className="media-body align-self-center">
@@ -38,12 +45,19 @@ const Station: NextComponentType<
                 </div>
               </div>
             </div>
+            <div className="col p-3 adsbygoogle">
+              <AdSense.Google
+                client="ca-pub-7640562161899788"
+                slot="7259870550"
+                style={{ display: 'inline-block' }}
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="container mb-2" style={{ marginTop: '-3rem' }}>
+      <div className="container mb-1" style={{ marginTop: '-2.3rem' }}>
         <div className="row">
-          <div className="col-12 p-3">
+          <div className="col-12 p-2">
             <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}>
               <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                 <div className="">
@@ -54,9 +68,7 @@ const Station: NextComponentType<
                     size="lg"
                   />
                 </div>
-                <div className="mr-auto">
-                  Open {channel.name} on Spotify
-                </div>
+                <div className="mr-auto">Open {channel.name} on Spotify</div>
                 <div>
                   <FontAwesomeIcon size="sm" icon="external-link-alt" />
                 </div>
@@ -65,29 +77,33 @@ const Station: NextComponentType<
           </div>
         </div>
       </div>
-      <div className="container mb-2">
+      <div className="container mb-1 adsbygoogle">
         <div className="row">
           <div className="col-12">
-            <h4>Recently Played</h4>
+            <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
           </div>
         </div>
       </div>
+      <StationNavigation channelId={channel.id} currentPage="recent" />
       <div className="container">
         <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4">
-          {props.recent.map(recent => {
-            const albumCover = recent.track?.spotify?.cover || '/static/missing.png';
+          {recent.map(play => {
+            const albumCover = play.track?.spotify?.cover || '/static/missing.png';
             return (
-              <div key={recent.id}>
-                <div className="col mb-3 d-none d-md-block">
-                  <div className="card">
+              <div key={play.id} className="mb-3">
+                <div className="col d-none d-md-block h-100">
+                  <div className="card h-100">
                     <img src={albumCover} className="card-img-top" alt="..." />
-                    <div className="card-body">
-                      <h5 className="mt-0 mb-0">{recent.track.name}</h5>
-                      {recent.track.artists.map(artist => (
-                        <small key={artist.id} className="mr-2">
-                          {artist.name}
-                        </small>
-                      ))}
+                    <div className="card-body d-flex align-items-start flex-column">
+                      <div className="mb-auto pb-4">
+                        <small className="text-secondary">5 Minutes ago</small>
+                        <h5 className="mt-1 mb-0">{play.track.name}</h5>
+                        {play.track.artists.map(artist => (
+                          <small key={artist.id} className="mr-2">
+                            {artist.name}
+                          </small>
+                        ))}
+                      </div>
                       <div className="d-flex flex-row" style={{ width: '100%' }}>
                         <div className="flex-fill mr-2">
                           <a className="btn btn-light btn-sm btn-block border">
@@ -109,7 +125,7 @@ const Station: NextComponentType<
                   </div>
                 </div>
                 {/* mobile */}
-                <div className="col-12 d-md-none mb-3">
+                <div className="col-12 d-md-none">
                   <div className="row shadow-light radius-media-left radius-media-right ml-0 mr-0">
                     <div className="col-5 p-0">
                       <img src={albumCover} className="img-fluid radius-media-left" alt="..." />
@@ -122,15 +138,16 @@ const Station: NextComponentType<
                         <div className="mb-auto" style={{ maxWidth: '100%' }}>
                           <span className="text-secondary text-xs">5 Minutes ago</span>
 
-                          <h5 className="mt-1 mb-0 text-strong text-nowrap text-truncate">
-                            {recent.track.name}
+                          <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">
+                            {play.track.name}
                           </h5>
-
-                          {recent.track.artists.map(artist => (
-                            <small key={artist.id} className="mr-2">
-                              {artist.name}
-                            </small>
-                          ))}
+                          <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
+                            {play.track.artists.map(artist => (
+                              <li key={artist.id} className="list-inline-item text-truncate">
+                                <small>{artist.name}</small>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                         <div className="d-flex flex-row" style={{ width: '100%' }}>
                           <div className="flex-fill mr-2">
