@@ -19,21 +19,21 @@ app.prepare().then(async () => {
   });
 
   // logging
-  await server.register({
-    plugin: Good,
-    options: {
-      reporters: {
-        myConsoleReporter: [
-          {
-            module: '@hapi/good-squeeze',
-            name: 'Squeeze',
-            args: [{ log: '*', response: '*', ops: '*' }],
-          },
-          'stdout',
-        ],
-      },
-    },
-  });
+  // await server.register({
+  //   plugin: Good,
+  //   options: {
+  //     reporters: {
+  //       myConsoleReporter: [
+  //         {
+  //           module: '@hapi/good-squeeze',
+  //           name: 'Squeeze',
+  //           args: [{ log: '*', response: '*', ops: '*' }],
+  //         },
+  //         'stdout',
+  //       ],
+  //     },
+  //   },
+  // });
 
   // TODO: add favicon
   server.route({

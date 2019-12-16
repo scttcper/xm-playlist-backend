@@ -27,7 +27,8 @@ export async function getRecent(channel: Channel, last?: Date): Promise<any> {
     include: [
       { model: Track, include: [{ model: Artist }, { model: Spotify }] },
     ],
-    limit: 25,
+    // divisible by 12
+    limit: 24,
   }).then(t => t.map(n => n.toJSON()));
 }
 

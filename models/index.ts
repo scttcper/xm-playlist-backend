@@ -63,6 +63,14 @@ ArtistTrack.init(
   },
 );
 
+export interface PlayJson {
+  id: number;
+  trackId: number | string;
+  startTime: string;
+  channel: number;
+  track: Track;
+}
+
 export class Play extends Sequelize.Model {
   trackId!: number | string;
   startTime!: Date;

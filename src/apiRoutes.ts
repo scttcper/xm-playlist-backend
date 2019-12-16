@@ -25,10 +25,10 @@ export async function registerApiRoutes(server: HapiServer) {
       cors: { origin: 'ignore' },
       validate: {
         params: Joi.object({
-          id: Joi.string(),
+          id: Joi.string().valid(...channels.map(x => x.id)).required(),
         }),
         query: Joi.object({
-          last: Joi.number().optional(),
+          last: Joi.date().timestamp('javascript'),
         }),
       },
     },
@@ -39,9 +39,9 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const { query } = req;
+      console.log(query);
       if (query.last) {
-        const last = new Date(parseInt(query.last as string, 10));
-        return getRecent(channel, last);
+        return getRecent(channel, new Date(query.last as string));
       }
 
       console.log('clown', await getRecent(channel));

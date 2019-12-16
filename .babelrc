@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel"],
-  "plugins": [["emotion"], ["inline-react-svg"], ["@babel/plugin-proposal-optional-chaining"]]
+  "plugins": [["emotion"], ["inline-react-svg"], ["@babel/plugin-proposal-optional-chaining"], ["lodash"]]
 }
