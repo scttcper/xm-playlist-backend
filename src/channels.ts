@@ -1,6 +1,7 @@
 // https://www.siriusxm.com/albumart/Live/Default/DefaultMDS_m_52.jpg
 export interface Channel {
   id: string;
+  deeplink: string;
   name: string;
   number: number;
   genre: string;
@@ -8,9 +9,11 @@ export interface Channel {
   playlist: string;
 }
 
+
 export const channels: Channel[] = [
   {
     id: 'siriushits1',
+    deeplink: 'SiriusXMHits1',
     number: 2,
     name: 'SiriusXM Hits 1',
     genre: 'Pop',
@@ -19,6 +22,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9389',
+    deeplink: 'Venus',
     number: 3,
     name: 'Venus',
     genre: 'Pop',
@@ -27,6 +31,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9406',
+    deeplink: 'PitbullsGlobalization',
     number: 4,
     name: 'Pitbull\'s Globalization',
     genre: 'Pop',
@@ -35,6 +40,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'siriusgold',
+    deeplink: '50son5',
     number: 5,
     name: '\'50s on 5',
     genre: 'Pop',
@@ -43,6 +49,7 @@ export const channels: Channel[] = [
   },
   {
     id: '60svibrations',
+    deeplink: '60son6',
     number: 6,
     name: '\'60s on 6',
     genre: 'Pop',
@@ -51,6 +58,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'totally70s',
+    deeplink: '70son7',
     number: 7,
     name: '\'70s on 7',
     genre: 'Pop',
@@ -59,6 +67,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'big80s',
+    deeplink: '80son8',
     number: 8,
     name: '\'80s on 8',
     genre: 'Pop',
@@ -67,6 +76,7 @@ export const channels: Channel[] = [
   },
   {
     id: '8206',
+    deeplink: '90son9',
     number: 9,
     name: '\'90s on 9',
     genre: 'Pop',
@@ -75,6 +85,7 @@ export const channels: Channel[] = [
   },
   {
     id: '8208',
+    deeplink: 'Pop2K',
     number: 10,
     name: 'Pop2K',
     genre: 'Pop',
@@ -90,6 +101,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'coffeehouse',
+    deeplink: 'TheCoffeeHouse',
     number: 14,
     name: 'The Coffee House',
     genre: 'Pop',
@@ -98,6 +110,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'thepulse',
+    deeplink: 'ThePulse',
     number: 15,
     name: 'The Pulse',
     genre: 'Pop',
@@ -106,6 +119,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'starlite',
+    deeplink: 'TheBlend',
     number: 16,
     name: 'The Blend',
     genre: 'Pop',
@@ -114,6 +128,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9450',
+    deeplink: 'PopRocks',
     number: 17,
     name: 'PopRocks',
     genre: 'Pop',
@@ -143,6 +158,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'undergroundgarage',
+    deeplink: 'UndergroundGarage',
     number: 21,
     name: 'Underground Garage',
     genre: 'Rock',
@@ -165,6 +181,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'radiomargaritaville',
+    deeplink: 'RadioMargaritaville',
     number: 24,
     name: 'Radio Margaritaville',
     genre: 'Rock',
@@ -173,6 +190,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'classicrewind',
+    deeplink: 'ClassicRewind',
     number: 25,
     name: 'Classic Rewind',
     genre: 'Rock',
@@ -181,6 +199,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'classicvinyl',
+    deeplink: 'ClassicVinyl',
     number: 26,
     name: 'Classic Vinyl',
     genre: 'Rock',
@@ -189,6 +208,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'thevault',
+    deeplink: 'DeepTracks',
     number: 27,
     name: 'Deep Tracks',
     genre: 'Rock',
@@ -197,6 +217,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'thespectrum',
+    deeplink: 'TheSpectrum',
     number: 28,
     name: 'The Spectrum',
     genre: 'Rock',
@@ -213,6 +234,7 @@ export const channels: Channel[] = [
   // },
   {
     id: '8207',
+    deeplink: 'TheLoft',
     number: 30,
     name: 'The Loft',
     genre: 'Rock',
@@ -228,6 +250,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'thebridge',
+    deeplink: 'TheBridge',
     number: 32,
     name: 'The Bridge',
     genre: 'Rock',
@@ -236,6 +259,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'firstwave',
+    deeplink: '1stWave',
     number: 33,
     name: '1st Wave',
     genre: 'Rock',
@@ -244,6 +268,7 @@ export const channels: Channel[] = [
   },
   {
     id: '90salternative',
+    deeplink: 'Lithium',
     number: 34,
     name: 'Lithium',
     genre: 'Rock',
@@ -252,6 +277,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'leftofcenter',
+    deeplink: 'SiriusXMU',
     number: 35,
     name: 'SiriusXMU',
     genre: 'Rock',
@@ -260,6 +286,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'altnation',
+    deeplink: 'AltNation',
     number: 36,
     name: 'Alt Nation',
     genre: 'Rock',
@@ -268,6 +295,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'octane',
+    deeplink: 'Octane',
     number: 37,
     name: 'Octane',
     genre: 'Rock',
@@ -276,6 +304,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'buzzsaw',
+    deeplink: 'OzzysBoneyard',
     number: 38,
     name: 'Ozzy\'s Boneyard',
     genre: 'Rock',
@@ -284,6 +313,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'hairnation',
+    deeplink: 'HairNation',
     number: 39,
     name: 'Hair Nation',
     genre: 'Rock',
@@ -292,6 +322,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'hardattack',
+    deeplink: 'LiquidMetal',
     number: 40,
     name: 'Liquid Metal',
     genre: 'Rock',
@@ -300,6 +331,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9413',
+    deeplink: 'SiriusXMTurbo',
     number: 41,
     name: 'SiriusXM Turbo',
     genre: 'Rock',
@@ -308,6 +340,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'reggaerhythms',
+    deeplink: 'TheJoint',
     number: 42,
     name: 'The Joint',
     genre: 'R&B',
@@ -316,6 +349,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9471',
+    deeplink: 'RockTheBellsRadio',
     number: 43,
     name: 'Rock The Bells Radio',
     genre: 'Hip-Hop',
@@ -324,6 +358,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'hiphopnation',
+    deeplink: 'HipHopNation',
     number: 44,
     name: 'Hip-Hop Nation',
     genre: 'Hip-Hop',
@@ -332,6 +367,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'shade45',
+    deeplink: 'Shade45',
     number: 45,
     name: 'Shade 45',
     genre: 'Hip-Hop',
@@ -340,6 +376,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'hotjamz',
+    deeplink: 'TheHeat',
     number: 46,
     name: 'The Heat',
     genre: 'R&B',
@@ -348,6 +385,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9339',
+    deeplink: 'SiriusXMFLY',
     number: 47,
     name: 'SiriusXM FLY',
     genre: 'R&B',
@@ -370,6 +408,7 @@ export const channels: Channel[] = [
   // },
   {
     id: '8228',
+    deeplink: 'TheGroove',
     number: 50,
     name: 'The Groove',
     genre: 'R&B',
@@ -378,6 +417,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'thebeat',
+    deeplink: 'BPM',
     number: 51,
     name: 'BPM',
     genre: 'Electronic',
@@ -386,6 +426,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9472',
+    deeplink: 'DiplosRevolution',
     number: 52,
     name: 'Diplo\'s Revolution',
     genre: 'Electronic',
@@ -394,6 +435,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'chill',
+    deeplink: 'SiriusXMChill',
     number: 53,
     name: 'SiriusXM Chill',
     genre: 'Electronic',
@@ -402,6 +444,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9145',
+    deeplink: 'Studio54Radio',
     number: 54,
     name: 'Studio 54 Radio',
     genre: 'Electronic',
@@ -410,6 +453,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9421',
+    deeplink: 'TheGarthChannel',
     number: 55,
     name: 'The Garth Channel',
     genre: 'Country',
@@ -418,6 +462,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'newcountry',
+    deeplink: 'TheHighway',
     number: 56,
     name: 'The Highway',
     genre: 'Country',
@@ -426,6 +471,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9418',
+    deeplink: 'NoShoesRadio',
     number: 57,
     name: 'No Shoes Radio',
     genre: 'Country',
@@ -434,6 +480,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'primecountry',
+    deeplink: 'PrimeCountry',
     number: 58,
     name: 'Prime Country',
     genre: 'Country',
@@ -442,6 +489,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'theroadhouse',
+    deeplink: 'WilliesRoadhouse',
     number: 59,
     name: 'Willie\'s Roadhouse',
     genre: 'Country',
@@ -450,6 +498,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'outlawcountry',
+    deeplink: 'OutlawCountry',
     number: 60,
     name: 'Outlaw Country',
     genre: 'Country',
@@ -458,6 +507,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9340',
+    deeplink: 'Y2Kountry',
     number: 61,
     name: 'Y2Kountry',
     genre: 'Country',
@@ -466,6 +516,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'bluegrass',
+    deeplink: 'BluegrassJunction',
     number: 62,
     name: 'Bluegrass Junction',
     genre: 'Country',
@@ -502,6 +553,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'purejazz',
+    deeplink: 'RealJazz',
     number: 67,
     name: 'Real Jazz',
     genre: 'Jazz',
@@ -510,6 +562,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'Spa',
+    deeplink: 'Spa',
     number: 68,
     name: 'Spa',
     genre: 'Jazz',
@@ -560,6 +613,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'symphonyhall',
+    deeplink: 'SymphonyHall',
     number: 76,
     name: 'Symphony Hall',
     genre: 'Classical',
@@ -603,6 +657,7 @@ export const channels: Channel[] = [
   // },
   {
     id: '9361',
+    deeplink: 'Velvet',
     number: 304,
     name: 'Velvet',
     genre: 'Pop',
@@ -625,6 +680,7 @@ export const channels: Channel[] = [
   // },
   {
     id: 'faction',
+    deeplink: 'FactionPunk',
     number: 314,
     name: 'Faction Punk',
     genre: 'Rock',
@@ -710,6 +766,7 @@ export const channels: Channel[] = [
   // },
   {
     id: '9447',
+    deeplink: 'TheEmoProject',
     number: 713,
     name: 'The Emo Project',
     genre: 'Rock',
@@ -718,6 +775,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9451',
+    deeplink: 'Indie10',
     number: 714,
     name: 'Indie 1.0',
     genre: 'Rock',
@@ -726,6 +784,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9375',
+    deeplink: 'ClassicRockParty',
     number: 715,
     name: 'Classic Rock Party',
     genre: 'Rock',

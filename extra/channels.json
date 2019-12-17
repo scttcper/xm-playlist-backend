@@ -1,6 +1,7 @@
 [
   {
     "id": "https://www.siriusxm.com/siriusxmhits1",
+    "deepLink": "SiriusXMHits1",
     "number": "2",
     "name": "SiriusXM Hits 1",
     "genre": "Pop",
@@ -8,6 +9,7 @@
   },
   {
     "id": "https://www.siriusxm.com/venus",
+    "deepLink": "Venus",
     "number": "3",
     "name": "Venus",
     "genre": "Pop",
@@ -15,6 +17,7 @@
   },
   {
     "id": "https://www.siriusxm.com/pitbullsglobalization",
+    "deepLink": "PitbullsGlobalization",
     "number": "4",
     "name": "Pitbull's Globalization",
     "genre": "Pop",
@@ -22,6 +25,7 @@
   },
   {
     "id": "https://www.siriusxm.com/50son5",
+    "deepLink": "50son5",
     "number": "5",
     "name": "'50s on 5",
     "genre": "Pop",
@@ -29,6 +33,7 @@
   },
   {
     "id": "https://www.siriusxm.com/60son6",
+    "deepLink": "60son6",
     "number": "6",
     "name": "'60s on 6",
     "genre": "Pop",
@@ -36,6 +41,7 @@
   },
   {
     "id": "https://www.siriusxm.com/70son7",
+    "deepLink": "70son7",
     "number": "7",
     "name": "'70s on 7",
     "genre": "Pop",
@@ -43,6 +49,7 @@
   },
   {
     "id": "https://www.siriusxm.com/80son8",
+    "deepLink": "80son8",
     "number": "8",
     "name": "'80s on 8",
     "genre": "Pop",
@@ -50,6 +57,7 @@
   },
   {
     "id": "https://www.siriusxm.com/90son9",
+    "deepLink": "90son9",
     "number": "9",
     "name": "'90s on 9",
     "genre": "Pop",
@@ -57,6 +65,7 @@
   },
   {
     "id": "https://www.siriusxm.com/pop2k",
+    "deepLink": "pop2k",
     "number": "10",
     "name": "Pop2K",
     "genre": "Pop",
@@ -64,6 +73,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitedition",
+    "deepLink": "siriusxmlimitedition",
     "number": "13",
     "name": "SiriusXM Limited Edition",
     "genre": "Pop",
@@ -71,6 +81,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thecoffeehouse",
+    "deepLink": "thecoffeehouse",
     "number": "14",
     "name": "The Coffee House",
     "genre": "Pop",
@@ -78,6 +89,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thepulse",
+    "deepLink": "thepulse",
     "number": "15",
     "name": "The Pulse",
     "genre": "Pop",
@@ -85,6 +97,7 @@
   },
   {
     "id": "https://www.siriusxm.com/theblend",
+    "deepLink": "theblend",
     "number": "16",
     "name": "The Blend",
     "genre": "Pop",
@@ -92,6 +105,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlove",
+    "deepLink": "siriusxmlove",
     "number": "17",
     "name": "SiriusXM Love",
     "genre": "Pop",
@@ -99,6 +113,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thebeatleschannel",
+    "deepLink": "thebeatleschannel",
     "number": "18",
     "name": "The Beatles Channel",
     "genre": "Rock",
@@ -106,6 +121,7 @@
   },
   {
     "id": "https://www.siriusxm.com/elvisradio",
+    "deepLink": "elvisradio",
     "number": "19",
     "name": "Elvis Radio",
     "genre": "Rock",
@@ -113,6 +129,7 @@
   },
   {
     "id": "https://www.siriusxm.com/estreetradio",
+    "deepLink": "estreetradio",
     "number": "20",
     "name": "E Street Radio",
     "genre": "Rock",
@@ -120,6 +137,7 @@
   },
   {
     "id": "https://www.siriusxm.com/undergroundgarage",
+    "deepLink": "undergroundgarage",
     "number": "21",
     "name": "Underground Garage",
     "genre": "Rock",
@@ -127,6 +145,7 @@
   },
   {
     "id": "https://www.siriusxm.com/pearljamradio",
+    "deepLink": "pearljamradio",
     "number": "22",
     "name": "Pearl Jam Radio",
     "genre": "Rock",
@@ -134,6 +153,7 @@
   },
   {
     "id": "https://www.siriusxm.com/gratefuldead",
+    "deepLink": "gratefuldead",
     "number": "23",
     "name": "Grateful Dead Channel",
     "genre": "Rock",
@@ -141,6 +161,7 @@
   },
   {
     "id": "https://www.siriusxm.com/radiomargaritaville",
+    "deepLink": "radiomargaritaville",
     "number": "24",
     "name": "Radio Margaritaville",
     "genre": "Rock",
@@ -148,6 +169,7 @@
   },
   {
     "id": "https://www.siriusxm.com/classicrewind",
+    "deepLink": "classicrewind",
     "number": "25",
     "name": "Classic Rewind",
     "genre": "Rock",
@@ -155,6 +177,7 @@
   },
   {
     "id": "https://www.siriusxm.com/classicvinyl",
+    "deepLink": "classicvinyl",
     "number": "26",
     "name": "Classic Vinyl",
     "genre": "Rock",
@@ -162,6 +185,7 @@
   },
   {
     "id": "https://www.siriusxm.com/deeptracks",
+    "deepLink": "deeptracks",
     "number": "27",
     "name": "Deep Tracks",
     "genre": "Rock",
@@ -169,6 +193,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thespectrum",
+    "deepLink": "thespectrum",
     "number": "28",
     "name": "The Spectrum",
     "genre": "Rock",
@@ -176,6 +201,7 @@
   },
   {
     "id": "https://www.siriusxm.com/jamon",
+    "deepLink": "jamon",
     "number": "29",
     "name": "Jam_ON",
     "genre": "Rock",
@@ -183,6 +209,7 @@
   },
   {
     "id": "https://www.siriusxm.com/theloft",
+    "deepLink": "theloft",
     "number": "30",
     "name": "The Loft",
     "genre": "Rock",
@@ -190,6 +217,7 @@
   },
   {
     "id": "https://www.siriusxm.com/tompettyradio",
+    "deepLink": "tompettyradio",
     "number": "31",
     "name": "Tom Petty Radio",
     "genre": "Rock",
@@ -197,6 +225,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thebridge",
+    "deepLink": "thebridge",
     "number": "32",
     "name": "The Bridge",
     "genre": "Rock",
@@ -204,6 +233,7 @@
   },
   {
     "id": "https://www.siriusxm.com/1stwave",
+    "deepLink": "1stwave",
     "number": "33",
     "name": "1st Wave",
     "genre": "Rock",
@@ -211,6 +241,7 @@
   },
   {
     "id": "https://www.siriusxm.com/lithium",
+    "deepLink": "lithium",
     "number": "34",
     "name": "Lithium",
     "genre": "Rock",
@@ -218,6 +249,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmu",
+    "deepLink": "siriusxmu",
     "number": "35",
     "name": "SiriusXMU",
     "genre": "Rock",
@@ -225,6 +257,7 @@
   },
   {
     "id": "https://www.siriusxm.com/altnation",
+    "deepLink": "altnation",
     "number": "36",
     "name": "Alt Nation",
     "genre": "Rock",
@@ -232,6 +265,7 @@
   },
   {
     "id": "https://www.siriusxm.com/octane",
+    "deepLink": "octane",
     "number": "37",
     "name": "Octane",
     "genre": "Rock",
@@ -239,6 +273,7 @@
   },
   {
     "id": "https://www.siriusxm.com/ozzysboneyard",
+    "deepLink": "ozzysboneyard",
     "number": "38",
     "name": "Ozzy's Boneyard",
     "genre": "Rock",
@@ -246,6 +281,7 @@
   },
   {
     "id": "https://www.siriusxm.com/hairnation",
+    "deepLink": "hairnation",
     "number": "39",
     "name": "Hair Nation",
     "genre": "Rock",
@@ -253,6 +289,7 @@
   },
   {
     "id": "https://www.siriusxm.com/liquidmetal",
+    "deepLink": "liquidmetal",
     "number": "40",
     "name": "Liquid Metal",
     "genre": "Rock",
@@ -260,6 +297,7 @@
   },
   {
     "id": "https://www.siriusxm.com/faction",
+    "deepLink": "faction",
     "number": "41",
     "name": "Faction",
     "genre": "Rock",
@@ -267,6 +305,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thejoint",
+    "deepLink": "thejoint",
     "number": "42",
     "name": "The Joint",
     "genre": "R&B",
@@ -274,6 +313,7 @@
   },
   {
     "id": "https://www.siriusxm.com/backspin",
+    "deepLink": "backspin",
     "number": "43",
     "name": "Backspin",
     "genre": "Hip-Hop",
@@ -281,6 +321,7 @@
   },
   {
     "id": "https://www.siriusxm.com/hiphopnation",
+    "deepLink": "hiphopnation",
     "number": "44",
     "name": "Hip-Hop Nation",
     "genre": "Hip-Hop",
@@ -288,6 +329,7 @@
   },
   {
     "id": "https://www.siriusxm.com/shade45",
+    "deepLink": "shade45",
     "number": "45",
     "name": "Shade 45",
     "genre": "Hip-Hop",
@@ -295,6 +337,7 @@
   },
   {
     "id": "https://www.siriusxm.com/theheat",
+    "deepLink": "theheat",
     "number": "46",
     "name": "The Heat",
     "genre": "R&B",
@@ -302,6 +345,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmfly",
+    "deepLink": "siriusxmfly",
     "number": "47",
     "name": "SiriusXM FLY",
     "genre": "R&B",
@@ -309,6 +353,7 @@
   },
   {
     "id": "https://www.siriusxm.com/heartandsoul",
+    "deepLink": "heartandsoul",
     "number": "48",
     "name": "Heart & Soul",
     "genre": "R&B",
@@ -316,6 +361,7 @@
   },
   {
     "id": "https://www.siriusxm.com/soultown",
+    "deepLink": "soultown",
     "number": "49",
     "name": "Soul Town",
     "genre": "R&B",
@@ -323,6 +369,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thegroove",
+    "deepLink": "thegroove",
     "number": "50",
     "name": "The Groove",
     "genre": "R&B",
@@ -330,6 +377,7 @@
   },
   {
     "id": "https://www.siriusxm.com/bpm",
+    "deepLink": "bpm",
     "number": "51",
     "name": "BPM",
     "genre": "Dance/Electronic",
@@ -337,6 +385,7 @@
   },
   {
     "id": "https://www.siriusxm.com/electricarea",
+    "deepLink": "electricarea",
     "number": "52",
     "name": "Electric Area",
     "genre": "Dance/Electronic",
@@ -344,6 +393,7 @@
   },
   {
     "id": "https://www.siriusxm.com/chill",
+    "deepLink": "chill",
     "number": "53",
     "name": "SiriusXM Chill",
     "genre": "Dance/Electronic",
@@ -351,6 +401,7 @@
   },
   {
     "id": "https://www.siriusxm.com/studio54radio",
+    "deepLink": "studio54radio",
     "number": "54",
     "name": "Studio 54 Radio",
     "genre": "Dance/Electronic",
@@ -358,6 +409,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thegarthchannel",
+    "deepLink": "thegarthchannel",
     "number": "55",
     "name": "The Garth Channel",
     "genre": "Country",
@@ -365,6 +417,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thehighway",
+    "deepLink": "thehighway",
     "number": "56",
     "name": "The Highway",
     "genre": "Country",
@@ -372,6 +425,7 @@
   },
   {
     "id": "https://www.siriusxm.com/noshoesradio",
+    "deepLink": "noshoesradio",
     "number": "57",
     "name": "No Shoes Radio",
     "genre": "Country",
@@ -379,6 +433,7 @@
   },
   {
     "id": "https://www.siriusxm.com/primecountry",
+    "deepLink": "primecountry",
     "number": "58",
     "name": "Prime Country",
     "genre": "Country",
@@ -386,6 +441,7 @@
   },
   {
     "id": "https://www.siriusxm.com/williesroadhouse",
+    "deepLink": "williesroadhouse",
     "number": "59",
     "name": "Willie's Roadhouse",
     "genre": "Country",
@@ -393,6 +449,7 @@
   },
   {
     "id": "https://www.siriusxm.com/outlawcountry",
+    "deepLink": "outlawcountry",
     "number": "60",
     "name": "Outlaw Country",
     "genre": "Country",
@@ -400,6 +457,7 @@
   },
   {
     "id": "https://www.siriusxm.com/y2kountry",
+    "deepLink": "y2kountry",
     "number": "61",
     "name": "Y2Kountry",
     "genre": "Country",
@@ -407,6 +465,7 @@
   },
   {
     "id": "https://www.siriusxm.com/bluegrassjunction",
+    "deepLink": "bluegrassjunction",
     "number": "62",
     "name": "Bluegrass Junction",
     "genre": "Country",
@@ -414,6 +473,7 @@
   },
   {
     "id": "https://www.siriusxm.com/themessage",
+    "deepLink": "themessage",
     "number": "63",
     "name": "The Message",
     "genre": "Christian",
@@ -421,6 +481,7 @@
   },
   {
     "id": "https://www.siriusxm.com/kirkfranklinspraise",
+    "deepLink": "kirkfranklinspraise",
     "number": "64",
     "name": "Kirk Franklin's Praise",
     "genre": "Christian",
@@ -428,6 +489,7 @@
   },
   {
     "id": "https://www.siriusxm.com/enlighten",
+    "deepLink": "enlighten",
     "number": "65",
     "name": "enLighten",
     "genre": "Christian",
@@ -435,6 +497,7 @@
   },
   {
     "id": "https://www.siriusxm.com/watercolors",
+    "deepLink": "watercolors",
     "number": "66",
     "name": "Watercolors",
     "genre": "Jazz/Standards",
@@ -442,6 +505,7 @@
   },
   {
     "id": "https://www.siriusxm.com/realjazz",
+    "deepLink": "realjazz",
     "number": "67",
     "name": "Real Jazz",
     "genre": "Jazz/Standards",
@@ -449,6 +513,7 @@
   },
   {
     "id": "https://www.siriusxm.com/spa",
+    "deepLink": "spa",
     "number": "68",
     "name": "Spa",
     "genre": "Jazz/Standards",
@@ -456,6 +521,7 @@
   },
   {
     "id": "https://www.siriusxm.com/escape",
+    "deepLink": "escape",
     "number": "69",
     "name": "Escape",
     "genre": "Jazz/Standards",
@@ -463,6 +529,7 @@
   },
   {
     "id": "https://www.siriusxm.com/bbkingsbluesville",
+    "deepLink": "bbkingsbluesville",
     "number": "70",
     "name": "BB King's Bluesville",
     "genre": "Jazz/Standards",
@@ -470,6 +537,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriuslysinatra",
+    "deepLink": "siriuslysinatra",
     "number": "71",
     "name": "Siriusly Sinatra",
     "genre": "Jazz/Standards",
@@ -477,6 +545,7 @@
   },
   {
     "id": "https://www.siriusxm.com/onbroadway",
+    "deepLink": "onbroadway",
     "number": "72",
     "name": "On Broadway",
     "genre": "Jazz/Standards",
@@ -484,6 +553,7 @@
   },
   {
     "id": "https://www.siriusxm.com/40sjunction",
+    "deepLink": "40sjunction",
     "number": "73",
     "name": "40s Junction",
     "genre": "Jazz/Standards",
@@ -491,6 +561,7 @@
   },
   {
     "id": "https://www.siriusxm.com/metropolitanoperaradio",
+    "deepLink": "metropolitanoperaradio",
     "number": "74",
     "name": "Met Opera Radio",
     "genre": "Classical",
@@ -498,6 +569,7 @@
   },
   {
     "id": "https://www.siriusxm.com/symphonyhall",
+    "deepLink": "symphonyhall",
     "number": "76",
     "name": "Symphony Hall",
     "genre": "Classical",
@@ -505,6 +577,7 @@
   },
   {
     "id": "https://www.siriusxm.com/caliente",
+    "deepLink": "caliente",
     "number": "158",
     "name": "Caliente",
     "genre": "Pop",
@@ -512,6 +585,7 @@
   },
   {
     "id": "https://www.siriusxm.com/Celebrate",
+    "deepLink": "Celebrate",
     "number": "300",
     "name": "Celebrate!",
     "genre": "Pop",
@@ -519,6 +593,7 @@
   },
   {
     "id": "https://www.siriusxm.com/roadtripradio",
+    "deepLink": "roadtripradio",
     "number": "301",
     "name": "Road Trip Radio",
     "genre": "Pop",
@@ -526,6 +601,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thecoverschannel",
+    "deepLink": "thecoverschannel",
     "number": "302",
     "name": "The Covers Channel",
     "genre": "Pop",
@@ -533,6 +609,7 @@
   },
   {
     "id": "https://www.siriusxm.com/onederland",
+    "deepLink": "onederland",
     "number": "303",
     "name": "ONEderland",
     "genre": "Pop",
@@ -540,13 +617,15 @@
   },
   {
     "id": "https://www.siriusxm.com/velvet",
+    "deepLink": "velvet",
     "number": "304",
     "name": "Velvet",
     "genre": "Pop",
-    "desc": "Today’s Pop Vocalists"
+    "desc": "Today's Pop Vocalists"
   },
   {
     "id": "https://www.siriusxm.com/rockandrollhalloffameradio",
+    "deepLink": "rockandrollhalloffameradio",
     "number": "310",
     "name": "Rock and Roll Hall of Fame Radio",
     "genre": "Rock",
@@ -554,6 +633,7 @@
   },
   {
     "id": "https://www.siriusxm.com/yachtrockradio",
+    "deepLink": "yachtrockradio",
     "number": "311",
     "name": "Yacht Rock Radio",
     "genre": "Rock",
@@ -561,6 +641,7 @@
   },
   {
     "id": "https://www.siriusxm.com/rockbar",
+    "deepLink": "rockbar",
     "number": "313",
     "name": "RockBar",
     "genre": "Rock",
@@ -568,6 +649,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmturbo",
+    "deepLink": "siriusxmturbo",
     "number": "314",
     "name": "SiriusXM Turbo",
     "genre": "Rock",
@@ -575,6 +657,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmcomesalive",
+    "deepLink": "siriusxmcomesalive",
     "number": "316",
     "name": "SiriusXM Comes Alive!",
     "genre": "Rock",
@@ -582,6 +665,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmsilk",
+    "deepLink": "siriusxmsilk",
     "number": "330",
     "name": "SiriusXM Silk",
     "genre": "R&B",
@@ -589,6 +673,7 @@
   },
   {
     "id": "https://www.siriusxm.com/tiestosclublife",
+    "deepLink": "tiestosclublife",
     "number": "340",
     "name": "Tiësto's Club Life Radio",
     "genre": "Dance/Electronic",
@@ -596,6 +681,7 @@
   },
   {
     "id": "https://www.siriusxm.com/utopia",
+    "deepLink": "utopia",
     "number": "341",
     "name": "Utopia",
     "genre": "Dance/Electronic",
@@ -603,6 +689,7 @@
   },
   {
     "id": "https://www.siriusxm.com/redwhite&booze",
+    "deepLink": "redwhite",
     "number": "350",
     "name": "Red White & Booze",
     "genre": "Country",
@@ -610,6 +697,7 @@
   },
   {
     "id": "https://www.siriusxm.com/neildiamondradio",
+    "deepLink": "neildiamondradio",
     "number": "700",
     "name": "Neil Diamond Radio",
     "genre": "Pop",
@@ -617,6 +705,7 @@
   },
   {
     "id": "https://www.siriusxm.com/elevations",
+    "deepLink": "elevations",
     "number": "702",
     "name": "Elevations",
     "genre": "Pop",
@@ -624,6 +713,7 @@
   },
   {
     "id": "https://www.siriusxm.com/oldiesparty",
+    "deepLink": "oldiesparty",
     "number": "703",
     "name": "Oldies Party",
     "genre": "Pop",
@@ -631,6 +721,7 @@
   },
   {
     "id": "https://www.siriusxm.com/70s80spop",
+    "deepLink": "70s80spop",
     "number": "704",
     "name": "70s/80s Pop",
     "genre": "Pop",
@@ -638,6 +729,7 @@
   },
   {
     "id": "https://www.siriusxm.com/80s90sparty",
+    "deepLink": "80s90sparty",
     "number": "705",
     "name": "80s/90s Pop",
     "genre": "Pop",
@@ -645,13 +737,15 @@
   },
   {
     "id": "https://www.siriusxm.com/tompettysburiedtreasure",
+    "deepLink": "tompettysburiedtreasure",
     "number": "712",
     "name": "Tom Petty's Buried Treasure",
     "genre": "Rock",
-    "desc": "Tom Petty’s Buried Treasure 24/7"
+    "desc": "Tom Petty's Buried Treasure 24/7"
   },
   {
     "id": "https://www.siriusxm.com/emoproject",
+    "deepLink": "emoproject",
     "number": "713",
     "name": "The Emo Project",
     "genre": "Rock",
@@ -659,6 +753,7 @@
   },
   {
     "id": "https://www.siriusxm.com/classicrockparty",
+    "deepLink": "classicrockparty",
     "number": "715",
     "name": "Classic Rock Party",
     "genre": "Rock",
@@ -666,6 +761,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition2",
+    "deepLink": "siriusxmlimitededition2",
     "number": "716",
     "name": "SiriusXM Limited Edition 2",
     "genre": "Rock",
@@ -673,6 +769,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition3",
+    "deepLink": "siriusxmlimitededition3",
     "number": "717",
     "name": "SiriusXM Limited Edition 3",
     "genre": "Rock",
@@ -680,6 +777,7 @@
   },
   {
     "id": "https://www.siriusxm.com/swaysuniverse",
+    "deepLink": "swaysuniverse",
     "number": "720",
     "name": "Sway's Universe",
     "genre": "Hip-Hop",
@@ -687,6 +785,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition4",
+    "deepLink": "siriusxmlimitededition4",
     "number": "721",
     "name": "SiriusXM Limited Edition 4",
     "genre": "Hip-Hop",
@@ -694,6 +793,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition5",
+    "deepLink": "siriusxmlimitededition5",
     "number": "726",
     "name": "SiriusXM Limited Edition 5",
     "genre": "R&B",
@@ -701,6 +801,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition6",
+    "deepLink": "siriusxmlimitededition6",
     "number": "730",
     "name": "SiriusXM Limited Edition 6",
     "genre": "Dance/Electronic",
@@ -708,6 +809,7 @@
   },
   {
     "id": "https://www.siriusxm.com/thevillage",
+    "deepLink": "thevillage",
     "number": "741",
     "name": "The Village",
     "genre": "Country",
@@ -715,6 +817,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition7",
+    "deepLink": "siriusxmlimitededition7",
     "number": "742",
     "name": "SiriusXM Limited Edition 7",
     "genre": "Country",
@@ -722,6 +825,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition8",
+    "deepLink": "siriusxmlimitededition8",
     "number": "745",
     "name": "SiriusXM Limited Edition 8",
     "genre": "Christian",
@@ -729,6 +833,7 @@
   },
   {
     "id": "https://www.siriusxm.com/cinemagic",
+    "deepLink": "cinemagic",
     "number": "750",
     "name": "Cinemagic",
     "genre": "Jazz/Standards",
@@ -736,6 +841,7 @@
   },
   {
     "id": "https://www.siriusxm.com/krishnadasyoga",
+    "deepLink": "krishnadasyoga",
     "number": "751",
     "name": "Krishna Das Yoga Radio",
     "genre": "Jazz/Standards",
@@ -743,6 +849,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition9",
+    "deepLink": "siriusxmlimitededition9",
     "number": "752",
     "name": "SiriusXM Limited Edition 9",
     "genre": "Jazz/Standards",
@@ -750,6 +857,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmpops",
+    "deepLink": "siriusxmpops",
     "number": "755",
     "name": "SiriusXM Pops",
     "genre": "Classical",
@@ -757,6 +865,7 @@
   },
   {
     "id": "https://www.siriusxm.com/siriusxmlimitededition10",
+    "deepLink": "siriusxmlimitededition10",
     "number": "756",
     "name": "SiriusXM Limited Edition 10",
     "genre": "Classical",
@@ -764,6 +873,7 @@
   },
   {
     "id": "https://www.siriusxm.com/aguila",
+    "deepLink": "aguila",
     "number": "761",
     "name": "Águila",
     "genre": "Latino",
@@ -771,6 +881,7 @@
   },
   {
     "id": "https://www.siriusxm.com/caricia",
+    "deepLink": "caricia",
     "number": "762",
     "name": "Caricia",
     "genre": "Latino",
@@ -778,6 +889,7 @@
   },
   {
     "id": "https://www.siriusxm.com/viva",
+    "deepLink": "viva",
     "number": "763",
     "name": "Viva",
     "genre": "Latino",
@@ -785,6 +897,7 @@
   },
   {
     "id": "https://www.siriusxm.com/latidos",
+    "deepLink": "latidos",
     "number": "764",
     "name": "Latidos",
     "genre": "Latino",
@@ -792,6 +905,7 @@
   },
   {
     "id": "https://www.siriusxm.com/flownacion",
+    "deepLink": "flownacion",
     "number": "765",
     "name": "Flow Nación",
     "genre": "Latino",
@@ -799,6 +913,7 @@
   },
   {
     "id": "https://www.siriusxm.com/luna",
+    "deepLink": "luna",
     "number": "766",
     "name": "Luna",
     "genre": "Latino",
@@ -806,6 +921,7 @@
   },
   {
     "id": "https://www.siriusxm.com/rumbon",
+    "deepLink": "rumbon",
     "number": "767",
     "name": "Rumbón",
     "genre": "Latino",
@@ -813,6 +929,7 @@
   },
   {
     "id": "https://www.siriusxm.com/lakueva",
+    "deepLink": "lakueva",
     "number": "768",
     "name": "La Kueva",
     "genre": "Latino",
@@ -820,6 +937,7 @@
   },
   {
     "id": "https://www.siriusxm.com/holidaytraditionsonline",
+    "deepLink": "holidaytraditionsonline",
     "number": "782",
     "name": "Holiday Traditions",
     "genre": "Pop",
@@ -827,6 +945,7 @@
   },
   {
     "id": "https://www.siriusxm.com/jasonellis",
+    "deepLink": "jasonellis",
     "number": "791",
     "name": "Jason Ellis",
     "genre": "Rock",

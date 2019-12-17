@@ -57,16 +57,18 @@ export default class Station extends React.Component<StationProps> {
   }
 
   render(): JSX.Element {
-    const channel = channels.find(x => x.id === this.props.channelId);
-    const recent = [...this.props.recent, ...this.state.recent];
+    const lowercaseId = this.props.channelId.toLowerCase();
+    const channel = channels.find(channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId);
     if (!channel) {
       return <Error statusCode={404} />;
     }
 
+    const recent = [...this.props.recent, ...this.state.recent];
+
     return (
       <AppLayout>
         <Head>
-          <title>{channel.name} Recently Played</title>
+          <title>{channel.name} Recently Played - sirius xm playlist</title>
         </Head>
         <div className="bg-light">
           <div className="container" style={{ paddingBottom: '2.5rem' }}>
@@ -75,12 +77,12 @@ export default class Station extends React.Component<StationProps> {
                 <div className="media">
                   <img
                     style={{ maxWidth: '120px' }}
-                    src={`/static/img/${channel.id}.png`}
+                    src={`/static/img/${channel.deeplink}-lg.png`}
                     className="img-fluid rounded-lg bg-dark mr-3 p-1"
                     alt="..."
                   />
                   <div className="media-body align-self-center">
-                    <h3 className="mt-0">{channel.name}</h3>
+                    <h3 className="mt-0 mb-1">{channel.name}</h3>
                     <small>{channel.desc}</small>
                   </div>
                 </div>
@@ -117,7 +119,11 @@ export default class Station extends React.Component<StationProps> {
             </div>
           </div>
         </div>
-        <StationNavigation channelId={channel.id} currentPage="recent" />
+        <div className="container mb-3">
+          <div className="row">
+            <StationNavigation channelId={channel.id} currentPage="recent" />
+          </div>
+        </div>
         <div className="container">
           <div className="row">
             {recent.map((chunk, index) => {
@@ -131,7 +137,9 @@ export default class Station extends React.Component<StationProps> {
                   )}
                   {chunk.map(play => {
                     const albumCover = play.track?.spotify?.cover || '/static/missing.png';
-                    const timeAgo = formatDistanceStrict(new Date(play.startTime), new Date(), { addSuffix: true });
+                    const timeAgo = formatDistanceStrict(new Date(play.startTime), new Date(), {
+                      addSuffix: true,
+                    });
                     return (
                       <React.Fragment key={play.id}>
                         <div className="col-4 col-lg-3 d-none d-md-block mb-3">
@@ -152,7 +160,7 @@ export default class Station extends React.Component<StationProps> {
                               <div className="d-flex flex-row" style={{ width: '100%' }}>
                                 <div className="flex-fill mr-2">
                                   <a className="btn btn-light btn-sm btn-block border">
-                                    <FontAwesomeIcon icon="info-circle" /> Info
+                                    <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
                                   </a>
                                 </div>
                                 {/* <div className="flex-fill mr-2">
@@ -162,7 +170,7 @@ export default class Station extends React.Component<StationProps> {
                               </div> */}
                                 <div className="flex-fill">
                                   <a className="btn btn-light btn-sm btn-block border">
-                                    <FontAwesomeIcon icon="link" /> Links
+                                    <FontAwesomeIcon icon="link" className="text-dark mr-1" /> Listen
                                   </a>
                                 </div>
                               </div>
