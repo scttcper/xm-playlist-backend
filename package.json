@@ -6,7 +6,7 @@
     "dev": "nodemon",
     "build": "next build",
     "start": "next start",
-    "migrate:latest": "knex "
+    "migrate:latest": "knex migrate:latest"
   },
   "dependencies": {
     "@emotion/core": "10.0.27",

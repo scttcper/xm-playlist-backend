@@ -4,7 +4,7 @@ import delay from 'delay';
 import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
 
-import { channels } from './channels';
+import { channels } from '../frontend/channels';
 import { checkEndpoint } from './sirius';
 import config from '../config';
 

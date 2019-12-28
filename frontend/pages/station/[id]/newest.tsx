@@ -4,7 +4,7 @@ import fetch from 'isomorphic-unfetch';
 import { NextComponentType, NextPageContext } from 'next';
 import Link from 'next/link';
 import Navbar from 'react-bootstrap/Navbar';
-import { channels } from '../../../src/channels';
+import { channels } from '../../../channels';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Error from 'next/error';
 import AdSense from 'react-adsense';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Channel } from '../src/channels';
+import { Channel } from '../channels';
 
 export const StationNavigation: React.FC<{
   channelId: Channel['id'];

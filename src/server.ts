@@ -10,7 +10,7 @@ import { registerApiRoutes } from './apiRoutes';
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const port = parseInt(process.env.PORT as string, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const app = next({ dev, dir: './frontend' });
 
 app.prepare().then(async () => {
   const server = new Server({

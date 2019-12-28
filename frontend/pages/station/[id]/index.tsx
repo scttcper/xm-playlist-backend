@@ -12,8 +12,8 @@ import Link from 'next/link';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationHeader } from '../../../components/StationHeader';
 import { StationNavigation } from '../../../components/StationNavigation';
-import { PlayJson } from '../../../models';
-import { channels } from '../../../src/channels';
+import { PlayJson } from '../../../../models';
+import { channels } from '../../../channels';
 
 interface StationProps {
   recent: PlayJson[][];

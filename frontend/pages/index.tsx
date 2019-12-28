@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Fuse from 'fuse.js';
 
 import { AppLayout } from '../components/AppLayout';
-import { channels, Channel } from '../src/channels';
+import { channels, Channel } from '../channels';
 
 export default class Movies extends React.Component<{ movies: any[] }> {
   state: { genreFilter: string; results: Channel[] } = { genreFilter: '', results: [] };

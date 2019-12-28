@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { col, fn, Op, literal } from 'sequelize';
 
 import { Artist, Play, Spotify, Track } from '../models';
-import { Channel } from './channels';
+import { Channel } from '../frontend/channels';
 
 export async function getLast(channel: Channel, startTime: any) {
   return Play.findOne({

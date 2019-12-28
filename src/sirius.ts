@@ -3,7 +3,7 @@ import debug from 'debug';
 import got from 'got';
 
 import { Artist, ArtistTrack, Play, Spotify, Track } from '../models';
-import { Channel } from './channels';
+import { Channel } from '../frontend/channels';
 import { getLast } from './plays';
 // import { matchSpotify, spotifyFindAndCache } from './spotify';
 // import { findOrCreateArtists } from './tracks';
