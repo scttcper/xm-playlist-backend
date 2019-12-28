@@ -1,20 +1,46 @@
 import React from 'react';
 import AdSense from 'react-adsense';
 import Link from 'next/link';
+import Fuse from 'fuse.js';
 
 import { AppLayout } from '../components/AppLayout';
-import { channels } from '../src/channels';
+import { channels, Channel } from '../src/channels';
 
-export default class Movies extends React.Component<{ movies: any[] }, { genreFilter: string }> {
-  state = { genreFilter: '' };
+export default class Movies extends React.Component<{ movies: any[] }> {
+  state: { genreFilter: string; results: Channel[] } = { genreFilter: '', results: [] };
+  fuse?: Fuse<Channel, { keys: Array<'name' | 'desc'> }>;
 
   filterGenre = (genre: string) => {
     if (this.state.genreFilter === genre) {
-      this.setState({ genreFilter: '' });
+      this.setState({ genreFilter: '', results: [] });
     } else {
-      this.setState({ genreFilter: genre });
+      this.setState({ genreFilter: genre, results: [] });
     }
   };
+
+  handleBlur(): void {
+    this.fuse = new Fuse(channels, {
+      keys: [
+        {
+          name: 'name',
+          weight: 0.9,
+        },
+        {
+          name: 'desc',
+          weight: 0.1,
+        },
+      ],
+    });
+  }
+
+  handlePwdKeyUp(event: React.KeyboardEvent<HTMLInputElement>): void {
+    if (!this.fuse) {
+      this.handleBlur();
+    }
+
+    const query = (event.target as HTMLInputElement).value;
+    this.setState({ results: this.fuse!.search(query), genreFilter: '' });
+  }
 
   render(): JSX.Element {
     const genreSet = new Set<string>();
@@ -23,9 +49,11 @@ export default class Movies extends React.Component<{ movies: any[] }, { genreFi
 
     let filteredChannels = channels;
     if (this.state.genreFilter) {
-      filteredChannels = filteredChannels.filter(
-        channel => channel.genre === this.state.genreFilter,
-      );
+      filteredChannels = filteredChannels.filter(channel => channel.genre === this.state.genreFilter);
+    }
+
+    if (this.state.results.length) {
+      filteredChannels = this.state.results;
     }
 
     return (
@@ -35,7 +63,7 @@ export default class Movies extends React.Component<{ movies: any[] }, { genreFi
             <div className="col-12">
               <div className="jumbotron p-4 rounded">
                 <h1 className="display-4">xmplaylist</h1>
-                <p className="mb-1">XM &amp; Sirius radio recently played</p>
+                <p className="mb-1">XM Sirius radio recently played and track playlists</p>
                 <p className="text-muted">
                   By{' '}
                   <a className="text-muted" href="https://twitter.com/scttcper">
@@ -53,9 +81,9 @@ export default class Movies extends React.Component<{ movies: any[] }, { genreFi
             </div>
           </div>
         </div>
-        <div className="container bg-light text-center pt-3 rounded-top shadow" style={{ marginTop: '-3em' }}>
+        <div className="container bg-light text-center py-3 rounded-top shadow" style={{ marginTop: '-3em' }}>
           <div className="row mx-md-3">
-            <div className="col-12">
+            <div className="col-12 text-center">
               <h4>Stations</h4>
               {genres.map(genre => (
                 <button
@@ -70,6 +98,15 @@ export default class Movies extends React.Component<{ movies: any[] }, { genreFi
                   {genre}
                 </button>
               ))}
+              <input
+                type="text"
+                className="form-control mt-1 mx-auto"
+                style={{ maxWidth: '600px' }}
+                placeholder="Filter Stations"
+                aria-label="Filter Stations"
+                onKeyUp={event => this.handlePwdKeyUp(event)}
+                onBlur={() => this.handleBlur()}
+              />
             </div>
           </div>
         </div>
@@ -79,7 +116,7 @@ export default class Movies extends React.Component<{ movies: any[] }, { genreFi
               <div key={channel.id} className="col mb-3">
                 <Link href={`/station/${channel.deeplink.toLowerCase()}`}>
                   <a className="text-dark">
-                    <div className="card shadow-light h-100">
+                    <div className="card shadow-light h-100 border-0">
                       <div className="bg-dark p-3 card-img-top">
                         <img
                           src={`/static/img/${channel.deeplink}-lg.png`}

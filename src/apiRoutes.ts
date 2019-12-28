@@ -1,7 +1,6 @@
 import { Server as HapiServer } from '@hapi/hapi';
 import laabr from 'laabr';
 import Joi from '@hapi/joi';
-import _ from 'lodash';
 import Boom from '@hapi/boom';
 
 import { channels, Channel } from './channels';

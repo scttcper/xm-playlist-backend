@@ -9,7 +9,6 @@ export interface Channel {
   playlist: string;
 }
 
-
 export const channels: Channel[] = [
   {
     id: 'siriushits1',

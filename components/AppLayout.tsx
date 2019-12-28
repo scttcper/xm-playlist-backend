@@ -1,16 +1,15 @@
 import '../index.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSpotify } from '@fortawesome/free-brands-svg-icons';
+import { faSpotify, faApple } from '@fortawesome/free-brands-svg-icons';
 import {
   faEllipsisH,
   faExternalLinkAlt,
   faInfoCircle,
-  faLink,
+  faMusic,
 } from '@fortawesome/free-solid-svg-icons';
 import Head from 'next/head';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import React, { ReactNode } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -39,13 +38,8 @@ export const AppLayout: React.FC<{ children: ReactNode; hasNav?: boolean }> = pr
   );
 };
 
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-  hasNav: PropTypes.bool,
-};
-
 AppLayout.defaultProps = {
   hasNav: true,
 };
 
-library.add(faSpotify, faEllipsisH, faInfoCircle, faLink, faExternalLinkAlt);
+library.add(faSpotify, faApple, faEllipsisH, faInfoCircle, faMusic, faExternalLinkAlt);

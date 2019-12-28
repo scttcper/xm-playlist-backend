@@ -15,6 +15,12 @@ export function registerPages(server: HapiServer, app: Server) {
 
   server.route({
     method: 'GET',
+    path: '/station/{id}/track/{trackid}',
+    handler: pathWrapper(app, '/station/[id]/track/[trackid]'),
+  });
+
+  server.route({
+    method: 'GET',
     path: '/station/{id}',
     handler: pathWrapper(app, '/station/[id]'),
   });

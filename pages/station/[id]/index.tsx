@@ -1,21 +1,19 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import fetch from 'isomorphic-unfetch';
-import { NextPageContext } from 'next';
-import Link from 'next/link';
-import Navbar from 'react-bootstrap/Navbar';
-import { channels } from '../../../src/channels';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Error from 'next/error';
-import { AppLayout } from '../../../components/AppLayout';
-import Head from 'next/head';
-import AdSense from 'react-adsense';
-import { StationNavigation } from '../../../components/StationNavigation';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { PlayJson } from '../../../models';
-import _ from 'lodash';
 import { formatDistanceStrict } from 'date-fns';
+import fetch from 'isomorphic-unfetch';
+import _ from 'lodash';
+import { NextPageContext } from 'next';
+import Error from 'next/error';
+import Head from 'next/head';
+import React from 'react';
+import AdSense from 'react-adsense';
+import Link from 'next/link';
+
+import { AppLayout } from '../../../components/AppLayout';
+import { StationHeader } from '../../../components/StationHeader';
+import { StationNavigation } from '../../../components/StationNavigation';
+import { PlayJson } from '../../../models';
+import { channels } from '../../../src/channels';
 
 interface StationProps {
   recent: PlayJson[][];
@@ -58,7 +56,9 @@ export default class Station extends React.Component<StationProps> {
 
   render(): JSX.Element {
     const lowercaseId = this.props.channelId.toLowerCase();
-    const channel = channels.find(channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId);
+    const channel = channels.find(
+      channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
+    );
     if (!channel) {
       return <Error statusCode={404} />;
     }
@@ -71,28 +71,17 @@ export default class Station extends React.Component<StationProps> {
           <title>{channel.name} Recently Played - sirius xm playlist</title>
         </Head>
         <div className="bg-light">
-          <div className="container" style={{ paddingBottom: '2.5rem' }}>
+          <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
             <div className="row">
-              <div className="col-12 col-lg-6 p-2">
-                <div className="media">
-                  <img
-                    style={{ maxWidth: '120px' }}
-                    src={`/static/img/${channel.deeplink}-lg.png`}
-                    className="img-fluid rounded-lg bg-dark mr-3 p-1"
-                    alt="..."
-                  />
-                  <div className="media-body align-self-center">
-                    <h3 className="mt-0 mb-1">{channel.name}</h3>
-                    <small>{channel.desc}</small>
-                  </div>
-                </div>
+              <div className="col-12 col-lg-6">
+                <StationHeader channel={channel} />
               </div>
             </div>
           </div>
         </div>
-        <div className="container mb-1" style={{ marginTop: '-2.3rem' }}>
+        <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
           <div className="row">
-            <div className="col-12 p-2">
+            <div className="col-12 col-md-6 mb-2">
               <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}>
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
@@ -103,7 +92,25 @@ export default class Station extends React.Component<StationProps> {
                       size="lg"
                     />
                   </div>
-                  <div className="mr-auto">Open {channel.name} on Spotify</div>
+                  <div className="mr-auto">{channel.name} playlist on Spotify</div>
+                  <div>
+                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div className="col-12 col-md-6 mb-2">
+              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}>
+                <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
+                  <div className="">
+                    <FontAwesomeIcon
+                      className="mr-2"
+                      style={{ color: '#000' }}
+                      icon={['fab', 'apple']}
+                      size="lg"
+                    />
+                  </div>
+                  <div className="mr-auto">{channel.name} playlist on Apple Music</div>
                   <div>
                     <FontAwesomeIcon size="sm" icon="external-link-alt" />
                   </div>
@@ -121,7 +128,9 @@ export default class Station extends React.Component<StationProps> {
         </div>
         <div className="container mb-3">
           <div className="row">
-            <StationNavigation channelId={channel.id} currentPage="recent" />
+            <div className="col-12">
+              <StationNavigation channelId={channel.id} currentPage="recent" />
+            </div>
           </div>
         </div>
         <div className="container">
@@ -143,7 +152,7 @@ export default class Station extends React.Component<StationProps> {
                     return (
                       <React.Fragment key={play.id}>
                         <div className="col-4 col-lg-3 d-none d-md-block mb-3">
-                          <div className="card h-100">
+                          <div className="card h-100 shadow-sm border-0">
                             <img src={albumCover} className="card-img-top" alt="..." />
                             <div className="card-body d-flex align-items-start flex-column">
                               <div className="mb-auto pb-4" style={{ maxWidth: '100%' }}>
@@ -159,9 +168,15 @@ export default class Station extends React.Component<StationProps> {
                               </div>
                               <div className="d-flex flex-row" style={{ width: '100%' }}>
                                 <div className="flex-fill mr-2">
-                                  <a className="btn btn-light btn-sm btn-block border">
-                                    <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
-                                  </a>
+                                  <Link href={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
+                                    <a className="btn btn-light btn-sm btn-block border">
+                                      <FontAwesomeIcon
+                                        icon="info-circle"
+                                        className="text-dark mr-1"
+                                      />{' '}
+                                      Info
+                                    </a>
+                                  </Link>
                                 </div>
                                 {/* <div className="flex-fill mr-2">
                                 <a className="btn btn-spotify btn-sm btn-block">
@@ -170,7 +185,8 @@ export default class Station extends React.Component<StationProps> {
                               </div> */}
                                 <div className="flex-fill">
                                   <a className="btn btn-light btn-sm btn-block border">
-                                    <FontAwesomeIcon icon="link" className="text-dark mr-1" /> Listen
+                                    <FontAwesomeIcon icon="music" className="text-dark mr-1" />{' '}
+                                    Listen
                                   </a>
                                 </div>
                               </div>
@@ -179,7 +195,7 @@ export default class Station extends React.Component<StationProps> {
                         </div>
                         {/* mobile */}
                         <div className="col-12 d-md-none mb-3">
-                          <div className="row shadow-light radius-media-left radius-media-right ml-0 mr-0">
+                          <div className="row bg-light shadow-light radius-media-left radius-media-right ml-0 mr-0">
                             <div className="col-5 p-0">
                               <img
                                 src={albumCover}
@@ -222,7 +238,7 @@ export default class Station extends React.Component<StationProps> {
                               </div> */}
                                   <div className="flex-fill">
                                     <a className="btn btn-light btn-sm btn-block border">
-                                      <FontAwesomeIcon icon="link" /> Links
+                                      <FontAwesomeIcon icon="music" /> Links
                                     </a>
                                   </div>
                                 </div>

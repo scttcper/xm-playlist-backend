@@ -22,5 +22,6 @@ module.exports = {
         beforeClosing: 'allow',
       },
     ],
+    'react/prop-types': 0,
   },
 };

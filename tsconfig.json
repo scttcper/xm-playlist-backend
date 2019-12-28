@@ -24,7 +24,9 @@
     "src",
     "pages",
     "components",
-    "services"
+    "services",
+    "migrations",
+    "knexfile.ts"
   ],
   "exclude": [
     "node_modules"

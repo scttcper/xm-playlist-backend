@@ -10,6 +10,7 @@ import Error from 'next/error';
 import AdSense from 'react-adsense';
 
 import { AppLayout } from '../../../components/AppLayout';
+import { StationNavigation } from '../../../components/StationNavigation';
 
 const Station: NextComponentType<
   NextPageContext,
@@ -75,25 +76,9 @@ const Station: NextComponentType<
           </div>
         </div>
       </div>
-      <div className="container mb-2">
+      <div className="container mb-3">
         <div className="row">
-          <div className="col-12">
-            <div className="d-inline-block mr-4">
-              <a>
-                <h3>Recently Played</h3>
-              </a>
-            </div>
-            <div className="d-inline-block mr-4 text-secondary">
-              <a>
-                <h3>Newest</h3>
-              </a>
-            </div>
-            <div className="d-inline-block mr-4 text-secondary">
-              <a>
-                <h3>Most Heard</h3>
-              </a>
-            </div>
-          </div>
+          <StationNavigation channelId={channel.id} currentPage="newest" />
         </div>
       </div>
       <div className="container">
@@ -191,7 +176,7 @@ const Station: NextComponentType<
 };
 
 Station.getInitialProps = async context => {
-  const { id } = context.query;
+  const id = context.query.id as string;
   const res = await fetch(`http://localhost:3000/api/station/${id}`);
   const json = await res.json();
   console.log('recent', json);
