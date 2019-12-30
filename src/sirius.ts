@@ -1,42 +1,56 @@
 import { differenceInDays } from 'date-fns';
 import debug from 'debug';
 import got from 'got';
+import { URLSearchParams } from 'url';
+import { db } from './db';
 
-import { Artist, ArtistTrack, Play, Spotify, Track } from '../models';
 import { Channel } from '../frontend/channels';
-import { getLast } from './plays';
-// import { matchSpotify, spotifyFindAndCache } from './spotify';
-// import { findOrCreateArtists } from './tracks';
+import { SiriusDeeplink } from './siriusDeeplink';
+import { TrackModel, ScrobbleModel } from '../frontend/models';
 
 const log = debug('xmplaylist');
 
-export function parseArtists(artists: string): RegExpMatchArray {
-  // Splits artists into an array
-  return artists.match(/(?:\/\\|[^/\\])+/g) as RegExpMatchArray;
+export class NoSongMarker extends Error {
+  message = 'no song marker found';
+}
+
+export class AlreadyScrobbled extends Error {
+  message = 'Already scrobbled';
 }
 
 export function parseName(name: string) {
   return name.split(' #')[0];
 }
 
-export function parseChannelMetadataResponse(meta: any, currentEvent: any) {
-  const artists = parseArtists(String(currentEvent.artists.name));
-  const name = parseName(String(currentEvent.song.name));
-  const songId = String(currentEvent.song.id);
-  return {
-    channelId: meta.channelId,
-    channelName: meta.channelName,
-    channelNumber: meta.channelNumber,
-    name,
-    artists,
-    artistsId: currentEvent.artists.id,
-    startTime: new Date(currentEvent.startTime),
-    songId: songId.replace(/#/g, '!'),
-  };
+export function parseArtists(artists: string): string[] {
+  // Splits artists into an array
+  return artists.match(/(?:\/\\|[^/\\])+/g);
+}
+
+export function parseDeeplinkResponse(data: SiriusDeeplink) {
+  try {
+    // eslint-disable-next-line
+    const markerLists =
+      data.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse
+        .liveChannelResponses[0].markerLists;
+    const cut = markerLists.find(markerList => markerList.layer === 'cut');
+    const marker = cut.markers.find(marker => marker.cut.cutContentType === 'Song');
+    if (!marker || !marker.cut) {
+      throw new NoSongMarker();
+    }
+
+    return {
+      song: marker.cut,
+      startTime: marker.timestamp.absolute,
+    };
+  } catch (e) {
+    log('parsing response error', e);
+    throw e;
+  }
 }
 
 export async function checkEndpoint(channel: Channel) {
-  let res;
+  let res: SiriusDeeplink;
   try {
     const searchParams = new URLSearchParams({
       deepLinkId: channel.deeplink,
@@ -44,24 +58,42 @@ export async function checkEndpoint(channel: Channel) {
     });
     res = await got.get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', { searchParams }).json();
   } catch (e) {
-    log.log(e);
-    return false;
+    log(e);
+    throw e;
   }
 
-  let song;
-  let cut;
-  let startTime;
-  try {
-    // eslint-disable-next-line
-    const markerLists =
-      res.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse
-        .liveChannelResponses[0].markerLists;
-    cut = markerLists.find(n => n.layer === 'cut');
-    // console.log(cut.markers[0]);
-    song = cut.markers[0].cut;
-    startTime = cut.markers[0].timestamp.absolute;
-    // console.log(song);
-  } catch {
-    return;
+  const { song, startTime } = parseDeeplinkResponse(res);
+  const artists = parseArtists(song.artists[0].name);
+  const name = parseName(song.title);
+  const track: TrackModel = {
+    id: song.galaxyAssetId,
+    name,
+    // stringify because knex errors otherwise
+    artists: JSON.stringify(artists) as any,
+  };
+  const scrobble: ScrobbleModel = {
+    trackId: track.id,
+    channel: channel.deeplink,
+    startTime: new Date(startTime),
+  };
+
+  const alreadyScrobbled = await db('scrobble')
+    .select<{ id: string } | undefined>('id')
+    .where(scrobble)
+    .first();
+  if (alreadyScrobbled) {
+    throw new AlreadyScrobbled();
   }
+
+  const existingTrackCount = await db('track')
+    .select<{ id: string } | undefined>('id')
+    .where({ id: track.id })
+    .first();
+  if (!existingTrackCount) {
+    await db('track').insert(track);
+  }
+
+  await db('scrobble').insert(scrobble);
+
+  return { track, scrobble };
 }
