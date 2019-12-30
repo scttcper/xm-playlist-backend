@@ -10,10 +10,14 @@ import { popular } from './plays';
 import { client, getCache } from './redis';
 import * as Util from './util';
 import { search } from './youtube';
-import { TrackModel } from '../frontend/models';
+import { TrackModel, Spotify } from '../frontend/models';
 import { db } from './db';
 
 const log = debug('xmplaylist');
+
+export class SpotifyFailed extends Error {
+  message = 'Spotify failed';
+}
 
 const blacklist = [
   'karaoke',
@@ -39,7 +43,6 @@ export interface SpotifyParsed {
 }
 export function parseSpotify(obj: any): SpotifyParsed {
   const cover = obj?.album?.images?.[0] ?? {};
-  console.log(obj);
   return {
     cover: cover.url,
     spotifyId: obj.id,
@@ -125,7 +128,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   throw new Error('Everything Failed');
 }
 
-export async function matchSpotify(track: TrackModel, update = false): Promise<any> {
+export async function matchSpotify(track: TrackModel, update = false): Promise<void> {
   const s = await searchTrack(
     JSON.parse(track.artists).map(n => n.name),
     track.name,
@@ -138,15 +141,16 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<a
   log({ spotify: s });
 
   if (update) {
-    return db('spotify').update({
+    await db('spotify').update({
       cover: s.cover,
       spotifyId: s.spotifyId,
       name: s.spotifyName,
       previewUrl: s.previewUrl,
+      updatedAt: db.fn.now(),
     }).where('id', track.id);
   }
 
-  return db('spotify').insert({
+  await db('spotify').insert({
     id: track.id,
     cover: s.cover,
     spotifyId: s.spotifyId,
@@ -155,13 +159,15 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<a
   });
 }
 
-export async function spotifyFindAndCache(track: TrackModel): Promise<any> {
+export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | undefined> {
   const doc = await db('spotify').select().where({ id: track.id }).first();
   if (doc) {
     return doc;
   }
 
-  return matchSpotify(track);
+  await matchSpotify(track);
+
+  return db('spotify').select().where({ id: track.id }).first();
 }
 
 export async function getUserToken(code: string): Promise<string> {

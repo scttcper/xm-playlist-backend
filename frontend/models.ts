@@ -13,12 +13,11 @@ export interface ScrobbleModel {
 }
 
 export interface Spotify {
-  trackId: number;
-  cover: string;
-  url: string;
+  id: string;
   spotifyId: string;
-  spotifyName: string;
-  durationMs: number;
+  name: string;
+  cover: string | null;
+  previewUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
 }

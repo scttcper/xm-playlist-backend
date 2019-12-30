@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('name', 200).notNullable();
     table.jsonb('artists').defaultTo('[]').notNullable();
 
-    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
   });
 
   await knex.schema.createTable('scrobble', table => {
@@ -29,6 +29,9 @@ export async function up(knex: Knex): Promise<void> {
     table.string('cover');
     table.string('preview_url');
 
+    table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
+    table.timestamp('updated_at');
+
     table.foreign('id').references('track.id');
   });
 }
@@ -36,4 +39,5 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable('track');
   await knex.schema.dropTable('scrobble');
+  await knex.schema.dropTable('spotify');
 }

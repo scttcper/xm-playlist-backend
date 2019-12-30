@@ -1,6 +1,6 @@
 @import '~@fortawesome/fontawesome-svg-core/styles.css';
 
-@import url('https://fonts.googleapis.com/css?family=Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -165,8 +165,20 @@ body {
   background: #D9E2EC;
 }
 
+h1, h2, h3, .h1, .h2, .h3 {
+  font-weight: 700;
+  font-family: 'Open Sans', cursive;
+}
+
 .navbar-brand, .display-4 {
-  font-family: 'Calistoga', cursive;
+  font-weight: 700;
+  font-family: 'Open Sans', cursive;
+}
+
+.btn-primary {
+  font-weight: 700;
+  font-size: 80%;
+  font-family: 'Open Sans', cursive;
 }
 
 .bg-body {

@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/node';
 import { channels } from '../frontend/channels';
 import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
 import config from '../config';
-import { spotifyFindAndCache } from './spotify';
+import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 
 const log = debug('xmplaylist');
 
@@ -40,6 +40,10 @@ function catchError(error: Error) {
   }
 
   if (error instanceof AlreadyScrobbled) {
+    return;
+  }
+
+  if (error instanceof SpotifyFailed) {
     return;
   }
 
