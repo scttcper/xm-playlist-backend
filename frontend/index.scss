@@ -153,8 +153,8 @@ $navbar-padding-y: $spacer / 4;
 // @import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/media";
 // @import '~bootstrap/scss/list-group';
-// @import "~bootstrap/scss/close";
-// @import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
 // @import "~bootstrap/scss/tooltip";
 // @import "~bootstrap/scss/popover";
 // @import "~bootstrap/scss/carousel";
@@ -167,18 +167,18 @@ body {
 
 h1, h2, h3, .h1, .h2, .h3 {
   font-weight: 700;
-  font-family: 'Open Sans', cursive;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 .navbar-brand, .display-4 {
   font-weight: 700;
-  font-family: 'Open Sans', cursive;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 .btn-primary {
   font-weight: 700;
   font-size: 80%;
-  font-family: 'Open Sans', cursive;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 .bg-body {

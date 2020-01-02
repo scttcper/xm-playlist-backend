@@ -31,7 +31,7 @@ export default class Station extends React.Component<StationProps> {
 
   static async getInitialProps(context: Context): Promise<StationProps> {
     const id = context.query.id as string;
-    const res = await fetch(`http://localhost:3000/api/station/${id}/newest`);
+    const res = await fetch(`http://localhost:3000/api/station/${id}/most-heard`);
     const json = await res.json();
     return { recent: _.chunk(json, 12), channelId: id };
   }
@@ -101,7 +101,7 @@ export default class Station extends React.Component<StationProps> {
         <div className="container mb-3">
           <div className="row">
             <div className="col-12">
-              <StationNavigation channelId={channel.id} currentPage="newest" />
+              <StationNavigation channelId={channel.id} currentPage="most-heard" />
             </div>
           </div>
         </div>

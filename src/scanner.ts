@@ -8,6 +8,7 @@ import { channels } from '../frontend/channels';
 import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
 import config from '../config';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
+import { findAndCacheLinks } from './linkfinder';
 
 const log = debug('xmplaylist');
 
@@ -16,9 +17,10 @@ async function updateAll() {
     log(`checking ${channel.name}`);
     try {
       const { track } = await checkEndpoint(channel);
-      await spotifyFindAndCache(track);
+      const spotify = await spotifyFindAndCache(track);
+      await findAndCacheLinks(spotify);
     } catch (error) {
-      catchError(error);
+      await catchError(error);
     } finally {
       await delay(300);
     }
@@ -27,14 +29,7 @@ async function updateAll() {
   return updateAll();
 }
 
-if (!module.parent) {
-  Sentry.init({ dsn: config.dsn });
-  log('cron running');
-  pForever(() => updateAll()).catch((e: Error) => catchError(e));
-}
-
-function catchError(error: Error) {
-  log(error.message);
+async function catchError(error: Error) {
   if (error instanceof NoSongMarker) {
     return;
   }
@@ -48,5 +43,13 @@ function catchError(error: Error) {
   }
 
   Sentry.captureException(error);
-  process.exit(0);
+  return delay(500).then(() => {
+    process.exit(0);
+  });
+}
+
+if (!module.parent) {
+  Sentry.init({ dsn: config.dsn });
+  log('cron running');
+  pForever(() => updateAll()).catch((e: Error) => catchError(e));
 }

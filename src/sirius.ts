@@ -1,4 +1,3 @@
-import { differenceInDays } from 'date-fns';
 import debug from 'debug';
 import got from 'got';
 import { URLSearchParams } from 'url';
@@ -34,7 +33,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
       data.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse
         .liveChannelResponses[0].markerLists;
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
-    const marker = cut.markers.find(marker => marker.cut.cutContentType === 'Song');
+    const marker = cut.markers.find(marker => marker.cut.cutContentType === 'Song' && marker.cut.title);
     if (!marker || !marker.cut) {
       throw new NoSongMarker();
     }

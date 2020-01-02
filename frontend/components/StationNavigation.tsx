@@ -10,21 +10,21 @@ export const StationNavigation: React.FC<{
     <div className="text-nowrap overflow-auto">
       <div className="d-inline-block mr-3">
         <Link href={`/station/${props.channelId.toLowerCase()}`}>
-          <a className={'h2 ' + (props.currentPage === 'recent' ? 'text-dark font-weight-bolder' : 'text-secondary')}>
+          <a className={'h3 ' + (props.currentPage === 'recent' ? 'text-dark' : 'text-secondary')}>
             Recently Played
           </a>
         </Link>
       </div>
       <div className="d-inline-block mr-3">
         <Link href={`/station/${props.channelId.toLowerCase()}/newest`}>
-          <a className={'h2 ' + (props.currentPage === 'newest' ? 'text-dark font-weight-bolder' : 'text-secondary')}>
+          <a className={'h3 ' + (props.currentPage === 'newest' ? 'text-dark' : 'text-secondary')}>
             New Songs
           </a>
         </Link>
       </div>
       <div className="d-inline-block mr-3 text-secondary">
-        <Link href={`/station/${props.channelId.toLowerCase()}/newest`}>
-          <a className={'h2 ' + (props.currentPage === 'most-heard' ? 'text-dark font-weight-bolder' : 'text-secondary')}>
+        <Link href={`/station/${props.channelId.toLowerCase()}/most-heard`}>
+          <a className={'h3 ' + (props.currentPage === 'most-heard' ? 'text-dark' : 'text-secondary')}>
             Most Heard
           </a>
         </Link>

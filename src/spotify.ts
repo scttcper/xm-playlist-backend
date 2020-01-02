@@ -99,19 +99,19 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
     limit: '1',
   });
   const url = 'https://api.spotify.com/v1/search';
-  const res = (await got
+  const res = await got
     .get(url, {
       searchParams,
       headers,
     })
-    .json()) as any;
+    .json<any>();
   if (res.tracks.items.length > 0) {
     return parseSpotify(_.first(res.tracks.items));
   }
 
   const youtube = await search(`${cleanTrack} ${cleanArtists}`);
   if (!youtube) {
-    throw new Error('Youtube failed');
+    throw new SpotifyFailed('Youtube failed');
   }
 
   searchParams.set(
@@ -125,7 +125,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
     return parseSpotify(_.first(res2.tracks.items));
   }
 
-  throw new Error('Everything Failed');
+  throw new SpotifyFailed();
 }
 
 export async function matchSpotify(track: TrackModel, update = false): Promise<void> {
@@ -135,23 +135,23 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<v
   );
 
   if (!s || !s.spotifyName) {
-    throw new Error('Failed');
+    throw new SpotifyFailed();
   }
-
-  log({ spotify: s });
 
   if (update) {
-    await db('spotify').update({
-      cover: s.cover,
-      spotifyId: s.spotifyId,
-      name: s.spotifyName,
-      previewUrl: s.previewUrl,
-      updatedAt: db.fn.now(),
-    }).where('id', track.id);
+    await db<Spotify>('spotify')
+      .update({
+        cover: s.cover,
+        spotifyId: s.spotifyId,
+        name: s.spotifyName,
+        previewUrl: s.previewUrl,
+        updatedAt: db.fn.now() as any,
+      })
+      .where('trackId', track.id);
   }
 
-  await db('spotify').insert({
-    id: track.id,
+  await db<Spotify>('spotify').insert({
+    trackId: track.id,
     cover: s.cover,
     spotifyId: s.spotifyId,
     name: s.spotifyName,
@@ -160,14 +160,21 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<v
 }
 
 export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | undefined> {
-  const doc = await db('spotify').select().where({ id: track.id }).first();
+  const doc = await db<Spotify>('spotify')
+    .select()
+    .where('trackId', track.id)
+    .first();
+  // TODO: check spotify age
   if (doc) {
     return doc;
   }
 
   await matchSpotify(track);
 
-  return db('spotify').select().where({ id: track.id }).first();
+  return db<Spotify>('spotify')
+    .select()
+    .where('trackId', track.id)
+    .first();
 }
 
 export async function getUserToken(code: string): Promise<string> {

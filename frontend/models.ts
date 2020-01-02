@@ -13,7 +13,7 @@ export interface ScrobbleModel {
 }
 
 export interface Spotify {
-  id: string;
+  trackId: string;
   spotifyId: string;
   name: string;
   cover: string | null;

@@ -4,11 +4,13 @@ import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
 
 import { channels, Channel } from '../frontend/channels';
-import { getRecent, popular } from './plays';
+import { getRecent, getNewest, getMostHeard } from './plays';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
-  const channel = channels.find(channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId);
+  const channel = channels.find(
+    channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
+  );
   if (!channel) {
     throw Boom.notFound('Channel not Found');
   }
@@ -50,6 +52,40 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       return getRecent(channel);
+    },
+  });
+
+  server.route({
+    path: '/api/station/{id}/newest',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          id: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.id);
+      return getNewest(channel);
+    },
+  });
+
+  server.route({
+    path: '/api/station/{id}/most-heard',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          id: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.id);
+      return getMostHeard(channel);
     },
   });
 }

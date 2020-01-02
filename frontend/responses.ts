@@ -10,5 +10,10 @@ export interface StationRecent {
     name: string;
     artists: string[];
   };
+  links: Array<{ site: string; url: string }>;
   start_time: string;
+}
+
+export interface StationNewest extends StationRecent {
+  plays: number;
 }

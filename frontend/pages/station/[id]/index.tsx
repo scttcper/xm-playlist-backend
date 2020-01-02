@@ -15,6 +15,7 @@ import { StationHeader } from '../../../components/StationHeader';
 import { StationNavigation } from '../../../components/StationNavigation';
 import { channels } from '../../../channels';
 import { StationRecent } from '../../../responses';
+import { TrackLinks } from '../../../components/TrackLinks';
 
 interface StationProps {
   recent: StationRecent[][];
@@ -80,8 +81,8 @@ export default class Station extends React.Component<StationProps> {
         </div>
         <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
           <div className="row">
-            <div className="col-12 col-md-6 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}>
+            <div className="col-12 mb-2">
+              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer">
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
                     <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'spotify']} size="lg" />
@@ -93,8 +94,8 @@ export default class Station extends React.Component<StationProps> {
                 </div>
               </a>
             </div>
-            <div className="col-12 col-md-6 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}>
+            {/* <div className="col-12 col-md-6 mb-2">
+              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer">
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
                     <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'apple']} size="lg" />
@@ -105,7 +106,7 @@ export default class Station extends React.Component<StationProps> {
                   </div>
                 </div>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="container mb-1 adsbygoogle">
@@ -164,16 +165,11 @@ export default class Station extends React.Component<StationProps> {
                                     </a>
                                   </Link>
                                 </div>
-                                {/* <div className="flex-fill mr-2">
-                                <a className="btn btn-spotify btn-sm btn-block">
-                                  <FontAwesomeIcon icon={['fab', 'spotify']} />
-                                </a>
-                              </div> */}
-                                <div className="flex-fill">
-                                  <a className="btn btn-light btn-sm btn-block border">
-                                    <FontAwesomeIcon icon="music" className="text-dark mr-1" /> Listen
-                                  </a>
-                                </div>
+                                {play.links && (
+                                  <div className="flex-fill">
+                                    <TrackLinks links={play.links} />
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -187,7 +183,7 @@ export default class Station extends React.Component<StationProps> {
                             <div className="col-7 pt-2 pb-3 px-3">
                               <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
                                 <div className="mb-auto" style={{ maxWidth: '100%' }}>
-                                  <span className="text-secondary text-xs">5 Minutes ago</span>
+                                  <span className="text-secondary text-xs">{timeAgo}</span>
 
                                   <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">{play.track.name}</h5>
                                   <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
@@ -208,16 +204,11 @@ export default class Station extends React.Component<StationProps> {
                                       <FontAwesomeIcon icon="info-circle" /> Info
                                     </a>
                                   </div>
-                                  {/* <div className="flex-fill mr-2">
-                                <a className="btn btn-spotify btn-sm btn-block">
-                                  <FontAwesomeIcon icon={['fab', 'spotify']} />
-                                </a>
-                              </div> */}
-                                  <div className="flex-fill">
-                                    <a className="btn btn-light btn-sm btn-block border">
-                                      <FontAwesomeIcon icon="music" /> Links
-                                    </a>
-                                  </div>
+                                  {play.links && (
+                                    <div className="flex-fill">
+                                      <TrackLinks links={play.links} />
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </div>
