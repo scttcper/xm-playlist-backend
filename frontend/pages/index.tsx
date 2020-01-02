@@ -114,7 +114,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
           <div className="row mx-md-3 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             {filteredChannels.map(channel => (
               <div key={channel.id} className="col mb-3">
-                <Link href={`/station/${channel.deeplink.toLowerCase()}`}>
+                <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
                   <a className="text-dark">
                     <div className="card shadow-light h-100 border-0">
                       <div className="bg-dark p-3 card-img-top">

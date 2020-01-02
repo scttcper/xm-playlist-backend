@@ -4,7 +4,8 @@ import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
 
 import { channels, Channel } from '../frontend/channels';
-import { getRecent, getNewest, getMostHeard } from './plays';
+import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
+import { getTrack } from './track';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -12,6 +13,7 @@ function getChannel(id: string): Channel {
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
   if (!channel) {
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw Boom.notFound('Channel not Found');
   }
 
@@ -86,6 +88,26 @@ export async function registerApiRoutes(server: HapiServer) {
     handler: async req => {
       const channel = getChannel(req.params.id);
       return getMostHeard(channel);
+    },
+  });
+
+  server.route({
+    path: '/api/station/{channelId}/track/{trackId}',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          channelId: Joi.string().required(),
+          trackId: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.channelId);
+      const track = await getTrack(req.params.trackId);
+      const plays = await getPlays(req.params.trackId, channel);
+      return { ...track, plays };
     },
   });
 }

@@ -6,7 +6,6 @@ import { URLSearchParams } from 'url';
 
 import config from '../config';
 import { channels } from '../frontend/channels';
-import { popular } from './plays';
 import { client, getCache } from './redis';
 import * as Util from './util';
 import { search } from './youtube';
@@ -249,27 +248,27 @@ export async function playlistTracks(code: string, playlistId: string) {
   return items;
 }
 
-export async function updatePlaylists(code: string) {
-  for (const chan of channels) {
-    let trackIds = await popular(chan, 1000).then(t =>
-      t.map(n => {
-        if (!n.spotify) {
-          // eslint-disable-next-line array-callback-return
-          return;
-        }
+// export async function updatePlaylists(code: string) {
+//   for (const chan of channels) {
+//     let trackIds = await popular(chan, 1000).then(t =>
+//       t.map(n => {
+//         if (!n.spotify) {
+//           // eslint-disable-next-line array-callback-return
+//           return;
+//         }
 
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        return `spotify:track:${n.spotify.spotifyId}`;
-      }),
-    );
-    trackIds = _.uniq(_.compact(trackIds));
-    const current = await playlistTracks(code, chan.playlist).catch(e => {
-      console.error('GET TRACKS?', e);
-      return [];
-    });
-    const toRemove = _.difference(current, trackIds);
-    await removeFromPlaylist(code, chan.playlist, toRemove).catch(e => console.error('REMOVE', e));
-    const toAdd = _.pullAll(trackIds, current);
-    await addToPlaylist(code, chan.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
-  }
-}
+//         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+//         return `spotify:track:${n.spotify.spotifyId}`;
+//       }),
+//     );
+//     trackIds = _.uniq(_.compact(trackIds));
+//     const current = await playlistTracks(code, chan.playlist).catch(e => {
+//       console.error('GET TRACKS?', e);
+//       return [];
+//     });
+//     const toRemove = _.difference(current, trackIds);
+//     await removeFromPlaylist(code, chan.playlist, toRemove).catch(e => console.error('REMOVE', e));
+//     const toAdd = _.pullAll(trackIds, current);
+//     await addToPlaylist(code, chan.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
+//   }
+// }

@@ -7,6 +7,7 @@ import {
   faExternalLinkAlt,
   faInfoCircle,
   faMusic,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -24,7 +25,7 @@ export const AppLayout: React.FC<{ children: ReactNode; hasNav?: boolean }> = pr
         <Navbar expand bg="dark" variant="dark">
           <div className="container">
             <div className="text-center text-md-left" style={{ width: '100%' }}>
-              <Link href="/">
+              <Link prefetch href="/">
                 <a className="ml-md-3">
                   <Navbar.Brand>xmplaylist</Navbar.Brand>
                 </a>
@@ -42,4 +43,4 @@ AppLayout.defaultProps = {
   hasNav: true,
 };
 
-library.add(faSpotify, faApple, faEllipsisH, faInfoCircle, faMusic, faExternalLinkAlt);
+library.add(faSpotify, faApple, faEllipsisH, faInfoCircle, faMusic, faExternalLinkAlt, faArrowLeft);

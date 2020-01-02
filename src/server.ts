@@ -1,14 +1,10 @@
 import next from 'next';
 import { Server } from '@hapi/hapi';
-import Good from '@hapi/good';
-import Boom from '@hapi/boom';
 
 import { registerPages, registerNextjs } from './pageRoutes';
 import { registerApiRoutes } from './apiRoutes';
 
-
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-const port = parseInt(process.env.PORT as string, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, dir: './frontend' });
 
@@ -16,32 +12,6 @@ app.prepare().then(async () => {
   const server = new Server({
     debug: { request: ['implementation'] },
     port,
-  });
-
-  // logging
-  // await server.register({
-  //   plugin: Good,
-  //   options: {
-  //     reporters: {
-  //       myConsoleReporter: [
-  //         {
-  //           module: '@hapi/good-squeeze',
-  //           name: 'Squeeze',
-  //           args: [{ log: '*', response: '*', ops: '*' }],
-  //         },
-  //         'stdout',
-  //       ],
-  //     },
-  //   },
-  // });
-
-  // TODO: add favicon
-  server.route({
-    method: 'GET',
-    path: '/favicon.ico',
-    handler: () => {
-      throw Boom.notFound();
-    },
   });
 
   // register the nextjs pages

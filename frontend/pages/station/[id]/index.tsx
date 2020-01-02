@@ -159,7 +159,7 @@ export default class Station extends React.Component<StationProps> {
                               </div>
                               <div className="d-flex flex-row" style={{ width: '100%' }}>
                                 <div className="flex-fill mr-2">
-                                  <Link href={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
+                                  <Link href="/station/[id]/track/[trackid]" as={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
                                     <a className="btn btn-light btn-sm btn-block border">
                                       <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
                                     </a>
@@ -200,9 +200,11 @@ export default class Station extends React.Component<StationProps> {
                                 </div>
                                 <div className="d-flex flex-row" style={{ width: '100%' }}>
                                   <div className="flex-fill mr-2">
-                                    <a className="btn btn-light btn-sm btn-block border">
-                                      <FontAwesomeIcon icon="info-circle" /> Info
-                                    </a>
+                                    <Link href="/station/[id]/track/[trackid]" as={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
+                                      <a className="btn btn-light btn-sm btn-block border">
+                                        <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
+                                      </a>
+                                    </Link>
                                   </div>
                                   {play.links && (
                                     <div className="flex-fill">

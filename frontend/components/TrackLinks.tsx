@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/modal';
+import { TrackLinksButtons } from './TrackLinksButtons';
 
 const siteConversion: Record<string, string> = {
   tidal: 'Tidal',
@@ -26,19 +27,6 @@ export function TrackLinks(props: { links: Array<{ site: string; url: string }> 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const spotifyLink = props.links.find(link => link.site === 'spotify');
-  const appleLink = props.links.find(link => link.site === 'itunes');
-
-  const links = props.links.filter(link => !['spotify', 'itunes'].includes(link.site));
-
-  if (appleLink) {
-    links.unshift(appleLink);
-  }
-
-  if (spotifyLink) {
-    links.unshift(spotifyLink);
-  }
-
   return (
     <>
       <a className="btn btn-light btn-sm btn-block border" onClick={handleShow}>
@@ -50,17 +38,7 @@ export function TrackLinks(props: { links: Array<{ site: string; url: string }> 
           <Modal.Title>Links</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {links.map(link => (
-            <a
-              key={link.site}
-              href={link.url}
-              className="btn btn-block border rounded-pill"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {siteConversion[link.site] || link.site}
-            </a>
-          ))}
+          <TrackLinksButtons links={props.links} />
         </Modal.Body>
       </Modal>
     </>

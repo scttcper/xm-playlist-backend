@@ -15,7 +15,6 @@ async function main() {
   ]);
   const { url } = answers;
 
-  // eslint-disable-next-line prefer-destructuring
   const code = URL.parse(url, true).query.code as string;
 
   if (!code) {
