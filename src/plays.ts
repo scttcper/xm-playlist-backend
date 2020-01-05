@@ -10,7 +10,7 @@ import { ScrobbleModel } from '../frontend/models';
 export async function getNewest(channel: Channel): Promise<StationNewest[]> {
   const thirtyDaysAgo = subDays(new Date(), 30);
   const newest = await db('scrobble')
-    .select()
+    .select(['*', 'track.id as trackId', 'scrobble.id as id'])
     .where('channel', channel.deeplink)
     .andWhere('track.createdAt', '>', thirtyDaysAgo)
     .leftJoin('track', 'scrobble.trackId', 'track.id')
@@ -18,7 +18,7 @@ export async function getNewest(channel: Channel): Promise<StationNewest[]> {
     .leftJoin('links', 'scrobble.trackId', 'links.trackId')
     .orderBy('track.createdAt', 'desc');
 
-  const groupedById = _.groupBy(newest, _.property('id'));
+  const groupedById = _.groupBy(newest, _.property('trackId'));
 
   return Object.values(groupedById).map(dataArr => {
     const data = dataArr[0];
@@ -27,13 +27,14 @@ export async function getNewest(channel: Channel): Promise<StationNewest[]> {
       preview_url: data.previewUrl,
       cover: data.cover,
     };
-    const track: StationNewest['track'] = { id: data.id, name: data.name, artists: data.artists };
+    const track: StationNewest['track'] = { id: data.trackId, name: data.name, artists: data.artists };
     return {
+      id: data.id,
       spotify,
       track,
       start_time: data.startTime,
       links: data.links,
-      plays: groupedById[data.id].length,
+      plays: groupedById[data.trackId].length,
     };
   });
 }
@@ -41,14 +42,14 @@ export async function getNewest(channel: Channel): Promise<StationNewest[]> {
 export async function getMostHeard(channel: Channel): Promise<StationNewest[]> {
   const thirtyDaysAgo = subDays(new Date(), 30);
   const newest = await db('scrobble')
-    .select()
+    .select(['*', 'track.id as trackId', 'scrobble.id as id'])
     .where('channel', channel.deeplink)
     .andWhere('scrobble.startTime', '>', thirtyDaysAgo)
     .leftJoin('track', 'scrobble.trackId', 'track.id')
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
     .leftJoin('links', 'scrobble.trackId', 'links.trackId');
 
-  const groupedById = _.groupBy(newest, _.property('id'));
+  const groupedById = _.groupBy(newest, _.property('trackId'));
 
   const result = Object.values(groupedById).map(dataArr => {
     const data = dataArr[0];
@@ -57,13 +58,14 @@ export async function getMostHeard(channel: Channel): Promise<StationNewest[]> {
       preview_url: data.previewUrl,
       cover: data.cover,
     };
-    const track: StationNewest['track'] = { id: data.id, name: data.name, artists: data.artists };
+    const track: StationNewest['track'] = { id: data.trackId, name: data.name, artists: data.artists };
     return {
+      id: data.id,
       spotify,
       track,
       start_time: data.startTime,
       links: data.links,
-      plays: groupedById[data.id].length,
+      plays: groupedById[data.trackId].length,
     };
   });
   return _.orderBy(result, _.property('plays'), 'desc');
@@ -71,7 +73,7 @@ export async function getMostHeard(channel: Channel): Promise<StationNewest[]> {
 
 export async function getRecent(channel: Channel, last?: Date): Promise<StationRecent[]> {
   const query = db('scrobble')
-    .select()
+    .select(['*', 'track.id as trackId', 'scrobble.id as id'])
     .where('channel', channel.deeplink)
     .leftJoin('track', 'scrobble.trackId', 'track.id')
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
@@ -91,8 +93,8 @@ export async function getRecent(channel: Channel, last?: Date): Promise<StationR
       preview_url: data.previewUrl,
       cover: data.cover,
     };
-    const track: StationRecent['track'] = { id: data.id, name: data.name, artists: data.artists };
-    return { spotify, track, start_time: data.startTime, links: data.links };
+    const track: StationRecent['track'] = { id: data.trackId, name: data.name, artists: data.artists };
+    return { id: data.id, spotify, track, start_time: data.startTime, links: data.links };
   });
 }
 

@@ -1,15 +1,10 @@
 export default {
-  username: '',
-  database: 'xmtest',
-  password: '',
   db: {
-    host: 'localhost',
-    dialect: 'postgres',
-    logging: false,
-    pool: {
-      max: 5,
-      min: 1,
-      idle: 1000,
+    client: 'postgresql',
+    connection: {
+      database: 'xmtest',
+      user: 'postgres',
+      password: '',
     },
   },
   port: 5000,

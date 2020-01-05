@@ -24,6 +24,7 @@ export interface TrackChannelResponse extends TrackResponse {
 
 export interface StationRecent extends TrackResponse {
   start_time: string;
+  id: string;
 }
 
 export interface StationNewest extends StationRecent {

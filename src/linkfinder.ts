@@ -1,9 +1,6 @@
-import debug from 'debug';
 import got from 'got';
 import { Spotify } from '../frontend/models';
 import { db } from './db';
-
-const log = debug('xmplaylist');
 
 export class FailedLinkFinding extends Error {
   message = 'Could not find links';

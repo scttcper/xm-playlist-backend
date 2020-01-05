@@ -1,14 +1,7 @@
 import knex from 'knex';
 import knexStringcase from 'knex-stringcase';
 
-const options: knex.Config = {
-  client: 'postgresql',
-  connection: {
-    database: 'xmplaylist',
-    user: 'postgres',
-    password: '',
-  },
-};
+import config from '../config';
 
-const stringcaseOptions = knexStringcase(options);
+const stringcaseOptions = knexStringcase(config.db);
 export const db = knex(stringcaseOptions);

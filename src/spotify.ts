@@ -1,18 +1,14 @@
 /* eslint-disable no-await-in-loop */
 import _ from 'lodash';
-import debug from 'debug';
 import got from 'got';
 import { URLSearchParams } from 'url';
 
 import config from '../config';
-import { channels } from '../frontend/channels';
 import { client, getCache } from './redis';
 import * as Util from './util';
 import { search } from './youtube';
 import { TrackModel, Spotify } from '../frontend/models';
 import { db } from './db';
-
-const log = debug('xmplaylist');
 
 export class SpotifyFailed extends Error {
   message = 'Spotify failed';
@@ -40,6 +36,7 @@ export interface SpotifyParsed {
   url: string;
   previewUrl: string | null;
 }
+
 export function parseSpotify(obj: any): SpotifyParsed {
   const cover = obj?.album?.images?.[0] ?? {};
   return {

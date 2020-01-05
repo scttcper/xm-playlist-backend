@@ -6,7 +6,9 @@
     "dev": "nodemon",
     "build": "next build frontend",
     "start": "NODE_ENV=production ts-node ./src/server.ts",
-    "migrate:latest": "knex migrate:latest"
+    "migrate:latest": "knex migrate:latest",
+    "lint": "eslint --ext .js,.ts, .",
+    "lint:fix": "eslint --fix --ext .js,.ts, ."
   },
   "dependencies": {
     "@data-ui/sparkline": "0.0.84",
@@ -46,6 +48,7 @@
     "react-bootstrap": "1.0.0-beta.16",
     "react-burger-menu": "2.6.13",
     "react-dom": "16.12.0",
+    "react-ga": "^2.7.0",
     "react-sizeme": "^2.6.10",
     "redis": "^2.8.0",
     "sequelize": "5.21.3"

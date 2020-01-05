@@ -51,5 +51,5 @@ async function catchError(error: Error) {
 if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
   log('cron running');
-  pForever(() => updateAll()).catch((e: Error) => catchError(e));
+  pForever(() => updateAll()).catch(async (e: Error) => catchError(e));
 }

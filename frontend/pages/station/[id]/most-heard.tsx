@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
@@ -7,14 +6,14 @@ import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
 import AdSense from 'react-adsense';
-import Link from 'next/link';
+import ReactGA from 'react-ga';
 
 import { AppLayout } from '../../../components/AppLayout';
 import { StationHeader } from '../../../components/StationHeader';
 import { StationNavigation } from '../../../components/StationNavigation';
 import { channels } from '../../../channels';
-import { StationNewest } from '../../../responses';
-import { TrackLinks } from '../../../components/TrackLinks';
+import { StationNewest, TrackResponse } from '../../../responses';
+import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 
 interface StationProps {
   recent: StationNewest[][];
@@ -36,6 +35,18 @@ export default class Station extends React.Component<StationProps> {
     return { recent: _.chunk(json, 12), channelId: id };
   }
 
+  trackPlaylistClick(type: string): void {
+    ReactGA.event({
+      category: 'Playlist',
+      action: type,
+      label: this.props.channelId,
+    });
+  }
+
+  secondaryText(track: TrackResponse): string {
+    return `Times Played: ${(track as StationNewest).plays}`;
+  }
+
   render(): JSX.Element {
     const lowercaseId = this.props.channelId.toLowerCase();
     const channel = channels.find(
@@ -50,7 +61,7 @@ export default class Station extends React.Component<StationProps> {
     return (
       <AppLayout>
         <Head>
-          <title>{channel.name} Recently Played - sirius xm playlist</title>
+          <title>{channel.name} Most Played - sirius xm playlist</title>
         </Head>
         <div className="bg-light">
           <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
@@ -64,7 +75,12 @@ export default class Station extends React.Component<StationProps> {
         <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
           <div className="row">
             <div className="col-12 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer">
+              <a
+                href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => this.trackPlaylistClick('spotify')}
+              >
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
                     <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'spotify']} size="lg" />
@@ -107,100 +123,7 @@ export default class Station extends React.Component<StationProps> {
         </div>
         <div className="container">
           <div className="row">
-            {recent.map((chunk, index) => {
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <React.Fragment key={index}>
-                  {index > 0 && (
-                    <div className="col-12 adsbygoogle">
-                      <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
-                    </div>
-                  )}
-                  {chunk.map(play => {
-                    const albumCover = play.spotify.cover || '/static/missing.png';
-                    return (
-                      <React.Fragment key={play.track.id}>
-                        <div className="col-4 col-lg-3 d-none d-md-block mb-3">
-                          <div className="card h-100 shadow-sm border-0">
-                            <img src={albumCover} className="card-img-top" alt="..." />
-                            <div className="card-body d-flex align-items-start flex-column">
-                              <div className="mb-auto pb-4" style={{ maxWidth: '100%' }}>
-                                <small className="text-secondary">Times Played: {play.plays}</small>
-                                <h5 className="mt-1 mb-0">{play.track.name}</h5>
-                                <ul className="list-inline">
-                                  {play.track.artists.map((artist, index) => (
-                                    // eslint-disable-next-line react/no-array-index-key
-                                    <small key={index} className="mr-2">
-                                      {artist}
-                                    </small>
-                                  ))}
-                                </ul>
-                              </div>
-                              <div className="d-flex flex-row" style={{ width: '100%' }}>
-                                <div className="flex-fill mr-2">
-                                  <Link href="/station/[id]/track/[trackid]" as={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
-                                    <a className="btn btn-light btn-sm btn-block border">
-                                      <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
-                                    </a>
-                                  </Link>
-                                </div>
-                                {play.links && (
-                                  <div className="flex-fill">
-                                    <TrackLinks links={play.links} />
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        {/* mobile */}
-                        <div className="col-12 d-md-none mb-3">
-                          <div className="row bg-light shadow-light radius-media-left radius-media-right ml-0 mr-0">
-                            <div className="col-5 p-0">
-                              <img src={albumCover} className="img-fluid radius-media-left" alt="..." />
-                            </div>
-                            <div className="col-7 pt-2 pb-3 px-3">
-                              <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
-                                <div className="mb-auto" style={{ maxWidth: '100%' }}>
-                                  <span className="text-secondary text-xs">Times Played: {play.plays}</span>
-
-                                  <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">{play.track.name}</h5>
-                                  <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
-                                    {play.track.artists.map((artist, index) => (
-                                      <li
-                                        // eslint-disable-next-line react/no-array-index-key
-                                        key={index}
-                                        className="list-inline-item text-truncate"
-                                      >
-                                        <small>{artist}</small>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                                <div className="d-flex flex-row" style={{ width: '100%' }}>
-                                  <div className="flex-fill mr-2">
-                                    <Link href="/station/[id]/track/[trackid]" as={`/station/${channel.deeplink.toLowerCase()}/track/${play.track.id}`}>
-                                      <a className="btn btn-light btn-sm btn-block border">
-                                        <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
-                                      </a>
-                                    </Link>
-                                  </div>
-                                  {play.links && (
-                                    <div className="flex-fill">
-                                      <TrackLinks links={play.links} />
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </React.Fragment>
-                    );
-                  })}
-                </React.Fragment>
-              );
-            })}
+            <StreamCardsLayout tracks={recent} channel={channel} secondaryText={this.secondaryText} />
           </div>
         </div>
         <div className="container adsbygoogle mb-5">

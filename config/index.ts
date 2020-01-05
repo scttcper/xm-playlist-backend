@@ -1,21 +1,16 @@
 import debug from 'debug';
-import { Dialect } from 'sequelize';
 
 const log = debug('xmplaylist');
 const env = process.env.NODE_ENV || 'test';
 log(`Env: ${env}`);
 
 let config = {
-  username: '',
-  database: 'xm',
-  password: '',
   db: {
-    host: 'localhost',
-    dialect: 'postgres' as Dialect,
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 1000,
+    client: 'postgresql',
+    connection: {
+      database: 'xmplaylist',
+      user: 'postgres',
+      password: '',
     },
   },
   port: 5000,

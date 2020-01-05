@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import fetch from 'isomorphic-unfetch';
 import Error from 'next/error';
-import _ from 'lodash';
+import Router from 'next/router';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AdSense from 'react-adsense';
@@ -15,6 +15,7 @@ import {
 } from '@data-ui/sparkline';
 import { allColors } from '@data-ui/theme';
 import { SizeMe } from 'react-sizeme';
+import Head from 'next/head';
 
 import { AppLayout } from '../../../../../components/AppLayout';
 import { channels } from '../../../../../channels';
@@ -63,10 +64,13 @@ export default class Station extends React.Component<StationProps> {
 
     return (
       <AppLayout>
+        <Head>
+          <title>{trackData.track.name} on {channel.name}</title>
+        </Head>
         <div className="container my-3">
           <div className="row">
             <div className="col-12 col-md-6 offset-md-3 mb-2">
-              <a className="btn btn-light rounded-pill" href={`/station/${this.props.channelId}`}>
+              <a className="btn btn-light rounded-pill" onClick={() => Router.back()}>
                 <FontAwesomeIcon icon="arrow-left" /> Back
               </a>
             </div>
