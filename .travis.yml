@@ -1,14 +1,8 @@
 sudo: false
 language: node_js
 node_js:
-  - "10"
-services:
-  - postgresql
-  - redis-server
+  - 13
 script:
-  - psql -c 'create database xmtest;' -U postgres
-  - CLIENT_ID=$CLIENT_ID CLIENT_SECRET=$CLIENT_SECRET GOOGLE_KEY=$GOOGLE_KEY npm run test:ci
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - npm run build
 notifications:
   email: false
