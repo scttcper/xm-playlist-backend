@@ -40,6 +40,18 @@ export function registerNextjs(server: HapiServer, app: Server) {
   });
 
   server.route({
+    method: 'GET',
+    path: '/favicon.ico',
+    handler: nextHandlerWrapper(app),
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/ads.txt',
+    handler: nextHandlerWrapper(app),
+  });
+
+  server.route({
     method: '*',
     path: '/{p*}' /* catch all route */,
     handler: defaultHandlerWrapper(app),
