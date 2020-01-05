@@ -21,7 +21,7 @@ import { AppLayout } from '../../../../../components/AppLayout';
 import { channels } from '../../../../../channels';
 import { TrackChannelResponse } from '../../../../../responses';
 import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
-import { url } from '../../../url';
+import { url } from '../../../../../url';
 
 interface StationProps {
   channelId: string;
