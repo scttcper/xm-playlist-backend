@@ -15,6 +15,7 @@ import { StationNavigation } from '../../../components/StationNavigation';
 import { channels } from '../../../channels';
 import { StationRecent, TrackResponse } from '../../../responses';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
+import { url } from '../../../url';
 
 interface StationProps {
   recent: StationRecent[][];
@@ -37,7 +38,7 @@ export default class Station extends React.Component<StationProps> {
 
   static async getInitialProps(context: Context): Promise<StationProps> {
     const id = context.query.id as string;
-    const res = await fetch(`/api/station/${id}`);
+    const res = await fetch(`${url}/api/station/${id}`);
     const json = await res.json();
     return { recent: _.chunk(json, 12), channelId: id };
   }
@@ -46,7 +47,7 @@ export default class Station extends React.Component<StationProps> {
     this.setState({ loading: true });
     const playArr = this.state.recent.length ? this.state.recent : this.props.recent;
     const lastDateTime = getLastStartTime(playArr[playArr.length - 1]);
-    const res = await fetch(`/api/station/${this.props.channelId}?last=${lastDateTime}`);
+    const res = await fetch(`${url}/api/station/${this.props.channelId}?last=${lastDateTime}`);
     const json = await res.json();
     this.setState((state: Context) => {
       return { recent: [...state.recent, ..._.chunk(json, 12)], loading: false };

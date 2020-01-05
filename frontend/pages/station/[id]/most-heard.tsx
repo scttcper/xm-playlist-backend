@@ -14,6 +14,7 @@ import { StationNavigation } from '../../../components/StationNavigation';
 import { channels } from '../../../channels';
 import { StationNewest, TrackResponse } from '../../../responses';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
+import { url } from '../../../url';
 
 interface StationProps {
   recent: StationNewest[][];
@@ -30,7 +31,7 @@ export default class Station extends React.Component<StationProps> {
 
   static async getInitialProps(context: Context): Promise<StationProps> {
     const id = context.query.id as string;
-    const res = await fetch(`/api/station/${id}/most-heard`);
+    const res = await fetch(`${url}/api/station/${id}/most-heard`);
     const json = await res.json();
     return { recent: _.chunk(json, 12), channelId: id };
   }
