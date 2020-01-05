@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "xm",
+      "name": "xmp",
       "script": "npm run start",
       "env": {
         "NODE_ENV": "production",
