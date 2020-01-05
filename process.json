@@ -4,7 +4,7 @@
       "name": "xm",
       "script": "npm run start",
       "env": {
-        "NODE_ENV": "prod",
+        "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
       }
     }

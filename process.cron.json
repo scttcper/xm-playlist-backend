@@ -2,9 +2,9 @@
   "apps": [
     {
       "name": "xmpcron",
-      "script": "./node_modules/.bin/ts-node src/scanner.ts",
+      "script": "npm run scanner",
       "env": {
-        "NODE_ENV": "prod",
+        "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
       }
     }

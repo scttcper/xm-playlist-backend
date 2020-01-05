@@ -6,6 +6,7 @@
     "dev": "nodemon",
     "build": "next build frontend",
     "start": "NODE_ENV=production ts-node ./src/server.ts",
+    "scanner": "ts-node ./src/server.ts",
     "migrate:latest": "knex migrate:latest",
     "lint": "eslint --ext .js,.ts, .",
     "lint:fix": "eslint --fix --ext .js,.ts, ."
