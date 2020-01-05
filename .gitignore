@@ -24,3 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 config/config.prod.ts
 config/config.local.ts
+dist
