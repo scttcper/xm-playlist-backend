@@ -45,7 +45,7 @@ export default class Station extends React.Component<StationProps> {
   static async getInitialProps(context: Context): Promise<StationProps> {
     const trackId = context.query.trackid as string;
     const channelId = context.query.id as string;
-    const res = await fetch(`http://localhost:3000/api/station/${channelId}/track/${trackId}`);
+    const res = await fetch(`/api/station/${channelId}/track/${trackId}`);
     const json = await res.json();
     return { trackData: json, channelId };
   }

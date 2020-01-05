@@ -15,7 +15,6 @@ let config = {
   },
   port: 5000,
   dsn: '',
-  host: 'http://localhost:5000',
   spotifyUsername: '',
   spotifyPassword: '',
   spotifyClientId: '',

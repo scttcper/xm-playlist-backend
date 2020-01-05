@@ -22,6 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-config/config.prod.ts
+config/config.production.ts
 config/config.local.ts
 dist

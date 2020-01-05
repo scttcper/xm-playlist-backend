@@ -30,7 +30,7 @@ export default class Station extends React.Component<StationProps> {
 
   static async getInitialProps(context: Context): Promise<StationProps> {
     const id = context.query.id as string;
-    const res = await fetch(`http://localhost:3000/api/station/${id}/newest`);
+    const res = await fetch(`/api/station/${id}/newest`);
     const json = await res.json();
     return { recent: _.chunk(json, 12), channelId: id };
   }
