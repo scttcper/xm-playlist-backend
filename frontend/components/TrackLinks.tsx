@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Modal from 'react-bootstrap/modal';
+import Modal from 'react-bootstrap/Modal';
 import ReactGA from 'react-ga';
 
 import { TrackLinksButtons } from './TrackLinksButtons';
