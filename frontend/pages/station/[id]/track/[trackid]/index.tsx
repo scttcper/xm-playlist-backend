@@ -22,6 +22,7 @@ import { channels } from '../../../../../channels';
 import { TrackChannelResponse } from '../../../../../responses';
 import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
 import { url } from '../../../../../url';
+import { SpotifyIframe } from '../../../../../components/SpotifyIframe';
 
 interface StationProps {
   channelId: string;
@@ -66,7 +67,9 @@ export default class Station extends React.Component<StationProps> {
     return (
       <AppLayout>
         <Head>
-          <title>{trackData.track.name} on {channel.name}</title>
+          <title>
+            {trackData.track.name} on {channel.name}
+          </title>
         </Head>
         <div className="container my-3">
           <div className="row">
@@ -158,6 +161,15 @@ export default class Station extends React.Component<StationProps> {
               <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
             </div>
           </div>
+          {trackData.spotify.spotify_id && (
+            <div className="row">
+              <div className="col-12 col-md-6 offset-md-3 mb-3">
+                <div className="rounded bg-light shadow-light p-2" style={{ lineHeight: 0 }}>
+                  <SpotifyIframe track={trackData} />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="row">
             <div className="col-12 col-md-6 offset-md-3 mb-3">
               <div className="rounded bg-light shadow-light p-3">

@@ -13,7 +13,6 @@ let config = {
       password: '',
     },
   },
-  port: 5000,
   dsn: '',
   spotifyUsername: '',
   spotifyPassword: '',
@@ -25,7 +24,6 @@ let config = {
 
 const filename = `./config.${env}`;
 log(`Using: ${filename}`);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const imported = require(filename).default;
 config = { ...config, ...imported };
 

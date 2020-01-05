@@ -24,7 +24,7 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
     return (
       <>
         <Head>
-          <title>xmplaylist recently played songs from xm radio</title>
+          <title>xmplaylist - recently played songs from xm radio</title>
           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
         </Head>
         {this.props.hasNav && (

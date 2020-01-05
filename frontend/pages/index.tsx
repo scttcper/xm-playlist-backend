@@ -63,7 +63,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
             <div className="col-12">
               <div className="jumbotron p-4 rounded">
                 <h1 className="display-4">xmplaylist</h1>
-                <p className="mb-1">XM Sirius radio recently played and track playlists</p>
+                <p className="mb-1">Find recently played songs on XM Sirius radio</p>
                 <p className="text-muted">
                   By{' '}
                   <a className="text-muted" href="https://twitter.com/scttcper">

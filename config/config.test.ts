@@ -7,7 +7,6 @@ export default {
       password: '',
     },
   },
-  port: 5000,
   dsn: false,
   spotifyClientId: process.env.CLIENT_ID || '',
   spotifyClientSecret: process.env.CLIENT_SECRET || '',
