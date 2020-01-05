@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "xmp",
-      "script": "npm run start",
+      "script": "node dist/src/server.js",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
