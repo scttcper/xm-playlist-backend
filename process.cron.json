@@ -1,10 +1,11 @@
 {
   "apps": [
     {
-      "name": "xmcron",
-      "script": "dist/src/scanner.js",
+      "name": "xmpcron",
+      "script": "./node_modules/.bin/ts-node src/scanner.ts",
       "env": {
-        "NODE_ENV": "prod"
+        "NODE_ENV": "prod",
+        "DEBUG": "xmplaylist"
       }
     }
   ]

@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "xm",
-      "script": "./node_modules/.bin/ts-node src/scanner.ts",
+      "script": "npm run start",
       "env": {
         "NODE_ENV": "prod",
         "DEBUG": "xmplaylist"
