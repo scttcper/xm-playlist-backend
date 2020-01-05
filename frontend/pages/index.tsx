@@ -58,7 +58,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
 
     return (
       <AppLayout hasNav={false}>
-        <div className="container-fluid text-white text-center bg-dark pb-5">
+        <div className="container-fluid text-white text-center bg-dark pb-5 pt-2">
           <div className="row">
             <div className="col-12">
               <div className="jumbotron p-4 rounded">
@@ -66,17 +66,20 @@ export default class Movies extends React.Component<{ movies: any[] }> {
                 <p className="mb-1">Find recently played songs on XM Sirius radio</p>
                 <p className="text-muted">
                   By{' '}
-                  <a className="text-muted" href="https://twitter.com/scttcper">
+                  <a
+                    className="text-muted"
+                    href="https://twitter.com/scttcper"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     @scttcper
                   </a>
                 </p>
               </div>
             </div>
           </div>
-        </div>
-        <div className="container adsbygoogle">
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 adsbygoogle">
               <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
             </div>
           </div>
