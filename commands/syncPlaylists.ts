@@ -5,14 +5,10 @@ import config from '../config';
 import { updatePlaylists } from '../src/spotify';
 
 async function main() {
-  const path = `https://accounts.spotify.com/authorize?client_id=${
-    config.spotifyClientId
-  }&response_type=code&redirect_uri=https://example.com/&scope=playlist-modify-public&state=xmplaylist`;
+  const path = `https://accounts.spotify.com/authorize?client_id=${config.spotifyClientId}&response_type=code&redirect_uri=https://example.com/&scope=playlist-modify-public&state=xmplaylist`;
   console.log(path);
 
-  const answers = await inquirer.prompt<any>([
-    { name: 'url', type: 'input', message: 'Gib code' },
-  ]);
+  const answers = await inquirer.prompt<any>([{ name: 'url', type: 'input', message: 'Gib code' }]);
   const { url } = answers;
 
   const code = URL.parse(url, true).query.code as string;

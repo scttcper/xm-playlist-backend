@@ -9,6 +9,8 @@ import * as Util from './util';
 import { search } from './youtube';
 import { TrackModel, Spotify } from '../frontend/models';
 import { db } from './db';
+import { channels } from '../frontend/channels';
+import { getMostHeard } from './plays';
 
 export class SpotifyFailed extends Error {
   message = 'Spotify failed';
@@ -245,27 +247,22 @@ export async function playlistTracks(code: string, playlistId: string) {
   return items;
 }
 
-// export async function updatePlaylists(code: string) {
-//   for (const chan of channels) {
-//     let trackIds = await popular(chan, 1000).then(t =>
-//       t.map(n => {
-//         if (!n.spotify) {
-//           // eslint-disable-next-line array-callback-return
-//           return;
-//         }
+export async function updatePlaylists(code: string) {
+  for (const channel of channels) {
+    const mostHeard = await getMostHeard(channel);
+    const trackIds = mostHeard
+      .filter(track => track.spotify.spotify_id)
+      .map(track => `spotify:track:${track.spotify.spotify_id}`);
+    const current = await playlistTracks(code, channel.playlist).catch(e => {
+      console.error('GET TRACKS?', e);
+      return [];
+    });
+    const toRemove = _.difference(current, trackIds);
+    await removeFromPlaylist(code, channel.playlist, toRemove).catch(e => console.error('REMOVE', e));
+    const toAdd = _.pullAll(trackIds, current);
 
-//         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-//         return `spotify:track:${n.spotify.spotifyId}`;
-//       }),
-//     );
-//     trackIds = _.uniq(_.compact(trackIds));
-//     const current = await playlistTracks(code, chan.playlist).catch(e => {
-//       console.error('GET TRACKS?', e);
-//       return [];
-//     });
-//     const toRemove = _.difference(current, trackIds);
-//     await removeFromPlaylist(code, chan.playlist, toRemove).catch(e => console.error('REMOVE', e));
-//     const toAdd = _.pullAll(trackIds, current);
-//     await addToPlaylist(code, chan.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
-//   }
-// }
+    await addToPlaylist(code, channel.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
+    console.log(`Removed: ${toRemove.length} from ${channel.name}`);
+    console.log(`Added: ${toAdd.length} to ${channel.name}`);
+  }
+}
