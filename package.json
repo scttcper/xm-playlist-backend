@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon",
-    "build": "next build frontend && tsc -p tsconfig.build.json && tsc -p tsconfig.configbuild.json",
+    "build": "next build frontend && tsc -p tsconfig.build.json",
     "start": "NODE_ENV=production ts-node ./src/server.ts",
     "scanner": "ts-node ./src/scanner.ts",
     "migrate:latest": "knex migrate:latest",
