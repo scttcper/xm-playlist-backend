@@ -132,7 +132,7 @@ export default class Station extends React.Component<StationProps> {
         <div className="container mb-1 adsbygoogle">
           <div className="row">
             <div className="col-12">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
+              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default class Station extends React.Component<StationProps> {
         <div className="container adsbygoogle mb-5">
           <div className="row">
             <div className="col">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
+              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           </div>
         </div>

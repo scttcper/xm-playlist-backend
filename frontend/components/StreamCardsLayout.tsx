@@ -18,8 +18,8 @@ export const StreamCardsLayout: React.FC<{
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={index}>
           {index > 0 && (
-            <div className="col-12 adsbygoogle">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
+            <div className="col-12 adsbygoogle mb-3">
+              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           )}
           {chunk.map(play => {

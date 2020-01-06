@@ -78,9 +78,9 @@ export default class Movies extends React.Component<{ movies: any[] }> {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-12 adsbygoogle">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
+          <div className="row adsbygoogle my-2">
+            <div className="col-12">
+              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           </div>
         </div>
@@ -136,9 +136,11 @@ export default class Movies extends React.Component<{ movies: any[] }> {
               </div>
             ))}
           </div>
-          <div className="row bg-light adsbygoogle">
+        </div>
+        <div className="container mt-2 mb-5 adsbygoogle">
+          <div className="row">
             <div className="col-12">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="7259870550" />
+              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           </div>
         </div>
