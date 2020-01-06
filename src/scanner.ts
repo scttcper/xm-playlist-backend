@@ -8,7 +8,7 @@ import { channels } from '../frontend/channels';
 import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
 import config from '../config';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
-import { findAndCacheLinks } from './linkfinder';
+import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
 
 const log = debug('xmplaylist');
 
@@ -39,6 +39,10 @@ async function catchError(error: Error) {
   }
 
   if (error instanceof SpotifyFailed) {
+    return;
+  }
+
+  if (error instanceof FailedLinkFinding) {
     return;
   }
 
