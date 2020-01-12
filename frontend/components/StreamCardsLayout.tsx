@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react';
 import AdSense from 'react-adsense';
 import Link from 'next/link';
@@ -24,6 +25,13 @@ export const StreamCardsLayout: React.FC<{
           )}
           {chunk.map(play => {
             const albumCover = play.spotify.cover || '/static/missing.png';
+            let spotify: undefined | string;
+            let apple: undefined | string;
+            if (play.links) {
+              spotify = play.links.find(n => n.site === 'spotify')?.url;
+              apple = play.links.find(n => n.site === 'itunes')?.url;
+            }
+
             return (
               <React.Fragment key={play.track.id}>
                 <div className="col-4 col-lg-3 d-none d-md-block mb-3">
@@ -42,7 +50,7 @@ export const StreamCardsLayout: React.FC<{
                           ))}
                         </ul>
                       </div>
-                      <div className="d-flex flex-row" style={{ width: '100%' }}>
+                      <div className="d-flex flex-row mb-2" style={{ width: '100%' }}>
                         <div className="flex-fill mr-2">
                           <Link
                             href="/station/[id]/track/[trackid]"
@@ -59,6 +67,30 @@ export const StreamCardsLayout: React.FC<{
                           </div>
                         )}
                       </div>
+                      {play.links && (
+                        <div className="d-flex flex-row" style={{ width: '100%' }}>
+                          <div className="flex-fill mr-2">
+                            <a
+                              className="btn btn-light btn-sm btn-block border"
+                              href={spotify}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <FontAwesomeIcon icon={['fab', 'spotify']} /> Spotify
+                            </a>
+                          </div>
+                          <div className="flex-fill">
+                            <a
+                              className="btn btn-light btn-sm btn-block border"
+                              href={apple}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <FontAwesomeIcon icon={['fab', 'apple']} /> Apple
+                            </a>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -71,7 +103,9 @@ export const StreamCardsLayout: React.FC<{
                     <div className="col-7 pt-2 pb-3 px-3">
                       <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
                         <div className="mb-auto" style={{ maxWidth: '100%' }}>
-                          {props.secondaryText && <span className="text-secondary text-xs">{props.secondaryText(play)}</span>}
+                          {props.secondaryText && (
+                            <span className="text-secondary text-xs">{props.secondaryText(play)}</span>
+                          )}
 
                           <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">{play.track.name}</h5>
                           <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>

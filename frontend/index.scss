@@ -221,3 +221,8 @@ h1, h2, h3, .h1, .h2, .h3 {
 .btn-primary {
   color: #fff !important;
 }
+
+.modal {
+  top: 80px;
+  height: calc(100% - 100px);
+}
