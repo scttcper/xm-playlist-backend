@@ -3,6 +3,7 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { TrackResponse } from '../responses';
 import { TrackLinks } from './TrackLinks';
@@ -36,7 +37,7 @@ export const StreamCardsLayout: React.FC<{
               <React.Fragment key={play.track.id}>
                 <div className="col-4 col-lg-3 d-none d-md-block mb-3">
                   <div className="card h-100 shadow-sm border-0">
-                    <img src={albumCover} className="card-img-top" alt="..." />
+                    <LazyLoadImage src={albumCover} className="card-img-top" alt="..." />
                     <div className="card-body d-flex align-items-start flex-column">
                       <div className="mb-auto pb-4" style={{ maxWidth: '100%' }}>
                         {props.secondaryText && <small className="text-secondary">{props.secondaryText(play)}</small>}
@@ -98,7 +99,7 @@ export const StreamCardsLayout: React.FC<{
                 <div className="col-12 d-md-none mb-3">
                   <div className="row bg-light shadow-light radius-media-left radius-media-right ml-0 mr-0">
                     <div className="col-5 p-0">
-                      <img src={albumCover} className="img-fluid radius-media-left" alt="..." />
+                      <LazyLoadImage src={albumCover} className="img-fluid radius-media-left" alt="..." />
                     </div>
                     <div className="col-7 pt-2 pb-3 px-3">
                       <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>

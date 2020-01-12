@@ -2,6 +2,7 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { AppLayout } from '../components/AppLayout';
 import { channels, Channel } from '../channels';
@@ -121,7 +122,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
                   <a className="text-dark">
                     <div className="card shadow-light h-100 border-0">
                       <div className="bg-dark p-3 card-img-top">
-                        <img
+                        <LazyLoadImage
                           src={`/static/img/${channel.deeplink}-lg.png`}
                           className="card-img-top"
                           alt={`${channel.name} Logo`}
