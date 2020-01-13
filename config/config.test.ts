@@ -1,18 +1,12 @@
-module.exports = {
-  username: '',
-  database: 'xmtest',
-  password: '',
+export default {
   db: {
-    host: 'localhost',
-    dialect: 'postgres',
-    logging: false,
-    pool: {
-      max: 5,
-      min: 1,
-      idle: 1000,
+    client: 'postgresql',
+    connection: {
+      database: 'xmtest',
+      user: 'postgres',
+      password: '',
     },
   },
-  port: 5000,
   dsn: false,
   spotifyClientId: process.env.CLIENT_ID || '',
   spotifyClientSecret: process.env.CLIENT_SECRET || '',

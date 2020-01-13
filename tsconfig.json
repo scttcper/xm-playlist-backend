@@ -1,26 +1,17 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "moduleResolution": "node",
-    "lib": ["es2018"],
+    "lib": ["es2018", "DOM"],
     "target": "es2017",
     "module": "commonjs",
     "esModuleInterop": true,
-    "strict": true,
+    "strict": false,
     "noImplicitAny": false,
     "noUnusedLocals": false,
-    "declaration": true,
+    "declaration": false,
     "sourceMap": true,
     "inlineSources": true,
     "outDir": "dist"
-  },
-  "include": [
-    "src/**/*",
-    "models/**/*",
-    "config/**/*",
-    "commands/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  }
 }

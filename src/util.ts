@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 export function encode(unencoded: string) {
   return Buffer.from(unencoded || '')
     .toString('base64')
@@ -40,7 +38,7 @@ export function cleanMusicVideo(str: string) {
 
 export function cleanSpaces(str: string) {
   // tslint:disable-next-line:no-regex-spaces
-  return _.trim(str.replace(/  +/g, ' '));
+  return str.replace(/  +/g, ' ').trim();
 }
 
 export function cleanRemix(str: string) {

@@ -1,31 +1,59 @@
+/* eslint-disable no-await-in-loop */
 import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
 
-import { channels } from './channels';
-import { checkEndpoint } from './sirius';
+import { channels } from '../frontend/channels';
+import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
 import config from '../config';
+import { spotifyFindAndCache, SpotifyFailed } from './spotify';
+import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
 
 const log = debug('xmplaylist');
 
 async function updateAll() {
   for (const channel of channels) {
-    await checkEndpoint(channel).catch((e: Error) => catchError(e));
-    await delay(300);
+    log(`checking ${channel.name}`);
+    try {
+      const { track } = await checkEndpoint(channel);
+      const spotify = await spotifyFindAndCache(track);
+      await findAndCacheLinks(spotify);
+    } catch (error) {
+      await catchError(error);
+    } finally {
+      await delay(300);
+    }
   }
 
   return updateAll();
 }
 
+async function catchError(error: Error) {
+  if (error instanceof NoSongMarker) {
+    return;
+  }
+
+  if (error instanceof AlreadyScrobbled) {
+    return;
+  }
+
+  if (error instanceof SpotifyFailed) {
+    return;
+  }
+
+  if (error instanceof FailedLinkFinding) {
+    return;
+  }
+
+  Sentry.captureException(error);
+  return delay(500).then(() => {
+    process.exit(0);
+  });
+}
+
 if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
   log('cron running');
-  pForever(() => updateAll()).catch((e: Error) => catchError(e));
-}
-
-function catchError(err: Error) {
-  log(err);
-  Sentry.captureException(err);
-  process.exit(0);
+  pForever(() => updateAll()).catch(async (e: Error) => catchError(e));
 }
