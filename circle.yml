@@ -3,6 +3,9 @@ jobs:
   test:
     docker:
       - image: circleci/node:12
+      - image: circleci/postgres:12.1-alpine
+        environment:
+          POSTGRES_USER: postgres
     steps:
       - checkout
       - restore_cache:
@@ -30,7 +33,7 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash)
   release:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache:
