@@ -6,6 +6,7 @@ jobs:
       - image: circleci/postgres:12.1-alpine
         environment:
           POSTGRES_USER: postgres
+          POSTGRES_DB: xmtest
     steps:
       - checkout
       - restore_cache:
