@@ -32,27 +32,10 @@ jobs:
       - run:
           name: codecov
           command: bash <(curl -s https://codecov.io/bash)
-  release:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: npm ci
-      - run: npm run build
-      - run: npm run semantic-release
 
 workflows:
   version: 2
-  test_and_release:
+  test:
     # Run the test jobs first, then the release only when all the test jobs are successful
     jobs:
       - test
-      - release:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - test
