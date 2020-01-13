@@ -46,7 +46,8 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable('track');
+  await knex.schema.dropTable('links');
   await knex.schema.dropTable('scrobble');
   await knex.schema.dropTable('spotify');
+  await knex.schema.dropTable('track');
 }

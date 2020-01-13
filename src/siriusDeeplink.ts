@@ -169,8 +169,8 @@ export interface Cut {
   legacyIds: LegacyIDS;
   title: string;
   artists: Artist[];
-  album: Album;
-  clipGUID: string;
+  album?: Album;
+  clipGUID?: string;
   galaxyAssetId: string;
   cutContentType: string;
   mref: string;
@@ -178,6 +178,7 @@ export interface Cut {
 
 export interface Album {
   title: string;
+  creativeArts: any[];
 }
 
 export interface Artist {
@@ -186,7 +187,7 @@ export interface Artist {
 
 export interface LegacyIDS {
   siriusXMId: string;
-  pid: string;
+  pid?: string;
 }
 
 export interface Episode {

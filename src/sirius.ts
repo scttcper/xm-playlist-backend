@@ -48,19 +48,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
   }
 }
 
-export async function checkEndpoint(channel: Channel) {
-  let res: SiriusDeeplink;
-  try {
-    const searchParams = new URLSearchParams({
-      deepLinkId: channel.deeplink,
-      'deepLink-type': 'live',
-    });
-    res = await got.get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', { searchParams }).json();
-  } catch (e) {
-    log(e);
-    throw e;
-  }
-
+export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
   const { song, startTime } = parseDeeplinkResponse(res);
   const artists = parseArtists(song.artists[0].name);
   const name = parseName(song.title);
@@ -95,4 +83,20 @@ export async function checkEndpoint(channel: Channel) {
   await db('scrobble').insert(scrobble);
 
   return { track, scrobble };
+}
+
+export async function checkEndpoint(channel: Channel) {
+  let res: SiriusDeeplink;
+  try {
+    const searchParams = new URLSearchParams({
+      deepLinkId: channel.deeplink,
+      'deepLink-type': 'live',
+    });
+    res = await got.get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', { searchParams }).json();
+  } catch (e) {
+    log(e);
+    throw e;
+  }
+
+  return handleResponse(channel, res);
 }
