@@ -9,7 +9,7 @@ import React, { ReactNode } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import ReactGA from 'react-ga';
 
-ReactGA.initialize('UA-000000-01');
+ReactGA.initialize('UA-84656736-2');
 
 export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: boolean }> {
   static defaultProps = {
