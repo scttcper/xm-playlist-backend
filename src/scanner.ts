@@ -47,7 +47,7 @@ async function catchError(error: Error) {
   }
 
   Sentry.captureException(error);
-  return delay(500).then(() => {
+  return delay(2000).then(() => {
     process.exit(0);
   });
 }

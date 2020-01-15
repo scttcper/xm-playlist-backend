@@ -28,10 +28,9 @@ export function parseArtists(artists: string): string[] {
 
 export function parseDeeplinkResponse(data: SiriusDeeplink) {
   try {
-    // eslint-disable-next-line
     const markerLists =
-      data.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse
-        .liveChannelResponses[0].markerLists;
+      data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails?.liveChannelResponse
+        .liveChannelResponses?.[0].markerLists ?? [];
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
     const marker = cut.markers.find(marker => marker.cut.cutContentType === 'Song' && marker.cut.title);
     if (!marker || !marker.cut) {
