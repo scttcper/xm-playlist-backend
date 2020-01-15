@@ -19,7 +19,6 @@ describe('getNewest', () => {
     await handleResponse(channel, siriushits);
     const newest = await getNewest(channel);
     expect(newest).toHaveLength(1);
-    console.log(newest);
     expect(newest[0].track).toEqual({
       artists: ['Halsey'],
       id: 'GDCA-101851532-001',

@@ -18,6 +18,6 @@ export async function getTrack(id: string): Promise<TrackResponse> {
   return {
     spotify,
     track,
-    links: data.links,
+    links: data.links ?? [],
   };
 }

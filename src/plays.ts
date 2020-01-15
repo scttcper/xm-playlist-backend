@@ -33,7 +33,7 @@ export async function getNewest(channel: Channel): Promise<StationNewest[]> {
       spotify,
       track,
       start_time: data.startTime,
-      links: data.links,
+      links: data.links ?? [],
       plays: groupedById[data.trackId].length,
     };
   });
@@ -64,7 +64,7 @@ export async function getMostHeard(channel: Channel): Promise<StationNewest[]> {
       spotify,
       track,
       start_time: data.startTime,
-      links: data.links,
+      links: data.links ?? [],
       plays: groupedById[data.trackId].length,
     };
   });

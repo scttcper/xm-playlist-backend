@@ -20,7 +20,7 @@ describe('getTrack', () => {
     await handleResponse(channel, siriushits);
     const track = await getTrack(siriushitsTrackId);
     expect(track).toEqual({
-      links: null,
+      links: [],
       spotify: {
         cover: null,
         preview_url: null,
