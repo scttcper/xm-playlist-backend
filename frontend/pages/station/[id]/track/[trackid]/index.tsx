@@ -63,13 +63,13 @@ export default class Station extends React.Component<StationProps> {
 
     const { trackData } = this.props;
     const albumCover = trackData.spotify.cover || '/static/missing.png';
+    const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
 
     return (
       <AppLayout>
         <Head>
-          <title>
-            {trackData.track.name} on {channel.name}
-          </title>
+          <title>{trackData.track.name} on {channel.name}</title>
+          <meta property="og:image" content={metaAlbumCover} />
         </Head>
         <div className="container my-3 adsbygoogle">
           <div className="row  mb-5">

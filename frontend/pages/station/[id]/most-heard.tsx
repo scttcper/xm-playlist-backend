@@ -63,6 +63,7 @@ export default class Station extends React.Component<StationProps> {
       <AppLayout>
         <Head>
           <title>{channel.name} Most Played - sirius xm playlist</title>
+          <meta property="og:image" content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`} />
         </Head>
         <div className="bg-light">
           <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
