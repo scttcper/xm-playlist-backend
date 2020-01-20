@@ -249,7 +249,7 @@ export async function playlistTracks(code: string, playlistId: string) {
 
 export async function updatePlaylists(code: string) {
   for (const channel of channels) {
-    const mostHeard = await getMostHeard(channel);
+    const mostHeard = await getMostHeard(channel, 10_000);
     const trackIds = mostHeard
       .filter(track => track.spotify.spotify_id)
       .map(track => `spotify:track:${track.spotify.spotify_id}`);

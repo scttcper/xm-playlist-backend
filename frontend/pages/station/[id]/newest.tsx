@@ -7,6 +7,7 @@ import Head from 'next/head';
 import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
+import { formatDistanceStrict } from 'date-fns';
 
 import { AppLayout } from '../../../components/AppLayout';
 import { StationHeader } from '../../../components/StationHeader';
@@ -45,7 +46,10 @@ export default class Station extends React.Component<StationProps> {
   }
 
   secondaryText(track: TrackResponse): string {
-    return `Times Played: ${(track as StationNewest).plays}`;
+    const heard = formatDistanceStrict(new Date(track.track.created_at), new Date(), {
+      addSuffix: true,
+    });
+    return `Heard: ${heard}`;
   }
 
   render(): JSX.Element {
@@ -63,7 +67,10 @@ export default class Station extends React.Component<StationProps> {
       <AppLayout>
         <Head>
           <title>{channel.name} Newest Songs - sirius xm playlist</title>
-          <meta property="og:image" content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`} />
+          <meta
+            property="og:image"
+            content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
+          />
         </Head>
         <div className="bg-light">
           <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
@@ -77,10 +84,20 @@ export default class Station extends React.Component<StationProps> {
         <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
           <div className="row">
             <div className="col-12 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer" onClick={() => this.trackPlaylistClick('spotify')}>
+              <a
+                href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => this.trackPlaylistClick('spotify')}
+              >
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
-                    <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'spotify']} size="lg" />
+                    <FontAwesomeIcon
+                      className="mr-2"
+                      style={{ color: '#000' }}
+                      icon={['fab', 'spotify']}
+                      size="lg"
+                    />
                   </div>
                   <div className="mr-auto">{channel.name} playlist on Spotify</div>
                   <div>
@@ -120,7 +137,11 @@ export default class Station extends React.Component<StationProps> {
         </div>
         <div className="container">
           <div className="row">
-            <StreamCardsLayout tracks={recent} channel={channel} secondaryText={this.secondaryText} />
+            <StreamCardsLayout
+              tracks={recent}
+              channel={channel}
+              secondaryText={this.secondaryText}
+            />
           </div>
         </div>
         <div className="container adsbygoogle mb-5">

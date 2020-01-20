@@ -4,6 +4,7 @@ export interface TrackResponse {
     id: string;
     name: string;
     artists: string[];
+    created_at: string;
   };
   spotify: {
     spotify_id: string;

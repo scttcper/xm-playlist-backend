@@ -12,7 +12,6 @@ import {
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-84656736-2');
@@ -34,17 +33,17 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
         </Head>
         {this.props.hasNav && (
-          <Navbar expand bg="dark" variant="dark">
+          <nav className="navbar bg-dark">
             <div className="container">
               <div className="text-center text-md-left" style={{ width: '100%' }}>
                 <Link prefetch href="/">
-                  <a className="ml-md-3">
-                    <Navbar.Brand>xmplaylist</Navbar.Brand>
+                  <a className="ml-md-3 navbar-brand text-white">
+                    xmplaylist
                   </a>
                 </Link>
               </div>
             </div>
-          </Navbar>
+          </nav>
         )}
         {this.props.children}
       </>

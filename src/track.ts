@@ -14,7 +14,12 @@ export async function getTrack(id: string): Promise<TrackResponse> {
     preview_url: data.previewUrl,
     cover: data.cover,
   };
-  const track: TrackResponse['track'] = { id: data.id, name: data.name, artists: data.artists };
+  const track: TrackResponse['track'] = {
+    id: data.id,
+    name: data.name,
+    artists: data.artists,
+    created_at: data.created_at,
+  };
   return {
     spotify,
     track,

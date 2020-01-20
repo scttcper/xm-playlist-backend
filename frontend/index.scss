@@ -127,11 +127,14 @@ $enable-responsive-font-sizes: true;
 $navbar-dark-color: $white;
 $navbar-padding-y: $spacer / 4;
 
+/* purgecss start ignore */
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/root';
 @import '~bootstrap/scss/reboot';
 @import '~bootstrap/scss/type';
 @import "~bootstrap/scss/images";
+/* purgecss end ignore */
+
 // @import "~bootstrap/scss/code";
 @import '~bootstrap/scss/grid';
 // @import "~bootstrap/scss/tables";
@@ -153,8 +156,12 @@ $navbar-padding-y: $spacer / 4;
 // @import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/media";
 // @import '~bootstrap/scss/list-group';
+
+/* purgecss start ignore */
 @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/modal";
+/* purgecss end ignore */
+
 // @import "~bootstrap/scss/tooltip";
 // @import "~bootstrap/scss/popover";
 // @import "~bootstrap/scss/carousel";
