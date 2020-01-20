@@ -64,9 +64,7 @@ export default class Station extends React.Component<StationProps> {
     const { trackData } = this.props;
     const albumCover = trackData.spotify.cover || '/static/missing.png';
     const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
-    const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
-      channel.name
-    }`;
+    const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${channel.name}`;
 
     return (
       <AppLayout>
@@ -84,18 +82,16 @@ export default class Station extends React.Component<StationProps> {
           <meta property="og:type" content="music.song" />
 
           <meta property="twitter:image" content={metaAlbumCover} />
-          <meta property="twitter:audio:partner" content="Spotify" />
           <meta property="twitter:title" content={trackData.track.name} />
-          <meta property="twitter:app:id:iphone" content="324684580" />
-          <meta property="twitter:app:id:googleplay" content="com.spotify.music" />
-          <meta property="twitter:site" content="@spotify" />
           <meta property="twitter:description" content={description} />
-          <meta property="twitter:player:height" content="380" />
-          <meta property="twitter:player:width" content="300" />
-          <meta property="twitter:card" content="player" />
-          <meta property="twitter:audio:artist_name" content={trackData.track.artists.join(' ')} />
           {trackData?.spotify?.spotify_id && (
             <>
+              <meta property="twitter:app:id:iphone" content="324684580" />
+              <meta property="twitter:app:id:googleplay" content="com.spotify.music" />
+              <meta property="twitter:player:height" content="380" />
+              <meta property="twitter:player:width" content="300" />
+              <meta property="twitter:card" content="player" />
+              <meta property="twitter:audio:artist_name" content={trackData.track.artists.join(' ')} />
               <meta
                 property="twitter:player"
                 content={`https://open.spotify.com/embed/track/${trackData.spotify.spotify_id}`}
