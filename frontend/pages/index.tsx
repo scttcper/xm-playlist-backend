@@ -86,7 +86,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
           </div>
         </div>
         <div className="container bg-light text-center py-3 rounded-top shadow" style={{ marginTop: '-3em' }}>
-          <div className="row mx-md-3">
+          <div className="row mx-md-3 mb-3">
             <div className="col-12 text-center">
               <h4>Stations</h4>
               {genres.map(genre => (
@@ -113,8 +113,6 @@ export default class Movies extends React.Component<{ movies: any[] }> {
               />
             </div>
           </div>
-        </div>
-        <div className="container bg-light rounded-bottom mb-5">
           <div className="row mx-md-3 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             {filteredChannels.map(channel => (
               <div key={channel.id} className="col mb-3">

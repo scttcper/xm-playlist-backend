@@ -64,12 +64,48 @@ export default class Station extends React.Component<StationProps> {
     const { trackData } = this.props;
     const albumCover = trackData.spotify.cover || '/static/missing.png';
     const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
+    const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
+      channel.name
+    }`;
 
     return (
       <AppLayout>
         <Head>
-          <title>{trackData.track.name} on {channel.name}</title>
+          <title>
+            {trackData.track.name} on {channel.name}
+          </title>
+          <meta property="og:title" content={trackData.track.name} />
+          <meta property="og:description" content={description} />
+          <meta
+            property="og:url"
+            content={`https://xmplaylist.com/${channel.deeplink}/album/${trackData.track.id}`}
+          />
           <meta property="og:image" content={metaAlbumCover} />
+          <meta property="og:type" content="music.song" />
+
+          <meta property="twitter:image" content={metaAlbumCover} />
+          <meta property="twitter:audio:partner" content="Spotify" />
+          <meta property="twitter:title" content={trackData.track.name} />
+          <meta property="twitter:app:id:iphone" content="324684580" />
+          <meta property="twitter:app:id:googleplay" content="com.spotify.music" />
+          <meta property="twitter:site" content="@spotify" />
+          <meta property="twitter:description" content={description} />
+          <meta property="twitter:player:height" content="380" />
+          <meta property="twitter:player:width" content="300" />
+          <meta property="twitter:card" content="audio" />
+          <meta property="twitter:audio:artist_name" content={trackData.track.artists.join(' ')} />
+          {trackData?.spotify?.spotify_id && (
+            <>
+              <meta
+                property="twitter:player"
+                content={`https://open.spotify.com/embed/track/${trackData.spotify.spotify_id}`}
+              />
+              <meta
+                property="twitter:audio:source"
+                content={`https://open.spotify.com/twitter/vmap/track/${trackData.spotify.spotify_id}`}
+              />
+            </>
+          )}
         </Head>
         <div className="container my-3 adsbygoogle">
           <div className="row  mb-5">
@@ -138,8 +174,17 @@ export default class Station extends React.Component<StationProps> {
                             strokeWidth={1}
                             orientation={['diagonal']}
                           />
-                          <LineSeries showArea stroke={allColors.indigo[5]} fill="url(#area_pattern)" />
-                          <PointSeries points={['all']} stroke={allColors.indigo[4]} fill="#fff" size={3} />
+                          <LineSeries
+                            showArea
+                            stroke={allColors.indigo[5]}
+                            fill="url(#area_pattern)"
+                          />
+                          <PointSeries
+                            points={['all']}
+                            stroke={allColors.indigo[4]}
+                            fill="#fff"
+                            size={3}
+                          />
                           <PointSeries
                             points={['last']}
                             fill={allColors.indigo[5]}
@@ -153,7 +198,11 @@ export default class Station extends React.Component<StationProps> {
                               reference={tooltipData.index}
                               strokeDasharray="4 4"
                             />,
-                            <PointSeries key="ref-point" points={[tooltipData.index]} fill={allColors.indigo[5]} />,
+                            <PointSeries
+                              key="ref-point"
+                              points={[tooltipData.index]}
+                              fill={allColors.indigo[5]}
+                            />,
                           ]}
                         </Sparkline>
                       )}

@@ -31,6 +31,9 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
         <Head>
           <title>xmplaylist - recently played songs from xm radio</title>
           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+
+          <meta name="description" content="Recently played songs from XM Sirius radio stations like Hip Hop Nation, Octane, The Coffee House, and Pop2k. Listen to them on Apple Music, Spotify, YouTube and others." />
+          <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
         </Head>
         {this.props.hasNav && (
           <nav className="navbar bg-dark">
