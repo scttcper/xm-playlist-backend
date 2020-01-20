@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { formatDistanceStrict } from 'date-fns';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
 import { NextPageContext } from 'next';
@@ -7,14 +8,13 @@ import Head from 'next/head';
 import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
-import { formatDistanceStrict } from 'date-fns';
 
+import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationHeader } from '../../../components/StationHeader';
 import { StationNavigation } from '../../../components/StationNavigation';
-import { channels } from '../../../channels';
-import { StationNewest, TrackResponse } from '../../../responses';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
+import { StationNewest, TrackResponse } from '../../../responses';
 import { url } from '../../../url';
 
 interface StationProps {

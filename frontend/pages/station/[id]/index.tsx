@@ -9,12 +9,12 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
 
+import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationHeader } from '../../../components/StationHeader';
 import { StationNavigation } from '../../../components/StationNavigation';
-import { channels } from '../../../channels';
-import { StationRecent, TrackResponse } from '../../../responses';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
+import { StationRecent, TrackResponse } from '../../../responses';
 import { url } from '../../../url';
 
 interface StationProps {
@@ -63,9 +63,13 @@ export default class Station extends React.Component<StationProps> {
   }
 
   secondaryText(track: TrackResponse): string {
-    const timeAgo = formatDistanceStrict(new Date((track as StationRecent).start_time), new Date(), {
-      addSuffix: true,
-    });
+    const timeAgo = formatDistanceStrict(
+      new Date((track as StationRecent).start_time),
+      new Date(),
+      {
+        addSuffix: true,
+      },
+    );
     return timeAgo;
   }
 
@@ -84,7 +88,10 @@ export default class Station extends React.Component<StationProps> {
       <AppLayout>
         <Head>
           <title>{channel.name} Recently Played - sirius xm playlist</title>
-          <meta property="og:image" content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`} />
+          <meta
+            property="og:image"
+            content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
+          />
         </Head>
         <div className="bg-light">
           <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
@@ -106,7 +113,12 @@ export default class Station extends React.Component<StationProps> {
               >
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
-                    <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'spotify']} size="lg" />
+                    <FontAwesomeIcon
+                      className="mr-2"
+                      style={{ color: '#000' }}
+                      icon={['fab', 'spotify']}
+                      size="lg"
+                    />
                   </div>
                   <div className="mr-auto">{channel.name} playlist on Spotify</div>
                   <div>
@@ -146,13 +158,21 @@ export default class Station extends React.Component<StationProps> {
         </div>
         <div className="container">
           <div className="row">
-            <StreamCardsLayout tracks={recent} channel={channel} secondaryText={this.secondaryText} />
+            <StreamCardsLayout
+              tracks={recent}
+              channel={channel}
+              secondaryText={this.secondaryText}
+            />
           </div>
         </div>
         <div className="container mb-4 text-center">
           <div className="row">
             <div className="col">
-              <button type="button" className="btn btn-primary" onClick={async () => this.fetchMore()}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={async () => this.fetchMore()}
+              >
                 {this.state.loading ? 'Loading..' : 'Load More'}
               </button>
             </div>

@@ -11,8 +11,6 @@ export const SpotifyIframe: React.FC<{ track: TrackResponse }> = (props): JSX.El
       width="100%"
       height={75}
       frameBorder={0}
-      // eslint-disable-next-line react/jsx-boolean-value
-      allowTransparency={true}
       allow="encrypted-media"
     />
   );

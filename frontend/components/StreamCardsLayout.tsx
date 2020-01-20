@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-no-useless-fragment */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 import React from 'react';
 import AdSense from 'react-adsense';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ReactGA from 'react-ga';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
+import { Channel } from '../channels';
 import { TrackResponse } from '../responses';
 import { TrackLinks } from './TrackLinks';
-import { Channel } from '../channels';
 
 export const StreamCardsLayout: React.FC<{
   tracks: TrackResponse[][];
@@ -33,7 +33,7 @@ export const StreamCardsLayout: React.FC<{
               <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           )}
-          {chunk.map(play => {
+          {chunk.map((play, index) => {
             const albumCover = play.spotify.cover || '/static/missing.png';
             let spotify: undefined | string;
             let apple: undefined | string;
@@ -43,7 +43,7 @@ export const StreamCardsLayout: React.FC<{
             }
 
             return (
-              <React.Fragment key={play.track.id}>
+              <React.Fragment key={play.track.id + index.toString()}>
                 <div className="col-4 col-lg-3 d-none d-md-block mb-3">
                   <div className="card h-100 shadow-sm border-0">
                     <LazyLoadImage src={albumCover} className="card-img-top" alt="..." />

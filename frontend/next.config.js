@@ -5,5 +5,6 @@ const withPurgeCss = require('next-purgecss');
 module.exports = withSass(
   withPurgeCss({
     compress: false,
+    purgeCssEnabled: ({ dev, isServer }) => (!dev && !isServer),
   }),
 );

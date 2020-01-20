@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 
-const siteConversion: Record<string, string> = {
+const siteConversion = {
   tidal: 'Tidal',
   spotify: 'Spotify',
   soundCloud: 'SoundCloud',
@@ -18,7 +18,7 @@ const siteConversion: Record<string, string> = {
   amazonMusic: 'Amazon Music',
   youtubeMusic: 'YouTube Music',
   googleplayStore: 'Google Play Store',
-};
+} as const;
 
 export const TrackLinksButtons: React.FC<{
   links: Array<{ site: string; url: string }>;
@@ -53,18 +53,21 @@ export const TrackLinksButtons: React.FC<{
 
   return (
     <>
-      {links.map(link => (
-        <a
-          key={link.site}
-          href={link.url}
-          className="btn btn-block border rounded-pill"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackOut(link.site, props.id)}
-        >
-          {siteConversion[link.site] || link.site}
-        </a>
-      ))}
+      {links.map(link => {
+        return (
+          <a
+            key={link.site}
+            style={{ fontWeight: 500 }}
+            href={link.url}
+            className="btn btn-light btn-block"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackOut(link.site, props.id)}
+          >
+            {siteConversion[link.site] || link.site}
+          </a>
+        );
+      })}
     </>
   );
 };

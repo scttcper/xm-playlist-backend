@@ -7,7 +7,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AppLayout } from '../components/AppLayout';
 import { channels, Channel } from '../channels';
 
-export default class Movies extends React.Component<{ movies: any[] }> {
+export default class Home extends React.Component {
   state: { genreFilter: string; results: Channel[] } = { genreFilter: '', results: [] };
   fuse?: Fuse<Channel, { keys: Array<'name' | 'desc'> }>;
 
@@ -40,6 +40,7 @@ export default class Movies extends React.Component<{ movies: any[] }> {
     }
 
     const query = (event.target as HTMLInputElement).value;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     this.setState({ results: this.fuse!.search(query), genreFilter: '' });
   }
 

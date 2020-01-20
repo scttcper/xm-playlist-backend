@@ -1,28 +1,28 @@
-import { NextPageContext } from 'next';
-import fetch from 'isomorphic-unfetch';
-import Error from 'next/error';
-import Link from 'next/link';
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AdSense from 'react-adsense';
 import {
-  Sparkline,
   LineSeries,
-  WithTooltip,
   PatternLines,
   PointSeries,
+  Sparkline,
   VerticalReferenceLine,
+  WithTooltip,
 } from '@data-ui/sparkline';
 import { allColors } from '@data-ui/theme';
-import { SizeMe } from 'react-sizeme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import fetch from 'isomorphic-unfetch';
+import { NextPageContext } from 'next';
+import Error from 'next/error';
 import Head from 'next/head';
+import Link from 'next/link';
+import React from 'react';
+import AdSense from 'react-adsense';
+import { SizeMe } from 'react-sizeme';
 
-import { AppLayout } from '../../../../../components/AppLayout';
 import { channels } from '../../../../../channels';
-import { TrackChannelResponse } from '../../../../../responses';
-import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
-import { url } from '../../../../../url';
+import { AppLayout } from '../../../../../components/AppLayout';
 import { SpotifyIframe } from '../../../../../components/SpotifyIframe';
+import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
+import { TrackChannelResponse } from '../../../../../responses';
+import { url } from '../../../../../url';
 
 interface StationProps {
   channelId: string;
@@ -64,7 +64,9 @@ export default class Station extends React.Component<StationProps> {
     const { trackData } = this.props;
     const albumCover = trackData.spotify.cover || '/static/missing.png';
     const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
-    const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${channel.name}`;
+    const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
+      channel.name
+    }`;
 
     return (
       <AppLayout>
@@ -91,7 +93,10 @@ export default class Station extends React.Component<StationProps> {
               <meta property="twitter:player:height" content="380" />
               <meta property="twitter:player:width" content="300" />
               <meta property="twitter:card" content="player" />
-              <meta property="twitter:audio:artist_name" content={trackData.track.artists.join(' ')} />
+              <meta
+                property="twitter:audio:artist_name"
+                content={trackData.track.artists.join(' ')}
+              />
               <meta
                 property="twitter:player"
                 content={`https://open.spotify.com/embed/track/${trackData.spotify.spotify_id}`}
