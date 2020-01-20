@@ -7,7 +7,7 @@ export const StationNavigation: React.FC<{
   currentPage: 'recent' | 'newest' | 'most-heard';
 }> = props => {
   return (
-    <div className="text-nowrap" style={{ overflowX: 'auto' }}>
+    <div className="text-nowrap" style={{ overflowX: 'auto', overflowY: 'hidden' }}>
       <div className="d-inline-block mr-3">
         <Link href="/station/[id]" as={`/station/${props.channelId.toLowerCase()}`}>
           <a className={'h3 ' + (props.currentPage === 'recent' ? 'text-dark' : 'text-secondary')}>
