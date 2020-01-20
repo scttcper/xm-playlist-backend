@@ -49,7 +49,7 @@ export default class Station extends React.Component<StationProps> {
     const heard = formatDistanceStrict(new Date(track.track.created_at), new Date(), {
       addSuffix: true,
     });
-    return `Heard: ${heard}`;
+    return `First Heard: ${heard}`;
   }
 
   render(): JSX.Element {
