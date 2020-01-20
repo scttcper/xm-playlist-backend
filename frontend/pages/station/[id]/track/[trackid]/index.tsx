@@ -176,7 +176,7 @@ export default class Station extends React.Component<StationProps> {
             <div className="col-12 col-md-6 offset-md-3 mb-3">
               <div className="rounded bg-light shadow-light p-3">
                 <h4 className="text-center">Links</h4>
-                <TrackLinksButtons links={trackData.links} />
+                <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
               </div>
             </div>
           </div>

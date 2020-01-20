@@ -4,6 +4,7 @@ import AdSense from 'react-adsense';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import ReactGA from 'react-ga';
 
 import { TrackResponse } from '../responses';
 import { TrackLinks } from './TrackLinks';
@@ -14,6 +15,14 @@ export const StreamCardsLayout: React.FC<{
   channel: Channel;
   secondaryText?: (track: TrackResponse) => string;
 }> = props => {
+  const trackOut = (site: string, id: string): void => {
+    ReactGA.event({
+      category: 'MusicClick',
+      action: site,
+      label: id,
+    });
+  };
+
   return (
     <>
       {props.tracks.map((chunk, index) => (
@@ -40,7 +49,9 @@ export const StreamCardsLayout: React.FC<{
                     <LazyLoadImage src={albumCover} className="card-img-top" alt="..." />
                     <div className="card-body d-flex align-items-start flex-column">
                       <div className="mb-auto pb-4" style={{ maxWidth: '100%' }}>
-                        {props.secondaryText && <small className="text-secondary">{props.secondaryText(play)}</small>}
+                        {props.secondaryText && (
+                          <small className="text-secondary">{props.secondaryText(play)}</small>
+                        )}
                         <h5 className="mt-1 mb-0">{play.track.name}</h5>
                         <ul className="list-inline">
                           {play.track.artists.map((artist, index) => (
@@ -55,7 +66,9 @@ export const StreamCardsLayout: React.FC<{
                         <div className="flex-fill mr-2">
                           <Link
                             href="/station/[id]/track/[trackid]"
-                            as={`/station/${props.channel.deeplink.toLowerCase()}/track/${play.track.id}`}
+                            as={`/station/${props.channel.deeplink.toLowerCase()}/track/${
+                              play.track.id
+                            }`}
                           >
                             <a className="btn btn-light btn-sm btn-block border">
                               <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
@@ -64,7 +77,7 @@ export const StreamCardsLayout: React.FC<{
                         </div>
                         {play.links && (
                           <div className="flex-fill">
-                            <TrackLinks links={play.links} />
+                            <TrackLinks links={play.links} id={play.track.id} />
                           </div>
                         )}
                       </div>
@@ -76,6 +89,7 @@ export const StreamCardsLayout: React.FC<{
                               href={spotify}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => trackOut('spotify', play.track.id)}
                             >
                               <FontAwesomeIcon icon={['fab', 'spotify']} /> Spotify
                             </a>
@@ -86,6 +100,7 @@ export const StreamCardsLayout: React.FC<{
                               href={apple}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => trackOut('apple', play.track.id)}
                             >
                               <FontAwesomeIcon icon={['fab', 'apple']} /> Apple
                             </a>
@@ -99,16 +114,27 @@ export const StreamCardsLayout: React.FC<{
                 <div className="col-12 d-md-none mb-3">
                   <div className="row bg-light shadow-light radius-media-left radius-media-right ml-0 mr-0">
                     <div className="col-5 p-0">
-                      <LazyLoadImage src={albumCover} className="img-fluid radius-media-left" alt="..." />
+                      <LazyLoadImage
+                        src={albumCover}
+                        className="img-fluid radius-media-left"
+                        alt="..."
+                      />
                     </div>
                     <div className="col-7 pt-2 pb-3 px-3">
-                      <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
+                      <div
+                        className="d-flex align-items-start flex-column"
+                        style={{ height: '100%' }}
+                      >
                         <div className="mb-auto" style={{ maxWidth: '100%' }}>
                           {props.secondaryText && (
-                            <span className="text-secondary text-xs">{props.secondaryText(play)}</span>
+                            <span className="text-secondary text-xs">
+                              {props.secondaryText(play)}
+                            </span>
                           )}
 
-                          <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">{play.track.name}</h5>
+                          <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">
+                            {play.track.name}
+                          </h5>
                           <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
                             {play.track.artists.map((artist, index) => (
                               <li
@@ -125,16 +151,19 @@ export const StreamCardsLayout: React.FC<{
                           <div className="flex-fill mr-2">
                             <Link
                               href="/station/[id]/track/[trackid]"
-                              as={`/station/${props.channel.deeplink.toLowerCase()}/track/${play.track.id}`}
+                              as={`/station/${props.channel.deeplink.toLowerCase()}/track/${
+                                play.track.id
+                              }`}
                             >
                               <a className="btn btn-light btn-sm btn-block border">
-                                <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
+                                <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" />{' '}
+                                Info
                               </a>
                             </Link>
                           </div>
                           {play.links && (
                             <div className="flex-fill">
-                              <TrackLinks links={play.links} />
+                              <TrackLinks links={play.links} id={play.track.id} />
                             </div>
                           )}
                         </div>

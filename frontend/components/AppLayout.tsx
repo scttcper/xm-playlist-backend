@@ -2,7 +2,13 @@ import '../index.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSpotify, faApple } from '@fortawesome/free-brands-svg-icons';
-import { faEllipsisH, faExternalLinkAlt, faInfoCircle, faMusic, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsisH,
+  faExternalLinkAlt,
+  faInfoCircle,
+  faMusic,
+  faArrowLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';

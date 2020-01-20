@@ -5,7 +5,10 @@ import ReactGA from 'react-ga';
 
 import { TrackLinksButtons } from './TrackLinksButtons';
 
-export function TrackLinks(props: { links: Array<{ site: string; url: string }> }) {
+export const TrackLinks: React.FC<{
+  links: Array<{ site: string; url: string }>;
+  id: string;
+}> = props => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -28,9 +31,9 @@ export function TrackLinks(props: { links: Array<{ site: string; url: string }> 
           <Modal.Title>Links</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TrackLinksButtons links={props.links} />
+          <TrackLinksButtons links={props.links} id={props.id} />
         </Modal.Body>
       </Modal>
     </>
   );
-}
+};

@@ -23,8 +23,13 @@ export const StationNavigation: React.FC<{
         </Link>
       </div>
       <div className="d-inline-block mr-3 text-secondary">
-        <Link href="/station/[id]/most-heard" as={`/station/${props.channelId.toLowerCase()}/most-heard`}>
-          <a className={'h3 ' + (props.currentPage === 'most-heard' ? 'text-dark' : 'text-secondary')}>
+        <Link
+          href="/station/[id]/most-heard"
+          as={`/station/${props.channelId.toLowerCase()}/most-heard`}
+        >
+          <a
+            className={`h3  ${props.currentPage === 'most-heard' ? 'text-dark' : 'text-secondary'}`}
+          >
             Most Heard
           </a>
         </Link>

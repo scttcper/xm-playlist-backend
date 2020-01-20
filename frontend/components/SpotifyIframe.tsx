@@ -16,4 +16,4 @@ export const SpotifyIframe: React.FC<{ track: TrackResponse }> = (props): JSX.El
       allow="encrypted-media"
     />
   );
-}
+};
