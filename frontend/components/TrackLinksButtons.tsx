@@ -39,16 +39,16 @@ export const TrackLinksButtons: React.FC<{
   };
 
   // Manually Sorted by most used links
-  if (spotifyLink) {
-    links.unshift(spotifyLink);
+  if (youtubeLink) {
+    links.unshift(youtubeLink);
   }
 
   if (appleLink) {
     links.unshift(appleLink);
   }
 
-  if (youtubeLink) {
-    links.unshift(youtubeLink);
+  if (spotifyLink) {
+    links.unshift(spotifyLink);
   }
 
   return (
