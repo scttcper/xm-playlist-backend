@@ -92,7 +92,7 @@ export default class Station extends React.Component<StationProps> {
           <meta property="twitter:description" content={description} />
           <meta property="twitter:player:height" content="380" />
           <meta property="twitter:player:width" content="300" />
-          <meta property="twitter:card" content="audio" />
+          <meta property="twitter:card" content="player" />
           <meta property="twitter:audio:artist_name" content={trackData.track.artists.join(' ')} />
           {trackData?.spotify?.spotify_id && (
             <>
