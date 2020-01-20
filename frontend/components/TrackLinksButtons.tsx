@@ -26,8 +26,9 @@ export const TrackLinksButtons: React.FC<{
 }> = props => {
   const spotifyLink = props.links.find(link => link.site === 'spotify');
   const appleLink = props.links.find(link => link.site === 'itunes');
+  const youtubeLink = props.links.find(link => link.site === 'youtube');
 
-  const links = props.links.filter(link => !['spotify', 'itunes'].includes(link.site));
+  const links = props.links.filter(link => !['spotify', 'itunes', 'youtube'].includes(link.site));
 
   const trackOut = (site: string, id: string): void => {
     ReactGA.event({
@@ -37,12 +38,17 @@ export const TrackLinksButtons: React.FC<{
     });
   };
 
+  // Manually Sorted by most used links
+  if (spotifyLink) {
+    links.unshift(spotifyLink);
+  }
+
   if (appleLink) {
     links.unshift(appleLink);
   }
 
-  if (spotifyLink) {
-    links.unshift(spotifyLink);
+  if (youtubeLink) {
+    links.unshift(youtubeLink);
   }
 
   return (
