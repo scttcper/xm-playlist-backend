@@ -6,7 +6,16 @@ import { TrackResponse } from '../frontend/responses';
 
 export async function getTrack(id: string): Promise<TrackResponse> {
   const data = await db('track')
-    .select(['*', 'track.name as name', 'track.createdAt as createdAt'])
+    .select([
+      'track.id as id',
+      'track.name as name',
+      'track.artists as artists',
+      'track.createdAt as createdAt',
+      'spotify.spotifyId as spotifyId',
+      'spotify.previewUrl as previewUrl',
+      'spotify.cover as cover',
+      'links.links as links',
+    ])
     .where('id', id)
     .leftJoin('spotify', 'track.id', 'spotify.trackId')
     .leftJoin('links', 'track.id', 'links.trackId')
@@ -25,7 +34,7 @@ export async function getTrack(id: string): Promise<TrackResponse> {
     id: data.id,
     name: data.name,
     artists: data.artists,
-    created_at: data.created_at,
+    created_at: data.createdAt,
   };
   return {
     spotify,

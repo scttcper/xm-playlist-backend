@@ -19,10 +19,11 @@ describe('getNewest', () => {
     await handleResponse(channel, siriushits);
     const newest = await getNewest(channel);
     expect(newest).toHaveLength(1);
+    delete newest[0].track.created_at;
     expect(newest[0].track).toEqual({
       artists: ['Halsey'],
       id: 'GDCA-101851532-001',
-      name: null,
+      name: 'Without Me',
     });
   });
 });

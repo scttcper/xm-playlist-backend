@@ -19,6 +19,7 @@ describe('getTrack', () => {
     const channel = channels[0];
     await handleResponse(channel, siriushits);
     const track = await getTrack(siriushitsTrackId);
+    delete track.track.created_at;
     expect(track).toEqual({
       links: [],
       spotify: {
@@ -29,7 +30,7 @@ describe('getTrack', () => {
       track: {
         artists: ['Halsey'],
         id: 'GDCA-101851532-001',
-        name: null,
+        name: 'Without Me',
       },
     });
   });
