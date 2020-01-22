@@ -127,7 +127,7 @@ export default class Station extends React.Component<StationProps> {
         <div className="container mb-3">
           <div className="row">
             <div className="col-12">
-              <StationNavigation channelId={channel.id} currentPage="most-heard" />
+              <StationNavigation channelDeeplink={channel.deeplink} currentPage="most-heard" />
             </div>
           </div>
         </div>
