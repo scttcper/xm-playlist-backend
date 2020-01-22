@@ -27,8 +27,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
     .leftJoin('track', 'scrobble.trackId', 'track.id')
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
     .leftJoin('links', 'scrobble.trackId', 'links.trackId')
-    .orderBy('track.createdAt', 'desc')
-    .limit(limit);
+    .orderBy('track.createdAt', 'desc');
 
   const groupedById = _.groupBy(newest, _.property('trackId'));
 
@@ -53,7 +52,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
       links: data.links ?? [],
       plays: groupedById[data.trackId].length,
     };
-  });
+  }).slice(0, limit);
 }
 
 export async function getMostHeard(channel: Channel, limit = 50): Promise<StationNewest[]> {
