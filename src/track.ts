@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import Boom from '@hapi/boom';
+
 import { db } from './db';
 import { TrackResponse } from '../frontend/responses';
 
@@ -9,6 +11,10 @@ export async function getTrack(id: string): Promise<TrackResponse> {
     .leftJoin('spotify', 'track.id', 'spotify.trackId')
     .leftJoin('links', 'track.id', 'links.trackId')
     .first();
+
+  if (!data) {
+    throw Boom.notFound('Track not found');
+  }
 
   const spotify: TrackResponse['spotify'] = {
     spotify_id: data.spotifyId,

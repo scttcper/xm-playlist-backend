@@ -26,7 +26,7 @@ import { url } from '../../../../../url';
 
 interface StationProps {
   channelId: string;
-  trackData: TrackChannelResponse;
+  trackData: TrackChannelResponse | null;
 }
 
 interface Context extends NextPageContext {
@@ -48,6 +48,10 @@ export default class Station extends React.Component<StationProps> {
     const trackId = context.query.trackid as string;
     const channelId = context.query.id as string;
     const res = await fetch(`${url}/api/station/${channelId}/track/${trackId}`);
+    if (res.status === 404) {
+      return { trackData: null, channelId };
+    }
+
     const json = await res.json();
     return { trackData: json, channelId };
   }
