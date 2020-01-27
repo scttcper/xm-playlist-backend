@@ -127,10 +127,8 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
 }
 
 export async function matchSpotify(track: TrackModel, update = false): Promise<void> {
-  const s = await searchTrack(
-    JSON.parse(track.artists).map(n => n.name),
-    track.name,
-  );
+  console.log({ artists: track.artists });
+  const s = await searchTrack(JSON.parse(track.artists), track.name);
 
   if (!s || !s.spotifyName) {
     throw new SpotifyFailed();
@@ -244,24 +242,29 @@ export async function playlistTracks(code: string, playlistId: string) {
     res.items.forEach(n => items.push(n.track.uri));
   }
 
-  return items;
+  // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
+  return items.sort();
 }
 
 export async function updatePlaylists(code: string) {
   for (const channel of channels) {
     const mostHeard = await getMostHeard(channel, 10_000);
+    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     const trackIds = mostHeard
       .filter(track => track.spotify.spotify_id)
-      .map(track => `spotify:track:${track.spotify.spotify_id}`);
+      .map(track => `spotify:track:${track.spotify.spotify_id}`)
+      .sort();
+
+    const uniqueTrackIds = _.uniq(trackIds);
     const current = await playlistTracks(code, channel.playlist).catch(e => {
       console.error('GET TRACKS?', e);
       return [];
     });
-    const toRemove = _.difference(current, trackIds);
-    // await removeFromPlaylist(code, channel.playlist, toRemove).catch(e => console.error('REMOVE', e));
-    const toAdd = _.pullAll(trackIds, current);
+    const toRemove = _.difference(current, uniqueTrackIds);
+    await removeFromPlaylist(code, channel.playlist, toRemove).catch(e => console.error('REMOVE', e));
+    const toAdd = _.pullAll(uniqueTrackIds, current);
 
-    // await addToPlaylist(code, channel.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
+    await addToPlaylist(code, channel.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
     console.log(`Removed: ${toRemove.length} from ${channel.name}`);
     console.log(`Added: ${toAdd.length} to ${channel.name}`);
   }
