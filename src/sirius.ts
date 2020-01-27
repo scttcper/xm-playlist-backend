@@ -32,7 +32,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
       data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails?.liveChannelResponse
         .liveChannelResponses?.[0].markerLists ?? [];
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
-    const marker = cut.markers.find(
+    const marker = cut?.markers?.find(
       marker => marker.cut.cutContentType === 'Song' && marker.cut.title && marker.cut.title.trim().length > 0,
     );
     if (!marker || !marker.cut) {
