@@ -5,6 +5,7 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LazyLoad from 'react-lazyload';
 
 import { Channel } from '../channels';
 import { TrackResponse } from '../responses';
@@ -71,7 +72,10 @@ export const StreamCardsLayout: React.FC<{
                             }`}
                           >
                             <a className="btn btn-light btn-sm btn-block border">
-                              <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
+                              <LazyLoad>
+                                <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" />
+                              </LazyLoad>{' '}
+                              Info
                             </a>
                           </Link>
                         </div>
@@ -91,7 +95,10 @@ export const StreamCardsLayout: React.FC<{
                               rel="noopener noreferrer"
                               onClick={() => trackOut('spotify', play.track.id)}
                             >
-                              <FontAwesomeIcon icon={['fab', 'spotify']} /> Spotify
+                              <LazyLoad>
+                                <FontAwesomeIcon icon={['fab', 'spotify']} />
+                              </LazyLoad>{' '}
+                              Spotify
                             </a>
                           </div>
                           <div className="flex-fill">
@@ -102,7 +109,10 @@ export const StreamCardsLayout: React.FC<{
                               rel="noopener noreferrer"
                               onClick={() => trackOut('apple', play.track.id)}
                             >
-                              <FontAwesomeIcon icon={['fab', 'apple']} /> Apple
+                              <LazyLoad>
+                                <FontAwesomeIcon icon={['fab', 'apple']} />
+                              </LazyLoad>{' '}
+                              Apple
                             </a>
                           </div>
                         </div>
@@ -156,7 +166,9 @@ export const StreamCardsLayout: React.FC<{
                               }`}
                             >
                               <a className="btn btn-light btn-sm btn-block border">
-                                <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" />{' '}
+                                <LazyLoad>
+                                  <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" />
+                                </LazyLoad>{' '}
                                 Info
                               </a>
                             </Link>

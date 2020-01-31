@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
 import ReactGA from 'react-ga';
+import LazyLoad from 'react-lazyload';
 
 import { TrackLinksButtons } from './TrackLinksButtons';
 
@@ -23,7 +24,10 @@ export const TrackLinks: React.FC<{
   return (
     <>
       <a className="btn btn-light btn-sm btn-block border" onClick={handleShow}>
-        <FontAwesomeIcon icon="music" className="text-dark mr-1" /> Listen
+        <LazyLoad>
+          <FontAwesomeIcon icon="music" className="text-dark mr-1" />
+        </LazyLoad>{' '}
+        Listen
       </a>
 
       <Modal show={show} onHide={handleClose}>

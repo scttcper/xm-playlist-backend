@@ -8,6 +8,7 @@ import Head from 'next/head';
 import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
+import LazyLoad from 'react-lazyload';
 
 import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
@@ -113,16 +114,20 @@ export default class Station extends React.Component<StationProps> {
               >
                 <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
                   <div className="">
-                    <FontAwesomeIcon
-                      className="mr-2"
-                      style={{ color: '#000' }}
-                      icon={['fab', 'spotify']}
-                      size="lg"
-                    />
+                    <LazyLoad>
+                      <FontAwesomeIcon
+                        className="mr-2"
+                        style={{ color: '#000' }}
+                        icon={['fab', 'spotify']}
+                        size="lg"
+                      />
+                    </LazyLoad>
                   </div>
                   <div className="mr-auto">{channel.name} playlist on Spotify</div>
                   <div>
-                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                    <LazyLoad>
+                      <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                    </LazyLoad>
                   </div>
                 </div>
               </a>
