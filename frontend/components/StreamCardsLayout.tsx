@@ -64,7 +64,7 @@ export const StreamCardsLayout: React.FC<{
                         </ul>
                       </div>
                       <div className="d-flex flex-row mb-2" style={{ width: '100%' }}>
-                        <div className="flex-fill mr-2">
+                        <div className="flex-fill">
                           <Link
                             href="/station/[id]/track/[trackid]"
                             as={`/station/${props.channel.deeplink.toLowerCase()}/track/${
@@ -79,13 +79,13 @@ export const StreamCardsLayout: React.FC<{
                             </a>
                           </Link>
                         </div>
-                        {play.links && (
-                          <div className="flex-fill">
+                        {play.links && play.links.length > 0 && (
+                          <div className="flex-fill ml-2">
                             <TrackLinks links={play.links} id={play.track.id} />
                           </div>
                         )}
                       </div>
-                      {play.links && (
+                      {play.spotify && play.spotify.spotify_id && (
                         <div className="d-flex flex-row" style={{ width: '100%' }}>
                           <div className="flex-fill mr-2">
                             <a
@@ -158,7 +158,7 @@ export const StreamCardsLayout: React.FC<{
                           </ul>
                         </div>
                         <div className="d-flex flex-row" style={{ width: '100%' }}>
-                          <div className="flex-fill mr-2">
+                          <div className="flex-fill">
                             <Link
                               href="/station/[id]/track/[trackid]"
                               as={`/station/${props.channel.deeplink.toLowerCase()}/track/${
@@ -173,8 +173,8 @@ export const StreamCardsLayout: React.FC<{
                               </a>
                             </Link>
                           </div>
-                          {play.links && (
-                            <div className="flex-fill">
+                          {play.links && play.links.length > 0 && (
+                            <div className="flex-fill ml-2">
                               <TrackLinks links={play.links} id={play.track.id} />
                             </div>
                           )}
