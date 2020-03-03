@@ -74,7 +74,6 @@ export async function getToken(): Promise<string> {
   const res = await got
     .post('https://accounts.spotify.com/api/token', {
       headers: { Authorization: `Basic ${auth}` },
-      // eslint-disable-next-line @typescript-eslint/camelcase
       form: { grant_type: 'client_credentials' },
     })
     .json<any>();
@@ -184,9 +183,7 @@ export async function getUserToken(code: string): Promise<string> {
     .post('https://accounts.spotify.com/api/token', {
       headers: { Authorization: `Basic ${auth}` },
       form: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
         redirect_uri: 'https://example.com/',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         grant_type: 'authorization_code',
         code,
         state: 'xmplaylist',

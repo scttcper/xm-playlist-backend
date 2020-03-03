@@ -13,7 +13,6 @@ function getChannel(id: string): Channel {
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
   if (!channel) {
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw Boom.notFound('Channel not Found');
   }
 

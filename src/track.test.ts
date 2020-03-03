@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { db } from './db';
 import { getTrack } from './track';
 import { channels } from '../frontend/channels';

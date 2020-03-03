@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { subDays, differenceInDays } from 'date-fns';
 import * as _ from 'lodash';
 

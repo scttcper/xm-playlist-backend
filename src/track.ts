@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Boom from '@hapi/boom';
 
 import { db } from './db';
