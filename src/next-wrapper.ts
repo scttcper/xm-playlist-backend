@@ -17,10 +17,10 @@ export const defaultHandlerWrapper = (app: ReturnType<typeof next>) => async (
   return h.response(html).code(res.statusCode);
 };
 
-export const pathWrapper = (app: ReturnType<typeof next>, pathName, opts?) => async (
+export const pathWrapper = (app: ReturnType<typeof next>, pathName) => async (
   { raw, query, params },
   h,
 ) => {
-  const html = await app.renderToHTML(raw.req, raw.res, pathName, { ...query, ...params }, opts);
+  const html = await app.renderToHTML(raw.req, raw.res, pathName, { ...query, ...params });
   return h.response(html).code(raw.res.statusCode);
 };
