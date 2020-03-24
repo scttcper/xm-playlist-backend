@@ -102,8 +102,9 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
       headers,
     })
     .json<any>();
-  if (res.tracks.items.length > 0) {
-    return parseSpotify(_.first(res.tracks.items));
+  const items: any[] = res.tracks.items?.filter(n => n) ?? [];
+  if (items.length > 0) {
+    return parseSpotify(_.first(items));
   }
 
   const youtube = await search(`${cleanTrack} ${cleanArtists}`);
@@ -118,8 +119,9 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   );
   // Console.log('GOOGLE:', options.qs.q);
   const res2 = (await got.get(url, { searchParams, headers }).json()) as any;
-  if (res2.tracks.items.length > 0) {
-    return parseSpotify(_.first(res2.tracks.items));
+  const items2: any[] = res2.tracks.items?.filter(n => n) ?? [];
+  if (items2.length > 0) {
+    return parseSpotify(_.first(items2));
   }
 
   throw new SpotifyFailed();
