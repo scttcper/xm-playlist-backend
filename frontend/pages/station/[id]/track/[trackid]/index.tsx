@@ -48,12 +48,16 @@ export default class Station extends React.Component<StationProps> {
     const trackId = context.query.trackid as string;
     const channelId = context.query.id as string;
     const res = await fetch(`${url}/api/station/${channelId}/track/${trackId}`);
-    if (res.status === 404) {
+    if (res.status !== 200) {
       return { trackData: null, channelId };
     }
 
-    const json = await res.json();
-    return { trackData: json, channelId };
+    try {
+      const json = await res.json();
+      return { trackData: json, channelId };
+    } catch {
+      return { trackData: null, channelId };
+    }
   }
 
   render(): JSX.Element {
