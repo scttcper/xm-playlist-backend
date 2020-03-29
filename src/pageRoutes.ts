@@ -52,6 +52,12 @@ export function registerNextjs(server: HapiServer, app: Server) {
   });
 
   server.route({
+    method: 'GET',
+    path: '/robots.txt',
+    handler: nextHandlerWrapper(app),
+  });
+
+  server.route({
     method: '*',
     path: '/{p*}' /* catch all route */,
     handler: defaultHandlerWrapper(app),
