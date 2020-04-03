@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:13-alpine
 
 RUN mkdir -p /opt/app
 
@@ -16,6 +16,7 @@ RUN apk add --update-cache \
 RUN npm ci
 RUN npm run build
 RUN npm cache clean --force
+RUN npm prune --production
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
