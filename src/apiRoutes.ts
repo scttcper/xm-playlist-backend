@@ -34,6 +34,13 @@ export async function registerApiRoutes(server: HapiServer) {
     path: '/api/station/{id}',
     method: 'GET',
     options: {
+      cache: {
+        privacy: 'public',
+        // 3 min
+        expiresIn: 180000,
+        statuses: [200],
+        otherwise: 'no-cache',
+      },
       cors: { origin: 'ignore' },
       validate: {
         params: Joi.object({
@@ -60,6 +67,13 @@ export async function registerApiRoutes(server: HapiServer) {
     path: '/api/station/{id}/newest',
     method: 'GET',
     options: {
+      cache: {
+        privacy: 'public',
+        // 10 min
+        expiresIn: 600000,
+        statuses: [200],
+        otherwise: 'no-cache',
+      },
       cors: { origin: 'ignore' },
       validate: {
         params: Joi.object({
@@ -77,6 +91,13 @@ export async function registerApiRoutes(server: HapiServer) {
     path: '/api/station/{id}/most-heard',
     method: 'GET',
     options: {
+      cache: {
+        privacy: 'public',
+        // 10 min
+        expiresIn: 600000,
+        statuses: [200],
+        otherwise: 'no-cache',
+      },
       cors: { origin: 'ignore' },
       validate: {
         params: Joi.object({
@@ -94,6 +115,13 @@ export async function registerApiRoutes(server: HapiServer) {
     path: '/api/station/{channelId}/track/{trackId}',
     method: 'GET',
     options: {
+      cache: {
+        privacy: 'public',
+        // 10 min
+        expiresIn: 180000,
+        statuses: [200],
+        otherwise: 'no-cache',
+      },
       cors: { origin: 'ignore' },
       validate: {
         params: Joi.object({

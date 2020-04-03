@@ -41,7 +41,8 @@ export default class Home extends React.Component {
 
     const query = (event.target as HTMLInputElement).value;
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    this.setState({ results: this.fuse!.search(query), genreFilter: '' });
+    const results = this.fuse!.search(query).map(result => result.item);
+    this.setState({ results, genreFilter: '' });
   }
 
   render(): JSX.Element {
