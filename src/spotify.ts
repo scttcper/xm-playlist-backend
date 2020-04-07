@@ -161,6 +161,11 @@ export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | 
     .select()
     .where('trackId', track.id)
     .first();
+
+  if (doc.lock) {
+    return doc;
+  }
+
   // TODO: check spotify age
   if (doc) {
     return doc;

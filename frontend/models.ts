@@ -20,4 +20,5 @@ export interface Spotify {
   previewUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
+  lock?: boolean;
 }
