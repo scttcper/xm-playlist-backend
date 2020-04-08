@@ -554,7 +554,7 @@ export const channels: Channel[] = [
     deeplink: 'TheMessage',
     number: 63,
     name: 'The Message',
-    genre: 'Christian',
+    genre: 'Pop',
     desc: 'Christian Pop & Rock',
     playlist: '0WYpaAG3IBHOAxU3biDqn5',
   },
