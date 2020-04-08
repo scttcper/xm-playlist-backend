@@ -162,12 +162,12 @@ export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | 
     .where('trackId', track.id)
     .first();
 
-  if (doc.lock) {
+  // TODO: check spotify age
+  if (doc) {
     return doc;
   }
 
-  // TODO: check spotify age
-  if (doc) {
+  if (doc?.lock) {
     return doc;
   }
 
