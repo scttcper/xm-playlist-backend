@@ -138,13 +138,6 @@ export default class Home extends React.Component {
             ))}
           </div>
         </div>
-        <div className="container mt-2 mb-5 adsbygoogle">
-          <div className="row">
-            <div className="col-12">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-            </div>
-          </div>
-        </div>
       </AppLayout>
     );
   }
