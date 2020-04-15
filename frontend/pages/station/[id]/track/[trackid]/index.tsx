@@ -143,7 +143,7 @@ export default class Station extends React.Component<StationProps> {
                   <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
                     <div className="mb-auto" style={{ maxWidth: '100%' }}>
                       <h4 className="mt-0 mb-2 text-strong">{trackData.track.name}</h4>
-                      <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
+                      <ul className="list-inline mb-0">
                         {trackData.track.artists.map((artist, index) => (
                           <li
                             // eslint-disable-next-line react/no-array-index-key

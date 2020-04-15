@@ -41,6 +41,23 @@ export default class Station extends React.Component<StationProps> {
     const id = context.query.id as string;
     const res = await fetch(`${url}/api/station/${id}`);
 
+    const lowercaseId = id.toLowerCase();
+    const channel = channels.find(
+      channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
+    );
+
+    if (!channel) {
+      return { recent: [], channelId: id };
+    }
+
+    // redirect old page urls
+    if (lowercaseId !== channel.deeplink.toLowerCase()) {
+      context?.res?.writeHead(301, {
+        Location: `/station/${channel.deeplink.toLowerCase()}`,
+      });
+      context?.res?.end();
+    }
+
     try {
       const json = await res.json();
       return { recent: _.chunk(json, 12), channelId: id };

@@ -145,7 +145,7 @@ export const StreamCardsLayout: React.FC<{
                           <h5 className="mt-0 mb-0 text-strong text-nowrap text-truncate">
                             {play.track.name}
                           </h5>
-                          <ul className="list-inline mb-0" style={{ lineHeight: 1 }}>
+                          <ul className="list-inline mb-0">
                             {play.track.artists.map((artist, index) => (
                               <li
                                 // eslint-disable-next-line react/no-array-index-key
