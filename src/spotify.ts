@@ -5,7 +5,7 @@ import { URLSearchParams } from 'url';
 
 import config from '../config';
 import { client, getCache } from './redis';
-import * as Util from './util';
+import * as util from './util';
 import { search } from './youtube';
 import { TrackModel, Spotify } from '../frontend/models';
 import { db } from './db';
@@ -82,9 +82,9 @@ export async function getToken(): Promise<string> {
 }
 
 export async function searchTrack(artists: string[], name: string): Promise<SpotifyParsed> {
-  const cleanArtists = Util.cleanupExtra(Util.cleanCutoff(artists.join(' ')));
-  const cleanTrack = Util.cleanupExtra(
-    Util.cleanRemix(Util.cleanFt(Util.cleanClean(Util.cleanCutoff(Util.cleanYear(name))))),
+  const cleanArtists = util.cleanupExtra(util.cleanCutoff(artists.join(' ')));
+  const cleanTrack = util.cleanupExtra(
+    util.cleanRemix(util.cleanFt(util.cleanClean(util.cleanCutoff(util.cleanYear(name))))),
   );
   // Console.log('CLEAN: ', cleanTrack, cleanArtists);
   const token = await getToken();
@@ -114,7 +114,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
 
   searchParams.set(
     'q',
-    Util.cleanupExtra(Util.cleanRemix(Util.cleanFt(Util.cleanMusicVideo(youtube)))) +
+    util.cleanupExtra(util.cleanRemix(util.cleanFt(util.cleanMusicVideo(youtube)))) +
       optionalBlacklist(youtube, youtube),
   );
   // Console.log('GOOGLE:', options.qs.q);

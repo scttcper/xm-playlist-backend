@@ -64,13 +64,11 @@ export function noKarayoke(str: string) {
 
 export function cleanupExtra(str: string) {
   const cleanStr = str
-    .replace('-', ' ')
-    .replace('.', '')
-    .replace(',', '')
-    .replace('&', ' ')
-    .replace('(', ' ')
-    .replace(')', ' ')
-    .replace('!', ' ');
+    .replace(/,/g, '')
+    .replace(/&/g, ' ')
+    .replace(/\(/g, ' ')
+    .replace(/\)/g, ' ')
+    .replace(/!/g, ' ');
   const words = cleanStr.split(' ').filter(n => n.length > 1);
   return words.join(' ');
 }
