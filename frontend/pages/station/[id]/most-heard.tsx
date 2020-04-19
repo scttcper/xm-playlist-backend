@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
-import { NextPageContext } from 'next';
+import { GetServerSideProps } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
@@ -21,28 +21,8 @@ interface StationProps {
   channelId: string;
 }
 
-interface Context extends NextPageContext {
-  id: string;
-  recent: StationNewest[][];
-}
-
-export default class Station extends React.Component<StationProps> {
+export default class MostHeard extends React.Component<StationProps> {
   state = { recent: [] };
-
-  static async getInitialProps(context: Context): Promise<StationProps> {
-    const id = context.query.id as string;
-    const res = await fetch(`${url}/api/station/${id}/most-heard`);
-    if (res.status !== 200) {
-      return { recent: [], channelId: id };
-    }
-
-    try {
-      const json = await res.json();
-      return { recent: _.chunk(json, 12), channelId: id };
-    } catch {
-      return { recent: [], channelId: id };
-    }
-  }
 
   trackPlaylistClick(type: string): void {
     ReactGA.event({
@@ -159,3 +139,18 @@ export default class Station extends React.Component<StationProps> {
     );
   }
 }
+
+export const getServerSideProps: GetServerSideProps<StationProps> = async context => {
+  const id = context.query.id as string;
+  const res = await fetch(`${url}/api/station/${id}/most-heard`);
+  if (res.status !== 200) {
+    return { props: { recent: [], channelId: id } };
+  }
+
+  try {
+    const json = await res.json();
+    return { props: { recent: _.chunk(json, 12), channelId: id } };
+  } catch {
+    return { props: { recent: [], channelId: id } };
+  }
+};

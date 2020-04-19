@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatDistanceStrict } from 'date-fns';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
-import { NextPageContext } from 'next';
+import { NextPageContext, GetServerSideProps } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
@@ -36,35 +36,6 @@ function getLastStartTime(recent: StationRecent[]): number {
 
 export default class Station extends React.Component<StationProps> {
   state = { recent: [], loading: false };
-
-  static async getInitialProps(context: Context): Promise<StationProps> {
-    const id = context.query.id as string;
-    const res = await fetch(`${url}/api/station/${id}`);
-
-    const lowercaseId = id.toLowerCase();
-    const channel = channels.find(
-      channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
-    );
-
-    if (!channel) {
-      return { recent: [], channelId: id };
-    }
-
-    // redirect old page urls
-    if (lowercaseId !== channel.deeplink.toLowerCase()) {
-      context?.res?.writeHead(301, {
-        Location: `/station/${channel.deeplink.toLowerCase()}`,
-      });
-      context?.res?.end();
-    }
-
-    try {
-      const json = await res.json();
-      return { recent: _.chunk(json, 12), channelId: id };
-    } catch {
-      return { recent: [], channelId: id };
-    }
-  }
 
   async fetchMore(): Promise<void> {
     this.setState({ loading: true });
@@ -216,3 +187,32 @@ export default class Station extends React.Component<StationProps> {
     );
   }
 }
+
+export const getServerSideProps: GetServerSideProps<StationProps> = async context => {
+  const id = context.query?.id as string;
+  const res = await fetch(`${url}/api/station/${id}`);
+
+  const lowercaseId = id.toLowerCase();
+  const channel = channels.find(
+    channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
+  );
+
+  if (!channel) {
+    return { props: { recent: [], channelId: id } };
+  }
+
+  // redirect old page urls
+  if (lowercaseId !== channel.deeplink.toLowerCase()) {
+    context?.res?.writeHead(301, {
+      Location: `/station/${channel.deeplink.toLowerCase()}`,
+    });
+    context?.res?.end();
+  }
+
+  try {
+    const json = await res.json();
+    return { props: { recent: _.chunk(json, 12), channelId: id } };
+  } catch {
+    return { props: { recent: [], channelId: id } };
+  }
+};

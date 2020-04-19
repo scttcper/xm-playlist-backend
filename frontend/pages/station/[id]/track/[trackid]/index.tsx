@@ -9,7 +9,7 @@ import {
 import { allColors } from '@data-ui/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
-import { NextPageContext } from 'next';
+import { NextPageContext, GetServerSideProps } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -43,23 +43,7 @@ const renderTooltip = ({ datum }) => (
 
 const renderLabel = d => d;
 
-export default class Station extends React.Component<StationProps> {
-  static async getInitialProps(context: Context): Promise<StationProps> {
-    const trackId = context.query.trackid as string;
-    const channelId = context.query.id as string;
-    const res = await fetch(`${url}/api/station/${channelId}/track/${trackId}`);
-    if (res.status !== 200) {
-      return { trackData: null, channelId };
-    }
-
-    try {
-      const json = await res.json();
-      return { trackData: json, channelId };
-    } catch {
-      return { trackData: null, channelId };
-    }
-  }
-
+export default class TrackPage extends React.Component<StationProps> {
   render(): JSX.Element {
     const lowercaseId = this.props.channelId.toLowerCase();
     const channel = channels.find(
@@ -252,3 +236,19 @@ export default class Station extends React.Component<StationProps> {
     );
   }
 }
+
+export const getServerSideProps: GetServerSideProps<StationProps> = async context => {
+  const trackId = context.query.trackid as string;
+  const channelId = context.query.id as string;
+  const res = await fetch(`${url}/api/station/${channelId}/track/${trackId}`);
+  if (res.status !== 200) {
+    return { props: { trackData: null, channelId } };
+  }
+
+  try {
+    const json = await res.json();
+    return { props: { trackData: json, channelId } };
+  } catch {
+    return { props: { trackData: null, channelId } };
+  }
+};

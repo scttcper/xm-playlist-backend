@@ -14,7 +14,7 @@ $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
 $gray-600: #507195;
 $gray-700: #495057 !default;
-$gray-800: #161f29;
+$gray-800: #0e2946  ;
 $gray-900: #212529 !default;
 $black:    #000 !default;
 
@@ -37,7 +37,7 @@ $grays: map-merge(
   $grays
 );
 
-$blue:    #4055A8;
+$blue:    #0e2946;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -168,7 +168,8 @@ $navbar-padding-y: $spacer / 4;
 @import '~bootstrap/scss/utilities';
 @import '~bootstrap/scss/print';
 
-body {
+/* purgecss start ignore */
+body, html {
   background: #D9E2EC;
 }
 
@@ -189,10 +190,6 @@ h1, h2, h3, .h1, .h2, .h3 {
 
 .bg-body {
   background: #D9E2EC;
-}
-
-.text-splash {
-  color: #7B8794 !important;
 }
 
 .text-xs {
@@ -232,3 +229,4 @@ h1, h2, h3, .h1, .h2, .h3 {
   top: 80px;
   height: calc(100% - 100px);
 }
+/* purgecss end ignore */
