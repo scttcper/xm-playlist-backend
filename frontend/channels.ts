@@ -1082,7 +1082,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'radiodisney',
-    deeplink: 'KIDZBOPRadio',
+    deeplink: 'RadioDisney',
     number: 905,
     name: 'Radio Disney',
     genre: 'Kids',
