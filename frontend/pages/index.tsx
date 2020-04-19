@@ -89,8 +89,19 @@ export default class Home extends React.Component {
         </div>
         <div className="container bg-light text-center py-3 rounded-top shadow" style={{ marginTop: '-3em' }}>
           <div className="row mx-md-3 mb-3">
-            <div className="col-12 text-center">
+            {/* <div className="col-12 text-center">
               <h4>Stations</h4>
+            </div> */}
+            <div className="col-12 col-md-8 offset-md-2 text-center">
+              <input
+                type="text"
+                className="form-control my-3 mx-auto"
+                style={{ maxWidth: '400px' }}
+                placeholder="Filter Stations"
+                aria-label="Filter Stations"
+                onKeyUp={event => this.handlePwdKeyUp(event)}
+                onBlur={() => this.handleBlur()}
+              />
               {genres.map(genre => (
                 <button
                   key={genre}
@@ -104,15 +115,6 @@ export default class Home extends React.Component {
                   {genre}
                 </button>
               ))}
-              <input
-                type="text"
-                className="form-control mt-1 mx-auto"
-                style={{ maxWidth: '600px' }}
-                placeholder="Filter Stations"
-                aria-label="Filter Stations"
-                onKeyUp={event => this.handlePwdKeyUp(event)}
-                onBlur={() => this.handleBlur()}
-              />
             </div>
           </div>
           <div className="row mx-md-3 row-cols-2 row-cols-md-3 row-cols-lg-4 justify-content-center">

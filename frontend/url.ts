@@ -1,3 +1,3 @@
-const dev = process.env.NODE_ENV !== 'production';
-
-export const url = dev ? 'http://localhost:3000' : 'https://xmplaylist.com';
+// const dev = process.env.NODE_ENV !== 'production';
+const port = process.env.PORT || '3000';
+export const url = `http://localhost:${port}`;
