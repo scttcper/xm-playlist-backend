@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": [
     "src/server.ts",
+    "src/scanner.ts",
     "config"
   ]
 }
