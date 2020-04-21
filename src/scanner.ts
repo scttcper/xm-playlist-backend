@@ -64,4 +64,11 @@ if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
   log('cron running');
   pForever(() => updateAll()).catch(async (e: Error) => catchError(e));
+
+  // restart every 12 hours
+  const hours = 12;
+  setTimeout(() => {
+    console.log('Restarting');
+    process.exit(0);
+  }, 1000 * 60 * 60 * hours);
 }
