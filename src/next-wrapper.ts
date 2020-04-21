@@ -1,6 +1,6 @@
-import next from 'next';
+import Server from 'next/dist/next-server/server/next-server';
 
-export const nextHandlerWrapper = (app: ReturnType<typeof next>) => {
+export const nextHandlerWrapper = (app: Server) => {
   const handler = app.getRequestHandler();
   return async ({ raw, url }, h) => {
     await handler(raw.req, raw.res, url);
@@ -8,7 +8,7 @@ export const nextHandlerWrapper = (app: ReturnType<typeof next>) => {
   };
 };
 
-export const defaultHandlerWrapper = (app: ReturnType<typeof next>) => async (
+export const defaultHandlerWrapper = (app: Server) => async (
   { raw: { req, res }, url },
   h,
 ) => {
@@ -17,7 +17,7 @@ export const defaultHandlerWrapper = (app: ReturnType<typeof next>) => async (
   return h.response(html).code(res.statusCode);
 };
 
-export const pathWrapper = (app: ReturnType<typeof next>, pathName) => async (
+export const pathWrapper = (app: Server, pathName: string) => async (
   { raw, query, params },
   h,
 ) => {

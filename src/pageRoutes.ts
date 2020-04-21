@@ -1,7 +1,17 @@
 import Server from 'next/dist/next-server/server/next-server';
-import { Server as HapiServer } from '@hapi/hapi';
+import { Server as HapiServer, RouteOptions } from '@hapi/hapi';
 
 import { pathWrapper, defaultHandlerWrapper, nextHandlerWrapper } from './next-wrapper';
+
+const cacheOptions: RouteOptions = {
+  cache: {
+    privacy: 'public',
+    // 3 min
+    expiresIn: 1000 * 60 * 3,
+    statuses: [200],
+    otherwise: 'no-cache',
+  },
+};
 
 /**
  * this seems to be required for registering all the nextjs pages right now
@@ -9,18 +19,29 @@ import { pathWrapper, defaultHandlerWrapper, nextHandlerWrapper } from './next-w
 export function registerPages(server: HapiServer, app: Server) {
   server.route({
     method: 'GET',
+    options: {
+      cache: {
+        privacy: 'public',
+        // 30 min
+        expiresIn: 1000 * 60 * 30,
+        statuses: [200],
+        otherwise: 'no-cache',
+      },
+    },
     path: '/',
     handler: pathWrapper(app, '/'),
   });
 
   server.route({
     method: 'GET',
+    options: cacheOptions,
     path: '/station/{id}/track/{trackid}',
     handler: pathWrapper(app, '/station/[id]/track/[trackid]'),
   });
 
   server.route({
     method: 'GET',
+    options: cacheOptions,
     path: '/station/{id}',
     handler: pathWrapper(app, '/station/[id]'),
   });

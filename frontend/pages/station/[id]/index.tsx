@@ -203,10 +203,10 @@ export const getServerSideProps: GetServerSideProps<StationProps> = async contex
 
   // redirect old page urls
   if (lowercaseId !== channel.deeplink.toLowerCase()) {
-    context?.res?.writeHead(301, {
+    context.res.writeHead(301, {
       Location: `/station/${channel.deeplink.toLowerCase()}`,
-    });
-    context?.res?.end();
+    }).end();
+    return { props: { recent: [], channelId: id } };
   }
 
   try {
