@@ -3,6 +3,7 @@ import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
+import { RequestError } from 'got';
 
 import { channels } from '../frontend/channels';
 import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
@@ -46,7 +47,14 @@ async function catchError(error: Error) {
     return;
   }
 
+  if (error instanceof RequestError) {
+    console.error('Request Error');
+    await delay(1000);
+    return;
+  }
+
   Sentry.captureException(error);
+  console.error(error);
   return delay(2000).then(() => {
     process.exit(0);
   });

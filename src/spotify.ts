@@ -70,7 +70,9 @@ export async function getToken(): Promise<string> {
     return cache;
   }
 
-  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
+  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString(
+    'base64',
+  );
   const res = await got
     .post('https://accounts.spotify.com/api/token', {
       headers: { Authorization: `Basic ${auth}` },
@@ -118,7 +120,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
       optionalBlacklist(youtube, youtube),
   );
   // Console.log('GOOGLE:', options.qs.q);
-  const res2 = (await got.get(url, { searchParams, headers }).json()) as any;
+  const res2 = (await got.get(url, { timeout: 10_000, searchParams, headers }).json()) as any;
   const items2: any[] = res2.tracks.items?.filter(n => n) ?? [];
   if (items2.length > 0) {
     return parseSpotify(_.first(items2));
@@ -157,10 +159,7 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<v
 }
 
 export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | undefined> {
-  const doc = await db<Spotify>('spotify')
-    .select()
-    .where('trackId', track.id)
-    .first();
+  const doc = await db<Spotify>('spotify').select().where('trackId', track.id).first();
 
   // TODO: check spotify age
   if (doc) {
@@ -173,10 +172,7 @@ export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | 
 
   await matchSpotify(track);
 
-  return db<Spotify>('spotify')
-    .select()
-    .where('trackId', track.id)
-    .first();
+  return db<Spotify>('spotify').select().where('trackId', track.id).first();
 }
 
 export async function getUserToken(code: string): Promise<string> {
@@ -185,7 +181,9 @@ export async function getUserToken(code: string): Promise<string> {
     return cache;
   }
 
-  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString('base64');
+  const auth = Buffer.from(`${config.spotifyClientId}:${config.spotifyClientSecret}`).toString(
+    'base64',
+  );
   const res = await got
     .post('https://accounts.spotify.com/api/token', {
       headers: { Authorization: `Basic ${auth}` },
@@ -265,7 +263,9 @@ export async function updatePlaylists(code: string) {
       return [];
     });
     const toRemove = _.difference(current, uniqueTrackIds);
-    await removeFromPlaylist(code, channel.playlist, toRemove).catch(e => console.error('REMOVE', e));
+    await removeFromPlaylist(code, channel.playlist, toRemove).catch(e =>
+      console.error('REMOVE', e),
+    );
     const toAdd = _.pullAll(uniqueTrackIds, current);
 
     await addToPlaylist(code, channel.playlist, toAdd).catch(e => console.error('ADD ERROR', e));

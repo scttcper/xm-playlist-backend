@@ -12,7 +12,7 @@ export async function search(query: string): Promise<string | false> {
     fields: 'items',
     q: query.trim(),
   });
-  const res = await got.get('https://www.googleapis.com/youtube/v3/search', { searchParams }).json<any>();
+  const res = await got.get('https://www.googleapis.com/youtube/v3/search', { timeout: 10_000, searchParams }).json<any>();
   const list = res.items[0];
   if (list) {
     return list.snippet.title;

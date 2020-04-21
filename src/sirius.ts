@@ -29,11 +29,14 @@ export function parseArtists(artists: string): string[] {
 export function parseDeeplinkResponse(data: SiriusDeeplink) {
   try {
     const markerLists =
-      data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails?.liveChannelResponse
-        .liveChannelResponses?.[0].markerLists ?? [];
+      data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails
+        ?.liveChannelResponse.liveChannelResponses?.[0].markerLists ?? [];
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
     const marker = cut?.markers?.find(
-      marker => marker.cut.cutContentType === 'Song' && marker.cut.title && marker.cut.title.trim().length > 0,
+      marker =>
+        marker.cut.cutContentType === 'Song' &&
+        marker.cut.title &&
+        marker.cut.title.trim().length > 0,
     );
     if (!marker || !marker.cut) {
       throw new NoSongMarker();
@@ -93,7 +96,12 @@ export async function checkEndpoint(channel: Channel) {
       deepLinkId: channel.deeplink,
       'deepLink-type': 'live',
     });
-    res = await got.get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', { searchParams }).json();
+    res = await got
+      .get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', {
+        timeout: 15_000, // 15 sec
+        searchParams,
+      })
+      .json();
   } catch (e) {
     log(e);
     throw e;
