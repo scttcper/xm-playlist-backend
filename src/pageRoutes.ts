@@ -42,6 +42,20 @@ export function registerPages(server: HapiServer, app: Server) {
   server.route({
     method: 'GET',
     options: cacheOptions,
+    path: '/station/{id}/most-heard',
+    handler: pathWrapper(app, '/station/[id]/most-heard'),
+  });
+
+  server.route({
+    method: 'GET',
+    options: cacheOptions,
+    path: '/station/{id}/newest',
+    handler: pathWrapper(app, '/station/[id]/newest'),
+  });
+
+  server.route({
+    method: 'GET',
+    options: cacheOptions,
     path: '/station/{id}',
     handler: pathWrapper(app, '/station/[id]'),
   });
