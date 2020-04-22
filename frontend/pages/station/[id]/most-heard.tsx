@@ -9,12 +9,10 @@ import ReactGA from 'react-ga';
 
 import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
-import { StationHeader } from '../../../components/StationHeader';
-import { StationNavigation } from '../../../components/StationNavigation';
+import { StationTop } from '../../../components/StationTop';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 import { StationNewest, TrackResponse } from '../../../responses';
 import { url } from '../../../url';
-import { StationSpotifyPlaylist } from '../../../components/StationSpotifyPlaylist';
 
 interface StationProps {
   recent: StationNewest[][];
@@ -23,6 +21,21 @@ interface StationProps {
 
 export default class MostHeard extends React.Component<StationProps> {
   state = { recent: [] };
+
+  static async getInitialProps(context) {
+    const id = context.query.id as string;
+    const res = await fetch(`${url}/api/station/${id}/most-heard`);
+    if (res.status !== 200) {
+      return { recent: [], channelId: id };
+    }
+
+    try {
+      const json = await res.json();
+      return { recent: _.chunk(json, 12), channelId: id };
+    } catch {
+      return { recent: [], channelId: id };
+    }
+  }
 
   trackPlaylistClick(type: string): void {
     ReactGA.event({
@@ -56,36 +69,7 @@ export default class MostHeard extends React.Component<StationProps> {
             content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
           />
         </Head>
-        <div className="bg-light">
-          <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
-            <div className="row">
-              <div className="col-12 col-lg-6">
-                <StationHeader channel={channel} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
-          <div className="row">
-            <div className="col-12 mb-2">
-              <StationSpotifyPlaylist channel={channel} />
-            </div>
-          </div>
-        </div>
-        <div className="container mb-3 adsbygoogle">
-          <div className="row">
-            <div className="col-12">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-            </div>
-          </div>
-        </div>
-        <div className="container mb-3">
-          <div className="row">
-            <div className="col-12">
-              <StationNavigation channelDeeplink={channel.deeplink} currentPage="most-heard" />
-            </div>
-          </div>
-        </div>
+        <StationTop channel={channel} currentPage="most-heard" />
         <div className="container">
           <div className="row">
             <StreamCardsLayout
@@ -106,18 +90,3 @@ export default class MostHeard extends React.Component<StationProps> {
     );
   }
 }
-
-export const getServerSideProps: GetServerSideProps<StationProps> = async context => {
-  const id = context.query.id as string;
-  const res = await fetch(`${url}/api/station/${id}/most-heard`);
-  if (res.status !== 200) {
-    return { props: { recent: [], channelId: id } };
-  }
-
-  try {
-    const json = await res.json();
-    return { props: { recent: _.chunk(json, 12), channelId: id } };
-  } catch {
-    return { props: { recent: [], channelId: id } };
-  }
-};

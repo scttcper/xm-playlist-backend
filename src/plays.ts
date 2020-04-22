@@ -7,7 +7,7 @@ import { StationRecent, StationNewest, TrackPlay } from '../frontend/responses';
 import { ScrobbleModel } from '../frontend/models';
 
 export async function getNewest(channel: Channel, limit = 50): Promise<StationNewest[]> {
-  const daysAgo = subDays(new Date(), 10);
+  const daysAgo = subDays(new Date(), 20);
   const newest = await db('scrobble')
     .select([
       'track.name as name',
@@ -55,7 +55,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
 }
 
 export async function getMostHeard(channel: Channel, limit = 50): Promise<StationNewest[]> {
-  const daysAgo = subDays(new Date(), 10);
+  const daysAgo = subDays(new Date(), 20);
   const newest = await db('scrobble')
     .select([
       'track.name as name',
