@@ -87,7 +87,7 @@ export default class Home extends React.Component {
             </div>
           </div>
         </div>
-        <div className="container bg-light text-center py-3 rounded-top shadow" style={{ marginTop: '-3em' }}>
+        <div className="container bg-light text-center py-3 rounded shadow mb-5" style={{ marginTop: '-3em' }}>
           <div className="row mx-md-3 mb-3">
             {/* <div className="col-12 text-center">
               <h4>Stations</h4>
@@ -122,15 +122,15 @@ export default class Home extends React.Component {
               <div key={channel.id} className="col mb-3">
                 <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
                   <a className="text-dark">
-                    <div className="card shadow-light h-100 border-0">
-                      <div className="bg-dark p-3 card-img-top">
+                    <div>
+                      <div className="bg-dark p-3 rounded">
                         <LazyLoadImage
                           src={`/static/img/${channel.deeplink}-lg.png`}
                           className="card-img-top"
                           alt={`${channel.name} Logo`}
                         />
                       </div>
-                      <div className="p-3 text-center">
+                      <div className="p-1 text-center">
                         <p className="mt-1 mb-0">{channel.name}</p>
                       </div>
                     </div>
