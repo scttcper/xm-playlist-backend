@@ -42,7 +42,7 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
           <nav className="navbar bg-dark">
             <div className="container">
               <div className="text-center text-md-left" style={{ width: '100%' }}>
-                <Link prefetch href="/">
+                <Link href="/">
                   <a className="navbar-brand text-white">xmplaylist</a>
                 </Link>
               </div>
