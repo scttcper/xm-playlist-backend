@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
 import { GetServerSideProps } from 'next';
@@ -15,6 +14,7 @@ import { StationNavigation } from '../../../components/StationNavigation';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 import { StationNewest, TrackResponse } from '../../../responses';
 import { url } from '../../../url';
+import { StationSpotifyPlaylist } from '../../../components/StationSpotifyPlaylist';
 
 interface StationProps {
   recent: StationNewest[][];
@@ -68,41 +68,8 @@ export default class MostHeard extends React.Component<StationProps> {
         <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
           <div className="row">
             <div className="col-12 mb-2">
-              <a
-                href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => this.trackPlaylistClick('spotify')}
-              >
-                <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
-                  <div className="">
-                    <FontAwesomeIcon
-                      className="mr-2"
-                      style={{ color: '#000' }}
-                      icon={['fab', 'spotify']}
-                      size="lg"
-                    />
-                  </div>
-                  <div className="mr-auto">{channel.name} playlist on Spotify</div>
-                  <div>
-                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                  </div>
-                </div>
-              </a>
+              <StationSpotifyPlaylist channel={channel} />
             </div>
-            {/* <div className="col-12 col-md-6 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer">
-                <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
-                  <div className="">
-                    <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'apple']} size="lg" />
-                  </div>
-                  <div className="mr-auto">{channel.name} playlist on Apple Music</div>
-                  <div>
-                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                  </div>
-                </div>
-              </a>
-            </div> */}
           </div>
         </div>
         <div className="container mb-3 adsbygoogle">

@@ -9,7 +9,7 @@ import {
 import { allColors } from '@data-ui/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
-import { NextPageContext, NextComponentType } from 'next';
+import { NextComponentType } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -27,11 +27,6 @@ import { url } from '../../../../../url';
 interface StationProps {
   channelId: string;
   trackData: TrackChannelResponse | null;
-}
-
-interface Context extends NextPageContext {
-  id: string;
-  trackid: string;
 }
 
 const renderTooltip = ({ datum }) => (
