@@ -1,14 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatDistanceStrict } from 'date-fns';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
-import { NextPageContext, GetServerSideProps } from 'next';
+import { NextComponentType } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 import AdSense from 'react-adsense';
-import ReactGA from 'react-ga';
-import LazyLoad from 'react-lazyload';
 
 import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
@@ -17,16 +14,11 @@ import { StationNavigation } from '../../../components/StationNavigation';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 import { StationRecent, TrackResponse } from '../../../responses';
 import { url } from '../../../url';
+import { StationSpotifyPlaylist } from '../../../components/StationSpotifyPlaylist';
 
 interface StationProps {
   recent: StationRecent[][];
   channelId: string;
-}
-
-interface Context extends NextPageContext {
-  id: string;
-  recent: StationRecent[][];
-  loading: false;
 }
 
 function getLastStartTime(recent: StationRecent[]): number {
@@ -34,29 +26,30 @@ function getLastStartTime(recent: StationRecent[]): number {
   return new Date(last).getTime();
 }
 
-export default class Station extends React.Component<StationProps> {
-  state = { recent: [], loading: false };
+const StationPage: NextComponentType<any, any, StationProps> = props => {
+  const { channelId } = props;
+  const lowercaseId = channelId.toLowerCase();
+  const channel = channels.find(
+    channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
+  );
 
-  async fetchMore(): Promise<void> {
-    this.setState({ loading: true });
-    const playArr = this.state.recent.length ? this.state.recent : this.props.recent;
-    const lastDateTime = getLastStartTime(playArr[playArr.length - 1]);
-    const res = await fetch(`${url}/api/station/${this.props.channelId}?last=${lastDateTime}`);
+  const [loading, setLoading] = useState(false);
+  const [recent, setRecent] = useState<StationRecent[][]>(props.recent);
+
+  if (!channel) {
+    return <Error statusCode={404} />;
+  }
+
+  async function fetchMore(): Promise<void> {
+    setLoading(true);
+    const lastDateTime = getLastStartTime(recent[recent.length - 1]);
+    const res = await fetch(`${url}/api/station/${channelId}?last=${lastDateTime}`);
     const json = await res.json();
-    this.setState((state: Context) => {
-      return { recent: [...state.recent, ..._.chunk(json, 12)], loading: false };
-    });
+    setLoading(false);
+    setRecent([...recent, ..._.chunk<any>(json, 12)]);
   }
 
-  trackPlaylistClick(type: string): void {
-    ReactGA.event({
-      category: 'Playlist',
-      action: type,
-      label: this.props.channelId,
-    });
-  }
-
-  secondaryText(track: TrackResponse): string {
+  function secondaryText(track: TrackResponse): string {
     const timeAgo = formatDistanceStrict(
       new Date((track as StationRecent).start_time),
       new Date(),
@@ -67,128 +60,74 @@ export default class Station extends React.Component<StationProps> {
     return timeAgo;
   }
 
-  render(): JSX.Element {
-    const lowercaseId = this.props.channelId.toLowerCase();
-    const channel = channels.find(
-      channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
-    );
-    if (!channel) {
-      return <Error statusCode={404} />;
-    }
+  return (
+    <AppLayout>
+      <Head>
+        <title>{channel.name} Recently Played - sirius xm playlist</title>
+        <meta
+          property="og:image"
+          content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
+        />
+      </Head>
+      {/* Header */}
+      <div className="bg-light">
+        <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
+          <div className="row">
+            <div className="col-12 col-lg-6">
+              <StationHeader channel={channel} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Spotify link */}
+      <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
+        <div className="row">
+          <div className="col-12 mb-2">
+            <StationSpotifyPlaylist channel={channel} />
+          </div>
+        </div>
+      </div>
+      <div className="container mb-3 adsbygoogle">
+        <div className="row">
+          <div className="col-12">
+            <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+          </div>
+        </div>
+      </div>
+      {/* Nav */}
+      <div className="container mb-3">
+        <div className="row">
+          <div className="col-12">
+            <StationNavigation channelDeeplink={channel.deeplink} currentPage="recent" />
+          </div>
+        </div>
+      </div>
+      {/* Main body */}
+      <div className="container">
+        <div className="row">
+          <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
+        </div>
+        {/* Load More */}
+        <div className="row mb-4 text-center">
+          <div className="col-12">
+            <button type="button" className="btn btn-primary" onClick={async () => fetchMore()}>
+              {loading ? 'Loading..' : 'Load More'}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="container adsbygoogle mb-5">
+        <div className="row">
+          <div className="col-12">
+            <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+          </div>
+        </div>
+      </div>
+    </AppLayout>
+  );
+};
 
-    const recent = [...this.props.recent, ...this.state.recent];
-
-    return (
-      <AppLayout>
-        <Head>
-          <title>{channel.name} Recently Played - sirius xm playlist</title>
-          <meta
-            property="og:image"
-            content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
-          />
-        </Head>
-        <div className="bg-light">
-          <div className="container pt-2" style={{ paddingBottom: '2.5rem' }}>
-            <div className="row">
-              <div className="col-12 col-lg-6">
-                <StationHeader channel={channel} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="container mb-1" style={{ marginTop: '-1.8rem' }}>
-          <div className="row">
-            <div className="col-12 mb-2">
-              <a
-                href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => this.trackPlaylistClick('spotify')}
-              >
-                <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
-                  <div className="">
-                    <LazyLoad>
-                      <FontAwesomeIcon
-                        className="mr-2"
-                        style={{ color: '#000' }}
-                        icon={['fab', 'spotify']}
-                        size="lg"
-                      />
-                    </LazyLoad>
-                  </div>
-                  <div className="mr-auto">{channel.name} playlist on Spotify</div>
-                  <div>
-                    <LazyLoad>
-                      <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                    </LazyLoad>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {/* <div className="col-12 col-md-6 mb-2">
-              <a href={`https://open.spotify.com/user/xmplaylist/playlist/${channel.playlist}`} target="_blank" rel="noopener noreferrer">
-                <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
-                  <div className="">
-                    <FontAwesomeIcon className="mr-2" style={{ color: '#000' }} icon={['fab', 'apple']} size="lg" />
-                  </div>
-                  <div className="mr-auto">{channel.name} playlist on Apple Music</div>
-                  <div>
-                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                  </div>
-                </div>
-              </a>
-            </div> */}
-          </div>
-        </div>
-        <div className="container mb-3 adsbygoogle">
-          <div className="row">
-            <div className="col-12">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-            </div>
-          </div>
-        </div>
-        <div className="container mb-3">
-          <div className="row">
-            <div className="col-12">
-              <StationNavigation channelDeeplink={channel.deeplink} currentPage="recent" />
-            </div>
-          </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <StreamCardsLayout
-              tracks={recent}
-              channel={channel}
-              secondaryText={this.secondaryText}
-            />
-          </div>
-        </div>
-        <div className="container mb-4 text-center">
-          <div className="row">
-            <div className="col">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={async () => this.fetchMore()}
-              >
-                {this.state.loading ? 'Loading..' : 'Load More'}
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="container adsbygoogle mb-5">
-          <div className="row">
-            <div className="col">
-              <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-            </div>
-          </div>
-        </div>
-      </AppLayout>
-    );
-  }
-}
-
-export const getServerSideProps: GetServerSideProps<StationProps> = async context => {
+StationPage.getInitialProps = async context => {
   const id = context.query?.id as string;
   const res = await fetch(`${url}/api/station/${id}`);
 
@@ -198,21 +137,15 @@ export const getServerSideProps: GetServerSideProps<StationProps> = async contex
   );
 
   if (!channel) {
-    return { props: { recent: [], channelId: id } };
-  }
-
-  // redirect old page urls
-  if (lowercaseId !== channel.deeplink.toLowerCase()) {
-    context.res.writeHead(301, {
-      Location: `/station/${channel.deeplink.toLowerCase()}`,
-    }).end();
-    return { props: { recent: [], channelId: id } };
+    return { recent: [], channelId: id };
   }
 
   try {
     const json = await res.json();
-    return { props: { recent: _.chunk(json, 12), channelId: id } };
+    return { recent: _.chunk(json, 12), channelId: id };
   } catch {
-    return { props: { recent: [], channelId: id } };
+    return { recent: [], channelId: id };
   }
 };
+
+export default StationPage;
