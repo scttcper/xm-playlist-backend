@@ -25,7 +25,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('spotify', table => {
     table.string('track_id', 50).primary().notNullable();
     table.string('spotify_id', 50).notNullable();
-    table.string('name', 400).notNullable();
+    table.string('name', 600).notNullable();
     table.string('cover');
     table.string('preview_url');
 
