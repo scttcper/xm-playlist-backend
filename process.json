@@ -2,7 +2,9 @@
   "apps": [
     {
       "name": "xmp",
-      "script": "node dist/src/server.js",
+      "script": "dist/src/server.js",
+      "exec_mode" : "cluster",
+      "instances" : "max",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
