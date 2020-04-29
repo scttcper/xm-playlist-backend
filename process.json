@@ -3,8 +3,6 @@
     {
       "name": "xmp",
       "script": "dist/src/server.js",
-      "exec_mode" : "cluster",
-      "instances" : "max",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
