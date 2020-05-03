@@ -3,12 +3,16 @@ import { subDays } from 'date-fns';
 import { db } from '../src/db';
 
 async function main() {
-  const sixtyDaysAgo = subDays(new Date(), 32);
-  const newest = await db('scrobble')
+  const sixtyDaysAgo = subDays(new Date(), 90);
+  const total = await db('scrobble')
     .select()
     .where('scrobble.startTime', '<', sixtyDaysAgo)
-    .first();
-  console.log(newest);
+    .count();
+  console.log('Scrobbles removed', total[0].count);
+
+  await db('scrobble')
+    .delete()
+    .where('scrobble.startTime', '<', sixtyDaysAgo);
 }
 
 main()

@@ -8,7 +8,8 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, dir: './frontend' });
 
-app.prepare().then(async () => {
+(async () => {
+  await app.prepare();
   const server = new Server({
     debug: { request: ['implementation'] },
     port,
@@ -25,4 +26,4 @@ app.prepare().then(async () => {
 
   await server.start();
   console.log(`> Ready on http://localhost:${port}`);
-});
+})();

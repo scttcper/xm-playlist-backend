@@ -1,5 +1,5 @@
 import { subDays, differenceInDays } from 'date-fns';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 import { Channel } from '../frontend/channels';
 import { db } from './db';
@@ -124,6 +124,7 @@ export async function getRecent(channel: Channel, last?: Date): Promise<StationR
     .limit(24);
 
   if (last) {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     query.andWhere('startTime', '<', last);
   }
 

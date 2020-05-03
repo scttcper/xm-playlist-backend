@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { argv } from 'yargs';
 import got from 'got';
 

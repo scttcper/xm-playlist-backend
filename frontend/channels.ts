@@ -1165,4 +1165,13 @@ export const channels: Channel[] = [
     desc: 'The Best Uncensored Comedy XL',
     playlist: '6qlAVjDpxjnfQqEnjUpMEp',
   },
+  {
+    id: '9398',
+    deeplink: 'Top1000Countdowns',
+    number: 177,
+    name: 'Top 1000 Countdowns',
+    genre: 'Pop',
+    desc: 'Top 1000 Countdowns',
+    playlist: '6GCnMjegMN32SzrgdE6jKY',
+  },
 ];
