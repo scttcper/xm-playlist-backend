@@ -39,7 +39,8 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
         marker.cut.title.trim().length > 0 &&
         marker.cut.galaxyAssetId.trim().length > 1 &&
         // block @sxmwillie
-        !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@'),
+        !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@') &&
+        marker.duration > 35,
     );
     if (!marker || !marker.cut) {
       throw new NoSongMarker();
