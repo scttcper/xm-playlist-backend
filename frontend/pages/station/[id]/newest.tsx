@@ -1,7 +1,6 @@
 import { formatDistanceStrict } from 'date-fns';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
-import { GetServerSideProps } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
@@ -12,7 +11,7 @@ import { channels } from 'frontend/channels';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationTop } from '../../../components/StationTop';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
-import { StationNewest, TrackResponse } from '../../.frontend/responses';
+import { StationNewest, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
 
 interface StationProps {

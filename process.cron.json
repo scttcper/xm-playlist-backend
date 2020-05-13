@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "xmpcron",
-      "script": "node dist/src/scanner.js",
+      "script": "node api/dist/src/scanner.js",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "xmplaylist"
