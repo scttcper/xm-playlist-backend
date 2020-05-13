@@ -17,7 +17,7 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import { SizeMe } from 'react-sizeme';
 
-import { channels } from 'frontend/channels';
+import { channels } from '../../../../../channels';
 import { AppLayout } from '../../../../../components/AppLayout';
 import { SpotifyIframe } from '../../../../../components/SpotifyIframe';
 import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';

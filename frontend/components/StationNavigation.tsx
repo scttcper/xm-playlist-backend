@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-import { Channel } from 'frontend/channels';
+import { Channel } from '../channels';
 
 export const StationNavigation: React.FC<{
   channelDeeplink: Channel['deeplink'];

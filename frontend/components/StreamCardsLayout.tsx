@@ -7,7 +7,7 @@ import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import LazyLoad from 'react-lazyload';
 
-import { Channel } from 'frontend/channels';
+import { Channel } from '../channels';
 import { TrackResponse } from 'frontend/responses';
 import { TrackLinks } from './TrackLinks';
 

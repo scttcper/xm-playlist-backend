@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Channel } from 'frontend/channels';
+import { Channel } from '../channels';
 
 export const StationHeader: React.FC<{ channel: Channel }> = props => {
   return (

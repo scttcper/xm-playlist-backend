@@ -6,7 +6,7 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
 
-import { channels } from 'frontend/channels';
+import { channels } from '../../../channels';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationTop } from '../../../components/StationTop';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
