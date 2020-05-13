@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 import URL from 'url';
 
-import config from '../config';
+import config from '../../config';
 import { updatePlaylists } from '../src/spotify';
 
 async function main() {

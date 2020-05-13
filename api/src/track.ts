@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 
 import { db } from './db';
-import { TrackResponse } from '../frontend/responses';
+import { TrackResponse } from 'frontend/responses';
 
 export async function getTrack(id: string): Promise<TrackResponse> {
   const data = await db('track')

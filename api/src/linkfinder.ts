@@ -1,5 +1,5 @@
 import got from 'got';
-import { Spotify } from '../frontend/models';
+import { Spotify } from './models';
 import { db } from './db';
 
 export class FailedLinkFinding extends Error {

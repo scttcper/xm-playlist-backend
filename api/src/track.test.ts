@@ -1,6 +1,6 @@
 import { db } from './db';
 import { getTrack } from './track';
-import { channels } from '../frontend/channels';
+import { channels } from 'frontend/channels';
 import { handleResponse } from './sirius';
 import { siriushits, siriushitsTrackId } from './mocks/siriushits';
 

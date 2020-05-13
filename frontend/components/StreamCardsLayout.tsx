@@ -7,8 +7,8 @@ import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import LazyLoad from 'react-lazyload';
 
-import { Channel } from '../channels';
-import { TrackResponse } from '../responses';
+import { Channel } from 'frontend/channels';
+import { TrackResponse } from '.frontend/responses';
 import { TrackLinks } from './TrackLinks';
 
 export const StreamCardsLayout: React.FC<{

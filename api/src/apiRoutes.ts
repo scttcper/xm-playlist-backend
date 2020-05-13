@@ -3,7 +3,7 @@ import laabr from 'laabr';
 import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
 
-import { channels, Channel } from '../frontend/channels';
+import { channels, Channel } from 'frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
 

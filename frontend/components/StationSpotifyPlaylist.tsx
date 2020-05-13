@@ -3,7 +3,7 @@ import LazyLoad from 'react-lazyload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactGA from 'react-ga';
 
-import { Channel } from '../channels';
+import { Channel } from 'frontend/channels';
 
 function trackPlaylistClick(type: string, channelId: string): void {
   ReactGA.event({

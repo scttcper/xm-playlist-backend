@@ -1,17 +1,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "moduleResolution": "node",
-    "lib": ["es2018", "DOM"],
-    "target": "es2017",
+    "target": "es5",
     "module": "commonjs",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "strict": false,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "declaration": false,
     "sourceMap": true,
-    "inlineSources": true,
-    "outDir": "dist"
+    "lib": ["dom", "es7"]
   }
 }

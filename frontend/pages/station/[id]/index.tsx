@@ -7,11 +7,11 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import AdSense from 'react-adsense';
 
-import { channels } from '../../../channels';
+import { channels } from 'frontend/channels';
 import { AppLayout } from '../../../components/AppLayout';
 import { StationTop } from '../../../components/StationTop';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
-import { StationRecent, TrackResponse } from '../../../responses';
+import { StationRecent, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
 
 interface StationProps {

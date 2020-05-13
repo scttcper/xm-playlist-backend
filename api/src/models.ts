@@ -1,4 +1,4 @@
-import { Channel } from './channels';
+import { Channel } from 'frontend/channels';
 
 export interface TrackModel {
   id: string;

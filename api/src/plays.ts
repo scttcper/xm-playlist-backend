@@ -1,10 +1,10 @@
 import { subDays, differenceInDays } from 'date-fns';
 import _ from 'lodash';
 
-import { Channel } from '../frontend/channels';
+import { Channel } from 'frontend/channels';
 import { db } from './db';
-import { StationRecent, StationNewest, TrackPlay } from '../frontend/responses';
-import { ScrobbleModel } from '../frontend/models';
+import { StationRecent, StationNewest, TrackPlay } from 'frontend/responses';
+import { ScrobbleModel } from './models';
 
 export async function getNewest(channel: Channel, limit = 50): Promise<StationNewest[]> {
   const daysAgo = subDays(new Date(), 20);

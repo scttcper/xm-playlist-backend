@@ -4,7 +4,7 @@ import got from 'got';
 
 import { db } from '../src/db';
 import { getTrack } from '../src/track';
-import { Spotify } from '../frontend/models';
+import { Spotify } from '../models';
 import { getToken, parseSpotify, matchSpotify } from '../src/spotify';
 import { findAndCacheLinks } from '../src/linkfinder';
 

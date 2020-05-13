@@ -17,11 +17,11 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import { SizeMe } from 'react-sizeme';
 
-import { channels } from '../../../../../channels';
+import { channels } from 'frontend/channels';
 import { AppLayout } from '../../../../../components/AppLayout';
 import { SpotifyIframe } from '../../../../../components/SpotifyIframe';
 import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
-import { TrackChannelResponse } from '../../../../../responses';
+import { TrackChannelResponse } from 'frontend/responses';
 import { url } from '../../../../../url';
 
 interface StationProps {

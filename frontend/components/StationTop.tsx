@@ -4,7 +4,7 @@ import AdSense from 'react-adsense';
 import { StationHeader } from './StationHeader';
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
-import { Channel } from '../channels';
+import { Channel } from 'frontend/channels';
 
 // Terrible name, everything including the header, used in station pages
 export const StationTop: React.FC<{

@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { AppLayout } from '../components/AppLayout';
-import { channels, Channel } from '../channels';
+import { channels, Channel } from 'frontend/channels';
 
 export default class Home extends React.Component {
   state: { genreFilter: string; results: Channel[] } = { genreFilter: '', results: [] };

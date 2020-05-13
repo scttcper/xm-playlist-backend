@@ -5,7 +5,7 @@ import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
 import { RequestError } from 'got';
 
-import { channels } from '../frontend/channels';
+import { channels } from 'frontend/channels';
 import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
 import config from '../config';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
