@@ -9,7 +9,7 @@ import * as util from './util';
 import { search } from './youtube';
 import { TrackModel, Spotify } from './models';
 import { db } from './db';
-import { channels } from 'frontend/channels';
+import { channels } from '../../frontend/channels';
 import { getMostHeard } from './plays';
 
 export class SpotifyFailed extends Error {

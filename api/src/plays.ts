@@ -1,7 +1,7 @@
 import { subDays, differenceInDays } from 'date-fns';
 import _ from 'lodash';
 
-import { Channel } from 'frontend/channels';
+import { Channel } from '../../frontend/channels';
 import { db } from './db';
 import { StationRecent, StationNewest, TrackPlay } from 'frontend/responses';
 import { ScrobbleModel } from './models';

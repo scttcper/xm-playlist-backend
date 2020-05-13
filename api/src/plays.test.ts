@@ -1,6 +1,6 @@
 import { db } from './db';
 import { getNewest } from './plays';
-import { channels } from 'frontend/channels';
+import { channels } from '../../frontend/channels';
 import { handleResponse } from './sirius';
 import { siriushits } from './mocks/siriushits';
 

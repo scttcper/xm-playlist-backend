@@ -3,7 +3,7 @@ import got from 'got';
 import { URLSearchParams } from 'url';
 import { db } from './db';
 
-import { Channel } from 'frontend/channels';
+import { Channel } from '../../frontend/channels';
 import { SiriusDeeplink } from './siriusDeeplink';
 import { TrackModel, ScrobbleModel } from './models';
 
