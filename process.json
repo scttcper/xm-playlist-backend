@@ -10,7 +10,7 @@
     },
     {
       "name": "xmpnext",
-      "script": "npm start",
+      "script": "yarn workspace frontend start",
       "env": {
         "NODE_ENV": "production"
       }
