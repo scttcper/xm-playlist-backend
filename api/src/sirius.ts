@@ -36,7 +36,10 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
       marker =>
         (marker.cut.cutContentType === 'Song' || marker.cut.cutContentType === 'Link') &&
         marker.cut.title &&
-        marker.cut.title.trim().length > 0,
+        marker.cut.title.trim().length > 0 &&
+        marker.cut.galaxyAssetId.trim().length > 1 &&
+        // block @sxmwillie
+        !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@'),
     );
     if (!marker || !marker.cut) {
       throw new NoSongMarker();
