@@ -166,6 +166,7 @@ export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | 
     return doc;
   }
 
+  // locked using lockTrack command
   if (doc?.lock) {
     return doc;
   }

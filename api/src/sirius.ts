@@ -34,7 +34,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
     const marker = cut?.markers?.find(
       marker =>
-        marker.cut.cutContentType === 'Song' &&
+        (marker.cut.cutContentType === 'Song' || marker.cut.cutContentType === 'Link') &&
         marker.cut.title &&
         marker.cut.title.trim().length > 0,
     );
