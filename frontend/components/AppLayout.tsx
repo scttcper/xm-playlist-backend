@@ -40,12 +40,17 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
         </Head>
         {this.props.hasNav && (
           <nav className="navbar bg-dark">
-            <div className="container">
-              <div className="text-center text-md-left" style={{ width: '100%' }}>
-                <Link href="/">
-                  <a className="navbar-brand text-white">xmplaylist</a>
-                </Link>
-              </div>
+            <div className="container text-white">
+              <Link href="/">
+                <a className="navbar-brand text-white">xmplaylist</a>
+              </Link>
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                  <Link href="/search">
+                    <a className="text-white">Search</a>
+                  </Link>
+                </li>
+              </ul>
             </div>
           </nav>
         )}

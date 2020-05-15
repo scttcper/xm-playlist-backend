@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint/prefer-readonly-parameter-types': 0,
     '@typescript-eslint/no-unsafe-call': 0,
     '@typescript-eslint/no-unsafe-return': 0,
+    '@typescript-eslint/no-floating-promises': 0,
     'react/jsx-tag-spacing': [
       'error',
       {

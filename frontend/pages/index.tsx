@@ -66,9 +66,9 @@ export default class Home extends React.Component {
             <div className="col-12">
               <div className="jumbotron p-4 rounded">
                 <h1 className="display-4">xmplaylist</h1>
-                <p className="mb-1">Find recently played songs on XM Sirius radio</p>
+                <p className="mb-1">Recently played songs on XM Sirius radio</p>
                 <p className="text-muted">
-                  By{' '}
+                  Created by{' '}
                   <a
                     className="text-muted"
                     href="https://twitter.com/scttcper"
