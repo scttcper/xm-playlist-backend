@@ -1,4 +1,12 @@
 // https://www.siriusxm.com/albumart/Live/Default/DefaultMDS_m_52.jpg
+export enum Genre {
+  pop = 'pop',
+}
+
+export const FriendlyGenre = {
+  [Genre.pop]: 'Pop',
+} as const;
+
 export interface Channel {
   id: string;
   deeplink: string;

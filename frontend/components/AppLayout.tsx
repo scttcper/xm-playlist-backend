@@ -1,5 +1,3 @@
-import '../index.scss';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faApple, faSpotify } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -13,6 +11,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import ReactGA from 'react-ga';
+
+import { NavBar } from './Navbar';
 
 ReactGA.initialize('UA-84656736-2');
 
@@ -38,6 +38,7 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
           />
           <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
         </Head>
+        <NavBar />
         {this.props.hasNav && (
           <nav className="navbar bg-dark">
             <div className="container text-white">
