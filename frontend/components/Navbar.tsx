@@ -48,7 +48,7 @@ export const NavBar: React.FC = () => {
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center font-sans text-black hover:text-gray-600">
-              <Link href="/">xmplaylist</Link>
+              <Link href="/"><a>xmplaylist</a></Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex">
               <a

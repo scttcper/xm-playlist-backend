@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { usePopper, Popper } from 'react-popper';
-import { channels } from '../channels';
+import React, { useState, useRef } from 'react';
+import { usePopper } from 'react-popper';
+import { useClickAway } from 'react-use';
 
-export const GenrePicker = () => {
+import { Genre, FriendlyGenre } from '../channels';
+
+interface GenrePickerProps {
+  pickGenre: (genre: Genre) => void;
+  currentGenre: string | null;
+}
+
+export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenre }) => {
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
+  const dropdownRef = useRef(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'bottom-start',
     modifiers: [
@@ -18,20 +26,42 @@ export const GenrePicker = () => {
     ],
   });
   const [isOpen, setIsOpen] = useState(false);
-  const genreSet = new Set<string>();
-  channels.forEach(n => genreSet.add(n.genre));
-  const genres = [...genreSet].sort((a, b) => b.localeCompare(a));
+  const genres: Genre[] = [
+    Genre.rock,
+    Genre.pop,
+    Genre.electronic,
+    Genre.hiphop,
+    Genre.rnb,
+    Genre.jazz,
+    Genre.country,
+    Genre.classical,
+    Genre.latino,
+    Genre.comedy,
+    Genre.kids,
+    Genre.christian,
+  ];
+  const handlePickGenre = (event: React.MouseEvent<HTMLAnchorElement>, genre: Genre) => {
+    event.preventDefault();
+    setIsOpen(false);
+    pickGenre(genre);
+  };
+
+  useClickAway(dropdownRef, () => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  });
 
   return (
-    <>
+    <div ref={dropdownRef}>
       <div ref={setReferenceElement as any}>
         <span className="rounded-md shadow-sm">
           <button
             type="button"
-            className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+            className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white leading-5 font-medium text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
             onClick={() => setIsOpen(!isOpen)}
           >
-            Genre
+            {currentGenre ? FriendlyGenre[currentGenre] : 'Genre'}
             <svg className="-mr-1 ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -42,38 +72,28 @@ export const GenrePicker = () => {
           </button>
         </span>
       </div>
-      {/*
-  <!--
-    Dropdown panel, show/hide based on dropdown state.
-
-    Entering: "transition ease-out duration-100"
-      From: "transform opacity-0 scale-95"
-      To: "transform opacity-100 scale-100"
-    Leaving: "transition ease-in duration-75"
-      From: "transform opacity-100 scale-100"
-      To: "transform opacity-0 scale-95"
-  --> */}
 
       <div
         ref={setPopperElement as any}
-        className={`z-10 rounded-md shadow-lg ${isOpen ? 'flex' : 'hidden'}`}
+        className={`z-10 rounded-md shadow-lg ${isOpen ? '' : 'hidden'}`}
         style={styles.popper}
         {...attributes.popper}
       >
-        <div className="rounded-md bg-white shadow-xs">
+        <div className="rounded-md bg-white">
           <div className="py-1">
             {genres.map(genre => (
               <a
                 key={genre}
-                href="#"
-                className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                type="button"
+                className="block px-4 py-2 text-sm leading-5 text-gray-900 hover:bg-indigo-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                onClick={event => handlePickGenre(event, genre)}
               >
-                {genre}
+                {FriendlyGenre[genre]}
               </a>
             ))}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

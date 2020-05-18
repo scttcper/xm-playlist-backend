@@ -1,29 +1,14 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faApple, faSpotify } from '@fortawesome/free-brands-svg-icons';
-import {
-  faArrowLeft,
-  faEllipsisH,
-  faExternalLinkAlt,
-  faInfoCircle,
-  faMusic,
-} from '@fortawesome/free-solid-svg-icons';
+
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
-import ReactGA from 'react-ga';
 
 import { NavBar } from './Navbar';
-
-ReactGA.initialize('UA-84656736-2');
 
 export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: boolean }> {
   static defaultProps = {
     hasNav: true,
   };
-
-  componentDidMount(): void {
-    setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
-  }
 
   render(): JSX.Element {
     return (
@@ -60,5 +45,3 @@ export class AppLayout extends React.Component<{ children: ReactNode; hasNav?: b
     );
   }
 }
-
-library.add(faSpotify, faApple, faEllipsisH, faInfoCircle, faMusic, faExternalLinkAlt, faArrowLeft);
