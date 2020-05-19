@@ -1233,7 +1233,7 @@ export const channels: Channel[] = [
     name: 'She\'s So Funny',
     genre: Genre.comedy,
     desc: 'The Funniest Female Comedians',
-    playlist: '',
+    playlist: '2nOk54j5r7lZjBXj5SVQTV',
   },
   {
     id: '9398',
