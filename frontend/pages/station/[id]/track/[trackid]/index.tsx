@@ -7,7 +7,6 @@ import {
   WithTooltip,
 } from '@data-ui/sparkline';
 import { allColors } from '@data-ui/theme';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fetch from 'isomorphic-unfetch';
 import { NextComponentType } from 'next';
 import Error from 'next/error';
@@ -97,12 +96,47 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
       <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       <div className="relative bg-white pt-4 md:pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
-          <div className="lg:mt-12 max-w-lg mx-auto">
-            <div className="flex flex-col rounded-lg shadow-lg">
+          <div className="lg:mt-4 max-w-lg mx-auto">
+            <nav className="hidden md:flex items-center text-sm leading-5 font-medium">
+              <Link href="/station">
+                <a className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">
+                  Stations
+                </a>
+              </Link>
+              <svg
+                className="flex-shrink-0 mx-2 h-5 w-5 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
+                <a>
+                  <span className="text-gray-500">{channel.name}</span>
+                </a>
+              </Link>
+              <svg
+                className="flex-shrink-0 mx-2 h-5 w-5 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span className="text-gray-500">{trackData.track.name}</span>
+            </nav>
+            <div className="mt-5 flex flex-col rounded-lg shadow-lg">
               <div className="flex-shrink-0">
                 <img className="w-full object-cover" src={albumCover} alt="" />
               </div>
-              <div className="bg-white p-6 lg:p-10 flex flex-col justify-between">
+              <div className="bg-white p-6 lg:p-8 flex flex-col justify-between">
                 <h3 className="text-xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                   {trackData.track.name}
                 </h3>
@@ -117,7 +151,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               </div>
             </div>
           </div>
-          <div className="mt-10 max-w-lg mx-auto p-6 rounded-lg shadow-lg">
+          <div className="mt-8 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
             <h4 className="text-center text-base text-gray-500">Times Played Per Day</h4>
             <SizeMe>
               {({ size }) => (
@@ -172,34 +206,17 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               )}
             </SizeMe>
           </div>
-        </div>
-      </div>
-      <div className="container my-3">
-        {trackData.spotify.spotify_id && (
-          <div className="row">
-            <div className="col-12 col-md-6 offset-md-3 mb-3">
-              <div className="rounded bg-light shadow-light p-2" style={{ lineHeight: 0 }}>
-                <SpotifyIframe track={trackData} />
-              </div>
+          {trackData.spotify.spotify_id && (
+            <div className="mt-5 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+              <SpotifyIframe track={trackData} />
             </div>
-          </div>
-        )}
-        <div className="row">
-          <div className="col-12 col-md-6 offset-md-3 mb-3">
-            <div className="rounded bg-light shadow-light p-3">
-              <h4 className="text-center">Links</h4>
-              <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
-            </div>
+          )}
+          <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+            <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
           </div>
         </div>
       </div>
-      <div className="container my-3 adsbygoogle">
-        <div className="row  mb-5">
-          <div className="col-12 text-center">
-            <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-          </div>
-        </div>
-      </div>
+      <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
     </AppLayout>
   );
 };
