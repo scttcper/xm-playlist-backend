@@ -8,11 +8,11 @@ import React, { useState } from 'react';
 import AdSense from 'react-adsense';
 
 import { channels } from '../../../channels';
-import { AppLayout } from '../../../components/AppLayout';
-import { StationTop } from '../../../components/StationTop';
-import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
+import { StationTop } from 'components/StationTop';
+import { StreamCardsLayout } from 'components/StreamCardsLayout';
 import { StationRecent, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface StationProps {
   recent: StationRecent[][];
@@ -59,7 +59,7 @@ const StationPage: NextComponentType<any, any, StationProps> = props => {
   }
 
   return (
-    <AppLayout>
+    <>
       <Head>
         <title>{channel.name} Recently Played - sirius xm playlist</title>
         <meta
@@ -69,8 +69,8 @@ const StationPage: NextComponentType<any, any, StationProps> = props => {
       </Head>
       <StationTop channel={channel} currentPage="recent" />
       {/* Main body */}
-      <div className="container mb-4">
-        <div className="row">
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3 md:mb-3">
+        <div className="relative max-w-7xl mx-auto">
           <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
         </div>
         {/* Load More */}
@@ -89,7 +89,7 @@ const StationPage: NextComponentType<any, any, StationProps> = props => {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </>
   );
 };
 

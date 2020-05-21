@@ -1,5 +1,4 @@
 import React from 'react';
-import LazyLoad from 'react-lazyload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactGA from 'react-ga';
 
@@ -15,30 +14,32 @@ function trackPlaylistClick(type: string, channelId: string): void {
 
 export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
   return (
-    <a
-      href={`https://open.spotify.com/user/xmplaylist/playlist/${props.channel.playlist}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => trackPlaylistClick('spotify', props.channel.id)}
-    >
-      <div className="bg-white text-dark shadow rounded p-3 d-flex justify-content-start">
-        <div className="">
-          <LazyLoad>
-            <FontAwesomeIcon
-              className="mr-2"
-              style={{ color: '#000' }}
-              icon={['fab', 'spotify']}
-              size="lg"
-            />
-          </LazyLoad>
+    <div className="p-2 rounded-lg bg-gray-600 shadow-lg sm:p-3">
+      <a
+        href={`https://open.spotify.com/user/xmplaylist/playlist/${props.channel.playlist}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackPlaylistClick('spotify', props.channel.id)}
+      >
+        <div className="flex items-center justify-between flex-wrap">
+          <div className="flex-1 flex items-center">
+            <span className="flex p-2 rounded-lg text-white bg-gray-800">
+              <FontAwesomeIcon icon={['fab', 'spotify']} size="lg" />
+            </span>
+            <p className="ml-3 font-medium text-white truncate">
+              <span className="sm:hidden">Spotify Playlist</span>
+              <span className="hidden sm:inline">{props.channel.name} playlist on Spotify</span>
+            </p>
+          </div>
+          <div className="w-auto">
+            <div className="rounded-md shadow-sm">
+              <div className="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-600 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
+                <FontAwesomeIcon className="mr-2" size="sm" icon="external-link-alt" /> Open
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mr-auto">{props.channel.name} playlist on Spotify</div>
-        <div>
-          <LazyLoad>
-            <FontAwesomeIcon size="sm" icon="external-link-alt" />
-          </LazyLoad>
-        </div>
-      </div>
-    </a>
+      </a>
+    </div>
   );
 };

@@ -10,6 +10,7 @@ import {
   faInfoCircle,
   faMusic,
   faTimes,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
 
@@ -27,6 +28,7 @@ library.add(
   faExternalLinkAlt,
   faArrowLeft,
   faTimes,
+  faSearch,
 );
 
 ReactGA.initialize('UA-84656736-2');

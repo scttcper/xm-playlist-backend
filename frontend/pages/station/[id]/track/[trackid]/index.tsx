@@ -94,113 +94,87 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           </>
         )}
       </Head>
-      <div className="container my-3 adsbygoogle">
-        <div className="row  mb-5">
-          <div className="col-12 text-center">
-            <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      <div className="relative bg-white pt-4 md:pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+        <div className="relative max-w-7xl mx-auto">
+          <div className="lg:mt-12 max-w-lg mx-auto">
+            <div className="flex flex-col rounded-lg shadow-lg">
+              <div className="flex-shrink-0">
+                <img className="w-full object-cover" src={albumCover} alt="" />
+              </div>
+              <div className="bg-white p-6 lg:p-10 flex flex-col justify-between">
+                <h3 className="text-xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+                  {trackData.track.name}
+                </h3>
+                <ul className="mt-3 text-base md:max-w-2xl md:leading-7 text-gray-500 sm:mt-4">
+                  {trackData.track.artists.map((artist, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <li key={index} className="inline pr-2">
+                      {artist}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="mt-10 max-w-lg mx-auto p-6 rounded-lg shadow-lg">
+            <h4 className="text-center text-base text-gray-500">Times Played Per Day</h4>
+            <SizeMe>
+              {({ size }) => (
+                <WithTooltip renderTooltip={renderTooltip}>
+                  {({ onMouseMove, onMouseLeave, tooltipData }) => (
+                    <Sparkline
+                      ariaLabel="A line graph of randomly-generated data"
+                      height={80}
+                      width={size.width}
+                      data={trackData.plays}
+                      margin={{ top: 10, right: 2, bottom: 5, left: 4 }}
+                      onMouseLeave={onMouseLeave}
+                      onMouseMove={onMouseMove}
+                    >
+                      <PatternLines
+                        id="area_pattern"
+                        height={4}
+                        width={4}
+                        stroke={allColors.indigo[4]}
+                        strokeWidth={1}
+                        orientation={['diagonal']}
+                      />
+                      <LineSeries showArea stroke={allColors.indigo[5]} fill="url(#area_pattern)" />
+                      <PointSeries
+                        points={['all']}
+                        stroke={allColors.indigo[4]}
+                        fill="#fff"
+                        size={3}
+                      />
+                      <PointSeries
+                        points={['last']}
+                        fill={allColors.indigo[5]}
+                        renderLabel={renderLabel}
+                        labelPosition="right"
+                      />
+                      {tooltipData && [
+                        <VerticalReferenceLine
+                          key="ref-line"
+                          strokeWidth={1}
+                          reference={tooltipData.index}
+                          strokeDasharray="4 4"
+                        />,
+                        <PointSeries
+                          key="ref-point"
+                          points={[tooltipData.index]}
+                          fill={allColors.indigo[5]}
+                        />,
+                      ]}
+                    </Sparkline>
+                  )}
+                </WithTooltip>
+              )}
+            </SizeMe>
           </div>
         </div>
       </div>
       <div className="container my-3">
-        <div className="row">
-          <div className="col-12 col-md-6 offset-md-3 mb-2">
-            <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
-              <a className="btn btn-light rounded-pill">
-                <FontAwesomeIcon icon="arrow-left" /> Back to {channel.name}
-              </a>
-            </Link>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-6 offset-md-3 mb-3">
-            <div className="row bg-light shadow-light radius-media-left radius-media-right ml-0 mr-0">
-              <div className="col-5 p-0">
-                <img src={albumCover} className="img-fluid radius-media-left" alt="..." />
-              </div>
-              <div className="col-7 p-3">
-                <div className="d-flex align-items-start flex-column" style={{ height: '100%' }}>
-                  <div className="mb-auto" style={{ maxWidth: '100%' }}>
-                    <h4 className="mt-0 mb-2 text-strong">{trackData.track.name}</h4>
-                    <ul className="list-inline mb-0">
-                      {trackData.track.artists.map((artist, index) => (
-                        <li
-                          // eslint-disable-next-line react/no-array-index-key
-                          key={index}
-                          className="list-inline-item text-truncate"
-                        >
-                          {artist}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-6 offset-md-3 mb-3">
-            <div className="rounded bg-light shadow-light pt-3 overflow-hidden">
-              <h4 className="text-center">Times Played Per Day</h4>
-              <SizeMe>
-                {({ size }) => (
-                  <WithTooltip renderTooltip={renderTooltip}>
-                    {({ onMouseMove, onMouseLeave, tooltipData }) => (
-                      <Sparkline
-                        ariaLabel="A line graph of randomly-generated data"
-                        height={80}
-                        width={size.width}
-                        data={trackData.plays}
-                        margin={{ top: 10, right: 2, bottom: 5, left: 4 }}
-                        onMouseLeave={onMouseLeave}
-                        onMouseMove={onMouseMove}
-                      >
-                        <PatternLines
-                          id="area_pattern"
-                          height={4}
-                          width={4}
-                          stroke={allColors.indigo[4]}
-                          strokeWidth={1}
-                          orientation={['diagonal']}
-                        />
-                        <LineSeries
-                          showArea
-                          stroke={allColors.indigo[5]}
-                          fill="url(#area_pattern)"
-                        />
-                        <PointSeries
-                          points={['all']}
-                          stroke={allColors.indigo[4]}
-                          fill="#fff"
-                          size={3}
-                        />
-                        <PointSeries
-                          points={['last']}
-                          fill={allColors.indigo[5]}
-                          renderLabel={renderLabel}
-                          labelPosition="right"
-                        />
-                        {tooltipData && [
-                          <VerticalReferenceLine
-                            key="ref-line"
-                            strokeWidth={1}
-                            reference={tooltipData.index}
-                            strokeDasharray="4 4"
-                          />,
-                          <PointSeries
-                            key="ref-point"
-                            points={[tooltipData.index]}
-                            fill={allColors.indigo[5]}
-                          />,
-                        ]}
-                      </Sparkline>
-                    )}
-                  </WithTooltip>
-                )}
-              </SizeMe>
-            </div>
-          </div>
-        </div>
         {trackData.spotify.spotify_id && (
           <div className="row">
             <div className="col-12 col-md-6 offset-md-3 mb-3">
