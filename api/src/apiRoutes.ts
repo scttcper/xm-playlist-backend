@@ -164,7 +164,7 @@ export async function registerApiRoutes(server: HapiServer) {
           'spotify.previewUrl as previewUrl',
           'spotify.cover as cover',
         ])
-        .leftJoin('scrobble', 'track.id', 'scrobble.trackId')
+        .rightJoin('scrobble', 'track.id', 'scrobble.trackId')
         .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
         .orderBy('scrobble.startTime', 'desc')
         .limit(100);

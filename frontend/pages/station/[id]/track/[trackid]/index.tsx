@@ -1,6 +1,5 @@
 import {
   LineSeries,
-  PatternLines,
   PointSeries,
   Sparkline,
   VerticalReferenceLine,
@@ -17,7 +16,6 @@ import AdSense from 'react-adsense';
 import { SizeMe } from 'react-sizeme';
 
 import { channels } from '../../../../../channels';
-import { AppLayout } from '../../../../../components/AppLayout';
 import { SpotifyIframe } from '../../../../../components/SpotifyIframe';
 import { TrackLinksButtons } from '../../../../../components/TrackLinksButtons';
 import { TrackChannelResponse } from 'frontend/responses';
@@ -35,7 +33,7 @@ const renderTooltip = ({ datum }) => (
   </div>
 );
 
-const renderLabel = d => d;
+const renderLabel = (d: any) => d;
 
 const TrackPage: NextComponentType<any, any, StationProps> = props => {
   const lowercaseId = props.channelId.toLowerCase();
@@ -54,7 +52,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
   }`;
 
   return (
-    <AppLayout>
+    <>
       <Head>
         <title>
           {trackData.track.name} on {channel.name}
@@ -93,7 +91,9 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           </>
         )}
       </Head>
-      <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      <div className="relative bg-white adsbygoogle mx-auto">
+        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      </div>
       <div className="relative bg-white pt-4 md:pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
           <div className="lg:mt-4 max-w-lg mx-auto">
@@ -136,7 +136,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               <div className="flex-shrink-0">
                 <img className="w-full object-cover" src={albumCover} alt="" />
               </div>
-              <div className="bg-white p-6 lg:p-8 flex flex-col justify-between">
+              <div className="bg-white p-6 lg:p-8 lg:py-10 flex flex-col justify-between">
                 <h3 className="text-xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                   {trackData.track.name}
                 </h3>
@@ -151,8 +151,8 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               </div>
             </div>
           </div>
-          <div className="mt-8 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
-            <h4 className="text-center text-base text-gray-500">Times Played Per Day</h4>
+          <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
+            <h4 className="text-center text-base text-gray-500 leading-8 mb-3">Times Played Per Day</h4>
             <SizeMe>
               {({ size }) => (
                 <WithTooltip renderTooltip={renderTooltip}>
@@ -162,18 +162,10 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                       height={80}
                       width={size.width}
                       data={trackData.plays}
-                      margin={{ top: 10, right: 2, bottom: 5, left: 4 }}
+                      margin={{ top: 10, right: 4, bottom: 4, left: 4 }}
                       onMouseLeave={onMouseLeave}
                       onMouseMove={onMouseMove}
                     >
-                      <PatternLines
-                        id="area_pattern"
-                        height={4}
-                        width={4}
-                        stroke={allColors.indigo[4]}
-                        strokeWidth={1}
-                        orientation={['diagonal']}
-                      />
                       <LineSeries showArea stroke={allColors.indigo[5]} fill="url(#area_pattern)" />
                       <PointSeries
                         points={['all']}
@@ -216,8 +208,10 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           </div>
         </div>
       </div>
-      <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
-    </AppLayout>
+      <div className="relative bg-white adsbygoogle mx-auto">
+        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      </div>
+    </>
   );
 };
 

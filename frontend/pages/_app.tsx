@@ -50,9 +50,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         />
         <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
       </Head>
-      <NavBar />
-      <Component {...pageProps} />
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <NavBar />
+        <div className="flex-grow">
+          <Component {...pageProps} />
+        </div>
+        <Footer />
+      </div>
     </>
   );
 };

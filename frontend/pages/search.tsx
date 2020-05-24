@@ -1,100 +1,147 @@
 import Head from 'next/head';
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 
-import { AppLayout } from '../components/AppLayout';
 import { url } from '../url';
 
-interface SearchProps {}
-interface SearchState {
-  artistName: string;
-  results?: any[];
-}
+const Search = () => {
+  const [artistName, setArtistName] = useState('orny');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
-export default class MostHeard extends React.Component<SearchProps, SearchState> {
-  state: SearchState = { artistName: 'orny', results: undefined };
-
-  componentDidMount() {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    this.search({ preventDefault: () => {} } as any);
-  }
-
-  search = async (event: FormEvent<HTMLFormElement>) => {
+  const search = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const searchParams = new URLSearchParams();
-    searchParams.append('artistName', this.state.artistName);
+    searchParams.append('artistName', artistName);
     const res = await fetch(`${url}/search?${searchParams.toString()}`);
     const results = await res.json();
-    this.setState({ results });
+    setSearchResults(results);
   };
 
-  handleArtistChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ artistName: event.target.value.trim() });
+  const handleArtistChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setArtistName(event.target.value.trim());
   };
 
-  render(): JSX.Element {
-    return (
-      <AppLayout>
-        <Head>
-          <title>Search - xmplaylist.com recently played on xm radio</title>
-        </Head>
-        <div className="container mt-3">
-          <div className="row mb-3">
-            <div className="col-12">
-              <div className="alert alert-danger" role="alert">
-                This feature is still under development.
-              </div>
-            </div>
-            <div className="col-8 offset-2">
-              <div className="bg-white rounded p-4">
-                <h3 className="text-center">Search</h3>
-                <form onSubmit={this.search}>
-                  <div className="form-group">
-                    <label htmlFor="artist">Artist Name (case insensitive)</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="artist"
-                      placeholder="Artist Name"
-                      value={this.state.artistName}
-                      onChange={this.handleArtistChange}
-                    />
-                  </div>
-                  <div className="text-center">
-                    <button className="btn btn-primary" type="submit">
-                      Go
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <div className="p-4">
-                <h3>Results</h3>
-                {this.state.results &&
-                  this.state.results.map(result => {
-                    const dateStr = format(new Date(result.startTime), 'MM/dd/yyyy KK:mm aaa');
-                    return (
-                      <div key={result.scrobbleId} className="row">
-                        <div className="col-12 my-1 p-3 bg-white rounded">
-                          <div className="d-flex flex-row">
-                            <div className="p-2 bd-highlight">{dateStr}</div>
-                          </div>
-                          <div className="d-flex flex-row">
-                            <div className="p-2 bd-highlight">Name: {result.name}</div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+  return (
+    <>
+      <Head>
+        <title>Search - xmplaylist.com recently played on xm radio</title>
+      </Head>
+      <div className="bg-green-600">
+        <div className="max-w-screen-xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between flex-wrap">
+            <div className="w-0 flex-1 flex items-center">
+              <span className="flex p-2 rounded-lg bg-green-800 text-white">
+                <FontAwesomeIcon icon="search" size="lg" />
+              </span>
+              <p className="ml-3 font-medium text-white">
+                Search feature is still under development
+              </p>
             </div>
           </div>
         </div>
-      </AppLayout>
-    );
-  }
-}
+      </div>
+      <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
+        <div className="relative max-w-xl mx-auto">
+          <div className="bg-white rounded p-4 shadow">
+            <h1 className="text-xl mb-4">Search</h1>
+            <form onSubmit={search}>
+              <div>
+                <label
+                  htmlFor="artist"
+                  className="block text-sm font-medium leading-5 text-gray-700"
+                >
+                  Artist Name
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <input
+                    id="artist"
+                    className="form-input block w-full sm:text-sm sm:leading-5"
+                    placeholder=""
+                    aria-describedby="email-description"
+                    onChange={handleArtistChange}
+                  />
+                </div>
+                <p className="mt-2 text-sm text-gray-500" id="email-description">
+                  Case insensitive
+                </p>
+              </div>
+
+              <button
+                type="submit"
+                className="inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150"
+              >
+                <FontAwesomeIcon className="mr-2" icon="search" />
+                Go
+              </button>
+            </form>
+          </div>
+        </div>
+        <div className="bg-white shadow overflow-hidden sm:rounded-md my-4">
+          <ul>
+            {searchResults?.map(result => {
+              const dateStr = format(new Date(result.startTime), 'MM/dd/yyyy KK:mm aaa');
+              return (
+                <li key={result.scrobbleId}>
+                  <Link
+                    href="/station/[id]/track/[trackid]"
+                    as={`/station/${result.channel.toLowerCase()}/track/${result.id}`}
+                  >
+                    <a className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                      <div className="flex items-center px-4 py-4 sm:px-6">
+                        <div className="min-w-0 flex-1 flex items-center">
+                          <div className="flex-shrink-0">
+                            <img
+                              className="h-12 w-12 rounded"
+                              src={result.cover || '/static/missing.png'}
+                              alt=""
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                            <div>
+                              <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
+                                {result.name}
+                              </div>
+                              <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                <span className="truncate">{result.artists.join(', ')}</span>
+                              </div>
+                            </div>
+                            <div className="hidden md:block">
+                              <div>
+                                <div className="text-sm leading-5 text-gray-900">{dateStr}</div>
+                                <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                  {result.channel}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <svg
+                            className="h-5 w-5 text-gray-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </main>
+    </>
+  );
+};
+
+export default Search;

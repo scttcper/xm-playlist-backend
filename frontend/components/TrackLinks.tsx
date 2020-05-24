@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Modal from 'react-bootstrap/Modal';
 import ReactGA from 'react-ga';
 import LazyLoad from 'react-lazyload';
 import { useClickAway } from 'react-use';
@@ -19,7 +18,6 @@ export const TrackLinks: React.FC<{
     }
   });
 
-  const handleClose = () => setShow(false);
   const handleShow = () => {
     ReactGA.event({
       category: 'Links',

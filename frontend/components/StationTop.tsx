@@ -4,7 +4,6 @@ import AdSense from 'react-adsense';
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
 import { Channel } from '../channels';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
 type Props = {
