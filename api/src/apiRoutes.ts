@@ -6,7 +6,7 @@ import Boom from '@hapi/boom';
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
-import { db } from './db';
+import { search } from './search';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -146,41 +146,15 @@ export async function registerApiRoutes(server: HapiServer) {
       cors: { origin: 'ignore' },
       validate: {
         query: Joi.object({
-          artistName: Joi.string().optional(),
+          artistName: Joi.string().alphanum().min(2).max(30).required(),
+          station: Joi.string()
+            .optional()
+            .valid(...channels.map(n => n.deeplink)),
         }),
       },
     },
     handler: async req => {
-      const trackQuery = db('track')
-        .select([
-          'track.id as id',
-          'scrobble.id as scrobbleId',
-          'scrobble.startTime as startTime',
-          'scrobble.channel as channel',
-          'track.name as name',
-          'track.artists as artists',
-          'track.createdAt as createdAt',
-          'spotify.spotifyId as spotifyId',
-          'spotify.previewUrl as previewUrl',
-          'spotify.cover as cover',
-        ])
-        .rightJoin('scrobble', 'track.id', 'scrobble.trackId')
-        .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
-        .orderBy('scrobble.startTime', 'desc')
-        .limit(100);
-
-      if (req.query.artistName) {
-        console.log(req.query.artistName);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        trackQuery.where(
-          db.raw('"track"."artists"::TEXT'),
-          'ILIKE',
-          `%%${req.query.artistName as string}%%`,
-        );
-      }
-
-      const tracks = await trackQuery;
-      return tracks;
+      return search(req.query.artistName as string, req.query.station as string | undefined);
     },
   });
 }

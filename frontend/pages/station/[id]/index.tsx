@@ -1,7 +1,7 @@
 import { formatDistanceStrict } from 'date-fns';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
-import { NextComponentType } from 'next';
+import { NextComponentType, NextPageContext } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -23,7 +23,7 @@ function getLastStartTime(recent: StationRecent[]): number {
   return new Date(last).getTime();
 }
 
-const StationPage: NextComponentType<any, any, StationProps> = props => {
+const StationPage: NextComponentType<NextPageContext, any, StationProps> = props => {
   const { channelId } = props;
   const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
