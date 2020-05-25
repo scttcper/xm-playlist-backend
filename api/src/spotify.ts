@@ -6,7 +6,6 @@ import { URLSearchParams } from 'url';
 import config from '../config';
 import { client, getCache } from './redis';
 import * as util from './util';
-import { search } from './youtube';
 import { TrackModel, Spotify } from './models';
 import { db } from './db';
 import { channels } from '../../frontend/channels';
@@ -107,23 +106,6 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   const items: any[] = res.tracks.items?.filter(n => n) ?? [];
   if (items.length > 0) {
     return parseSpotify(_.first(items));
-  }
-
-  const youtube = await search(`${cleanTrack} ${cleanArtists}`);
-  if (!youtube) {
-    throw new SpotifyFailed('Youtube failed');
-  }
-
-  searchParams.set(
-    'q',
-    util.cleanupExtra(util.cleanRemix(util.cleanFt(util.cleanMusicVideo(youtube)))) +
-      optionalBlacklist(youtube, youtube),
-  );
-  // Console.log('GOOGLE:', options.qs.q);
-  const res2 = (await got.get(url, { timeout: 10_000, searchParams, headers }).json()) as any;
-  const items2: any[] = res2.tracks.items?.filter(n => n) ?? [];
-  if (items2.length > 0) {
-    return parseSpotify(_.first(items2));
   }
 
   throw new SpotifyFailed();
