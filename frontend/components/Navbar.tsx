@@ -1,8 +1,29 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useClickAway } from 'react-use';
+
+import { useStores } from 'services/useStores';
 
 export const NavBar: React.FC = () => {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const { user } = useStores();
+
+  useClickAway(dropdownRef, () => {
+    if (profileOpen) {
+      setProfileOpen(false);
+    }
+  });
+
+  const handleLogOut = () => {
+    user.logout();
+    router.push('/login');
+    setProfileOpen(false);
+  };
 
   return (
     <nav className="bg-white shadow">
@@ -64,6 +85,87 @@ export const NavBar: React.FC = () => {
                   Search
                 </a>
               </Link>
+            </div>
+          </div>
+
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <Link href="/search">
+              <a
+                className="sm:hidden p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
+                aria-label="Notifications"
+              >
+                <FontAwesomeIcon icon="search" />
+              </a>
+            </Link>
+
+            {/* <!-- Profile dropdown --> */}
+            <div className="ml-3 relative">
+              {user.user && (
+                <div>
+                  <button
+                    type="button"
+                    className="flex text-sm border border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                    id="user-menu"
+                    aria-label="User menu"
+                    aria-haspopup="true"
+                    onClick={() => setProfileOpen(!profileOpen)}
+                  >
+                    <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+                      <svg
+                        className="h-full w-full text-gray-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              )}
+              {user.user === null && (
+                <div>
+                  <Link href="/login">
+                    <a
+                      type="button"
+                      className="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out"
+                      id="user-menu"
+                      aria-label="User menu"
+                      aria-haspopup="true"
+                    >
+                      Log In
+                    </a>
+                  </Link>
+                </div>
+              )}
+              <div
+                ref={dropdownRef}
+                className={`${
+                  profileOpen ? '' : 'hidden'
+                } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg`}
+              >
+                <div
+                  className="py-1 rounded-md bg-white shadow-xs"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu"
+                >
+                  <Link href="/profile">
+                    <a
+                      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Your Profile
+                    </a>
+                  </Link>
+                  <button
+                    type="button"
+                    className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    onClick={handleLogOut}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

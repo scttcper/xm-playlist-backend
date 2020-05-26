@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faApple, faSpotify } from '@fortawesome/free-brands-svg-icons';
+import { faApple, faSpotify, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowLeft,
   faEllipsisH,
@@ -17,8 +17,12 @@ import ReactGA from 'react-ga';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
+import { app } from 'services/firebase';
+// enable mobx batching
+import 'mobx-react-lite/batchingForReactDom';
 
 import '../css/tailwind.css';
+import { useStores } from 'services/useStores';
 
 library.add(
   faSpotify,
@@ -31,14 +35,26 @@ library.add(
   faTimes,
   faSearch,
   faSpinner,
+  faGoogle,
+  faTwitter,
 );
 
 ReactGA.initialize('UA-84656736-2');
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const { user } = useStores();
   useEffect(() => {
     setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
   });
+
+  useEffect(() => {
+    console.log('init auth');
+    app.auth().onAuthStateChanged(firebaseUser => {
+      console.log({ firebaseUser });
+      user.setUser(firebaseUser);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
