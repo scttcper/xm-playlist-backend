@@ -3,15 +3,24 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useClickAway } from 'react-use';
+import { useObserver } from 'mobx-react';
 
 import { useStores } from 'services/useStores';
+
+function useUserData() {
+  const { user } = useStores();
+  return useObserver(() => ({
+    user: user.user,
+    logout: user.logout,
+  }));
+}
 
 export const NavBar: React.FC = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user } = useStores();
+  const { user, logout } = useUserData();
 
   useClickAway(dropdownRef, () => {
     if (profileOpen) {
@@ -20,14 +29,14 @@ export const NavBar: React.FC = () => {
   });
 
   const handleLogOut = () => {
-    user.logout();
+    logout();
     router.push('/login');
     setProfileOpen(false);
   };
 
   return (
     <nav className="bg-white shadow">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
@@ -100,7 +109,7 @@ export const NavBar: React.FC = () => {
 
             {/* <!-- Profile dropdown --> */}
             <div className="ml-3 relative">
-              {user.user && (
+              {user && (
                 <div>
                   <button
                     type="button"
@@ -122,7 +131,7 @@ export const NavBar: React.FC = () => {
                   </button>
                 </div>
               )}
-              {user.user === null && (
+              {user === null && (
                 <div>
                   <Link href="/login">
                     <a
@@ -141,7 +150,7 @@ export const NavBar: React.FC = () => {
                 ref={dropdownRef}
                 className={`${
                   profileOpen ? '' : 'hidden'
-                } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg`}
+                } origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg`}
               >
                 <div
                   className="py-1 rounded-md bg-white shadow-xs"
@@ -154,7 +163,7 @@ export const NavBar: React.FC = () => {
                       className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       onClick={() => setProfileOpen(false)}
                     >
-                      Your Profile
+                      Profile
                     </a>
                   </Link>
                   <button

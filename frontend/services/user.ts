@@ -16,21 +16,30 @@ const actionCodeSettings: firebase.auth.ActionCodeSettings = {
 export class User {
   id = 'user';
   @observable user: FirebaseUser | null = null;
+  @observable loggedIn: boolean | null = null;
 
-  @action
+  @action.bound
   setUser(user: FirebaseUser | null) {
-    this.user = user;
+    console.log({ user });
+    if (user) {
+      this.user = user;
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
   }
 
   @action
-  async signUp(email: string) {
+  async signInWithLink(email: string) {
     localStorage.setItem('emailForSignIn', email);
     try {
       await app.auth().sendSignInLinkToEmail(email, actionCodeSettings);
-    } catch {
+    } catch (error) {
       runInAction(() => {
         this.user = null;
+        this.loggedIn = false;
       });
+      throw error;
     }
   }
 
@@ -39,23 +48,18 @@ export class User {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().useDeviceLanguage();
     const { user } = await firebase.auth().signInWithPopup(provider);
-    runInAction(() => {
-      this.user = user;
-    });
+    this.setUser(user);
   }
 
   @action
   async signInWithTwitter() {
-    console.log('hello')
     const provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().useDeviceLanguage();
     const { user } = await firebase.auth().signInWithPopup(provider);
-    runInAction(() => {
-      this.user = user;
-    });
+    this.setUser(user);
   }
 
-  @action
+  @action.bound
   async logout() {
     try {
       await app.auth().signOut();
@@ -65,6 +69,7 @@ export class User {
 
     runInAction(() => {
       this.user = null;
+      this.loggedIn = false;
     });
   }
 }

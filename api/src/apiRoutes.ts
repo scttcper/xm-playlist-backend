@@ -7,6 +7,7 @@ import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
 import { search } from './search';
+import { admin } from './firebaseAdmin';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -18,6 +19,12 @@ function getChannel(id: string): Channel {
   }
 
   return channel;
+}
+
+async function isValidToken(token = '') {
+  const jwt = token.slice(7);
+  const user = await admin.auth().verifyIdToken(jwt);
+  return user;
 }
 
 /**
@@ -146,7 +153,8 @@ export async function registerApiRoutes(server: HapiServer) {
       cors: { origin: 'ignore' },
       validate: {
         query: Joi.object({
-          artistName: Joi.string().alphanum().min(2).max(30).required(),
+          trackName: Joi.string().min(2).max(30).optional(),
+          artistName: Joi.string().min(2).max(30).optional(),
           station: Joi.string()
             .optional()
             .valid(...channels.map(n => n.deeplink)),
@@ -154,7 +162,18 @@ export async function registerApiRoutes(server: HapiServer) {
       },
     },
     handler: async req => {
-      return search(req.query.artistName as string, req.query.station as string | undefined);
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        // TODO: do something with user
+      } catch {
+        throw Boom.unauthorized();
+      }
+
+      return search(
+        req.query.trackName as string,
+        req.query.artistName as string,
+        req.query.station as string | undefined,
+      );
     },
   });
 }

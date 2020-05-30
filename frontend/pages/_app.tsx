@@ -12,6 +12,7 @@ import {
   faTimes,
   faSearch,
   faSpinner,
+  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
 
@@ -37,6 +38,7 @@ library.add(
   faSpinner,
   faGoogle,
   faTwitter,
+  faSignOutAlt,
 );
 
 ReactGA.initialize('UA-84656736-2');
@@ -50,7 +52,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   useEffect(() => {
     console.log('init auth');
     app.auth().onAuthStateChanged(firebaseUser => {
-      console.log({ firebaseUser });
       user.setUser(firebaseUser);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

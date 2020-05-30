@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import { useStores } from 'services/useStores';
 import { useRouter } from 'next/router';
-import { ThirdPartyLogin } from 'components/thirdPartyLogin';
+
+import { ThirdPartyLogin } from 'components/ThirdPartyLogin';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const { user } = useStores();
   const router = useRouter();
+  const [error, setError] = useState('');
+
+  const handleError = (error: Error) => {
+    setError(`Error: ${error.message}`);
+  };
 
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await user.signUp(username);
-    router.push('/profile');
+    try {
+      await user.signInWithLink(username);
+      console.log('finished?');
+      router.push('/linkAwait');
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,9 +86,11 @@ const Login = () => {
               </div>
             </div>
 
-            <ThirdPartyLogin />
+            <ThirdPartyLogin handleError={handleError} />
           </div>
         </div>
+
+        <p className="text-red-800 p-7">{error}</p>
       </div>
     </div>
   );

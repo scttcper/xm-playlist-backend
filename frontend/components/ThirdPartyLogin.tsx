@@ -4,17 +4,33 @@ import { useRouter } from 'next/router';
 
 import { useStores } from 'services/useStores';
 
-export const ThirdPartyLogin = () => {
+type Props = {
+  handleError: (error: Error) => void;
+};
+
+export const ThirdPartyLogin = ({handleError}: Props) => {
   const router = useRouter();
   const { user } = useStores();
 
   const handleGoogleLogin = async () => {
-    await user.signInWithGoogle();
+    try {
+      await user.signInWithGoogle();
+    } catch (error) {
+      handleError(error);
+      throw error;
+    }
+
     router.push('/profile');
   };
 
   const handleTwitterLogin = async () => {
-    await user.signInWithTwitter();
+    try {
+      await user.signInWithTwitter();
+    } catch (error) {
+      handleError(error);
+      throw error;
+    }
+
     router.push('/profile');
   };
 

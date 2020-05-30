@@ -152,7 +152,9 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
             </div>
           </div>
           <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
-            <h4 className="text-center text-base text-gray-500 leading-8 mb-3">Times Played Per Day</h4>
+            <h4 className="text-center text-base text-gray-900 leading-8 mb-3">
+              Times Played Per Day
+            </h4>
             <SizeMe>
               {({ size }) => (
                 <WithTooltip renderTooltip={renderTooltip}>
@@ -203,9 +205,11 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               <SpotifyIframe track={trackData} />
             </div>
           )}
-          <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
-            <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
-          </div>
+          {trackData.links.length > 0 && (
+            <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+              <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
+            </div>
+          )}
         </div>
       </div>
       <div className="relative bg-white adsbygoogle mx-auto">

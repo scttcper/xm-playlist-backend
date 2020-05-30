@@ -20,6 +20,7 @@ let config = {
   spotifyClientSecret: '',
   location: '',
   googleCredentials: '',
+  cert: {} as any,
 };
 
 const filename = `./config.${env}`;

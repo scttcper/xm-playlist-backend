@@ -1,42 +1,81 @@
 import { NextComponentType, NextPageContext } from 'next';
 import Head from 'next/head';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import { channels, Channel } from 'frontend/channels';
+import { useObserver } from 'mobx-react';
 
 import { url } from '../url';
+import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
+import { useStores } from 'services/useStores';
+import { channels, Channel } from 'frontend/channels';
 
 type Props = {
   query: any;
 };
 
+export interface SearchResult {
+  id: string;
+  scrobbleId: string;
+  startTime: string;
+  channel: string;
+  name: string;
+  artists: string;
+  createdAt: string;
+  spotifyId: string;
+  previewUrl: string;
+  cover: string;
+}
+
+export interface SearchResults {
+  stationsTotal: number;
+  uniqueTracksTotal: number;
+  totalItems: number;
+  currentPage: number;
+  pages: number;
+  results: SearchResult[];
+}
+
 const friendlyChannelName = (deeplink: string): Channel | undefined =>
   channels.find(channel => channel.deeplink === deeplink);
 
+function useUserData() {
+  const { user } = useStores();
+  return useObserver(() => ({
+    user: user.user,
+  }));
+}
+
 const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => {
   const router = useRouter();
-  const [artistName, setArtistName] = useState<string>((query.artistName as string) || '');
-  const [searchResults, setSearchResults] = useState<any>({ results: [] });
+  const [searchResults, setSearchResults] = useState<Partial<SearchResults>>({ results: [] });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedStation, setSelectedStation] = useState<string>(query.station);
+  const { user } = useUserData();
 
-  const search = async (event?: FormEvent<HTMLFormElement>) => {
-    event?.preventDefault();
-    const searchParams = new URLSearchParams();
-    const query: Record<string, string> = {};
-    setSearchResults({ result: [] });
-    if (artistName) {
-      query.artistName = artistName;
-      searchParams.append('artistName', artistName);
+  const search = async (data: SearchFormInputs) => {
+    if (!user) {
+      return;
     }
 
-    if (selectedStation) {
-      query.station = selectedStation;
-      searchParams.append('station', selectedStation);
+    const searchParams = new URLSearchParams();
+    const query: Record<string, string> = {};
+    setSearchResults({ results: [] });
+    if (data.artistName) {
+      query.artistName = data.artistName;
+      searchParams.append('artistName', data.artistName);
+    }
+
+    if (data.station) {
+      query.station = data.station;
+      searchParams.append('station', data.station);
+    }
+
+    if (data.trackName) {
+      query.station = data.trackName;
+      searchParams.append('trackName', data.trackName);
     }
 
     router.push({
@@ -46,7 +85,12 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
 
     try {
       setIsLoading(true);
-      const res = await axios.get(`${url}/search?${searchParams.toString()}`);
+      const token: string = (await user?.getIdToken()) || '';
+      const res = await axios.get(`${url}/search?${searchParams.toString()}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       setSearchResults(res.data);
     } catch {
       // TODO: handle errors
@@ -63,14 +107,6 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   //   }
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
-
-  const handleArtistChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setArtistName(event.target.value.trim());
-  };
-
-  const handleStationChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStation(event.target.value);
-  };
 
   return (
     <>
@@ -100,79 +136,17 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               <p className="mt-1 text-sm leading-5 text-gray-500">
                 Find songs by artist name, station, and date range.
               </p>
+              <p className="mt-2 text-sm leading-5 text-gray-500">Text is case insensitive</p>
             </div>
             <div className="mt-5 md:mt-0 md:col-span-2">
-              <form onSubmit={search}>
-                <div className="grid grid-cols-3 gap-6">
-                  <div className="col-span-3 sm:col-span-2">
-                    <label
-                      htmlFor="artist"
-                      className="block text-sm font-medium leading-5 text-gray-700"
-                    >
-                      Artist Name
-                    </label>
-                    <div className="mt-1 relative rounded-md shadow-sm">
-                      <input
-                        id="artist"
-                        className="form-input block w-full sm:text-sm sm:leading-5"
-                        placeholder=""
-                        aria-describedby="artist-name-description"
-                        defaultValue={artistName}
-                        onChange={handleArtistChange}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-gray-500" id="artist-name-description">
-                      Case insensitive
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-6 mt-6">
-                  <div className="col-span-3 sm:col-span-2">
-                    <label
-                      htmlFor="station"
-                      className="block text-sm leading-5 font-medium text-gray-700"
-                    >
-                      Station
-                    </label>
-                    <select
-                      name="station"
-                      id="station"
-                      className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
-                      value={selectedStation}
-                      onChange={handleStationChange}
-                    >
-                      <option value="">All Stations</option>
-                      {channels
-                        .sort((a, b) => a.number - b.number)
-                        .map(channel => (
-                          <option key={channel.deeplink} value={channel.deeplink}>
-                            {channel.number} - {channel.name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150"
-                  >
-                    {isLoading && (
-                      <>
-                        <FontAwesomeIcon spin className="mr-2" icon="spinner" /> Loading...
-                      </>
-                    )}
-                    {!isLoading && (
-                      <>
-                        <FontAwesomeIcon className="mr-2" icon="search" />
-                        Search
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
+              <SearchForm
+                isLoading={isLoading}
+                trackName={query.trackName}
+                artistName={query.artistName}
+                station={query.station}
+                user={user}
+                onSubmit={search}
+              />
             </div>
           </div>
         </div>
@@ -183,15 +157,24 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             <div>
               <div className="px-4 py-5 sm:p-6">
                 <dl>
+                  <dt className="text-base leading-6 font-normal text-gray-900">Total Results</dt>
+                  <dd className="mt-1 flex justify-between items-baseline md:block lg:flex">
+                    <div className="flex items-baseline text-2xl leading-8 font-semibold text-blue-600">
+                      {searchResults.totalItems || '—'}
+                    </div>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 md:border-0 md:border-l">
+              <div className="px-4 py-5 sm:p-6">
+                <dl>
                   <dt className="text-base leading-6 font-normal text-gray-900">
-                    Total Subscribers
+                    Number of Stations
                   </dt>
                   <dd className="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div className="flex items-baseline text-2xl leading-8 font-semibold text-blue-600">
-                      71,897
-                      <span className="ml-2 text-sm leading-5 font-medium text-gray-500">
-                        from 70,946
-                      </span>
+                      {searchResults.stationsTotal || '—'}
                     </div>
                   </dd>
                 </dl>
@@ -200,28 +183,10 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             <div className="border-t border-gray-200 md:border-0 md:border-l">
               <div className="px-4 py-5 sm:p-6">
                 <dl>
-                  <dt className="text-base leading-6 font-normal text-gray-900">Avg. Open Rate</dt>
+                  <dt className="text-base leading-6 font-normal text-gray-900">Unique Tracks</dt>
                   <dd className="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div className="flex items-baseline text-2xl leading-8 font-semibold text-blue-600">
-                      58.16%
-                      <span className="ml-2 text-sm leading-5 font-medium text-gray-500">
-                        from 56.14%
-                      </span>
-                    </div>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-            <div className="border-t border-gray-200 md:border-0 md:border-l">
-              <div className="px-4 py-5 sm:p-6">
-                <dl>
-                  <dt className="text-base leading-6 font-normal text-gray-900">Avg. Click Rate</dt>
-                  <dd className="mt-1 flex justify-between items-baseline md:block lg:flex">
-                    <div className="flex items-baseline text-2xl leading-8 font-semibold text-blue-600">
-                      24.57%
-                      <span className="ml-2 text-sm leading-5 font-medium text-gray-500">
-                        from 28.62
-                      </span>
+                      {searchResults.uniqueTracksTotal || '—'}
                     </div>
                   </dd>
                 </dl>
@@ -265,7 +230,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                               <div>
                                 <div className="text-sm leading-5 text-gray-900">{dateStr}</div>
                                 <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
-                                  {friendlyChannelName(result.channel).name}
+                                  {friendlyChannelName(result.channel)?.name}
                                 </div>
                               </div>
                             </div>

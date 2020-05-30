@@ -1,3 +1,5 @@
+import { subDays } from 'date-fns';
+
 import { db } from './db';
 
 export interface SearchResult {
@@ -14,15 +16,42 @@ export interface SearchResult {
 }
 
 export interface SearchResults {
+  stationsTotal: number;
+  uniqueTracksTotal: number;
   totalItems: number;
   currentPage: number;
   pages: number;
   results: SearchResult[];
 }
 
-export async function search(artistName: string, station: string): Promise<SearchResults> {
-  const countQuery = db('track').rightJoin('scrobble', 'track.id', 'scrobble.trackId');
+export async function search(
+  trackName: string,
+  artistName: string,
+  station: string,
+): Promise<SearchResults> {
+  // TODO: allow search by date range
+  const daysAgo = subDays(new Date(), 1);
+
   const trackQuery = db('track')
+    .innerJoin('scrobble', 'track.id', 'scrobble.trackId')
+    .where('scrobble.startTime', '>', daysAgo);
+
+  if (trackName) {
+    trackQuery.andWhere('track.name', 'ILIKE', `%%${trackName}%%`);
+  }
+
+  if (artistName) {
+    trackQuery.andWhere(db.raw('"track"."artists"::TEXT'), 'ILIKE', `%%${artistName}%%`);
+  }
+
+  if (station) {
+    trackQuery.andWhere('scrobble.channel', '=', station);
+  }
+
+  const countQuery = trackQuery.clone();
+  const stationQuery = trackQuery.clone();
+  const uniqueTracks = trackQuery.clone();
+  trackQuery
     .select<SearchResult[]>([
     'track.id as id',
     'scrobble.id as scrobbleId',
@@ -35,28 +64,26 @@ export async function search(artistName: string, station: string): Promise<Searc
     'spotify.previewUrl as previewUrl',
     'spotify.cover as cover',
   ])
-    .rightJoin('scrobble', 'track.id', 'scrobble.trackId')
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
-    .orderBy('scrobble.startTime', 'desc');
+    .orderByRaw('scrobble.start_time DESC NULLS LAST');
 
-  trackQuery.where(db.raw('"track"."artists"::TEXT'), 'ILIKE', `%%${artistName}%%`);
-  countQuery.where(db.raw('"track"."artists"::TEXT'), 'ILIKE', `%%${artistName}%%`);
-
-  if (station) {
-    trackQuery.andWhere('scrobble.channel', '=', station);
-    countQuery.andWhere('scrobble.channel', '=', station);
-  }
-
-  const [total, results] = await Promise.all([
-    countQuery.count('*').first<{ count: number }>(),
+  const [total, stationsTotal, uniqueTracksTotal, results] = await Promise.all([
+    countQuery.count('*').first<{ count: string }>(),
+    stationQuery.countDistinct('scrobble.channel').first<{ count: string }>(),
+    uniqueTracks.countDistinct('track.id').first<{ count: string }>(),
     trackQuery.limit(100),
   ]);
 
+  console.log({ stationsTotal });
+
+  const totalItems = Number(total.count);
   return {
-    totalItems: total.count,
+    stationsTotal: Number(stationsTotal.count),
+    uniqueTracksTotal: Number(uniqueTracksTotal.count),
+    totalItems,
     // TODO: allow pagination
     currentPage: 1,
-    pages: Math.ceil(total.count / 100),
+    pages: Math.ceil(totalItems / 100),
     results,
   };
 }
