@@ -74,8 +74,6 @@ export async function search(
     trackQuery.limit(100),
   ]);
 
-  console.log({ stationsTotal });
-
   const totalItems = Number(total.count);
   return {
     stationsTotal: Number(stationsTotal.count),
