@@ -77,7 +77,7 @@ export const StreamCardsLayout: React.FC<{
                           }`}
                         >
                           <a className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                            <FontAwesomeIcon icon="info-circle" className="text-dark mr-1 h-5 w-5" /> Info
+                            <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
                           </a>
                         </Link>
                         {play?.spotify?.spotify_id && (
@@ -88,7 +88,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('spotify', play.track.id)}
                           >
-                            <FontAwesomeIcon className="mr-1 h-5 w-5" icon={['fab', 'spotify']} />
+                            <FontAwesomeIcon className="mr-1" icon={['fab', 'spotify']} />
                             Spotify
                           </a>
                         )}
@@ -100,7 +100,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('apple', play.track.id)}
                           >
-                            <FontAwesomeIcon className="mr-1 h-5 w-5" icon={['fab', 'apple']} />
+                            <FontAwesomeIcon className="mr-1" icon={['fab', 'apple']} />
                             Apple
                           </a>
                         )}

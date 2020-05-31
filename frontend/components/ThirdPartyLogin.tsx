@@ -72,7 +72,7 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
             aria-label="Sign in with Twitter"
             onClick={handleTwitterLogin}
           >
-            <FontAwesomeIcon className="h-5 w-5" size="lg" icon={['fab', 'twitter']} />
+            <FontAwesomeIcon size="lg" icon={['fab', 'twitter']} />
           </button>
         </span>
       </div>
@@ -85,7 +85,7 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
             aria-label="Sign in with Google"
             onClick={handleGoogleLogin}
           >
-            <FontAwesomeIcon className="h-5 w-5" size="lg" icon={['fab', 'google']} />
+            <FontAwesomeIcon size="lg" icon={['fab', 'google']} />
           </button>
         </span>
       </div>

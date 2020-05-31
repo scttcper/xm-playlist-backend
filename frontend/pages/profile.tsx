@@ -78,7 +78,7 @@ const Profile = () => {
           className="inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md bg-white text-gray-500 hover:text-white hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
           onClick={handleLogOut}
         >
-          <FontAwesomeIcon className="mr-2 h-5 w-5" icon="sign-out-alt" />
+          <FontAwesomeIcon className="mr-2" icon="sign-out-alt" />
           Sign Out
         </button>
       </div>

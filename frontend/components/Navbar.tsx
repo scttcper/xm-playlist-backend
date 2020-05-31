@@ -103,7 +103,7 @@ export const NavBar: React.FC = () => {
                 className="sm:hidden p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
                 aria-label="Notifications"
               >
-                <FontAwesomeIcon className="h-5 w-5" icon="search" />
+                <FontAwesomeIcon icon="search" />
               </a>
             </Link>
 

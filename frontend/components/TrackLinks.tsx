@@ -33,7 +33,7 @@ export const TrackLinks: React.FC<{
         onClick={handleShow}
       >
         <LazyLoad>
-          <FontAwesomeIcon icon="music" className="text-dark mr-1 h-5 w-5" />
+          <FontAwesomeIcon icon="music" className="text-dark mr-1" />
         </LazyLoad>{' '}
         Listen
       </a>
