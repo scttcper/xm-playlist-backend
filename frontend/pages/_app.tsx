@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { faApple, faSpotify, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowLeft,
@@ -26,6 +26,7 @@ import '../css/tailwind.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useStores } from 'services/useStores';
 
+config.autoAddCss = false;
 library.add(
   faSpotify,
   faApple,
