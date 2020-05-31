@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const whitelister = require('purgecss-whitelister');
+
 const purgecss = [
   '@fullhuman/postcss-purgecss',
   {
@@ -5,6 +8,9 @@ const purgecss = [
       './components/**/*.tsx',
       './pages/**/*.tsx',
     ],
+    whitelist: whitelister(
+      'node_modules/@fortawesome/fontawesome-svg-core/styles.css',
+    ),
     defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || [],
   },
 ];

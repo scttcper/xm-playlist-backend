@@ -31,6 +31,7 @@
     "next": "9.4.2",
     "next-purgecss": "4.0.0",
     "postcss-import": "12.0.1",
+    "purgecss-whitelister": "^2.4.0",
     "react": "16.13.1",
     "react-adsense": "0.1.0",
     "react-dom": "16.13.1",
