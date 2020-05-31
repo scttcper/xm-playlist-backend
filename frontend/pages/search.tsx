@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useObserver } from 'mobx-react';
+import AdSense from 'react-adsense';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
@@ -117,7 +118,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         <div className="max-w-screen-xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between flex-wrap">
             <div className="w-0 flex-1 flex items-center">
-              <span className="flex p-2 rounded-lg bg-green-800 text-white">
+              <span className="flex p-2 rounded-lg bg-blue-800 text-white">
                 <FontAwesomeIcon icon="search" size="lg" />
               </span>
               <p className="ml-3 font-medium text-white">
@@ -126,6 +127,10 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
+        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         {/* search */}
@@ -256,6 +261,10 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               );
             })}
           </ul>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
+          <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
         </div>
       </main>
     </>
