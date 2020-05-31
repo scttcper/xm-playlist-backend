@@ -86,7 +86,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     try {
       setIsLoading(true);
       const token: string = (await user?.getIdToken()) || '';
-      const res = await axios.get(`${url}/search?${searchParams.toString()}`, {
+      const res = await axios.get(`${url}/api/search?${searchParams.toString()}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
