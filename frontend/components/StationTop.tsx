@@ -64,7 +64,9 @@ export const StationTop: React.FC<Props> = props => {
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 mb-2">
         <StationSpotifyPlaylist channel={props.channel} />
       </div>
-      <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      <div className="max-w-7xl mx-auto lg:px-8 text-center adsbygoogle mt-2">
+        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+      </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-5">
           <StationNavigation

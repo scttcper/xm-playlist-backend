@@ -50,7 +50,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   });
 
   useEffect(() => {
-    console.log('init auth');
     app.auth().onAuthStateChanged(firebaseUser => {
       user.setUser(firebaseUser);
     });
@@ -70,7 +69,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         />
         <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
       </Head>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen font-sans">
         <NavBar />
         <div className="flex-grow">
           <Component {...pageProps} />

@@ -28,7 +28,7 @@ export const StreamCardsLayout: React.FC<{
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={index}>
           {index > 0 && (
-            <div className="adsbygoogle block">
+            <div className="adsbygoogle block mt-3 text-center">
               <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           )}
