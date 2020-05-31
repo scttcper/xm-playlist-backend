@@ -10,8 +10,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: npm-install
-          command: npm ci
+          name: yarn-install
+          command: yarn
       # - run:
       #     name: lint
       #     command: npm run lint
