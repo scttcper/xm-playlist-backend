@@ -14,7 +14,7 @@ function trackPlaylistClick(type: string, channelId: string): void {
 
 export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
   return (
-    <div className="p-2 rounded-lg bg-gray-600 shadow-lg sm:p-3">
+    <div className="p-2 rounded-lg bg-cool-gray-600 hover:bg-cool-gray-900 shadow-lg sm:p-3 transition ease-in-out duration-500">
       <a
         href={`https://open.spotify.com/user/xmplaylist/playlist/${props.channel.playlist}`}
         target="_blank"
@@ -23,7 +23,7 @@ export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
       >
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex-1 flex items-center">
-            <span className="flex p-2 rounded-lg text-white bg-gray-800">
+            <span className="flex p-2 rounded-lg text-white bg-cool-gray-800">
               <FontAwesomeIcon icon={['fab', 'spotify']} size="lg" />
             </span>
             <p className="ml-3 font-medium text-white truncate">
@@ -33,7 +33,7 @@ export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
           </div>
           <div className="w-auto">
             <div className="rounded-md shadow-sm">
-              <div className="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-600 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
+              <div className="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-cool-gray-600 bg-white hover:text-cool-gray-900 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
                 <FontAwesomeIcon className="mr-2" size="sm" icon="external-link-alt" /> Open
               </div>
             </div>

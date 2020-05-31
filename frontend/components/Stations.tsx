@@ -95,7 +95,7 @@ export const Stations: React.FC = () => {
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
                 <div>
-                  <div className="transition duration-500 ease-in-out bg-gray-900 hover:bg-gray-700 transform rounded-lg p-3 md:p-5">
+                  <div className="transition duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
                     <LazyLoadImage
                       src={`/static/img/${channel.deeplink}-lg.png`}
                       className="card-img-top"
