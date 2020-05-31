@@ -85,7 +85,7 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
               <a
                 key={genre}
                 type="button"
-                className="block px-4 py-2 text-sm leading-5 text-gray-900 hover:bg-indigo-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                className="block px-4 py-2 text-sm leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                 onClick={event => handlePickGenre(event, genre)}
               >
                 {FriendlyGenre[genre]}
