@@ -23,7 +23,6 @@ import { app } from 'services/firebase';
 import 'mobx-react-lite/batchingForReactDom';
 
 import '../css/tailwind.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useStores } from 'services/useStores';
 
 config.autoAddCss = false;
@@ -64,6 +63,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <title>xmplaylist - Recently played songs from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-svg-core@1.2.28/styles.css" />
 
         <meta
           name="description"
