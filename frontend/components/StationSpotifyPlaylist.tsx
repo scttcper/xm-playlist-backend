@@ -34,7 +34,7 @@ export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
           <div className="w-auto">
             <div className="rounded-md shadow-sm">
               <div className="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-600 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
-                <FontAwesomeIcon className="mr-2" size="sm" icon="external-link-alt" /> Open
+                <FontAwesomeIcon className="mr-2 h-5 w-5" size="sm" icon="external-link-alt" /> Open
               </div>
             </div>
           </div>

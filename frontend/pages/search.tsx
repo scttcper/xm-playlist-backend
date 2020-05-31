@@ -118,7 +118,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
           <div className="flex items-center justify-between flex-wrap">
             <div className="w-0 flex-1 flex items-center">
               <span className="flex p-2 rounded-lg bg-green-800 text-white">
-                <FontAwesomeIcon icon="search" size="lg" />
+                <FontAwesomeIcon className="h-5 w-5" icon="search" size="lg" />
               </span>
               <p className="ml-3 font-medium text-white">
                 Search feature is still under development

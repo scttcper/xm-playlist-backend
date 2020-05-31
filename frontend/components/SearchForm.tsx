@@ -103,12 +103,12 @@ export const SearchForm = ({ onSubmit, isLoading, artistName, user }: Props) => 
       >
         {isLoading && (
           <>
-            <FontAwesomeIcon spin className="mr-2" icon="spinner" /> Loading...
+            <FontAwesomeIcon spin className="mr-2 h-5 w-5" icon="spinner" /> Loading...
           </>
         )}
         {!isLoading && (
           <>
-            <FontAwesomeIcon className="mr-2" icon="search" />
+            <FontAwesomeIcon className="mr-2 h-5 w-5" icon="search" />
             Search
           </>
         )}
