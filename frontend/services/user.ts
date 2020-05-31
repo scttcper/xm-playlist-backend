@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/member-ordering, @typescript-eslint/restrict-template-expressions */
 import firebase from 'firebase/app';
 import { User as FirebaseUser } from 'firebase';
 import { observable, action, runInAction } from 'mobx';
@@ -47,7 +47,7 @@ export class User {
     }
 
     try {
-      const token: string = (await this.user?.getIdToken()) || '';
+      const token: string = (await this.user?.getIdToken()) ?? '';
       const response = await axios.get(`${url}/api/user/${this.user?.uid}`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export class User {
 
   @action.bound
   async setIsSubscribed(isSubscribed: boolean): Promise<void> {
-    const token: string = (await this.user?.getIdToken()) || '';
+    const token: string = (await this.user?.getIdToken()) ?? '';
     this.isSubscribed = isSubscribed;
     const body = { isSubscribed };
     await axios.post(`${url}/api/user/${this.user?.uid}`, body, {
