@@ -149,7 +149,7 @@ export async function registerApiRoutes(server: HapiServer) {
   });
 
   server.route({
-    path: '/search',
+    path: '/api/search',
     method: 'GET',
     options: {
       cors: { origin: 'ignore' },
