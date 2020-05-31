@@ -96,6 +96,24 @@ export const SearchForm = ({ onSubmit, isLoading, artistName, user }: Props) => 
         </div>
       </div>
 
+      <button
+        type="submit"
+        disabled={!user}
+        className={`inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150 ${user ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-300'}`}
+      >
+        {isLoading && (
+          <>
+            <FontAwesomeIcon spin className="mr-2" icon="spinner" /> Loading...
+          </>
+        )}
+        {!isLoading && (
+          <>
+            <FontAwesomeIcon className="mr-2" icon="search" />
+            Search
+          </>
+        )}
+      </button>
+
       {!user && (
         <p className="mt-5">
           Please{' '}
@@ -104,25 +122,6 @@ export const SearchForm = ({ onSubmit, isLoading, artistName, user }: Props) => 
           </Link>{' '}
           to use search
         </p>
-      )}
-
-      {user && (
-        <button
-          type="submit"
-          className="inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150"
-        >
-          {isLoading && (
-            <>
-              <FontAwesomeIcon spin className="mr-2" icon="spinner" /> Loading...
-            </>
-          )}
-          {!isLoading && (
-            <>
-              <FontAwesomeIcon className="mr-2" icon="search" />
-              Search
-            </>
-          )}
-        </button>
       )}
     </form>
   );

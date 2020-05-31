@@ -4,7 +4,6 @@ import React from 'react';
 import AdSense from 'react-adsense';
 import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import LazyLoad from 'react-lazyload';
 
 import { Channel } from '../channels';
 import { TrackResponse } from 'frontend/responses';
@@ -53,7 +52,7 @@ export const StreamCardsLayout: React.FC<{
                   </div>
                   <div className="flex-1 bg-white px-6 py-3 flex flex-col justify-between">
                     <div className="flex-1">
-                      <p className="text-sm leading-5 font-medium text-indigo-600">
+                      <p className="text-sm leading-5 font-medium text-blue-600">
                         {props?.secondaryText?.(play)}
                       </p>
 
@@ -78,9 +77,7 @@ export const StreamCardsLayout: React.FC<{
                           }`}
                         >
                           <a className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                            <LazyLoad>
-                              <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
-                            </LazyLoad>
+                            <FontAwesomeIcon icon="info-circle" className="text-dark mr-1" /> Info
                           </a>
                         </Link>
                         {play?.spotify?.spotify_id && (
@@ -91,9 +88,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('spotify', play.track.id)}
                           >
-                            <LazyLoad>
-                              <FontAwesomeIcon className="mr-1" icon={['fab', 'spotify']} />
-                            </LazyLoad>{' '}
+                            <FontAwesomeIcon className="mr-1" icon={['fab', 'spotify']} />
                             Spotify
                           </a>
                         )}
@@ -105,9 +100,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('apple', play.track.id)}
                           >
-                            <LazyLoad>
-                              <FontAwesomeIcon className="mr-1" icon={['fab', 'apple']} />
-                            </LazyLoad>{' '}
+                            <FontAwesomeIcon className="mr-1" icon={['fab', 'apple']} />
                             Apple
                           </a>
                         )}

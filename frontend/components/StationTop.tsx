@@ -24,7 +24,8 @@ export const StationTop: React.FC<Props> = props => {
           />
         </div>
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-5">
-          <nav className="hidden md:flex items-center text-sm leading-5 font-medium">
+          {/* breadcrumbs */}
+          <nav className="hidden sm:flex items-center text-sm leading-5 font-medium">
             <Link href="/station">
               <a className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">
                 Stations

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
 import { useStores } from 'services/useStores';
+import { SubscribeToggle } from 'components/SubscribeToggle';
 
 function useUserData() {
   const { user } = useStores();
@@ -13,11 +14,13 @@ function useUserData() {
     metadata: user.user?.metadata,
     logout: user.logout,
     loggedIn: user.loggedIn,
+    setIsSubscribed: user.setIsSubscribed,
+    isSubscribed: user.isSubscribed,
   }));
 }
 
 const Profile = () => {
-  const { email, metadata, logout, loggedIn } = useUserData();
+  const { email, metadata, logout, loggedIn, setIsSubscribed, isSubscribed } = useUserData();
   const router = useRouter();
 
   if (loggedIn === false) {
@@ -30,7 +33,7 @@ const Profile = () => {
   };
 
   return (
-    <main className="max-w-lg mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
+    <main className="max-w-lg mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 mt-4">
       <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
         <div>
           <h3 className="text-lg leading-6 font-medium text-gray-900">Profile</h3>
@@ -68,7 +71,8 @@ const Profile = () => {
           </dl>
         </div>
       </div>
-      <div className="my-4">
+      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setIsSubscribed} />
+      <div className="my-2">
         <button
           type="button"
           className="inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md bg-white text-gray-500 hover:text-white hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"

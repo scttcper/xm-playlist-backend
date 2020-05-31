@@ -2,8 +2,9 @@
 import firebase from 'firebase/app';
 import { User as FirebaseUser } from 'firebase';
 import { observable, action, runInAction } from 'mobx';
+import axios from 'axios';
 
-import { emailRedirectUrl } from '../url';
+import { emailRedirectUrl, url } from '../url';
 import { app } from './firebase';
 
 const actionCodeSettings: firebase.auth.ActionCodeSettings = {
@@ -16,7 +17,9 @@ const actionCodeSettings: firebase.auth.ActionCodeSettings = {
 export class User {
   id = 'user';
   @observable user: FirebaseUser | null = null;
+  @observable isSubscribed: boolean | null = null;
   @observable loggedIn: boolean | null = null;
+  @observable loadedExtra: boolean | null = null;
 
   @action.bound
   setUser(user: FirebaseUser | null) {
@@ -24,9 +27,48 @@ export class User {
     if (user) {
       this.user = user;
       this.loggedIn = true;
+      this.loadExtra();
     } else {
       this.loggedIn = false;
     }
+  }
+
+  @action.bound
+  setExtra(extra: any) {
+    console.log({ extra });
+    this.loadedExtra = true;
+    this.isSubscribed = extra.isSubscribed;
+  }
+
+  @action
+  async loadExtra(): Promise<void> {
+    if (!this.loggedIn || this.loadedExtra !== null) {
+      return;
+    }
+
+    try {
+      const token: string = (await this.user?.getIdToken()) || '';
+      const response = await axios.get(`${url}/api/user/${this.user?.uid}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      this.setExtra(response.data);
+    } catch {
+      // pass
+    }
+  }
+
+  @action.bound
+  async setIsSubscribed(isSubscribed: boolean): Promise<void> {
+    const token: string = (await this.user?.getIdToken()) || '';
+    this.isSubscribed = isSubscribed;
+    const body = { isSubscribed };
+    await axios.post(`${url}/api/user/${this.user?.uid}`, body, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   @action
@@ -47,16 +89,18 @@ export class User {
   async signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().useDeviceLanguage();
-    const { user } = await firebase.auth().signInWithPopup(provider);
-    this.setUser(user);
+    const result = await firebase.auth().signInWithPopup(provider);
+    this.setUser(result.user);
+    return result;
   }
 
   @action
   async signInWithTwitter() {
     const provider = new firebase.auth.TwitterAuthProvider();
     firebase.auth().useDeviceLanguage();
-    const { user } = await firebase.auth().signInWithPopup(provider);
-    this.setUser(user);
+    const result = await firebase.auth().signInWithPopup(provider);
+    this.setUser(result.user);
+    return result;
   }
 
   @action.bound

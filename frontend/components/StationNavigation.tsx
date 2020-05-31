@@ -14,8 +14,8 @@ export const StationNavigation: React.FC<{
         <a
           className={`px-3 py-2 font-medium text-sm leading-5 rounded-md focus:outline-none ${
             props.currentPage === 'recent'
-              ? 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200'
-              : 'text-gray-500 hover:text-gray-700 focus:text-indigo-600 focus:bg-indigo-50 border border-gray-300 border-solid'
+              ? 'text-blue-700 bg-blue-100 focus:text-blue-800 focus:bg-blue-200'
+              : 'text-gray-500 hover:text-gray-700 focus:text-blue-600 focus:bg-blue-50 border border-gray-300 border-solid'
           }`}
         >
           On Now
@@ -26,10 +26,10 @@ export const StationNavigation: React.FC<{
         as={`/station/${props.channelDeeplink.toLowerCase()}/newest`}
       >
         <a
-          className={`px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none focus:text-indigo-600 focus:bg-indigo-50 ${
+          className={`px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none focus:text-blue-600 focus:bg-blue-50 ${
             props.currentPage === 'newest'
-              ? 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200'
-              : 'text-gray-500 hover:text-gray-700 focus:text-indigo-600 focus:bg-indigo-50 border border-gray-300 border-solid'
+              ? 'text-blue-700 bg-blue-100 focus:text-blue-800 focus:bg-blue-200'
+              : 'text-gray-500 hover:text-gray-700 focus:text-blue-600 focus:bg-blue-50 border border-gray-300 border-solid'
           }`}
         >
           Newest
@@ -40,10 +40,10 @@ export const StationNavigation: React.FC<{
         as={`/station/${props.channelDeeplink.toLowerCase()}/most-heard`}
       >
         <a
-          className={`px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none focus:text-indigo-600 focus:bg-indigo-50 ${
+          className={`px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none focus:text-blue-600 focus:bg-blue-50 ${
             props.currentPage === 'most-heard'
-              ? 'text-indigo-700 bg-indigo-100 focus:text-indigo-800 focus:bg-indigo-200'
-              : 'text-gray-500 hover:text-gray-700 focus:text-indigo-600 focus:bg-indigo-50 border border-gray-300 border-solid'
+              ? 'text-blue-700 bg-blue-100 focus:text-blue-800 focus:bg-blue-200'
+              : 'text-gray-500 hover:text-gray-700 focus:text-blue-600 focus:bg-blue-50 border border-gray-300 border-solid'
           }`}
         >
           Most Heard

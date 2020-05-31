@@ -2,12 +2,14 @@ import { Server as HapiServer } from '@hapi/hapi';
 import laabr from 'laabr';
 import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
+import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
 import { search } from './search';
 import { admin } from './firebaseAdmin';
+import { db } from './db';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -21,7 +23,7 @@ function getChannel(id: string): Channel {
   return channel;
 }
 
-async function isValidToken(token = '') {
+async function isValidToken(token = ''): Promise<firebaseAdmin.auth.DecodedIdToken> {
   const jwt = token.slice(7);
   const user = await admin.auth().verifyIdToken(jwt);
   return user;
@@ -174,6 +176,75 @@ export async function registerApiRoutes(server: HapiServer) {
         req.query.artistName as string,
         req.query.station as string | undefined,
       );
+    },
+  });
+
+  server.route({
+    path: '/api/user/{userId}',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          userId: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const { userId } = req.params;
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        console.log(userId, user.uid);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
+      }
+
+      const user = await db('user')
+        .select<{ id: string; isSubscribed: boolean }>([
+        'user.id as id',
+        'user.isSubscribed as isSubscribed',
+      ])
+        .where('user.id', '=', userId)
+        .limit(1)
+        .first();
+      return user;
+    },
+  });
+
+  server.route({
+    path: '/api/user/{userId}',
+    method: 'POST',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          userId: Joi.string().required(),
+        }),
+        payload: Joi.object({
+          isSubscribed: Joi.boolean().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const { userId } = req.params;
+      console.log('playload', req.payload);
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        console.log(userId, user.uid);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
+      }
+
+      const user = await db('user')
+        .update({ isSubscribed: (req.payload as any).isSubscribed })
+        .where('user.id', '=', userId);
+      return user;
     },
   });
 }

@@ -3,6 +3,7 @@ import got from 'got';
 import { URLSearchParams } from 'url';
 import { db } from './db';
 
+import { matchesGarbage } from './ignoreNames';
 import { Channel } from '../../frontend/channels';
 import { SiriusDeeplink } from './siriusDeeplink';
 import { TrackModel, ScrobbleModel } from './models';
@@ -40,7 +41,8 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
         marker.cut.galaxyAssetId.trim().length > 1 &&
         // block @sxmwillie
         !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@') &&
-        (!marker.duration || marker.duration > 35),
+        (!marker.duration || marker.duration > 35) &&
+        !matchesGarbage(marker),
     );
     if (!marker || !marker.cut) {
       throw new NoSongMarker();

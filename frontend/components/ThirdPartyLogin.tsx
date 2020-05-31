@@ -8,30 +8,40 @@ type Props = {
   handleError: (error: Error) => void;
 };
 
-export const ThirdPartyLogin = ({handleError}: Props) => {
+export const ThirdPartyLogin = ({ handleError }: Props) => {
   const router = useRouter();
   const { user } = useStores();
 
   const handleGoogleLogin = async () => {
     try {
-      await user.signInWithGoogle();
+      const result = await user.signInWithGoogle();
+      if (result.additionalUserInfo?.isNewUser) {
+        router.push('/newUser');
+      } else {
+        router.push('/profile');
+      }
+
+      return;
     } catch (error) {
       handleError(error);
       throw error;
     }
-
-    router.push('/profile');
   };
 
   const handleTwitterLogin = async () => {
     try {
-      await user.signInWithTwitter();
+      const result = await user.signInWithTwitter();
+      if (result.additionalUserInfo?.isNewUser) {
+        router.push('/newUser');
+      } else {
+        router.push('/profile');
+      }
+
+      return;
     } catch (error) {
       handleError(error);
       throw error;
     }
-
-    router.push('/profile');
   };
 
   return (

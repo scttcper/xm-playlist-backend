@@ -5,12 +5,12 @@ import { Stations } from 'components/Stations';
 export const Home: React.FC = () => {
   return (
     <>
-      <div className="pt-6 pb-24 mx-auto px-4 sm:pt-12 sm:px-6 md:pt-10 bg-gray-800">
+      <div className="pt-6 pb-24 mx-auto px-4 sm:pt-12 sm:px-6 md:pt-10 bg-blue-900">
         <div className="text-center">
-          <h2 className="text-4xl font-sans text-base text-gray-200 sm:text-3xl sm:leading-none md:text-5xl">
+          <h2 className="text-4xl font-sans text-base text-gray-100 sm:text-3xl sm:leading-none md:text-5xl">
             xmplaylist
           </h2>
-          <p className="mt-3 mx-auto text-base text-gray-300 sm:text-lg md:mt-5 xl:text-xl">
+          <p className="mt-3 mx-auto text-base text-gray-200 sm:text-lg md:mt-5 xl:text-xl">
             Recently played songs on XM Sirius radio
           </p>
         </div>
