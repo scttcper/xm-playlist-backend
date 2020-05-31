@@ -114,7 +114,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       <Head>
         <title>Search - xmplaylist.com recently played on xm radio</title>
       </Head>
-      <div className="bg-green-600">
+      <div className="bg-blue-600">
         <div className="max-w-screen-xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between flex-wrap">
             <div className="w-0 flex-1 flex items-center">
