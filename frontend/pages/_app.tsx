@@ -62,6 +62,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <Head>
         <title>xmplaylist - Recently played songs from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
         <meta
           name="description"
