@@ -15,7 +15,7 @@ export const SubscribeToggle = ({ isSubscribed, onChange }: Props) => {
         <div className="mt-2 sm:flex sm:items-start sm:justify-between">
           <div className="max-w-xl text-sm leading-5 text-gray-500">
             <p id="subscribe-description">
-              Subscribe to news and updates about xmplaylist.com. Never Spam.
+              Subscribe to news and updates about xmplaylist.com.
             </p>
           </div>
           <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
