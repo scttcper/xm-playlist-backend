@@ -23,7 +23,7 @@ export interface SearchResult {
   startTime: string;
   channel: string;
   name: string;
-  artists: string;
+  artists: string[];
   createdAt: string;
   spotifyId: string;
   previewUrl: string;

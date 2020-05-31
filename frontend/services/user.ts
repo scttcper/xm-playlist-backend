@@ -73,7 +73,7 @@ export class User {
 
   @action
   async signInWithLink(email: string) {
-    localStorage.setItem('emailForSignIn', email);
+    window.localStorage.setItem('emailForSignIn', email);
     try {
       await app.auth().sendSignInLinkToEmail(email, actionCodeSettings);
     } catch (error) {

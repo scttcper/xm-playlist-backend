@@ -12,7 +12,7 @@ const LinkLogin = () => {
       // the sign-in operation.
       // Get the email if available. This should be available if the user completes
       // the flow on the same device where they started it.
-      const email = localStorage.getItem('emailForSignIn');
+      const email = window.localStorage.getItem('emailForSignIn');
       // TODO: whatever this is security thing is
       if (!email) {
         // User opened the link on a different device. To prevent session fixation
@@ -41,11 +41,12 @@ const LinkLogin = () => {
             router.push('/profile');
           }
         })
-        .catch(error => {
+        .catch(() => {
           // Some error occurred, you can inspect the code: error.code
           // Common errors could be invalid email and invalid or expired OTPs.
         });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>Loading...</div>;

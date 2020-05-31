@@ -10,7 +10,7 @@ export type Inputs = {
   artistName: string;
   station: string;
   trackName: string;
-  user: User;
+  user: User | null;
 };
 
 type Props = Inputs & {
