@@ -23,6 +23,7 @@ import { app } from 'services/firebase';
 import 'mobx-react-lite/batchingForReactDom';
 
 import '../css/tailwind.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { useStores } from 'services/useStores';
 
 library.add(
