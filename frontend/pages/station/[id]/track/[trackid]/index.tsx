@@ -168,16 +168,16 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                       onMouseLeave={onMouseLeave}
                       onMouseMove={onMouseMove}
                     >
-                      <LineSeries showArea stroke={allColors.indigo[5]} fill="url(#area_pattern)" />
+                      <LineSeries showArea stroke={allColors.blue[5]} fill="url(#area_pattern)" />
                       <PointSeries
                         points={['all']}
-                        stroke={allColors.indigo[4]}
+                        stroke={allColors.blue[4]}
                         fill="#fff"
                         size={3}
                       />
                       <PointSeries
                         points={['last']}
-                        fill={allColors.indigo[5]}
+                        fill={allColors.blue[5]}
                         renderLabel={renderLabel}
                         labelPosition="right"
                       />
@@ -191,7 +191,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                         <PointSeries
                           key="ref-point"
                           points={[tooltipData.index]}
-                          fill={allColors.indigo[5]}
+                          fill={allColors.blue[5]}
                         />,
                       ]}
                     </Sparkline>

@@ -91,7 +91,7 @@ export const Stations: React.FC = () => {
       {/* channels */}
       <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {results.map(channel => (
-          <div key={channel.id} className="text-gray-800 hover:text-indigo-800">
+          <div key={channel.id} className="text-cool-gray-800 hover:text-blue-800">
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
                 <div>
