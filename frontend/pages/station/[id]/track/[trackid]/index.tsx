@@ -91,7 +91,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           </>
         )}
       </Head>
-      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2 bg-white">
         <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <div className="relative bg-white pt-4 md:pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
@@ -212,7 +212,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           )}
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2 bg-white">
         <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>

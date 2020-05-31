@@ -204,6 +204,13 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         <h3 className="text-lg leading-6 font-medium text-gray-600 mt-4">Results</h3>
         <div className="bg-white shadow overflow-hidden sm:rounded-md my-3">
           <ul>
+            {!searchResults.results?.length && (
+              <li>
+                <div className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                  <div className="flex items-center px-4 py-4 sm:px-6">No Results</div>
+                </div>
+              </li>
+            )}
             {searchResults.results?.map(result => {
               const dateStr = format(new Date(result.startTime), 'MM/dd/yyyy KK:mm aaa');
               return (
