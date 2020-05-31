@@ -24,7 +24,7 @@ export const StationSpotifyPlaylist: React.FC<{ channel: Channel }> = props => {
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex-1 flex items-center">
             <span className="flex p-2 rounded-lg text-white bg-gray-800">
-              <FontAwesomeIcon icon={['fab', 'spotify']} size="lg" />
+              <FontAwesomeIcon className="h-5 w-5" icon={['fab', 'spotify']} size="lg" />
             </span>
             <p className="ml-3 font-medium text-white truncate">
               <span className="sm:hidden">Spotify Playlist</span>
