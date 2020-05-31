@@ -42,7 +42,7 @@ export const NavBar: React.FC = () => {
             {/* Mobile menu button */}
             <button
               type="submit"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+              className="inline-flex items-center justify-center p-2 rounded-md text-cool-gray-400 hover:text-cool-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-cool-gray-500 transition duration-150 ease-in-out"
               aria-label="Main menu"
               aria-expanded="false"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -85,12 +85,12 @@ export const NavBar: React.FC = () => {
             </div>
             <div className="hidden sm:ml-6 sm:flex">
               <Link href="/station">
-                <a className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                <a className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-cool-gray-500 hover:text-cool-gray-700 hover:border-gray-300 focus:outline-none focus:text-cool-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                   Stations
                 </a>
               </Link>
               <Link href="/search">
-                <a className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                <a className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-cool-gray-500 hover:text-cool-gray-700 hover:border-gray-300 focus:outline-none focus:text-cool-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                   Search
                 </a>
               </Link>
@@ -100,7 +100,7 @@ export const NavBar: React.FC = () => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Link href="/search">
               <a
-                className="sm:hidden p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
+                className="sm:hidden p-1 border-2 border-transparent text-cool-gray-400 rounded-full hover:text-cool-gray-500 focus:outline-none focus:text-cool-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
                 aria-label="Notifications"
               >
                 <FontAwesomeIcon icon="search" />
@@ -121,7 +121,7 @@ export const NavBar: React.FC = () => {
                   >
                     <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
                       <svg
-                        className="h-full w-full text-gray-300"
+                        className="h-full w-full text-cool-gray-300"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -160,7 +160,7 @@ export const NavBar: React.FC = () => {
                 >
                   <Link href="/profile">
                     <a
-                      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                      className="block px-4 py-2 text-sm leading-5 text-cool-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       onClick={() => setProfileOpen(false)}
                     >
                       Profile
@@ -168,7 +168,7 @@ export const NavBar: React.FC = () => {
                   </Link>
                   <button
                     type="button"
-                    className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    className="block w-full text-left px-4 py-2 text-sm leading-5 text-cool-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     onClick={handleLogOut}
                   >
                     Sign out
@@ -184,12 +184,12 @@ export const NavBar: React.FC = () => {
       <div className={`${mobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="pt-2 pb-4">
           <Link href="/station">
-            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Stations
             </a>
           </Link>
           <Link href="/search">
-            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Search
             </a>
           </Link>
