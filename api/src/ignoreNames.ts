@@ -32,7 +32,7 @@ const ignorePaterns = [
   '#RockHall*',
   'This Day In History',
   '*RockHall*',
-  'fb.com*',
+  '*fb.com*',
   '@RadioFaction',
   'Faction Punk',
   '*SiriusXM*',
