@@ -134,13 +134,7 @@ export const NavBar: React.FC = () => {
               {user === null && (
                 <div>
                   <Link href="/login">
-                    <a
-                      type="button"
-                      className="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out"
-                      id="user-menu"
-                      aria-label="User menu"
-                      aria-haspopup="true"
-                    >
+                    <a className="flex text-sm rounded-full focus:outline-none transition duration-150 ease-in-out">
                       Log In
                     </a>
                   </Link>
