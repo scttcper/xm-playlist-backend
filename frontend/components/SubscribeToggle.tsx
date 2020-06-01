@@ -8,17 +8,17 @@ type Props = {
 export const SubscribeToggle = ({ isSubscribed, onChange }: Props) => {
   return (
     <div className="bg-white shadow sm:rounded-lg my-2">
-      <div className="px-4 py-5 sm:p-6">
+      <div className="px-4 py-5 p-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900" id="subscribe-headline">
           Get Updates via Email
         </h3>
-        <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+        <div className="mt-2 flex items-start justify-between">
           <div className="max-w-xl text-sm leading-5 text-gray-500">
             <p id="subscribe-description">
               Subscribe to news and updates about xmplaylist.com
             </p>
           </div>
-          <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+          <div className="mt-0 ml-6 flex-shrink-0 flex items-center">
             <span
               role="checkbox"
               tabIndex={0}

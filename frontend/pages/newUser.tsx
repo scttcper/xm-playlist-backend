@@ -22,11 +22,11 @@ const NewUser = () => {
         className="text-lg leading-6 font-medium text-gray-900 text-center my-5"
         id="renew-headline"
       >
-        Thanks for Signing Up
+        Welcome!
       </h3>
       <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setIsSubscribed} />
 
-      <div className="mt-3">
+      <div className="mt-3 text-right">
         <span className="inline-flex rounded-md shadow-sm">
           <Link href="/profile">
             <a
