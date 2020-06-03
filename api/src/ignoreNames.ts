@@ -113,6 +113,10 @@ const ignorePaterns = [
   'Kirk Franklin\'s Praise',
   'Lee DeWyze',
   '*TheCoffeeHouse*',
+  'Essential Workers',
+  'THANK YOU',
+  '*George Floyd*',
+  '*AokisHouse*',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {
