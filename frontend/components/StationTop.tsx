@@ -1,5 +1,5 @@
 import React from 'react';
-import AdSense from 'react-adsense';
+import { Adsense } from '@ctrl/react-adsense';
 
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
@@ -65,7 +65,7 @@ export const StationTop: React.FC<Props> = props => {
         <StationSpotifyPlaylist channel={props.channel} />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-5">

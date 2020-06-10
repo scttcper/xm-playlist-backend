@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
-import AdSense from 'react-adsense';
+import { Adsense } from '@ctrl/react-adsense';
 import { NextPageContext, NextComponentType } from 'next';
 
 import { channels } from '../../../channels';
@@ -50,7 +50,7 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({ rec
         </div>
       </main>
       <div className="mx-auto adsbygoogle my-2">
-        <AdSense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );
