@@ -123,8 +123,15 @@ const ignorePaterns = [
   '*WEEKLY TEST*',
   'Ear Poppin\' Music*',
   '**SXM App**',
+  '**#SXM**',
   '@TheGrahamNash',
   'Weekdays 5-11pET',
+  'Alt Countdown',
+  '**Top1000**',
+  '**Top 1000**',
+  '**Ch.34**',
+  '**PopRocks**',
+  '**Ch30**',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {
