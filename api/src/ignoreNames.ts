@@ -117,7 +117,7 @@ const ignorePaterns = [
   'THANK YOU',
   '*George Floyd*',
   '*AokisHouse*',
-  '*Facebook.com*',
+  '**Facebook.com**',
   '*SiriusXM*',
   '#DoubleDownRadio',
   '*WEEKLY TEST*',
