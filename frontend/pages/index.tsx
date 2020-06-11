@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
       </div>
       <main className="-mt-16">
         <div className="max-w-7xl mx-auto pb-12 px-1 md:px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-2xl px-5 py-6 sm:px-6">
+          <div className="bg-white sm:rounded-lg shadow-2xl px-3 py-6 sm:px-6">
             <Stations />
           </div>
         </div>

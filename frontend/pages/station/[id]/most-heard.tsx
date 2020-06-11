@@ -6,7 +6,7 @@ import React from 'react';
 import { Adsense } from '@ctrl/react-adsense';
 
 import { channels } from '../../../channels';
-import { StationTop } from '../../../components/StationTop';
+import { StationHeader } from '../../../components/StationHeader';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 import { StationNewest, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
@@ -42,13 +42,13 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
           content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
         />
       </Head>
-      <StationTop channel={channel} currentPage="most-heard" />
+      <StationHeader channel={channel} currentPage="most-heard" />
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         <div className="relative max-w-7xl mx-auto">
           <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
         </div>
       </main>
-      <div className="mx-auto adsbygoogle my-2">
+      <div className="max-w-7xl mx-auto adsbygoogle my-2">
         <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>

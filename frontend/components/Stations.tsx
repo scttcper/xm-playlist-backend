@@ -7,12 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
 
-const allResultsFuse = () =>
-  new Fuse(channels, {
-    threshold: 1,
-    distance: 2,
-    keys: ['name'],
-  });
+const fuseConfig = {
+  threshold: 0.3,
+  keys: ['name'],
+};
+
+const allResultsFuse = () => new Fuse(channels, fuseConfig);
 
 export const Stations: React.FC = () => {
   const [currentChannels, setCurrentChannels] = useState(channels);
@@ -22,13 +22,7 @@ export const Stations: React.FC = () => {
 
   const handleGenreChange = (genre: Genre): void => {
     const filteredChannels = channels.filter(channel => channel.genre === genre);
-    setFuse(
-      new Fuse(filteredChannels, {
-        threshold: 1,
-        distance: 2,
-        keys: ['name'],
-      }),
-    );
+    setFuse(new Fuse(filteredChannels, fuseConfig));
     setCurrentChannels(filteredChannels);
     setCurrentGenre(genre);
   };
@@ -89,7 +83,7 @@ export const Stations: React.FC = () => {
       </form>
 
       {/* channels */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4">
         {results.map(channel => (
           <div key={channel.id} className="text-cool-gray-800 hover:text-blue-800">
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>

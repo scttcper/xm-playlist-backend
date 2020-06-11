@@ -90,7 +90,7 @@ const ignorePaterns = [
   '*sCommercial Free*',
   'You May Also Like',
   '#TheCalmChannel',
-  '*siriusmx*',
+  '**siriusmx**',
   '*SwayInTheMorning*',
   '*SWAY IN THE MORNING*',
   'The Lord Sear Special',
@@ -121,6 +121,10 @@ const ignorePaterns = [
   '*SiriusXM*',
   '#DoubleDownRadio',
   '*WEEKLY TEST*',
+  'Ear Poppin\' Music*',
+  '**SXM App**',
+  '@TheGrahamNash',
+  'Weekdays 5-11pET',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {

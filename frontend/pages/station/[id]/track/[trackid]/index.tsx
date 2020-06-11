@@ -94,10 +94,10 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
         <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
-      <div className="relative bg-white pt-4 md:pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+      <div className="relative bg-white pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
           <div className="lg:mt-4 max-w-lg mx-auto">
-            <nav className="hidden md:flex items-center text-sm leading-5 font-medium">
+            <nav className="flex items-center text-sm leading-5 font-medium">
               <Link href="/station">
                 <a className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">
                   Stations
@@ -116,7 +116,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               </svg>
               <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
                 <a>
-                  <span className="text-gray-500">{channel.name}</span>
+                  <span className="text-gray-500 truncate">{channel.name}</span>
                 </a>
               </Link>
               <svg
@@ -130,14 +130,14 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="text-gray-500">{trackData.track.name}</span>
+              <span className="text-gray-500 truncate">{trackData.track.name}</span>
             </nav>
             <div className="mt-5 flex flex-col rounded-lg shadow-lg">
               <div className="flex-shrink-0">
-                <img className="w-full object-cover" src={albumCover} alt="" />
+                <img className="w-full object-cover" src={albumCover} alt="Album Cover" />
               </div>
-              <div className="bg-white p-6 lg:p-8 lg:py-10 flex flex-col justify-between">
-                <h3 className="text-xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+              <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg">
+                <h3 className="text-2xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                   {trackData.track.name}
                 </h3>
                 <ul className="mt-3 text-base md:max-w-2xl md:leading-7 text-gray-500 sm:mt-4">
@@ -152,7 +152,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
             </div>
           </div>
           <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
-            <h4 className="text-center text-base text-gray-900 leading-8 mb-3">
+            <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
               Times Played Per Day
             </h4>
             <SizeMe>
@@ -168,16 +168,16 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                       onMouseLeave={onMouseLeave}
                       onMouseMove={onMouseMove}
                     >
-                      <LineSeries showArea stroke={allColors.blue[5]} fill="url(#area_pattern)" />
+                      <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
                       <PointSeries
                         points={['all']}
-                        stroke={allColors.blue[4]}
+                        stroke="#3f83f8"
                         fill="#fff"
                         size={3}
                       />
                       <PointSeries
                         points={['last']}
-                        fill={allColors.blue[5]}
+                        fill="#3f83f8"
                         renderLabel={renderLabel}
                         labelPosition="right"
                       />
@@ -191,7 +191,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                         <PointSeries
                           key="ref-point"
                           points={[tooltipData.index]}
-                          fill={allColors.blue[5]}
+                          fill="#3f83f8"
                         />,
                       ]}
                     </Sparkline>
@@ -207,6 +207,9 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
           )}
           {trackData.links.length > 0 && (
             <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+              <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
+                Links
+              </h4>
               <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
             </div>
           )}

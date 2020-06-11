@@ -7,6 +7,10 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      maxWidth: {
+        // match width of adsense
+        '7xl': '79rem',
+      },
     },
   },
   variants: {},

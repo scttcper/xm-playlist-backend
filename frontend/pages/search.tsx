@@ -119,10 +119,10 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
           <div className="flex items-center justify-between flex-wrap">
             <div className="w-0 flex-1 flex items-center">
               <span className="flex p-2 rounded-lg bg-blue-800 text-white">
-                <FontAwesomeIcon icon="search" size="lg" />
+                <FontAwesomeIcon icon="info-circle" size="lg" />
               </span>
               <p className="ml-3 font-medium text-white">
-                Search feature is still under development
+                Search feature still under development
               </p>
             </div>
           </div>
@@ -156,9 +156,10 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
           </div>
         </div>
 
+        {/* summary */}
         <div>
           <h3 className="text-lg leading-6 font-medium text-gray-600 mt-4">Summary</h3>
-          <div className="mt-2 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-3">
+          <div className="mt-2 grid grid-cols-1 sm:rounded-md bg-white overflow-hidden shadow md:grid-cols-3">
             <div>
               <div className="px-4 py-5 sm:p-6">
                 <dl>

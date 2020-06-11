@@ -20,15 +20,19 @@ const siteConversion = {
   googleplayStore: 'Google Play Store',
 } as const;
 
-export const TrackLinksButtons: React.FC<{
+type Props = {
   links: Array<{ site: string; url: string }>;
   id: string;
-}> = props => {
-  const spotifyLink = props.links.find(link => link.site === 'spotify');
-  const appleLink = props.links.find(link => link.site === 'itunes');
-  const youtubeLink = props.links.find(link => link.site === 'youtube');
+};
 
-  const links = props.links.filter(link => !['spotify', 'itunes', 'youtube'].includes(link.site));
+export const TrackLinksButtons = ({ links, id: trackId }: Props) => {
+  const spotifyLink = links.find(link => link.site === 'spotify');
+  const appleLink = links.find(link => link.site === 'itunes');
+  const youtubeLink = links.find(link => link.site === 'youtube');
+
+  links = links.filter(
+    link => !['spotify', 'itunes', 'youtube', 'googleplayStore', 'itunesStore'].includes(link.site),
+  );
 
   const trackOut = (site: string, id: string): void => {
     ReactGA.event({
@@ -52,22 +56,22 @@ export const TrackLinksButtons: React.FC<{
   }
 
   return (
-    <>
+    <div className="grid grid-cols-2 gap-3 text-center">
       {links.map(link => {
         return (
           <a
             key={link.site}
             style={{ fontWeight: 500 }}
             href={link.url}
-            className="inline-flex my-1 justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+            className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackOut(link.site, props.id)}
+            onClick={() => trackOut(link.site, trackId)}
           >
             {siteConversion[link.site] || link.site}
           </a>
         );
       })}
-    </>
+    </div>
   );
 };
