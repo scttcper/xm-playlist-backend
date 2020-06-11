@@ -48,7 +48,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
           <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
         </div>
       </main>
-      <div className="max-w-7xl mx-auto adsbygoogle my-2">
+      <div className="max-w-7xl md:px-4 sm:px-6 lg:px-8 mb-5 mx-auto adsbygoogle my-2">
         <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
