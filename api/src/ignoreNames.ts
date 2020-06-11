@@ -132,6 +132,8 @@ const ignorePaterns = [
   '**Ch.34**',
   '**PopRocks**',
   '**Ch30**',
+  '**80s on 8**',
+  '@alanhuntermtv',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {

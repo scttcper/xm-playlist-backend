@@ -1,5 +1,5 @@
 import React from 'react';
-import { Adsense } from '@ctrl/react-adsense';
+import Adsense from 'react-adsense';
 
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
@@ -45,7 +45,7 @@ export const StationHeader = (props: Props) => {
       {/* old */}
 
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-5">

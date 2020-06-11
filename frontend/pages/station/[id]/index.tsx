@@ -5,7 +5,7 @@ import { NextComponentType, NextPageContext } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { Adsense } from '@ctrl/react-adsense';
+import Adsense from 'react-adsense';
 
 import { channels } from '../../../channels';
 import { StationHeader } from 'components/StationHeader';
@@ -84,7 +84,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
         </div>
       </main>
       <div className="max-w-7xl mx-auto adsbygoogle my-2">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );

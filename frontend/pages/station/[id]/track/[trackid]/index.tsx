@@ -12,7 +12,7 @@ import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { Adsense } from '@ctrl/react-adsense';
+import Adsense from 'react-adsense';
 import { SizeMe } from 'react-sizeme';
 
 import { channels } from '../../../../../channels';
@@ -92,7 +92,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
         )}
       </Head>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <div className="relative bg-white pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
@@ -216,7 +216,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );

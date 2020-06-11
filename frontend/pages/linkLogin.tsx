@@ -27,7 +27,6 @@ const LinkLogin = () => {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         .signInWithEmailLink(email as string, window.location.href)
         .then(result => {
-          console.log({ result });
           // Clear email from storage.
           window.localStorage.removeItem('emailForSignIn');
           // You can access the new user via result.user

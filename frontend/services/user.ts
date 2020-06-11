@@ -23,7 +23,6 @@ export class User {
 
   @action.bound
   setUser(user: FirebaseUser | null) {
-    console.log({ user });
     if (user) {
       this.user = user;
       this.loggedIn = true;
@@ -35,7 +34,6 @@ export class User {
 
   @action.bound
   setExtra(extra: any) {
-    console.log({ extra });
     this.loadedExtra = true;
     this.isSubscribed = extra.isSubscribed;
   }
@@ -107,6 +105,8 @@ export class User {
   async logout() {
     try {
       await app.auth().signOut();
+      this.loadedExtra = false;
+      this.isSubscribed = null;
     } catch {
       // pass
     }
