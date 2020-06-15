@@ -28,3 +28,6 @@ export interface StationRecent extends TrackResponse {
 }
 
 export interface StationNewest extends StationRecent {}
+export interface StationMostHeard extends StationRecent {
+  plays: number;
+}

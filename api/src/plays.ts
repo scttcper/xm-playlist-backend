@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Channel } from '../../frontend/channels';
 import { db } from './db';
-import { StationRecent, StationNewest, TrackPlay } from 'frontend/responses';
+import { StationRecent, StationNewest, StationMostHeard, TrackPlay } from 'frontend/responses';
 import { ScrobbleModel } from './models';
 
 export async function getNewest(channel: Channel, limit = 50): Promise<StationNewest[]> {
@@ -53,7 +53,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
   });
 }
 
-export async function getMostHeard(channel: Channel, limit = 50, days = 30): Promise<StationNewest[]> {
+export async function getMostHeard(channel: Channel, limit = 50, days = 30): Promise<StationMostHeard[]> {
   const daysAgo = subDays(new Date(), days);
   const mostHeard = await db('scrobble')
     .select('scrobble.track_id')
@@ -82,12 +82,12 @@ export async function getMostHeard(channel: Channel, limit = 50, days = 30): Pro
     .leftJoin('links', 'track.id', 'links.trackId')
 
   const result = newest.map(data => {
-    const spotify: StationNewest['spotify'] = {
+    const spotify: StationMostHeard['spotify'] = {
       spotify_id: data.spotifyId,
       preview_url: data.previewUrl,
       cover: data.cover,
     };
-    const track: StationNewest['track'] = {
+    const track: StationMostHeard['track'] = {
       id: data.trackId,
       name: data.name,
       artists: data.artists,

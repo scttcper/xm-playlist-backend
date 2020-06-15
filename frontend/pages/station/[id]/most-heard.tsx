@@ -8,13 +8,13 @@ import { Adsense } from '@ctrl/react-adsense';
 import { channels } from '../../../channels';
 import { StationHeader } from '../../../components/StationHeader';
 import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
-import { StationNewest, TrackResponse } from 'frontend/responses';
+import { StationMostHeard, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
 import { NextComponentType, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 
 type Props = {
-  recent: StationNewest[][];
+  recent: StationMostHeard[][];
   channelId: string;
 };
 
@@ -25,7 +25,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   recent,
 }) => {
   const secondaryText = (track: TrackResponse): string => {
-    return `Times Played: ${(track as StationNewest).plays}`;
+    return `Times Played: ${(track as StationMostHeard).plays}`;
   };
 
   const router = useRouter();
