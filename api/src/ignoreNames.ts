@@ -4,9 +4,7 @@ import { Marker } from './siriusDeeplink';
 
 const ignorePaterns = [
   '@MorningMashUp',
-  'siriusxm.com/hits1',
-  'WeekendCountdown',
-  'on SiriusXM',
+  '**WeekendCountdown**',
   'social@soul-cycle.com',
   '@SiriusXMVenus',
   'Venus!',
@@ -19,13 +17,11 @@ const ignorePaterns = [
   '*FlowNacion*',
   '*TumbaLaCasa*',
   'Spectrum',
-  '*LIVE@SiriusXM',
-  '#**SXM',
+  '#**SXM**',
   '@**SXM',
   'Yacht Rock Radio',
-  'SiriusXM',
-  '**@SiriusXM**',
-  '#SXM**',
+  '**SiriusXM**',
+  '**Sirius XM**',
   'Vocalists',
   'rockhall.com',
   '@icecube',
@@ -161,6 +157,7 @@ const ignorePaterns = [
   'James Joyce Show',
   '**Jeff & Larry\'s**',
   'NETFLIX IS A JOKE RADIO',
+  '**LatidosSXM**',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {

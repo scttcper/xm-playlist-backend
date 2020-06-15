@@ -217,7 +217,7 @@ TrackPage.getInitialProps = async context => {
   const channelId = context.query.id as string;
 
   try {
-    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`);
+    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, { timeout: 15 * 1000 });
     return { trackData: res.data, channelId };
   } catch {
     return { trackData: null, channelId };

@@ -91,6 +91,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         headers: {
           authorization: `Bearer ${token}`,
         },
+        timeout: 15 * 1000,
       });
       setSearchResults(res.data);
     } catch {

@@ -27,6 +27,4 @@ export interface StationRecent extends TrackResponse {
   id: string;
 }
 
-export interface StationNewest extends StationRecent {
-  plays: number;
-}
+export interface StationNewest extends StationRecent {}

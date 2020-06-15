@@ -51,7 +51,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
     }
 
     router.push(router.route, { pathname: path, query }, { shallow: true });
-    const res = await axios.get(api);
+    const res = await axios.get(api, { timeout: 15 * 1000 });
     setTracks(_.chunk<any>(res.data, 12));
   }
 
@@ -110,7 +110,7 @@ MostHeard.getInitialProps = async context => {
     api += `?subDays=${context.query.subDays as string}`;
   }
 
-  const res = await axios.get(api);
+  const res = await axios.get(api, { timeout: 15 * 1000 });
   if (res.status !== 200) {
     return { recent: [], channelId: id };
   }

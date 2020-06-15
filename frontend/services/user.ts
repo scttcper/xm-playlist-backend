@@ -50,6 +50,7 @@ export class User {
         headers: {
           authorization: `Bearer ${token}`,
         },
+        timeout: 15 * 1000,
       });
       this.setExtra(response.data);
     } catch {

@@ -123,7 +123,6 @@ export async function registerApiRoutes(server: HapiServer) {
     },
     handler: async req => {
       const channel = getChannel(req.params.id);
-      console.log(req.query)
       return getMostHeard(channel, undefined, Number(req.query.subDays));
     },
   });
@@ -239,10 +238,8 @@ export async function registerApiRoutes(server: HapiServer) {
     },
     handler: async req => {
       const { userId } = req.params;
-      console.log('playload', req.payload);
       try {
         const user = await isValidToken(req.headers.authorization);
-        console.log(userId, user.uid);
         if (userId !== user.uid) {
           throw Boom.unauthorized();
         }
