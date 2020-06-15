@@ -116,7 +116,7 @@ MostHeard.getInitialProps = async context => {
   }
 
   try {
-    const json = res.data as StationNewest[];
+    const json = res.data as StationMostHeard[];
     const recent = _.chunk(json, 12);
     return { recent, channelId: id };
   } catch {
