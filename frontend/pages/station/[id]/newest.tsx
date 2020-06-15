@@ -1,10 +1,10 @@
 import { formatDistanceStrict } from 'date-fns';
-import fetch from 'isomorphic-unfetch';
+import axios from 'axios';
 import _ from 'lodash';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
-import Adsense from 'react-adsense';
+import { Adsense } from '@ctrl/react-adsense';
 import { NextPageContext, NextComponentType } from 'next';
 
 import { channels } from '../../../channels';
@@ -18,7 +18,10 @@ type Props = {
   channelId: string;
 };
 
-const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({ recent, channelId }) => {
+const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
+  recent,
+  channelId,
+}) => {
   const secondaryText = (track: TrackResponse): string => {
     const heard = formatDistanceStrict(new Date(track.track.created_at), new Date(), {
       addSuffix: true,
@@ -50,7 +53,7 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({ rec
         </div>
       </main>
       <div className="max-w-7xl md:px-4 sm:px-6 lg:px-8 mb-5 mx-auto adsbygoogle my-2">
-        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );
@@ -58,14 +61,10 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({ rec
 
 Newest.getInitialProps = async context => {
   const id = context.query.id as string;
-  const res = await fetch(`${url}/api/station/${id}/newest`);
-
-  if (res.status !== 200) {
-    return { recent: [], channelId: id };
-  }
 
   try {
-    const json = await res.json() as StationNewest[];
+    const res = await axios.get(`${url}/api/station/${id}/newest`);
+    const json = res.data as StationNewest[];
     return { recent: _.chunk(json, 12), channelId: id };
   } catch {
     return { recent: [], channelId: id };

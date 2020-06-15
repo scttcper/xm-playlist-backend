@@ -54,9 +54,20 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
   }).slice(0, limit);
 }
 
-export async function getMostHeard(channel: Channel, limit = 50): Promise<StationNewest[]> {
-  const daysAgo = subDays(new Date(), 20);
-  const newest = await db('scrobble')
+export async function getMostHeard(channel: Channel, limit = 50, days = 30): Promise<StationNewest[]> {
+  const daysAgo = subDays(new Date(), days);
+  const mostHeard = await db('scrobble')
+    .select('scrobble.track_id')
+    .count('scrobble.track_id')
+    .where('channel', channel.deeplink)
+    .andWhere('scrobble.startTime', '>', daysAgo)
+    .groupBy('scrobble.track_id')
+    .havingRaw(db.raw('count(scrobble.track_id) > 2'))
+    .orderBy('count', 'desc')
+    .limit(limit) as Array<{ trackId: string, count: string }>;
+  const mostHeardById = _.keyBy(mostHeard, _.property('trackId'));
+  const trackIds = Object.keys(mostHeardById);
+  const newest = await db('track')
     .select([
       'track.name as name',
       'track.artists as artists',
@@ -66,19 +77,12 @@ export async function getMostHeard(channel: Channel, limit = 50): Promise<Statio
       'spotify.cover as cover',
       'links.links as links',
       'track.id as trackId',
-      'scrobble.id as id',
-      'scrobble.startTime as startTime',
     ])
-    .where('channel', channel.deeplink)
-    .andWhere('scrobble.startTime', '>', daysAgo)
-    .leftJoin('track', 'scrobble.trackId', 'track.id')
-    .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
-    .leftJoin('links', 'scrobble.trackId', 'links.trackId');
+    .whereIn('track.id', trackIds)
+    .leftJoin('spotify', 'track.id', 'spotify.trackId')
+    .leftJoin('links', 'track.id', 'links.trackId')
 
-  const groupedById = _.groupBy(newest, _.property('trackId'));
-
-  const result = Object.values(groupedById).map(dataArr => {
-    const data = dataArr[0];
+  const result = newest.map(data => {
     const spotify: StationNewest['spotify'] = {
       spotify_id: data.spotifyId,
       preview_url: data.previewUrl,
@@ -96,10 +100,10 @@ export async function getMostHeard(channel: Channel, limit = 50): Promise<Statio
       track,
       start_time: data.startTime,
       links: data.links ?? [],
-      plays: groupedById[data.trackId].length,
+      plays: Number(mostHeardById[data.trackId].count),
     };
   });
-  return _.orderBy(result, _.property('plays'), 'desc').slice(0, limit);
+  return _.orderBy(result, _.property('plays'), 'desc');
 }
 
 export async function getRecent(channel: Channel, last?: Date): Promise<StationRecent[]> {

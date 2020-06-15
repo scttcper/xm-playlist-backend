@@ -113,11 +113,18 @@ export async function registerApiRoutes(server: HapiServer) {
         params: Joi.object({
           id: Joi.string().required(),
         }),
+        query: Joi.object({
+          subDays: Joi.number()
+            .optional()
+            .default(30)
+            .valid(7, 14, 30),
+        }),
       },
     },
     handler: async req => {
       const channel = getChannel(req.params.id);
-      return getMostHeard(channel);
+      console.log(req.query)
+      return getMostHeard(channel, undefined, Number(req.query.subDays));
     },
   });
 
@@ -142,8 +149,10 @@ export async function registerApiRoutes(server: HapiServer) {
     },
     handler: async req => {
       const channel = getChannel(req.params.channelId);
-      const track = await getTrack(req.params.trackId);
-      const plays = await getPlays(req.params.trackId, channel);
+      const [track, plays] = await Promise.all([
+        getTrack(req.params.trackId),
+        getPlays(req.params.trackId, channel),
+      ]);
       return { ...track, plays };
     },
   });

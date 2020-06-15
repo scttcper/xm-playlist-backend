@@ -1,9 +1,9 @@
-import fetch from 'isomorphic-unfetch';
+import axios from 'axios';
 import _ from 'lodash';
 import Error from 'next/error';
 import Head from 'next/head';
-import React from 'react';
-import Adsense from 'react-adsense';
+import React, { useState } from 'react';
+import { Adsense } from '@ctrl/react-adsense';
 
 import { channels } from '../../../channels';
 import { StationHeader } from '../../../components/StationHeader';
@@ -11,11 +11,14 @@ import { StreamCardsLayout } from '../../../components/StreamCardsLayout';
 import { StationNewest, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
 import { NextComponentType, NextPageContext } from 'next';
+import { useRouter } from 'next/router';
 
 type Props = {
   recent: StationNewest[][];
   channelId: string;
 };
+
+const DEFAULT_SUB_DAYS = 30;
 
 const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   channelId,
@@ -25,6 +28,10 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
     return `Times Played: ${(track as StationNewest).plays}`;
   };
 
+  const router = useRouter();
+  const [subDays, setSubDays] = useState(router.query.subDays ?? DEFAULT_SUB_DAYS);
+  const [tracks, setTracks] = useState(recent);
+
   const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
@@ -32,6 +39,27 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   if (!channel) {
     return <Error statusCode={404} />;
   }
+
+  async function fetchMostHeard(days: number) {
+    setTracks([]);
+    const query: Record<string, string> = {};
+    const path = `/station/${lowercaseId}/most-heard`;
+    let api = `${url}/api${path}`;
+    if (days !== DEFAULT_SUB_DAYS) {
+      query.subDays = days.toString();
+      api += `?subDays=${days.toString()}`;
+    }
+
+    router.push(router.route, { pathname: path, query }, { shallow: true });
+    const res = await axios.get(api);
+    setTracks(_.chunk<any>(res.data, 12));
+  }
+
+  const handleSubDaysChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const days = Number(event.target.value);
+    setSubDays(days);
+    fetchMostHeard(days);
+  };
 
   return (
     <>
@@ -45,11 +73,31 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
       <StationHeader channel={channel} currentPage="most-heard" />
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         <div className="relative max-w-7xl mx-auto">
-          <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
+          <div className="flex justify-end mb-2">
+            <div>
+              <label
+                htmlFor="subDays"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                In the last
+              </label>
+              <select
+                id="subDays"
+                className="mt-1 block form-select w-48 py-2 px-3 py-0 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                defaultValue={subDays}
+                onChange={handleSubDaysChange}
+              >
+                <option value={7}>7 days</option>
+                <option value={14}>14 days</option>
+                <option value={30}>30 days</option>
+              </select>
+            </div>
+          </div>
+          <StreamCardsLayout tracks={tracks} channel={channel} secondaryText={secondaryText} />
         </div>
       </main>
       <div className="max-w-7xl md:px-4 sm:px-6 lg:px-8 mb-5 mx-auto adsbygoogle my-2">
-        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );
@@ -57,13 +105,18 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
 
 MostHeard.getInitialProps = async context => {
   const id = context.query.id as string;
-  const res = await fetch(`${url}/api/station/${id}/most-heard`);
+  let api = `${url}/api/station/${id}/most-heard`;
+  if (context.query.subDays) {
+    api += `?subDays=${context.query.subDays as string}`;
+  }
+
+  const res = await axios.get(api);
   if (res.status !== 200) {
     return { recent: [], channelId: id };
   }
 
   try {
-    const json = (await res.json()) as StationNewest[];
+    const json = res.data as StationNewest[];
     const recent = _.chunk(json, 12);
     return { recent, channelId: id };
   } catch {

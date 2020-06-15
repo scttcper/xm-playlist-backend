@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-import Adsense from 'react-adsense';
+import {Adsense} from '@ctrl/react-adsense';
 import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -29,7 +29,7 @@ export const StreamCardsLayout: React.FC<{
         <React.Fragment key={index}>
           {index > 0 && (
             <div className="adsbygoogle block mt-3 mx-auto">
-              <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+              <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
             </div>
           )}
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">

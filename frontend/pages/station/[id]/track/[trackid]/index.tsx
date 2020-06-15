@@ -5,14 +5,13 @@ import {
   VerticalReferenceLine,
   WithTooltip,
 } from '@data-ui/sparkline';
-import { allColors } from '@data-ui/theme';
-import fetch from 'isomorphic-unfetch';
+import axios from 'axios';
 import { NextComponentType } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import Adsense from 'react-adsense';
+import { Adsense } from '@ctrl/react-adsense';
 import { SizeMe } from 'react-sizeme';
 
 import { channels } from '../../../../../channels';
@@ -92,7 +91,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
         )}
       </Head>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
-        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
       <div className="relative bg-white pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
@@ -169,12 +168,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                       onMouseMove={onMouseMove}
                     >
                       <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
-                      <PointSeries
-                        points={['all']}
-                        stroke="#3f83f8"
-                        fill="#fff"
-                        size={3}
-                      />
+                      <PointSeries points={['all']} stroke="#3f83f8" fill="#fff" size={3} />
                       <PointSeries
                         points={['last']}
                         fill="#3f83f8"
@@ -188,11 +182,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                           reference={tooltipData.index}
                           strokeDasharray="4 4"
                         />,
-                        <PointSeries
-                          key="ref-point"
-                          points={[tooltipData.index]}
-                          fill="#3f83f8"
-                        />,
+                        <PointSeries key="ref-point" points={[tooltipData.index]} fill="#3f83f8" />,
                       ]}
                     </Sparkline>
                   )}
@@ -216,7 +206,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
-        <Adsense.Google client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
       </div>
     </>
   );
@@ -225,14 +215,10 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
 TrackPage.getInitialProps = async context => {
   const trackId = context.query.trackid as string;
   const channelId = context.query.id as string;
-  const res = await fetch(`${url}/api/station/${channelId}/track/${trackId}`);
-  if (res.status !== 200) {
-    return { props: { trackData: null, channelId } };
-  }
 
   try {
-    const json = await res.json();
-    return { trackData: json, channelId };
+    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`);
+    return { trackData: res.data, channelId };
   } catch {
     return { trackData: null, channelId };
   }
