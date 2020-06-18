@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-import {Adsense} from '@ctrl/react-adsense';
+import { Adsense } from '@ctrl/react-adsense';
 import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useWindowScroll } from 'react-use';
 
 import { Channel } from '../channels';
 import { TrackResponse } from 'frontend/responses';
@@ -14,6 +15,8 @@ export const StreamCardsLayout: React.FC<{
   channel: Channel;
   secondaryText?: (track: TrackResponse) => string;
 }> = props => {
+  const scrollPosition = useWindowScroll();
+
   const trackOut = (site: string, id: string): void => {
     ReactGA.event({
       category: 'MusicClick',
@@ -48,7 +51,14 @@ export const StreamCardsLayout: React.FC<{
                   className="flex flex-row rounded-lg shadow-sm overflow-hidden"
                 >
                   <div className="flex-shrink-0">
-                    <LazyLoadImage src={albumCover} className="h-40 w-40" alt="..." />
+                    <LazyLoadImage
+                      scrollPosition={scrollPosition}
+                      src={albumCover}
+                      className="h-40 w-40"
+                      width="10rem"
+                      height="10rem"
+                      alt={`${play.track.name} album cover`}
+                    />
                   </div>
                   <div className="flex-1 bg-white px-3 py-3 pl-4 flex flex-col justify-between">
                     <div className="flex-1">

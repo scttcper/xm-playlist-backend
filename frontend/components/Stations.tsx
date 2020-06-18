@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Fuse from 'fuse.js';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useWindowScroll } from 'react-use';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -19,6 +20,7 @@ export const Stations: React.FC = () => {
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
   const [fuse, setFuse] = useState(allResultsFuse());
   const [currentQuery, setQuery] = useState('');
+  const scrollPosition = useWindowScroll();
 
   const handleGenreChange = (genre: Genre): void => {
     const filteredChannels = channels.filter(channel => channel.genre === genre);
@@ -92,8 +94,10 @@ export const Stations: React.FC = () => {
                   <div className="transition duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
                     <LazyLoadImage
                       src={`/static/img/${channel.deeplink}-lg.png`}
-                      className="card-img-top"
                       alt={`${channel.name} Logo`}
+                      width={150}
+                      height={150}
+                      scrollPosition={scrollPosition}
                     />
                   </div>
                 </div>
