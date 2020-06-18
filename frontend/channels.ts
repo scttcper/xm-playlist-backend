@@ -520,6 +520,15 @@ export const channels: Channel[] = [
     playlist: '4zCgB1d2enUh63CdekFeij',
   },
   {
+    id: '9481',
+    deeplink: 'StayHomeRadio',
+    number: 707,
+    name: 'Stay Home Radio',
+    genre: Genre.pop,
+    desc: 'Happy and uplifting music',
+    playlist: '64lWquJHXpq3L5Qh0DFunN',
+  },
+  {
     id: '9482',
     deeplink: 'Calm',
     number: 68,
