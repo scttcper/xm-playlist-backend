@@ -26,7 +26,7 @@ export const StationHeader = (props: Props) => {
           <div className="flex-1">
             <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7 sm:truncate">
               {props.channel.name}
-              <span className="ml-3 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
+              <span className="ml-3 hidden md:inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
                 {props.channel.genre}
               </span>
             </h2>

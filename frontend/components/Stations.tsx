@@ -95,14 +95,14 @@ export const Stations: React.FC = () => {
                     <LazyLoadImage
                       src={`/static/img/${channel.deeplink}-lg.png`}
                       alt={`${channel.name} Logo`}
-                      width={150}
-                      height={150}
+                      width={80}
+                      height={80}
                       scrollPosition={scrollPosition}
                     />
                   </div>
                 </div>
                 <div className="mt-2">
-                  <h3 className="text-center text-base lg:text-lg leading-6 font-medium ">
+                  <h3 className="text-center truncate text-sm lg:text-lg leading-6 font-medium ">
                     {channel.name}
                   </h3>
                 </div>
