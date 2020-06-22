@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useWindowScroll } from 'react-use';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -20,7 +18,6 @@ export const Stations: React.FC = () => {
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
   const [fuse, setFuse] = useState(allResultsFuse());
   const [currentQuery, setQuery] = useState('');
-  const scrollPosition = useWindowScroll();
 
   const handleGenreChange = (genre: Genre): void => {
     const filteredChannels = channels.filter(channel => channel.genre === genre);
@@ -85,22 +82,22 @@ export const Stations: React.FC = () => {
       </form>
 
       {/* channels */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 md:gap-4">
         {results.map(channel => (
           <div key={channel.id} className="text-cool-gray-800 hover:text-blue-800">
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
-                <div>
-                  <div className="transition duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
-                    <LazyLoadImage
-                      src={`/static/img/${channel.deeplink}-lg.png`}
-                      alt={`${channel.name} Logo`}
-                      scrollPosition={scrollPosition}
-                    />
-                  </div>
+                <div className="duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
+                  <img
+                    src={`/static/img/${channel.deeplink}-lg.png`}
+                    loading="lazy"
+                    alt={`${channel.name} Logo`}
+                    width={720}
+                    height={720}
+                  />
                 </div>
                 <div className="mt-2">
-                  <h3 className="text-center truncate text-sm lg:text-lg leading-6 font-medium ">
+                  <h3 className="text-center truncate text-sm md:text-lg leading-6 font-medium ">
                     {channel.name}
                   </h3>
                 </div>
