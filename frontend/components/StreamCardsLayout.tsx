@@ -47,7 +47,7 @@ export const StreamCardsLayout: React.FC<{
               }
 
               const spotifyBackup = spotify ? [{ site: 'spotify', url: spotify }] : [];
-              const links = play.links ? play.links : spotifyBackup;
+              const links = play.links?.length ? play.links : spotifyBackup;
 
               return (
                 <div
