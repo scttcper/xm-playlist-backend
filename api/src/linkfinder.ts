@@ -1,5 +1,6 @@
 import got from 'got';
 import { Spotify } from './models';
+import uaString from 'ua-string';
 import { db } from './db';
 
 export class FailedLinkFinding extends Error {
@@ -41,27 +42,24 @@ export interface Link {
   countries: string[] | null;
 }
 
-export async function findAndCacheLinks(spotify: Spotify) {
-  const existing = await db('links')
-    .select()
-    .where({ trackId: spotify.trackId })
-    .first();
-
-  if (existing) {
-    return;
-  }
-
+export async function getLinks(spotify: Spotify): Promise<Array<{ site: string; url: string }>> {
   let res: SongWhipTrackResponse;
   try {
     res = await got
       .post('https://songwhip.com/api/', {
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': uaString,
+        },
         json: {
           url: `https://open.spotify.com/track/${spotify.spotifyId}`,
           country: 'US',
         },
+        retry: 0,
+        timeout: 10_000, // 10 sec
       })
-      .json<SongWhipTrackResponse>();
-  } catch {
+      .json();
+  } catch (error) {
     throw new FailedLinkFinding();
   }
 
@@ -76,5 +74,18 @@ export async function findAndCacheLinks(spotify: Spotify) {
       url,
     };
   });
+
+  return links;
+}
+
+export async function findAndCacheLinks(spotify: Spotify) {
+  const existing = await db('links').select().where({ trackId: spotify.trackId }).first();
+
+  if (existing) {
+    return;
+  }
+
+  const links = await getLinks(spotify);
+
   await db('links').insert({ trackId: spotify.trackId, links: JSON.stringify(links) });
 }

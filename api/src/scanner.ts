@@ -19,7 +19,9 @@ async function updateAll() {
     try {
       const { track } = await checkEndpoint(channel);
       const spotify = await spotifyFindAndCache(track);
-      await findAndCacheLinks(spotify);
+      if (spotify) {
+        await findAndCacheLinks(spotify);
+      }
     } catch (error) {
       await catchError(error);
     } finally {
