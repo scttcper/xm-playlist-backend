@@ -11,6 +11,11 @@ export const Footer = () => (
           </Link>
         </div>
         <div className="px-5 py-2">
+          <Link href="/pricing">
+            <a className="text-base leading-6 text-gray-500 hover:text-gray-900">Pricing</a>
+          </Link>
+        </div>
+        <div className="px-5 py-2">
           <Link href="/tos">
             <a className="text-base leading-6 text-gray-500 hover:text-gray-900">Terms</a>
           </Link>

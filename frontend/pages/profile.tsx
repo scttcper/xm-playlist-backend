@@ -1,8 +1,8 @@
 import React from 'react';
 import { useObserver } from 'mobx-react';
-import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { useStores } from 'services/useStores';
 import { SubscribeToggle } from 'components/SubscribeToggle';
@@ -53,7 +53,7 @@ const Profile = () => {
                 <span className="inline-flex mr-2 items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-gray-100 text-gray-800">
                   Free
                 </span>
-                <span className="text-gray-700">Upgrade (coming soon)</span>
+                <Link href="/pricing"><a className="text-blue-700 hover:underline">Upgrade</a></Link>
               </dd>
             </div>
             {/* <div className="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">

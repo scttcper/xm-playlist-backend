@@ -3,6 +3,7 @@ import laabr from 'laabr';
 import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
+import Stripe from 'stripe';
 
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
@@ -10,6 +11,13 @@ import { getTrack } from './track';
 import { search } from './search';
 import { admin } from './firebaseAdmin';
 import { db } from './db';
+
+const stripe = new Stripe(
+  'sk_test',
+  { apiVersion: '2020-03-02' },
+);
+const redirectUrl =
+  process.env.NODE_ENV === 'production' ? 'https://xmplaylist.com' : 'http://dev.com';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -114,10 +122,7 @@ export async function registerApiRoutes(server: HapiServer) {
           id: Joi.string().required(),
         }),
         query: Joi.object({
-          subDays: Joi.number()
-            .optional()
-            .default(30)
-            .valid(7, 14, 30),
+          subDays: Joi.number().optional().default(30).valid(7, 14, 30),
         }),
       },
     },
@@ -212,9 +217,9 @@ export async function registerApiRoutes(server: HapiServer) {
 
       const user = await db('user')
         .select<{ id: string; isSubscribed: boolean }>([
-        'user.id as id',
-        'user.isSubscribed as isSubscribed',
-      ])
+          'user.id as id',
+          'user.isSubscribed as isSubscribed',
+        ])
         .where('user.id', '=', userId)
         .limit(1)
         .first();
@@ -251,6 +256,96 @@ export async function registerApiRoutes(server: HapiServer) {
         .update({ isSubscribed: (req.payload as any).isSubscribed })
         .where('user.id', '=', userId);
       return user;
+    },
+  });
+
+  server.route({
+    path: '/api/getpro/{userId}',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          userId: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const { userId } = req.params;
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        console.log(userId, user.uid);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
+      }
+
+      const user = await db('user')
+        .select<{ id: string; isPro: boolean; email: string }>([
+          'user.id as id',
+          'user.email as email',
+          'user.isPro as isPro',
+        ])
+        .where('user.id', '=', userId)
+        .limit(1)
+        .first();
+
+      if (!user) {
+        throw Boom.unauthorized();
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        customer_email: user.email,
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            // Pro product
+            price: 'price_1GwGw8LqOb5vGLHDRDGE5QLW',
+            quantity: 1,
+          },
+        ],
+        mode: 'subscription',
+        success_url: `${redirectUrl}/profile?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${redirectUrl}/pricing`,
+      });
+      return { session };
+    },
+  });
+
+  server.route({
+    path: '/api/stripewebhook',
+    method: 'GET',
+    options: {
+      cors: { origin: 'ignore' },
+      validate: {
+        params: Joi.object({
+          userId: Joi.string().required(),
+        }),
+      },
+    },
+    handler: async req => {
+      const sig = req.headers['stripe-signature'];
+
+      let event: Stripe.Event;
+
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+      } catch (err) {
+        return response.status(400).send(`Webhook Error: ${err.message}`);
+      }
+
+      // Handle the checkout.session.completed event
+      if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+
+        // Fulfill the purchase...
+        handleCheckoutSession(session);
+      }
+
+      // Return a response to acknowledge receipt of the event
+      return {received: true};
     },
   });
 }

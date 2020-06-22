@@ -38,6 +38,7 @@
     "p-forever": "2.1.0",
     "pg": "8.2.1",
     "redis": "3.0.2",
+    "stripe": "^8.64.0",
     "ts-node-dev": "^1.0.0-pre.47"
   },
   "devDependencies": {
