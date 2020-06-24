@@ -6,7 +6,9 @@
   "description": "",
   "main": "",
   "repository": "scttcper/xmplaylist",
-  "scripts": {},
+  "scripts": {
+    "build": "yarn workspace frontend build && yarn workspace api build"
+  },
   "devDependencies": {},
   "workspaces": [
     "frontend",
