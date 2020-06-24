@@ -529,6 +529,15 @@ export const channels: Channel[] = [
     playlist: '64lWquJHXpq3L5Qh0DFunN',
   },
   {
+    id: 'icebergradio',
+    deeplink: 'Iceberg',
+    number: 758,
+    name: 'Iceberg',
+    genre: Genre.pop,
+    desc: 'Canada\'s Biggest Hits',
+    playlist: '5HJLePZO8U55JV2TjIDJFl',
+  },
+  {
     id: '9482',
     deeplink: 'Calm',
     number: 68,
