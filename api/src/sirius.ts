@@ -53,7 +53,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
       startTime: marker.timestamp.absolute,
     };
   } catch (e) {
-    log('parsing response error', e);
+    // log('parsing response error', e);
     throw e;
   }
 }

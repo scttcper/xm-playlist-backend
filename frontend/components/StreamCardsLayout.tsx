@@ -38,12 +38,16 @@ export const StreamCardsLayout: React.FC<{
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
             {chunk.map((play, index) => {
               const albumCover = play.spotify.cover || '/static/missing.png';
-              let spotify: undefined | string;
+              const spotify = play.spotify ?
+                `https://open.spotify.com/track/${play.spotify.spotify_id}` :
+                play.links.find(n => n.site === 'spotify')?.url;
               let apple: undefined | string;
               if (play.links) {
-                spotify = play.links.find(n => n.site === 'spotify')?.url;
                 apple = play.links.find(n => n.site === 'itunes')?.url;
               }
+
+              const spotifyBackup = spotify ? [{ site: 'spotify', url: spotify }] : [];
+              const links = play.links?.length ? play.links : spotifyBackup;
 
               return (
                 <div
@@ -112,8 +116,8 @@ export const StreamCardsLayout: React.FC<{
                             Apple
                           </a>
                         )}
-                        {play.links && play.links.length > 0 && (
-                          <TrackLinks links={play.links} id={play.track.id} />
+                        {links.length > 0 && (
+                          <TrackLinks links={links} id={play.track.id} />
                         )}
                       </span>
                     </div>

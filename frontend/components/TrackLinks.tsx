@@ -50,7 +50,7 @@ export const TrackLinks: React.FC<{
             aria-modal="true"
             aria-labelledby="modal-headline"
           >
-            <div className="absolute top-0 right-0 pt-4 pr-4">
+            <div className="flex justify-end">
               <button
                 type="button"
                 className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
@@ -67,11 +67,10 @@ export const TrackLinks: React.FC<{
                 </svg>
               </button>
             </div>
-            <div className="">
-              <div className="mt-6 text-center sm:mt-5">
-                <div className="mt-2">
-                  <TrackLinksButtons links={props.links} id={props.id} />
-                </div>
+
+            <div className="mt-6 text-center sm:mt-5">
+              <div className="mt-2">
+                <TrackLinksButtons links={props.links} id={props.id} />
               </div>
             </div>
           </div>

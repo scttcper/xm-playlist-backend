@@ -56,7 +56,7 @@ export const TrackLinksButtons = ({ links, id: trackId }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 text-center">
+    <div className="grid grid-cols-2 gap-4 text-center">
       {links.map(link => {
         return (
           <a

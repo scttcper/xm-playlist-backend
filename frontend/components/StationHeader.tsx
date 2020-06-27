@@ -15,7 +15,7 @@ export const StationHeader = (props: Props) => {
   return (
     <>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-4 md:mb-3 flex">
-        <div className="flex-0 bg-blue-900 rounded-lg p-3 mr-2 md:mr-3 flex">
+        <div className="flex-0 bg-cool-gray-900 rounded-lg p-3 mr-2 md:mr-3 flex">
           <img
             src={`/static/img/${props.channel.deeplink}-lg.png`}
             className="w-24 h-24 md:h-32 md:w-32"
@@ -24,7 +24,7 @@ export const StationHeader = (props: Props) => {
         </div>
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-4 pt-2 flex-1 flex flex-col justify-between">
           <div className="flex-1">
-            <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7 sm:truncate">
+            <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7">
               {props.channel.name}
               <span className="ml-3 hidden md:inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
                 {props.channel.genre}
