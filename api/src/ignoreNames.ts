@@ -56,6 +56,8 @@ const ignorePaterns = [
   '#OneBigPopHit',
   "Today's Top",
   "Pitbull's Globalization",
+  'Globalization',
+  "Pitbull's",
   'Prime Country',
   'sirius*xm',
   'Studio 54',
@@ -171,11 +173,20 @@ const ignorePaterns = [
   "**Jeff & Larry's**",
   'NETFLIX IS A JOKE RADIO',
   '**LatidosSXM**',
+  'Unpopped!',
+  '**8SongsAWeek**',
+  "**John's Jukebox**",
+  '**Pop Rocks**',
+  '**TIGDH**',
+  'Hard Rock 1000',
+  'The Carles Show',
+  'Celebrate!*',
+  '#StayAtHome',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {
   const name = (marker.cut?.artists?.[0]?.name ?? '').replace('/', '').replace('', '');
-  const title = (marker.cut?.title  ?? '').replace('/', '').replace('', '');
+  const title = (marker.cut?.title ?? '').replace('/', '').replace('', '');
   return (
     micromatch([name, title], ignorePaterns, {
       nocase: true,
