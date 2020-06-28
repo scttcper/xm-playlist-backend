@@ -83,8 +83,6 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       return;
     }
 
-    console.log(data);
-
     const searchParams = new URLSearchParams();
     const query: Record<string, string> = {};
     setSearchResults({ results: [] });

@@ -4,6 +4,7 @@ import {
   Sparkline,
   VerticalReferenceLine,
   WithTooltip,
+  PatternLines,
 } from '@data-ui/sparkline';
 import axios from 'axios';
 import { NextComponentType } from 'next';
@@ -167,6 +168,14 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
                       onMouseLeave={onMouseLeave}
                       onMouseMove={onMouseMove}
                     >
+                      <PatternLines
+                        id="area_pattern"
+                        height={4}
+                        width={4}
+                        stroke="#3f83f8"
+                        strokeWidth={2}
+                        orientation={['diagonal']}
+                      />
                       <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
                       <PointSeries points={['all']} stroke="#3f83f8" fill="#fff" size={3} />
                       <PointSeries

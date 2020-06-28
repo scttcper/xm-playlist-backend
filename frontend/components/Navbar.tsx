@@ -147,7 +147,7 @@ export const NavBar: React.FC = () => {
                 ref={dropdownRef}
                 className={`${
                   profileOpen ? '' : 'hidden'
-                } origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg`}
+                } origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg z-40`}
               >
                 <div
                   className="py-1 rounded-md bg-white shadow-xs"
