@@ -18,6 +18,7 @@ export class User {
   id = 'user';
   @observable user: FirebaseUser | null = null;
   @observable isSubscribed: boolean | null = null;
+  @observable isPro: boolean | null = false;
   @observable loggedIn: boolean | null = null;
   @observable loadedExtra: boolean | null = null;
 
@@ -36,6 +37,7 @@ export class User {
   setExtra(extra: any) {
     this.loadedExtra = true;
     this.isSubscribed = extra.isSubscribed;
+    this.isPro = extra.isPro;
   }
 
   @action
@@ -108,6 +110,7 @@ export class User {
       await app.auth().signOut();
       this.loadedExtra = false;
       this.isSubscribed = null;
+      this.isPro = null;
     } catch {
       // pass
     }

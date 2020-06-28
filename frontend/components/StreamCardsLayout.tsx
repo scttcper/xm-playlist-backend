@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-import { Adsense } from '@ctrl/react-adsense';
 import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useWindowScroll } from 'react-use';
 
+import { Adsense } from './Adsense';
 import { Channel } from '../channels';
 import { TrackResponse } from 'frontend/responses';
 import { TrackLinks } from './TrackLinks';
@@ -30,17 +30,13 @@ export const StreamCardsLayout: React.FC<{
       {props.tracks.map((chunk, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={index}>
-          {index > 0 && (
-            <div className="adsbygoogle block mt-3 mx-auto">
-              <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
-            </div>
-          )}
+          {index > 0 && <Adsense />}
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
             {chunk.map((play, index) => {
               const albumCover = play.spotify.cover || '/static/missing.png';
-              const spotify = play.spotify ?
-                `https://open.spotify.com/track/${play.spotify.spotify_id}` :
-                play.links.find(n => n.site === 'spotify')?.url;
+              const spotify = play.spotify
+                ? `https://open.spotify.com/track/${play.spotify.spotify_id}`
+                : play.links.find(n => n.site === 'spotify')?.url;
               let apple: undefined | string;
               if (play.links) {
                 apple = play.links.find(n => n.site === 'itunes')?.url;
@@ -116,9 +112,7 @@ export const StreamCardsLayout: React.FC<{
                             Apple
                           </a>
                         )}
-                        {links.length > 0 && (
-                          <TrackLinks links={links} id={play.track.id} />
-                        )}
+                        {links.length > 0 && <TrackLinks links={links} id={play.track.id} />}
                       </span>
                     </div>
                   </div>

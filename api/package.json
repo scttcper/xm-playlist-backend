@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn ./src/server.ts",
     "build": "tsc",
+    "fixusers": "ts-node ./commands/fixusers.ts",
     "syncPlaylists": "ts-node ./commands/syncPlaylists.ts",
     "removeTrack": "ts-node ./commands/removeTrack.ts",
     "start": "NODE_ENV=production ts-node ./src/server.ts",

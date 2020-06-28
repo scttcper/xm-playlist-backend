@@ -5,11 +5,11 @@ import { NextComponentType, NextPageContext } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { Adsense } from '@ctrl/react-adsense';
 
 import { channels } from '../../../channels';
 import { StationHeader } from 'components/StationHeader';
 import { StreamCardsLayout } from 'components/StreamCardsLayout';
+import { Adsense } from 'components/Adsense';
 import { StationRecent, TrackResponse } from 'frontend/responses';
 import { url } from '../../../url';
 
@@ -84,7 +84,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
         </div>
       </main>
       <div className="max-w-7xl md:px-4 sm:px-6 lg:px-8 mb-5 mx-auto adsbygoogle my-2">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense />
       </div>
     </>
   );

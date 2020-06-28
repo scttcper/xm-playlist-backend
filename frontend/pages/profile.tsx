@@ -3,24 +3,27 @@ import { useObserver } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
 
+import { url } from '../url';
 import { useStores } from 'services/useStores';
 import { SubscribeToggle } from 'components/SubscribeToggle';
 
 function useUserData() {
   const { user } = useStores();
   return useObserver(() => ({
+    user: user.user,
     email: user.user?.email,
-    metadata: user.user?.metadata,
     logout: user.logout,
     loggedIn: user.loggedIn,
     setIsSubscribed: user.setIsSubscribed,
     isSubscribed: user.isSubscribed,
+    isPro: user.isPro,
   }));
 }
 
 const Profile = () => {
-  const { email, metadata, logout, loggedIn, setIsSubscribed, isSubscribed } = useUserData();
+  const { email, logout, loggedIn, setIsSubscribed, isSubscribed, isPro, user } = useUserData();
   const router = useRouter();
 
   if (loggedIn === false) {
@@ -30,6 +33,19 @@ const Profile = () => {
   const handleLogOut = () => {
     logout();
     router.push('/login');
+  };
+
+  const handleManageClick = async () => {
+    const token: string = (await user?.getIdToken()) || '';
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const response = await axios.get(`${url}/api/manage/${user?.uid}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      timeout: 15 * 1000,
+    });
+
+    window.location.href = response.data.session.url;
   };
 
   return (
@@ -48,12 +64,16 @@ const Profile = () => {
               </dd>
             </div>
             <div className="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500">User Level</dt>
+              <dt className="text-sm leading-5 font-medium text-gray-500">Subscription</dt>
               <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
                 <span className="inline-flex mr-2 items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-gray-100 text-gray-800">
-                  Free
+                  {isPro ? 'Pro Plan' : 'Free'}
                 </span>
-                <Link href="/pricing"><a className="text-blue-700 hover:underline">Upgrade</a></Link>
+                {isPro === false && (
+                  <Link href="/pricing">
+                    <a className="text-blue-700 hover:underline">Upgrade</a>
+                  </Link>
+                )}
               </dd>
             </div>
             {/* <div className="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -71,6 +91,24 @@ const Profile = () => {
           </dl>
         </div>
       </div>
+      {isPro === true && (
+        <div className="bg-white shadow sm:rounded-lg my-2">
+          <div className="px-4 py-5 p-6 flex items-center">
+            <div className="flex-1">Manage Subscription</div>
+            <div>
+              <span className="inline-flex rounded-md shadow-sm">
+                <button
+                  type="button"
+                  className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+                  onClick={handleManageClick}
+                >
+                  Manage
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setIsSubscribed} />
       <div className="my-2">
         <button

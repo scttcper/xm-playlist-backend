@@ -7,12 +7,12 @@ import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useObserver } from 'mobx-react';
-import { Adsense } from '@ctrl/react-adsense';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
 import { useStores } from 'services/useStores';
 import { channels, Channel } from 'frontend/channels';
+import {Adsense} from 'components/Adsense';
 
 type Props = {
   query: any;
@@ -131,7 +131,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       </div>
 
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+        <Adsense />
       </div>
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         {/* search */}
@@ -273,7 +273,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         </div>
 
         <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-          <Adsense client="ca-pub-7640562161899788" slot="5645069928" />
+          <Adsense />
         </div>
       </main>
     </>

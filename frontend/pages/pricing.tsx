@@ -14,11 +14,26 @@ function useUserData() {
   const { user } = useStores();
   return useObserver(() => ({
     user: user.user,
+    isPro: user.isPro,
   }));
 }
 
 const Pricing = () => {
-  const { user } = useUserData();
+  const { user, isPro } = useUserData();
+
+  const handleManageClick = async () => {
+    const token: string = (await user?.getIdToken()) || '';
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const response = await axios.get(`${url}/api/manage/${user?.uid}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      timeout: 15 * 1000,
+    });
+
+    window.location.href = response.data.session.url;
+  };
+
   const handleClick = async () => {
     const token: string = (await user?.getIdToken()) || '';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -128,18 +143,29 @@ const Pricing = () => {
               <div className="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
                 <p className="text-lg leading-6 font-medium text-gray-900">Monthly</p>
                 <div className="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
-                  <span>$8</span>
+                  <span>$5</span>
                   <span className="ml-3 text-xl leading-7 font-medium text-gray-500">USD</span>
                 </div>
                 <div className="mt-6">
                   <div className="rounded-md shadow">
-                    <button
-                      type="button"
-                      className="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
-                      onClick={handleClick}
-                    >
-                      Upgrade to Pro Plan
-                    </button>
+                    {isPro === false && (
+                      <button
+                        type="button"
+                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                        onClick={handleClick}
+                      >
+                        Upgrade to Pro Plan
+                      </button>
+                    )}
+                    {isPro === true && (
+                      <button
+                        type="button"
+                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                        onClick={handleManageClick}
+                      >
+                        Manage Pro Plan
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

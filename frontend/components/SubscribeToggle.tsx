@@ -10,7 +10,7 @@ export const SubscribeToggle = ({ isSubscribed, onChange }: Props) => {
     <div className="bg-white shadow sm:rounded-lg my-2">
       <div className="px-4 py-5 p-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900" id="subscribe-headline">
-          Get Updates via Email
+          Receive email updates
         </h3>
         <div className="mt-2 flex items-start justify-between">
           <div className="max-w-xl text-sm leading-5 text-gray-500">

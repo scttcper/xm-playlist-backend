@@ -13,7 +13,7 @@ import { admin } from './firebaseAdmin';
 import { db } from './db';
 
 const stripe = new Stripe(
-  'sk_test',
+  'sk_test_51GwEejLqOb5vGLHDZVAKuB2DvS8iUCUXjND6VT06bgn4Nx3oV6cT3h3M0SEq8DQ0s5xERyNYeLFG1fngnrBWV0Jn00z5njy18Z',
   { apiVersion: '2020-03-02' },
 );
 const redirectUrl =
@@ -216,9 +216,10 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const user = await db('user')
-        .select<{ id: string; isSubscribed: boolean }>([
+        .select<{ id: string; isSubscribed: boolean; isPro: boolean }>([
           'user.id as id',
           'user.isSubscribed as isSubscribed',
+          'user.isPro as isPro',
         ])
         .where('user.id', '=', userId)
         .limit(1)
@@ -253,7 +254,10 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const user = await db('user')
-        .update({ isSubscribed: (req.payload as any).isSubscribed })
+        .update({
+          isSubscribed: (req.payload as any).isSubscribed,
+          updatedAt: db.fn.now(),
+        })
         .where('user.id', '=', userId);
       return user;
     },
@@ -283,10 +287,11 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const user = await db('user')
-        .select<{ id: string; isPro: boolean; email: string }>([
+        .select<{ id: string; isPro: boolean; email: string; stripeCustomerId: string; }>([
           'user.id as id',
           'user.email as email',
           'user.isPro as isPro',
+          'user.stripeCustomerId as stripeCustomerId',
         ])
         .where('user.id', '=', userId)
         .limit(1)
@@ -302,7 +307,7 @@ export async function registerApiRoutes(server: HapiServer) {
         line_items: [
           {
             // Pro product
-            price: 'price_1GwGw8LqOb5vGLHDRDGE5QLW',
+            price: 'price_1GysXCLqOb5vGLHDGKpr2Gbd',
             quantity: 1,
           },
         ],
@@ -315,7 +320,7 @@ export async function registerApiRoutes(server: HapiServer) {
   });
 
   server.route({
-    path: '/api/stripewebhook',
+    path: '/api/manage/{userId}',
     method: 'GET',
     options: {
       cors: { origin: 'ignore' },
@@ -326,26 +331,36 @@ export async function registerApiRoutes(server: HapiServer) {
       },
     },
     handler: async req => {
-      const sig = req.headers['stripe-signature'];
-
-      let event: Stripe.Event;
-
+      const { userId } = req.params;
       try {
-        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-      } catch (err) {
-        return response.status(400).send(`Webhook Error: ${err.message}`);
+        const user = await isValidToken(req.headers.authorization);
+        console.log(userId, user.uid);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
       }
 
-      // Handle the checkout.session.completed event
-      if (event.type === 'checkout.session.completed') {
-        const session = event.data.object;
+      const user = await db('user')
+        .select<{ id: string; email: string; stripeCustomerId: string; }>([
+          'user.id as id',
+          'user.email as email',
+          'user.stripeCustomerId as stripeCustomerId',
+        ])
+        .where('user.id', '=', userId)
+        .limit(1)
+        .first();
 
-        // Fulfill the purchase...
-        handleCheckoutSession(session);
+      if (!user) {
+        throw Boom.unauthorized();
       }
 
-      // Return a response to acknowledge receipt of the event
-      return {received: true};
+      const session = await stripe.billingPortal.sessions.create({
+        customer: user.stripeCustomerId,
+        return_url: `${redirectUrl}/profile`,
+      });
+      return { session };
     },
   });
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Adsense } from '@ctrl/react-adsense';
 
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
 import { Channel } from '../channels';
+import { Adsense } from './Adsense';
 
 type Props = {
   channel: Channel;
@@ -22,7 +22,7 @@ export const StationHeader = (props: Props) => {
             alt="..."
           />
         </div>
-        <div className="flex-1 bg-white rounded-lg p-3 sm:p-4 pt-2 flex-1 flex flex-col justify-between">
+        <div className="flex-1 bg-white rounded-lg p-3 sm:p-4 pt-2 flex flex-col justify-between">
           <div className="flex-1">
             <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7">
               {props.channel.name}
@@ -45,7 +45,7 @@ export const StationHeader = (props: Props) => {
       {/* old */}
 
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-        <Adsense client="ca-pub-7640562161899788" slot="5645069928" style={{display: 'block'}} />
+        <Adsense />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3">
