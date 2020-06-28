@@ -1,6 +1,8 @@
+/* eslint-disable no-mixed-operators */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { NextComponentType, NextPageContext } from 'next';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
@@ -13,6 +15,7 @@ import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
 import { useStores } from 'services/useStores';
 import { channels, Channel } from 'frontend/channels';
 import { Adsense } from 'components/Adsense';
+import { SearchResultsNav } from 'components/SearchResultsNav';
 
 type Props = {
   query: any;
@@ -38,6 +41,13 @@ export interface SearchResults {
   currentPage: number;
   pages: number;
   results: SearchResult[];
+  query: {
+    trackName: string;
+    artistName: string;
+    station: string;
+    timeAgo: number;
+    currentPage: number;
+  };
 }
 
 const friendlyChannelName = (deeplink: string): Channel | undefined =>
@@ -56,10 +66,24 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useUserData();
 
+  const handleNextPage = () => {
+    const data = { ...(searchResults.query as SearchResults['query']) };
+    data.currentPage = (data.currentPage || 1) + 1;
+    search(data);
+  };
+
+  const handlePreviousPage = () => {
+    const data = { ...(searchResults.query as SearchResults['query']) };
+    data.currentPage = (data.currentPage || 1) - 1;
+    search(data);
+  };
+
   const search = async (data: SearchFormInputs) => {
     if (!user) {
       return;
     }
+
+    console.log(data);
 
     const searchParams = new URLSearchParams();
     const query: Record<string, string> = {};
@@ -80,11 +104,16 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     }
 
     if (data.timeAgo) {
-      query.timeAgo = data.timeAgo;
-      searchParams.append('timeAgo', data.timeAgo);
+      query.timeAgo = data.timeAgo.toString();
+      searchParams.append('timeAgo', data.timeAgo.toString());
     }
 
-    router.push({
+    if (data.currentPage) {
+      query.currentPage = data.currentPage.toString();
+      searchParams.append('currentPage', data.currentPage.toString());
+    }
+
+    router.replace({
       pathname: '/search',
       query,
     });
@@ -92,12 +121,21 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     try {
       setIsLoading(true);
       const token: string = (await user?.getIdToken()) || '';
-      const res = await axios.get(`${url}/api/search?${searchParams.toString()}`, {
+      const res = await axios.get<SearchResults>(`${url}/api/search?${searchParams.toString()}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
         timeout: 15 * 1000,
       });
+
+      if (res.data.currentPage !== data.currentPage) {
+        query.currentPage = res.data.currentPage.toString();
+        router.replace({
+          pathname: '/search',
+          query,
+        });
+      }
+
       setSearchResults(res.data);
     } catch {
       // TODO: handle errors
@@ -106,14 +144,12 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     setIsLoading(false);
   };
 
-  // TODO: initial load auto-search?
-  // useEffect(() => {
-  //   console.log('firstLoad?')
-  //   if (artistName) {
-  //     search();
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    if (Object.keys(query).length) {
+      search(query);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <>
@@ -140,7 +176,6 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               artistName={query.artistName}
               station={query.station}
               timeAgo={query.timeAgo}
-              user={user}
               onSubmit={search}
             />
           </div>
@@ -198,7 +233,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             {!searchResults.results?.length && (
               <li>
                 <div className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                  <div className="flex items-center px-4 py-4 sm:px-6">No Results</div>
+                  <div className="flex items-center px-4 py-4 sm:px-6">{isLoading ? 'Loading...' : 'No Results'}</div>
                 </div>
               </li>
             )}
@@ -211,13 +246,13 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                     as={`/station/${result.channel.toLowerCase()}/track/${result.id}`}
                   >
                     <a className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                      <div className="flex items-center px-4 py-4 sm:px-6">
+                      <div className="flex items-center px-4 py-4">
                         <div className="min-w-0 flex-1 flex items-center">
                           <div className="flex-shrink-0">
                             <img
                               className="h-12 w-12 rounded"
                               src={result.cover || '/static/missing.png'}
-                              alt=""
+                              alt={`${result.name} album cover`}
                             />
                           </div>
                           <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
@@ -259,6 +294,9 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               );
             })}
           </ul>
+          {searchResults.results?.length !== 0 && (
+            <SearchResultsNav searchResults={searchResults} nextPage={handleNextPage} previousPage={handlePreviousPage} />
+          )}
         </div>
 
         <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">

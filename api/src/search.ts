@@ -22,6 +22,13 @@ export interface SearchResults {
   currentPage: number;
   pages: number;
   results: SearchResult[];
+  query: {
+    trackName: string;
+    artistName: string;
+    station: string;
+    timeAgo: number;
+    currentPage: number;
+  };
 }
 
 export async function search(
@@ -29,6 +36,7 @@ export async function search(
   artistName: string,
   station: string,
   timeAgo: number,
+  currentPage: number,
 ): Promise<SearchResults> {
   const daysAgo = subSeconds(new Date(), timeAgo);
 
@@ -48,27 +56,31 @@ export async function search(
     trackQuery.andWhere('scrobble.channel', '=', station);
   }
 
-  const countQuery = trackQuery.clone();
+  const total = await trackQuery.clone().count('*').first<{ count: string }>();
+  let offset = (currentPage - 1) * 100;
+  if (offset > Number(total.count)) {
+    offset = Number(total.count) - (Number(total.count) % 100);
+  }
   const stationQuery = trackQuery.clone();
   const uniqueTracks = trackQuery.clone();
   trackQuery
     .select<SearchResult[]>([
-    'track.id as id',
-    'scrobble.id as scrobbleId',
-    'scrobble.startTime as startTime',
-    'scrobble.channel as channel',
-    'track.name as name',
-    'track.artists as artists',
-    'track.createdAt as createdAt',
-    'spotify.spotifyId as spotifyId',
-    'spotify.previewUrl as previewUrl',
-    'spotify.cover as cover',
-  ])
+      'track.id as id',
+      'scrobble.id as scrobbleId',
+      'scrobble.startTime as startTime',
+      'scrobble.channel as channel',
+      'track.name as name',
+      'track.artists as artists',
+      'track.createdAt as createdAt',
+      'spotify.spotifyId as spotifyId',
+      'spotify.previewUrl as previewUrl',
+      'spotify.cover as cover',
+    ])
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
-    .orderByRaw('scrobble.start_time DESC NULLS LAST');
+    .orderByRaw('scrobble.start_time DESC NULLS LAST')
+    .offset(offset);
 
-  const [total, stationsTotal, uniqueTracksTotal, results] = await Promise.all([
-    countQuery.count('*').first<{ count: string }>(),
+  const [stationsTotal, uniqueTracksTotal, results] = await Promise.all([
     stationQuery.countDistinct('scrobble.channel').first<{ count: string }>(),
     uniqueTracks.countDistinct('track.id').first<{ count: string }>(),
     trackQuery.limit(100),
@@ -79,9 +91,15 @@ export async function search(
     stationsTotal: Number(stationsTotal.count),
     uniqueTracksTotal: Number(uniqueTracksTotal.count),
     totalItems,
-    // TODO: allow pagination
-    currentPage: 1,
+    currentPage: (offset / 100) + 1,
     pages: Math.ceil(totalItems / 100),
     results,
+    query: {
+      trackName,
+      artistName,
+      station,
+      timeAgo,
+      currentPage,
+    },
   };
 }

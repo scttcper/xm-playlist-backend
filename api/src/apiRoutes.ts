@@ -173,7 +173,8 @@ export async function registerApiRoutes(server: HapiServer) {
           station: Joi.string()
             .optional()
             .valid(...channels.map(n => n.deeplink)),
-          timeAgo: Joi.number().optional(),
+          timeAgo: Joi.number().positive().optional(),
+          currentPage: Joi.number().default(1).positive().optional(),
         }),
       },
     },
@@ -196,12 +197,13 @@ export async function registerApiRoutes(server: HapiServer) {
 
       const queryTimeAgo = Number(req.query.timeAgo as string);
       let timeAgo = queryTimeAgo;
+      let currentPage = Number(req.query.currentPage as string);
       if (user.isPro) {
         if (queryTimeAgo > 60 * 60 * 24 * 90) {
           throw Boom.badRequest();
         }
       } else {
-        if (queryTimeAgo > 60 * 60 * 24) {
+        if (queryTimeAgo > 60 * 60 * 24 || currentPage !== 1) {
           throw Boom.badRequest();
         }
       }
@@ -211,6 +213,7 @@ export async function registerApiRoutes(server: HapiServer) {
         req.query.artistName as string,
         req.query.station as string | undefined,
         timeAgo,
+        currentPage,
       );
     },
   });

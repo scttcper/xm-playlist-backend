@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { User } from 'firebase';
 import { useObserver } from 'mobx-react';
 import Select from 'react-select';
 
@@ -13,13 +12,14 @@ export type Inputs = {
   artistName: string;
   station: string;
   trackName: string;
-  timeAgo: string;
-  user: User | null;
+  timeAgo: number;
+  currentPage?: number;
 };
 
-function useIsPro() {
+function useUserData() {
   const { user } = useStores();
   return useObserver(() => ({
+    user: user.user,
     isPro: user.isPro,
   }));
 }
@@ -29,10 +29,10 @@ type Props = Inputs & {
   isLoading: boolean;
 };
 
-export const SearchForm = ({ onSubmit, isLoading, artistName, timeAgo, user }: Props) => {
+export const SearchForm = ({ onSubmit, isLoading, artistName, timeAgo }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>();
   const [station, setStation] = useState('');
-  const { isPro } = useIsPro();
+  const { isPro, user } = useUserData();
   const stationOptions = channels.map(channel => {
     return { value: `${channel.deeplink}`, label: `${channel.name}` };
   });
@@ -114,7 +114,7 @@ export const SearchForm = ({ onSubmit, isLoading, artistName, timeAgo, user }: P
             htmlFor="timeAgo"
             className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
           >
-            Time played
+            Date played
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
