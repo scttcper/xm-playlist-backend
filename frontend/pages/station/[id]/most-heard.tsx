@@ -83,7 +83,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
               </label>
               <select
                 id="subDays"
-                className="mt-1 block form-select w-48 py-2 px-3 py-0 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                className="mt-1 block form-select w-48 px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 defaultValue={subDays}
                 onChange={handleSubDaysChange}
               >

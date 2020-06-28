@@ -73,7 +73,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <div className="flex flex-col min-h-screen font-sans">
         <NavBar />
-        <div className="flex-grow">
+        <div className="flex-grow min-h-screen">
           <Component {...pageProps} />
         </div>
         <Footer />

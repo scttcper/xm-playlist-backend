@@ -1,4 +1,4 @@
-import { subDays } from 'date-fns';
+import { subSeconds } from 'date-fns';
 
 import { db } from './db';
 
@@ -28,9 +28,9 @@ export async function search(
   trackName: string,
   artistName: string,
   station: string,
+  timeAgo: number,
 ): Promise<SearchResults> {
-  // TODO: allow search by date range
-  const daysAgo = subDays(new Date(), 1);
+  const daysAgo = subSeconds(new Date(), timeAgo);
 
   const trackQuery = db('track')
     .innerJoin('scrobble', 'track.id', 'scrobble.trackId')

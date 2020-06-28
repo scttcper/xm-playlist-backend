@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { User } from 'firebase';
+import { useObserver } from 'mobx-react';
+import Select from 'react-select';
 
+import { useStores } from 'services/useStores';
 import { channels } from 'frontend/channels';
 import Link from 'next/link';
 
@@ -10,96 +13,146 @@ export type Inputs = {
   artistName: string;
   station: string;
   trackName: string;
+  timeAgo: string;
   user: User | null;
 };
+
+function useIsPro() {
+  const { user } = useStores();
+  return useObserver(() => ({
+    isPro: user.isPro,
+  }));
+}
 
 type Props = Inputs & {
   onSubmit: (data: Inputs) => Promise<void>;
   isLoading: boolean;
 };
 
-export const SearchForm = ({ onSubmit, isLoading, artistName, user }: Props) => {
+export const SearchForm = ({ onSubmit, isLoading, artistName, timeAgo, user }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>();
+  const [station, setStation] = useState('');
+  const { isPro } = useIsPro();
+  const stationOptions = channels.map(channel => {
+    return { value: `${channel.deeplink}`, label: `${channel.name}` };
+  });
+  stationOptions.unshift({ value: '', label: 'All Channels' });
+  const hour = 60 * 60;
+
+  const handleSubmitMiddleware = (data: any) => {
+    data.station = station;
+    onSubmit(data);
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-3 sm:col-span-2">
-          <label htmlFor="trackName" className="block text-sm font-medium leading-5 text-gray-700">
-            Track Title
-          </label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <input
-              ref={register}
-              name="trackName"
-              id="trackName"
-              className="form-input block w-full sm:text-sm sm:leading-5"
-              placeholder=""
-              minLength={2}
-            />
-          </div>
-        </div>
-        <div className="col-span-3 sm:col-span-2">
-          <label htmlFor="artistName" className="block text-sm font-medium leading-5 text-gray-700">
-            Artist Name
-          </label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <input
-              ref={register}
-              defaultValue={artistName}
-              name="artistName"
-              id="artistName"
-              className="form-input block w-full sm:text-sm sm:leading-5"
-              placeholder=""
-              minLength={2}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-3 gap-6 mt-6">
-        <div className="col-span-3 sm:col-span-2">
-          <label htmlFor="station" className="block text-sm leading-5 font-medium text-gray-700">
-            Station
-          </label>
-          <select
-            ref={register}
-            name="station"
-            id="station"
-            className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
+    <form onSubmit={handleSubmit(handleSubmitMiddleware)}>
+      <div className="mt-6 sm:mt-5">
+        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label
+            htmlFor="trackName"
+            className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
           >
-            <option value="">All Stations</option>
-            {channels
-              .sort((a, b) => a.number - b.number)
-              .map(channel => (
-                <option key={channel.deeplink} value={channel.deeplink}>
-                  {channel.number} - {channel.name}
+            <div>Track Title</div>
+            <div className="font-normal text-xs text-gray-500">Case Insensitive</div>
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-2">
+            <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+              <input
+                ref={register}
+                name="trackName"
+                id="trackName"
+                className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label
+            htmlFor="artistName"
+            className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
+          >
+            <div>Artist</div>
+            <div className="font-normal text-xs text-gray-500">Case Insensitive</div>
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-2">
+            <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+              <input
+                ref={register}
+                defaultValue={artistName}
+                name="artistName"
+                id="artistName"
+                minLength={2}
+                className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label
+            htmlFor="stations"
+            className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+          >
+            Stations
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-2">
+            <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+              <Select
+                defaultValue={{ value: '', label: 'All Channels' }}
+                id="stations"
+                instanceId="stations"
+                options={stationOptions}
+                onChange={(option: any) => setStation(option.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label
+            htmlFor="timeAgo"
+            className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+          >
+            Time played
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-2">
+            <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+              <select
+                ref={register}
+                defaultValue={timeAgo || hour * 24}
+                name="timeAgo"
+                id="timeAgo"
+                className="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              >
+                <option value={hour}>last hour</option>
+                <option value={hour * 12}>last 12 hours</option>
+                <option value={hour * 24}>last 24 hours</option>
+                <option disabled={!isPro} value={hour * 24 * 7}>
+                  last 7 days (pro)
                 </option>
-              ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-3 gap-6 mt-6">
-        <div className="col-span-3 sm:col-span-2">
-          <label htmlFor="station" className="block text-sm leading-5 font-medium text-gray-700">
-            In the last (coming soon)
-          </label>
-          <select
-            disabled
-            name="station"
-            id="station"
-            className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
-          >
-            <option value="">24 hours</option>
-          </select>
+                <option disabled={!isPro} value={hour * 24 * 14}>
+                  last 14 days (pro)
+                </option>
+                <option disabled={!isPro} value={hour * 24 * 30}>
+                  last 30 days (pro)
+                </option>
+                <option disabled={!isPro} value={hour * 24 * 60}>
+                  last 60 days (pro)
+                </option>
+                {/* <option disabled={!isPro} value={hour * 24 * 90}>last 90 days (pro)</option> */}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
       <button
         type="submit"
         disabled={!user}
-        className={`inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150 ${user ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-300'}`}
+        className={`inline-flex items-center px-3 py-2 mt-4 border border-transparent text-sm leading-4 font-medium rounded-md text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150 ${
+          user ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-300'
+        }`}
       >
         {isLoading && (
           <>

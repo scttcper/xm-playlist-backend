@@ -11,11 +11,11 @@ const Tos = () => (
       <a className="text-blue-600" href="https://twitter.com/scttcper">
         @scttcper
       </a>{' '}
-      to automatically discover new songs being played on xm radio and organize those songs into
+      to discover new songs being featured on xm radio and organize them into
       spotify playlists.
     </p>
 
-    <p className="my-4">
+    <p className="mt-4">
       Contact us at{' '}
       <a className="text-blue-600" href="mailto:hello@xmplaylist.com">
         hello@xmplaylist.com

@@ -12,7 +12,7 @@ import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
 import { useStores } from 'services/useStores';
 import { channels, Channel } from 'frontend/channels';
-import {Adsense} from 'components/Adsense';
+import { Adsense } from 'components/Adsense';
 
 type Props = {
   query: any;
@@ -79,6 +79,11 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       searchParams.append('trackName', data.trackName);
     }
 
+    if (data.timeAgo) {
+      query.timeAgo = data.timeAgo;
+      searchParams.append('timeAgo', data.timeAgo);
+    }
+
     router.push({
       pathname: '/search',
       query,
@@ -115,45 +120,29 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       <Head>
         <title>Search - xmplaylist.com recently played on xm radio</title>
       </Head>
-      <div className="bg-blue-600">
-        <div className="max-w-screen-xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between flex-wrap">
-            <div className="w-0 flex-1 flex items-center">
-              <span className="flex p-2 rounded-lg bg-blue-800 text-white">
-                <FontAwesomeIcon icon="info-circle" size="lg" />
-              </span>
-              <p className="ml-3 font-medium text-white">
-                Search feature still under development
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
         <Adsense />
       </div>
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         {/* search */}
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
-          <div className="md:grid md:grid-cols-3 md:gap-6">
-            <div className="md:col-span-1">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">Search</h3>
-              <p className="mt-1 text-sm leading-5 text-gray-500">
-                Find songs by artist name, station, and date range.
-              </p>
-              <p className="mt-2 text-sm leading-5 text-gray-500">Text is case insensitive</p>
-            </div>
-            <div className="mt-5 md:mt-0 md:col-span-2">
-              <SearchForm
-                isLoading={isLoading}
-                trackName={query.trackName}
-                artistName={query.artistName}
-                station={query.station}
-                user={user}
-                onSubmit={search}
-              />
-            </div>
+          <div className="md:col-span-1">
+            <h3 className="text-lg font-medium leading-6 text-gray-900">Search</h3>
+            <p className="mt-1 text-sm leading-5 text-gray-500">
+              Find songs by artist name, station, and date range.
+            </p>
+          </div>
+
+          <div className="mt-5 md:mt-0 md:col-span-2">
+            <SearchForm
+              isLoading={isLoading}
+              trackName={query.trackName}
+              artistName={query.artistName}
+              station={query.station}
+              timeAgo={query.timeAgo}
+              user={user}
+              onSubmit={search}
+            />
           </div>
         </div>
 

@@ -173,21 +173,44 @@ export async function registerApiRoutes(server: HapiServer) {
           station: Joi.string()
             .optional()
             .valid(...channels.map(n => n.deeplink)),
+          timeAgo: Joi.number().optional(),
         }),
       },
     },
     handler: async req => {
+      let identity: firebaseAdmin.auth.DecodedIdToken;
       try {
-        const user = await isValidToken(req.headers.authorization);
-        // TODO: do something with user
+        identity = await isValidToken(req.headers.authorization);
       } catch {
         throw Boom.unauthorized();
+      }
+
+      const user = await db('user')
+        .select<{ id: string; isPro: boolean }>([
+          'user.id as id',
+          'user.isPro as isPro',
+        ])
+        .where('user.id', '=', identity.uid)
+        .limit(1)
+        .first();
+
+      const queryTimeAgo = Number(req.query.timeAgo as string);
+      let timeAgo = queryTimeAgo;
+      if (user.isPro) {
+        if (queryTimeAgo > 60 * 60 * 24 * 90) {
+          throw Boom.badRequest();
+        }
+      } else {
+        if (queryTimeAgo > 60 * 60 * 24) {
+          throw Boom.badRequest();
+        }
       }
 
       return search(
         req.query.trackName as string,
         req.query.artistName as string,
         req.query.station as string | undefined,
+        timeAgo,
       );
     },
   });
