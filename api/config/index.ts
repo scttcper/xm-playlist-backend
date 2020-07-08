@@ -21,6 +21,7 @@ let config = {
   location: '',
   googleCredentials: '',
   cert: {} as any,
+  stripeSecret: '',
 };
 
 const filename = `./config.${env}`;

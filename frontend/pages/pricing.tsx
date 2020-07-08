@@ -2,6 +2,7 @@ import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useObserver } from 'mobx-react';
+import { useRouter } from 'next/router';
 
 import { url } from '../url';
 import { useStores } from 'services/useStores';
@@ -20,6 +21,7 @@ function useUserData() {
 
 const Pricing = () => {
   const { user, isPro } = useUserData();
+  const router = useRouter();
 
   const handleManageClick = async () => {
     const token: string = (await user?.getIdToken()) || '';
@@ -35,6 +37,11 @@ const Pricing = () => {
   };
 
   const handleClick = async () => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
     const token: string = (await user?.getIdToken()) || '';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const response = await axios.get(`${url}/api/getpro/${user?.uid}`, {
@@ -115,9 +122,23 @@ const Pricing = () => {
                           />
                         </svg>
                       </div>
-                      <p className="ml-3 text-sm leading-5 text-gray-700">
-                        Support future site development
-                      </p>
+                      <p className="ml-3 text-sm leading-5 text-gray-700">Advanced search</p>
+                    </li>
+                    <li className="mt-5 flex items-start lg:col-span-1 lg:mt-0">
+                      <div className="flex-shrink-0">
+                        <svg
+                          className="h-5 w-5 text-green-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <p className="ml-3 text-sm leading-5 text-gray-700">Advanced search</p>
                     </li>
                     <li className="mt-5 flex items-start lg:col-span-1 lg:mt-0">
                       <div className="flex-shrink-0">
@@ -134,7 +155,7 @@ const Pricing = () => {
                         </svg>
                       </div>
                       <p className="ml-3 text-sm leading-5 text-gray-700">
-                        Advanced search features
+                        Support future site development
                       </p>
                     </li>
                   </ul>

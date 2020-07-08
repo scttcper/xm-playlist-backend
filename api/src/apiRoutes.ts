@@ -5,7 +5,8 @@ import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 import Stripe from 'stripe';
 
-import { channels, Channel } from '../../frontend/channels';
+import { channels, Channel } from 'frontend/channels';
+import config from '../config';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
 import { search } from './search';
@@ -13,7 +14,7 @@ import { admin } from './firebaseAdmin';
 import { db } from './db';
 
 const stripe = new Stripe(
-  'sk_test_51GwEejLqOb5vGLHDZVAKuB2DvS8iUCUXjND6VT06bgn4Nx3oV6cT3h3M0SEq8DQ0s5xERyNYeLFG1fngnrBWV0Jn00z5njy18Z',
+  config.stripeSecret,
   { apiVersion: '2020-03-02' },
 );
 const redirectUrl =
@@ -327,8 +328,25 @@ export async function registerApiRoutes(server: HapiServer) {
         throw Boom.unauthorized();
       }
 
+      let customer: Stripe.Customer;
+      if (!user.stripeCustomerId) {
+        customer = await stripe.customers.create({
+          email: user.email || '',
+          description: 'Created for /getpro',
+          metadata: {
+            id: user.id,
+          },
+        });
+        await db('user')
+          .update({
+            stripeCustomerId: customer.id,
+            updatedAt: db.fn.now(),
+          })
+          .where('user.id', '=', userId);
+      }
+
       const session = await stripe.checkout.sessions.create({
-        customer_email: user.email,
+        customer: user.stripeCustomerId || customer.id,
         payment_method_types: ['card'],
         line_items: [
           {
