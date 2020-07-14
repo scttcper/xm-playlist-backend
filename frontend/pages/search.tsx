@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-operators */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { NextComponentType, NextPageContext } from 'next';
 import Head from 'next/head';
@@ -6,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useObserver } from 'mobx-react';
 
@@ -97,7 +95,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     }
 
     if (data.trackName) {
-      query.station = data.trackName;
+      query.trackName = data.trackName;
       searchParams.append('trackName', data.trackName);
     }
 
@@ -159,7 +157,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       </div>
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
         {/* search */}
-        <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+        <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 grid gap-4 md:gap-6 md:grid-cols-3">
           <div className="md:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-gray-900">Search</h3>
             <p className="mt-1 text-sm leading-5 text-gray-500">
