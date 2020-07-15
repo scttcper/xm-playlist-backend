@@ -33,7 +33,7 @@ Sentry.init({
   integrations: [
     new Integrations.Tracing(),
   ],
-  tracesSampleRate: 0.3,
+  tracesSampleRate: 0.6,
 });
 
 config.autoAddCss = false;
