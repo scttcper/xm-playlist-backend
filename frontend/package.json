@@ -19,6 +19,8 @@
     "@fortawesome/react-fontawesome": "0.1.11",
     "@fullhuman/postcss-purgecss": "2.3.0",
     "@popperjs/core": "2.4.2",
+    "@sentry/apm": "5.19.2",
+    "@sentry/react": "5.19.2",
     "@tailwindcss/ui": "0.3.0",
     "autoprefixer": "9.8.4",
     "axios": "0.19.2",

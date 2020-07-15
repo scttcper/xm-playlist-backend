@@ -15,6 +15,8 @@ import {
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/apm';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
@@ -24,6 +26,15 @@ import 'mobx-react-lite/batchingForReactDom';
 
 import '../css/tailwind.css';
 import { useStores } from 'services/useStores';
+
+Sentry.init({
+  dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
+  // release: 'xmplaylist@' + process.env.npm_package_version,
+  integrations: [
+    new Integrations.Tracing(),
+  ],
+  tracesSampleRate: 0.3,
+});
 
 config.autoAddCss = false;
 library.add(
@@ -82,4 +93,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default MyApp;
+export default Sentry.withProfiler(MyApp);
