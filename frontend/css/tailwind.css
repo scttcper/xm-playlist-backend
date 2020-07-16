@@ -2,6 +2,19 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* purgecss start ignore */
+@import '@fortawesome/fontawesome-svg-core/styles';
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url("../../node_modules/inter-ui/Inter (web)/Inter-roman.var.woff2") format("woff2");
+}
+/* purgecss end ignore */
+
+
 body {
   background: rgb(229, 231, 235);
 }
