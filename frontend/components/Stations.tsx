@@ -72,8 +72,8 @@ export const Stations: React.FC = () => {
           {/* reset */}
           <div className="flex-grow-0">
             <button
-              type="submit"
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+              type="button"
+              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-3 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
             >
               <FontAwesomeIcon className="h-5 w-5" size="sm" icon="times" />
             </button>

@@ -76,7 +76,7 @@ const Pricing = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8 bg-white pb-16 sm:mt-12 sm:pb-20 lg:pb-28">
+      <div className="mt-8 bg-white pb-16 sm:mt-12 sm:pb-20 lg:pb-64">
         <div className="relative">
           <div className="absolute inset-0 h-1/2 bg-gray-100" />
           <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
