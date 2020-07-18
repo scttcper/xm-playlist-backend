@@ -7,22 +7,22 @@ export const Footer = () => (
       <nav className="-mx-5 -my-2 flex flex-wrap justify-center">
         <div className="px-5 py-2">
           <Link href="/about">
-            <a className="text-base leading-6 text-gray-500 hover:text-gray-900">About</a>
+            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">About</a>
           </Link>
         </div>
         <div className="px-5 py-2">
           <Link href="/pricing">
-            <a className="text-base leading-6 text-gray-500 hover:text-gray-900">Pricing</a>
+            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
           </Link>
         </div>
         <div className="px-5 py-2">
           <Link href="/tos">
-            <a className="text-base leading-6 text-gray-500 hover:text-gray-900">Terms</a>
+            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Terms</a>
           </Link>
         </div>
         <div className="px-5 py-2">
           <Link href="/privacy">
-            <a className="text-base leading-6 text-gray-500 hover:text-gray-900">Privacy</a>
+            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
           </Link>
         </div>
       </nav>
