@@ -351,7 +351,7 @@ export async function registerApiRoutes(server: HapiServer) {
         line_items: [
           {
             // Pro product live
-            price: 'price_1H6NA1LqOb5vGLHDvkofcgr6',
+            price: 'price_1GysXCLqOb5vGLHDGKpr2Gbd',
             quantity: 1,
           },
         ],
