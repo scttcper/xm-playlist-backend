@@ -27,12 +27,13 @@ import 'mobx-react-lite/batchingForReactDom';
 import '../css/tailwind.css';
 import { useStores } from 'services/useStores';
 
+const integrations = [
+  process.env.NODE_ENV === 'production' && new Integrations.Tracing(),
+].filter(a => a) as any[];
 Sentry.init({
   dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
   // release: 'xmplaylist@' + process.env.npm_package_version,
-  integrations: [
-    new Integrations.Tracing(),
-  ],
+  integrations,
   tracesSampleRate: 0.6,
 });
 

@@ -16,5 +16,6 @@
 
 
 body {
-  background: rgb(229, 231, 235);
+  background-color: #e5e7eb;
+  background-color: rgba(229, 231, 235, 1);
 }
