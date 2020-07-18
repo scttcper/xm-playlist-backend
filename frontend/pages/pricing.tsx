@@ -24,6 +24,12 @@ const Pricing = () => {
   const router = useRouter();
 
   const handleManageClick = async () => {
+    if (!user?.email?.startsWith('scttcper')) {
+      // eslint-disable-next-line no-alert
+      alert('Coming soon');
+      return;
+    }
+
     const token: string = (await user?.getIdToken()) || '';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const response = await axios.get(`${url}/api/manage/${user?.uid}`, {
@@ -42,9 +48,11 @@ const Pricing = () => {
       return;
     }
 
-
-    alert('Coming soon');
-    return;
+    if (!user.email?.startsWith('scttcper')) {
+      // eslint-disable-next-line no-alert
+      alert('Coming soon');
+      return;
+    }
 
     const token: string = (await user?.getIdToken()) || '';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
