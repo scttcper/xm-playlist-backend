@@ -5,7 +5,7 @@ import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 import Stripe from 'stripe';
 
-import { channels, Channel } from 'frontend/channels';
+import { channels, Channel } from '../../frontend/channels';
 import config from '../config';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
