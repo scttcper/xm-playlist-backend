@@ -57,10 +57,12 @@ export const Stations: React.FC = () => {
           {/* input */}
           <div className="flex-grow md:flex-initial md:w-4/12 lg:w-3/12 mr-1">
             <div className="relative rounded-md shadow-sm">
+              <label className="hidden" htmlFor="searchStation">Filter Station</label>
               <input
-                id="text"
+                id="searchStation"
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"
+                aria-label="Filter Stations"
                 onChange={handleKeyUp}
               />
             </div>
@@ -73,6 +75,7 @@ export const Stations: React.FC = () => {
           <div className="flex-grow-0">
             <button
               type="button"
+              aria-label="Clear"
               className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-3 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
             >
               <FontAwesomeIcon className="h-5 w-5" size="sm" icon="times" />
