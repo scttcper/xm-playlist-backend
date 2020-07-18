@@ -8,7 +8,7 @@ import { url } from '../url';
 import { useStores } from 'services/useStores';
 
 const stripePromise = loadStripe(
-  'pk_test_51GwEejLqOb5vGLHDjUG4ltmL318HNNmxFX7WDqBnJrVK8TKK5atnCyuIwzx6C1cmoKWwtEy3qkFVXmdvbJVf6xZd00fqlvohrk',
+  'pk_live_51GwEejLqOb5vGLHDBw5C6w6dd8pviwZgmHxcDjxeGxh1JtJ5pK2FYJYS2iqMc0cYY3hbYv7lCzlYTBRhl0QeXKDW00egMxvfML',
 );
 
 function useUserData() {
