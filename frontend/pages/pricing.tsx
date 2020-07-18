@@ -42,6 +42,10 @@ const Pricing = () => {
       return;
     }
 
+
+    alert('Coming soon');
+    return;
+
     const token: string = (await user?.getIdToken()) || '';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const response = await axios.get(`${url}/api/getpro/${user?.uid}`, {

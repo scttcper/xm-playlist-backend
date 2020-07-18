@@ -89,7 +89,7 @@ export const Stations: React.FC = () => {
               <a>
                 <div className="duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
                   <img
-                    src={`/static/img/${channel.deeplink}-lg.png`}
+                    src={`/static/img/${channel.deeplink}-sm.png`}
                     loading="lazy"
                     alt={`${channel.name} Logo`}
                     width={720}

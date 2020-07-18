@@ -422,7 +422,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9471',
-    deeplink: 'RockTheBellsRadio',
+    deeplink: 'RocktheBellsRadio',
     number: 43,
     name: 'Rock The Bells Radio',
     genre: Genre.hiphop,
@@ -486,11 +486,20 @@ export const channels: Channel[] = [
   {
     id: '8228',
     deeplink: 'TheGroove',
-    number: 50,
+    number: 294,
     name: 'The Groove',
     genre: Genre.rnb,
     desc: '\'70s/\'80s R&B',
     playlist: '0U3AEZcxXPCKYXimd8C3KE',
+  },
+  {
+    id: '9482',
+    deeplink: 'MichaelJacksonChannel',
+    number: 51,
+    name: 'Michael Jackson Channel',
+    genre: Genre.pop,
+    desc: 'All Michael Jackson, all day',
+    playlist: '24p00T9EitFA68q61UDZSy',
   },
   {
     id: 'thebeat',
@@ -742,13 +751,15 @@ export const channels: Channel[] = [
   //   genre: Genre.jazz,
   //   desc: 'Show Tunes',
   // },
-  // {
-  //   id: '8205',
-  //   number: 73,
-  //   name: '40s Junction',
-  //   genre: Genre.jazz,
-  //   desc: "'40s Pop Hits/Big Band",
-  // },
+  {
+    id: '8205',
+    deeplink: '40sJunction',
+    number: 73,
+    name: '40s Junction',
+    genre: Genre.jazz,
+    desc: '\'40s Pop Hits/Big Band',
+    playlist: '7y6xBTCANaOghQlCenEPwc',
+  },
   // {
   //   id: 'metropolitanopera',
   //   number: 74,
@@ -837,7 +848,7 @@ export const channels: Channel[] = [
   },
   {
     id: 'faction',
-    deeplink: 'FactionPunk',
+    deeplink: 'FACTIONPUNK',
     number: 314,
     name: 'Faction Punk',
     genre: Genre.rock,
@@ -1237,7 +1248,7 @@ export const channels: Channel[] = [
   },
   {
     id: '9469',
-    deeplink: 'KevinHartsLaughOutLoudRadio',
+    deeplink: 'KevinHartLaughOutLoud',
     number: 96,
     name: 'KevinHart Laugh Out Loud',
     genre: Genre.comedy,
