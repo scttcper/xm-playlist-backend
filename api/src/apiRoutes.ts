@@ -350,8 +350,8 @@ export async function registerApiRoutes(server: HapiServer) {
         payment_method_types: ['card'],
         line_items: [
           {
-            // Pro product
-            price: 'price_1GysXCLqOb5vGLHDGKpr2Gbd',
+            // Pro product live
+            price: 'price_1H6NA1LqOb5vGLHDvkofcgr6',
             quantity: 1,
           },
         ],
