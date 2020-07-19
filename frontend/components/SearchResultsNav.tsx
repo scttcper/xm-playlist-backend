@@ -1,16 +1,6 @@
 /* eslint-disable no-mixed-operators */
 import React from 'react';
 import { SearchResults } from 'pages/search';
-import { useObserver } from 'mobx-react';
-
-import { useStores } from 'services/useStores';
-
-function useIsPro() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    isPro: user.isPro,
-  }));
-}
 
 type Props = {
   searchResults: Partial<SearchResults>;
@@ -19,11 +9,10 @@ type Props = {
 };
 
 export const SearchResultsNav = ({ searchResults, nextPage, previousPage }: Props) => {
-  const { isPro } = useIsPro();
   const currentPage = searchResults.currentPage || 1;
-  const hasPrevious = isPro && currentPage > 1;
+  const hasPrevious = currentPage > 1;
   const totalPages = searchResults.pages || 1;
-  const hasNext = isPro && currentPage < totalPages;
+  const hasNext = currentPage < totalPages;
   const offsetStart = Math.min(
     currentPage * 100 - searchResults.results!.length + 1,
     (searchResults.totalItems || 0) - searchResults.results!.length + 1,

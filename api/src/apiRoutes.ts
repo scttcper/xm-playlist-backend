@@ -3,22 +3,13 @@ import laabr from 'laabr';
 import Joi from '@hapi/joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
-import Stripe from 'stripe';
 
 import { channels, Channel } from '../../frontend/channels';
-import config from '../config';
 import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
 import { getTrack } from './track';
 import { search } from './search';
 import { admin } from './firebaseAdmin';
 import { db } from './db';
-
-const stripe = new Stripe(
-  config.stripeSecret,
-  { apiVersion: '2020-03-02' },
-);
-const redirectUrl =
-  process.env.NODE_ENV === 'production' ? 'https://xmplaylist.com' : 'http://dev.com';
 
 function getChannel(id: string): Channel {
   const lowercaseId = id.toLowerCase();
@@ -188,9 +179,8 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const user = await db('user')
-        .select<{ id: string; isPro: boolean }>([
+        .select<{ id: string; }>([
           'user.id as id',
-          'user.isPro as isPro',
         ])
         .where('user.id', '=', identity.uid)
         .limit(1)
@@ -199,14 +189,9 @@ export async function registerApiRoutes(server: HapiServer) {
       const queryTimeAgo = Number(req.query.timeAgo as string);
       let timeAgo = queryTimeAgo;
       let currentPage = Number(req.query.currentPage as string);
-      if (user.isPro) {
-        if (queryTimeAgo > 60 * 60 * 24 * 90) {
-          throw Boom.badRequest();
-        }
-      } else {
-        if (queryTimeAgo > 60 * 60 * 24 || currentPage !== 1) {
-          throw Boom.badRequest();
-        }
+      const maxDays = 30;
+      if (queryTimeAgo > 60 * 60 * 24 * maxDays) {
+        throw Boom.badRequest();
       }
 
       return search(
@@ -243,10 +228,9 @@ export async function registerApiRoutes(server: HapiServer) {
       }
 
       const user = await db('user')
-        .select<{ id: string; isSubscribed: boolean; isPro: boolean }>([
+        .select<{ id: string; isSubscribed: boolean; }>([
           'user.id as id',
           'user.isSubscribed as isSubscribed',
-          'user.isPro as isPro',
         ])
         .where('user.id', '=', userId)
         .limit(1)
@@ -287,124 +271,6 @@ export async function registerApiRoutes(server: HapiServer) {
         })
         .where('user.id', '=', userId);
       return user;
-    },
-  });
-
-  server.route({
-    path: '/api/getpro/{userId}',
-    method: 'GET',
-    options: {
-      cors: { origin: 'ignore' },
-      validate: {
-        params: Joi.object({
-          userId: Joi.string().required(),
-        }),
-      },
-    },
-    handler: async req => {
-      const { userId } = req.params;
-      try {
-        const user = await isValidToken(req.headers.authorization);
-        console.log(userId, user.uid);
-        if (userId !== user.uid) {
-          throw Boom.unauthorized();
-        }
-      } catch {
-        throw Boom.unauthorized();
-      }
-
-      const user = await db('user')
-        .select<{ id: string; isPro: boolean; email: string; stripeCustomerId: string; }>([
-          'user.id as id',
-          'user.email as email',
-          'user.isPro as isPro',
-          'user.stripeCustomerId as stripeCustomerId',
-        ])
-        .where('user.id', '=', userId)
-        .limit(1)
-        .first();
-
-      if (!user) {
-        throw Boom.unauthorized();
-      }
-
-      let customer: Stripe.Customer;
-      if (!user.stripeCustomerId) {
-        customer = await stripe.customers.create({
-          email: user.email || '',
-          description: 'Created for /getpro',
-          metadata: {
-            id: user.id,
-          },
-        });
-        await db('user')
-          .update({
-            stripeCustomerId: customer.id,
-            updatedAt: db.fn.now(),
-          })
-          .where('user.id', '=', userId);
-      }
-
-      const session = await stripe.checkout.sessions.create({
-        customer: user.stripeCustomerId || customer.id,
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            // Pro product live
-            price: 'price_1H6NA1LqOb5vGLHDvkofcgr6',
-            quantity: 1,
-          },
-        ],
-        mode: 'subscription',
-        success_url: `${redirectUrl}/profile?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${redirectUrl}/pricing`,
-      });
-      return { session };
-    },
-  });
-
-  server.route({
-    path: '/api/manage/{userId}',
-    method: 'GET',
-    options: {
-      cors: { origin: 'ignore' },
-      validate: {
-        params: Joi.object({
-          userId: Joi.string().required(),
-        }),
-      },
-    },
-    handler: async req => {
-      const { userId } = req.params;
-      try {
-        const user = await isValidToken(req.headers.authorization);
-        console.log(userId, user.uid);
-        if (userId !== user.uid) {
-          throw Boom.unauthorized();
-        }
-      } catch {
-        throw Boom.unauthorized();
-      }
-
-      const user = await db('user')
-        .select<{ id: string; email: string; stripeCustomerId: string; }>([
-          'user.id as id',
-          'user.email as email',
-          'user.stripeCustomerId as stripeCustomerId',
-        ])
-        .where('user.id', '=', userId)
-        .limit(1)
-        .first();
-
-      if (!user) {
-        throw Boom.unauthorized();
-      }
-
-      const session = await stripe.billingPortal.sessions.create({
-        customer: user.stripeCustomerId,
-        return_url: `${redirectUrl}/profile`,
-      });
-      return { session };
     },
   });
 }

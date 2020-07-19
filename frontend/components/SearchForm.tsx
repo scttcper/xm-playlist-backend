@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useObserver } from 'mobx-react';
@@ -20,7 +20,6 @@ function useUserData() {
   const { user } = useStores();
   return useObserver(() => ({
     user: user.user,
-    isPro: user.isPro,
   }));
 }
 
@@ -41,7 +40,7 @@ export const SearchForm = ({
   const { register, handleSubmit, control } = useForm<Inputs>({
     defaultValues: { artistName, timeAgo: timeAgo || hour * 24, station: station || '', trackName },
   });
-  const { isPro, user } = useUserData();
+  const { user } = useUserData();
   const stationOptions = channels.map(channel => {
     return { value: `${channel.deeplink}`, label: `${channel.name}` };
   });
@@ -129,19 +128,19 @@ export const SearchForm = ({
               <option value={hour}>last hour</option>
               <option value={hour * 12}>last 12 hours</option>
               <option value={hour * 24}>last 24 hours</option>
-              <option disabled={!isPro} value={hour * 24 * 7}>
-                last 7 days (pro)
+              <option value={hour * 24 * 7}>
+                last 7 days
               </option>
-              <option disabled={!isPro} value={hour * 24 * 14}>
-                last 14 days (pro)
+              <option value={hour * 24 * 14}>
+                last 14 days
               </option>
-              <option disabled={!isPro} value={hour * 24 * 30}>
-                last 30 days (pro)
+              <option value={hour * 24 * 30}>
+                last 30 days
               </option>
-              <option disabled={!isPro} value={hour * 24 * 60}>
-                last 60 days (pro)
-              </option>
-              {/* <option disabled={!isPro} value={hour * 24 * 90}>last 90 days (pro)</option> */}
+              {/* <option value={hour * 24 * 60}>
+                last 60 days
+              </option> */}
+              {/* <option value={hour * 24 * 90}>last 90 days</option> */}
             </select>
           </div>
         </div>
@@ -150,7 +149,7 @@ export const SearchForm = ({
       <div className="sm:pt-5 text-right">
         <button
           type="submit"
-          disabled={!user}
+          disabled={!user || isLoading}
           className={`inline-flex items-center px-6 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150 ${
             user ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-300'
           }`}

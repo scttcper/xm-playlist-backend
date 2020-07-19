@@ -39,7 +39,6 @@
     "p-forever": "2.1.0",
     "pg": "8.3.0",
     "redis": "3.0.2",
-    "stripe": "8.73.0",
     "ts-node-dev": "1.0.0-pre.52",
     "ua-string": "3.1.0"
   },

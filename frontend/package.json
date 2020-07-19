@@ -19,7 +19,6 @@
     "@fortawesome/react-fontawesome": "0.1.11",
     "@fullhuman/postcss-purgecss": "2.3.0",
     "@popperjs/core": "2.4.4",
-    "@stripe/stripe-js": "1.8.0",
     "@tailwindcss/ui": "0.3.1",
     "@tailwindcss/typography": "0.2.0",
     "autoprefixer": "9.8.5",
