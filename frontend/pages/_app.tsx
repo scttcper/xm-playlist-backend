@@ -27,14 +27,13 @@ import 'mobx-react-lite/batchingForReactDom';
 import '../css/tailwind.css';
 import { useStores } from 'services/useStores';
 
-const integrations = [
-  process.env.NODE_ENV === 'production' && new Integrations.Tracing(),
-].filter(a => a) as any[];
 Sentry.init({
+  enabled: process.env.NODE_ENV === 'production',
   dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
-  // release: 'xmplaylist@' + process.env.npm_package_version,
-  integrations,
-  tracesSampleRate: 0.6,
+  integrations: [
+    new Integrations.Tracing(),
+  ],
+  tracesSampleRate: 0.7,
 });
 
 config.autoAddCss = false;
@@ -56,7 +55,9 @@ library.add(
 
 ReactGA.initialize('UA-84656736-2');
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+// not sure if err exists?
+// @ts-expect-error
+const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   const { user } = useStores();
   useEffect(() => {
     setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
@@ -84,7 +85,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <div className="flex flex-col font-sans">
         <NavBar />
         <div className="flex-grow">
-          <Component {...pageProps} />
+          <Component {...pageProps} err={err} />
         </div>
         <Footer />
       </div>
