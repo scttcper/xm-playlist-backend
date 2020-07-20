@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 0,
     '@typescript-eslint/no-floating-promises': 0,
     'react/no-unescaped-entities': 0,
+    '@typescript-eslint/no-unused-vars': 0,
     'react/jsx-tag-spacing': [
       'error',
       {

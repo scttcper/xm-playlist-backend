@@ -104,7 +104,7 @@ StationPage.getInitialProps = async context => {
   try {
     const res = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000 });
     return { recent: _.chunk(res.data, 12), channelId: id };
-  } catch {
+  } catch (error) {
     return { recent: [], channelId: id };
   }
 };

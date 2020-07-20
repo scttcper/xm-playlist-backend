@@ -66,7 +66,7 @@ Newest.getInitialProps = async context => {
     const res = await axios.get(`${url}/api/station/${id}/newest`, { timeout: 15 * 1000 });
     const json = res.data as StationNewest[];
     return { recent: _.chunk(json, 12), channelId: id };
-  } catch {
+  } catch (error) {
     return { recent: [], channelId: id };
   }
 };

@@ -133,7 +133,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       }
 
       setSearchResults(res.data);
-    } catch {
+    } catch (error) {
       // TODO: handle errors
     }
 
