@@ -50,6 +50,8 @@ export const Stations: React.FC = () => {
     results = currentChannels;
   }
 
+  console.log(results);
+
   return (
     <>
       <form onSubmit={resetAll}>

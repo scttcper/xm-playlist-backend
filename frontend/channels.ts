@@ -413,7 +413,7 @@ export const channels: Channel[] = [
     number: 743,
     name: 'The Prince Channel',
     genre: Genre.rock,
-    desc: 'Prince hits, classics, B-sides & live performances',
+    desc: 'Prince hits, classics, B-sides and live performances.',
     playlist: '2gzkxocsjXND6TRNGzd8XY',
   },
   {
@@ -426,7 +426,7 @@ export const channels: Channel[] = [
     playlist: '37VyPuE56xPJk93gJQH9A6',
   },
   {
-    id: '9403',
+    id: '9400',
     deeplink: 'TheQueenChannel',
     number: 35,
     name: 'The Queen Channel',
@@ -1123,13 +1123,6 @@ export const channels: Channel[] = [
   //   name: 'Krishna Das Yoga Radio',
   //   genre: Genre.jazz,
   //   desc: 'Chant/Sacred/Spiritual Music',
-  // },
-  // {
-  //   id: '9403',
-  //   number: 752,
-  //   name: 'SiriusXM Limited Edition 9',
-  //   genre: Genre.jazz,
-  //   desc: 'Home for limited-run channels',
   // },
   // {
   //   id: 'siriuspops',
