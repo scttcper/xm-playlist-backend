@@ -11,8 +11,8 @@ export const Footer = () => (
           </Link>
         </div>
         <div className="px-5 py-2">
-          <Link href="/pricing">
-            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
+          <Link href="/about">
+            <a className="text-base leading-6 text-gray-600 hover:text-gray-900">FAQ</a>
           </Link>
         </div>
         <div className="px-5 py-2">

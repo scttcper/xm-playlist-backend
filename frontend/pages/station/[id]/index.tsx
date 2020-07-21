@@ -60,7 +60,11 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
   return (
     <>
       <Head>
-        <title>{channel.name} Recently Played - sirius xm playlist</title>
+        <title>{channel.name} Recently Played - XM Playlist</title>
+        <meta
+          name="description"
+          content={`Recently played songs on ${channel.name}. ${channel.desc}`}
+        />
         <meta
           property="og:image"
           content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}

@@ -19,7 +19,16 @@ const About = () => (
       </p>
 
       <p>
-        Contact us at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a>
+        Contact us at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a> or on twitter <a href="https://twitter.com/scttcper">@scttcper</a>
+      </p>
+
+      <hr />
+
+      <h1 id="faq">FAQ</h1>
+      <h4>Why has a station stopped updating?</h4>
+      <p>
+        xmplaylist cannot track songs during live dj sets, talk shows, interviews, festivals, etc.
+        If it has been more than 3 days please email <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a>.
       </p>
     </div>
   </div>
