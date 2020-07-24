@@ -1,4 +1,4 @@
-import { formatDistanceStrict } from 'date-fns';
+import { formatDistanceStrict, format } from 'date-fns';
 import axios from 'axios';
 import _ from 'lodash';
 import Error from 'next/error';
@@ -22,11 +22,20 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   recent,
   channelId,
 }) => {
-  const secondaryText = (track: TrackResponse): string => {
-    const heard = formatDistanceStrict(new Date(track.track.created_at), new Date(), {
+  const secondaryText = (track: TrackResponse): React.ReactNode => {
+    const date = new Date(track.track.created_at);
+    const timeAgo = formatDistanceStrict(date, new Date(), {
       addSuffix: true,
     });
-    return `First Heard: ${heard}`;
+
+    return (
+      <span>
+        First Heard:{' '}
+        <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
+          {timeAgo}
+        </time>
+      </span>
+    );
   };
 
   const lowercaseId = channelId.toLowerCase();

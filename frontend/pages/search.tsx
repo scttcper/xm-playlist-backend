@@ -119,7 +119,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     const span = transaction.startChild({
       data: [...(searchParams as any)].reduce((o, i) => ({ ...o, [i[0]]: i[1] }), {}),
       op: 'task',
-      description: `processing shopping cart result`,
+      description: 'search query',
     });
     try {
       setIsLoading(true);

@@ -1,4 +1,4 @@
-import { formatDistanceStrict } from 'date-fns';
+import { formatDistanceStrict, format } from 'date-fns';
 import axios from 'axios';
 import _ from 'lodash';
 import { NextComponentType, NextPageContext } from 'next';
@@ -46,16 +46,14 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
     setRecent([...recent, ..._.chunk<any>(json, 12)]);
   }
 
-  function secondaryText(track: TrackResponse): string {
-    const timeAgo = formatDistanceStrict(
-      new Date((track as StationRecent).start_time),
-      new Date(),
-      {
-        addSuffix: true,
-      },
-    );
-    return timeAgo;
-  }
+  const secondaryText = (track: TrackResponse): React.ReactNode => {
+    const date = new Date((track as StationRecent).start_time);
+    const timeAgo = formatDistanceStrict(date, new Date(), {
+      addSuffix: true,
+    });
+
+    return <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>{timeAgo}</time>;
+  };
 
   return (
     <>

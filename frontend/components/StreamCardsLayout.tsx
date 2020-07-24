@@ -13,7 +13,7 @@ import { TrackLinks } from './TrackLinks';
 export const StreamCardsLayout: React.FC<{
   tracks: TrackResponse[][];
   channel: Channel;
-  secondaryText?: (track: TrackResponse) => string;
+  secondaryText: (track: TrackResponse) => React.ReactNode;
 }> = props => {
   const scrollPosition = useWindowScroll();
 
@@ -61,7 +61,7 @@ export const StreamCardsLayout: React.FC<{
                   <div className="flex-1 bg-white px-3 py-3 pl-4 flex flex-col justify-between">
                     <div className="flex-1">
                       <p className="text-sm leading-5 font-medium text-blue-500">
-                        {props?.secondaryText?.(play)}
+                        {props.secondaryText(play)}
                       </p>
 
                       <h3 className="mt-2 text-lg md:text-xl lg:text-lg xl:text-xl leading-5 md:leading-6 font-semibold text-gray-900">
