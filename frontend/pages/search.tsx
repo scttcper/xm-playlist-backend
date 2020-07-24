@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { useObserver } from 'mobx-react';
+import * as Sentry from '@sentry/browser';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
@@ -114,9 +115,16 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       query,
     });
 
+    const transaction = Sentry.startTransaction({ name: 'search' });
+    const span = transaction.startChild({
+      data: [...(searchParams as any)].reduce((o, i) => ({ ...o, [i[0]]: i[1] }), {}),
+      op: 'task',
+      description: `processing shopping cart result`,
+    });
     try {
       setIsLoading(true);
       const token: string = (await user?.getIdToken()) || '';
+
       const res = await axios.get<SearchResults>(`${url}/api/search?${searchParams.toString()}`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -137,6 +145,9 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       // TODO: handle errors
     }
 
+    span.finish();
+    transaction.finish();
+
     setIsLoading(false);
   };
 
@@ -144,7 +155,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     if (Object.keys(query).length) {
       search(query);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -229,7 +240,9 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             {!searchResults.results?.length && (
               <li>
                 <div className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                  <div className="flex items-center px-4 py-4 sm:px-6">{isLoading ? 'Loading...' : 'No Results'}</div>
+                  <div className="flex items-center px-4 py-4 sm:px-6">
+                    {isLoading ? 'Loading...' : 'No Results'}
+                  </div>
                 </div>
               </li>
             )}
@@ -291,7 +304,11 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
             })}
           </ul>
           {searchResults.results?.length !== 0 && (
-            <SearchResultsNav searchResults={searchResults} nextPage={handleNextPage} previousPage={handlePreviousPage} />
+            <SearchResultsNav
+              searchResults={searchResults}
+              nextPage={handleNextPage}
+              previousPage={handlePreviousPage}
+            />
           )}
         </div>
 

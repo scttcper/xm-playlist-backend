@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
@@ -26,9 +27,11 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
           <div className="flex-1">
             <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7">
               {channel.name}
-              <span className="ml-3 hidden md:inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
-                {channel.genre}
-              </span>
+              <Link href={`/station?genre=${channel.genre}`}>
+                <a className="ml-3 hidden md:inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
+                  {channel.genre}
+                </a>
+              </Link>
             </h2>
             <div className="flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
               <div className="md:mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mr-6">

@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { usePopper } from 'react-popper';
 import { useClickAway } from 'react-use';
+import ReactGA from 'react-ga';
 
 import { Genre, FriendlyGenre } from '../channels';
 
 interface GenrePickerProps {
-  pickGenre: (genre: Genre) => void;
+  pickGenre: (genre: Genre | null) => void;
   currentGenre: string | null;
 }
 
@@ -40,10 +41,15 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
     Genre.kids,
     Genre.christian,
   ];
-  const handlePickGenre = (event: React.MouseEvent<HTMLAnchorElement>, genre: Genre) => {
+  const handlePickGenre = (event: React.MouseEvent, genre: Genre | null) => {
     event.preventDefault();
     setIsOpen(false);
     pickGenre(genre);
+    ReactGA.event({
+      category: 'Action',
+      action: 'Filtered Genre',
+      label: genre || 'reset',
+    });
   };
 
   useClickAway(dropdownRef, () => {
@@ -81,15 +87,22 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
       >
         <div className="rounded-md bg-white">
           <div className="py-1">
+            <button
+              type="button"
+              className="block px-4 py-2 text-sm bg-white w-full text-left leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+              onClick={event => handlePickGenre(event, null)}
+            >
+              All
+            </button>
             {genres.map(genre => (
-              <a
+              <button
                 key={genre}
                 type="button"
-                className="block px-4 py-2 text-sm leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                className="block px-4 py-2 text-sm bg-white w-full text-left leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                 onClick={event => handlePickGenre(event, genre)}
               >
                 {FriendlyGenre[genre]}
-              </a>
+              </button>
             ))}
           </div>
         </div>

@@ -53,7 +53,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
   });
 }
 
-export async function getMostHeard(channel: Channel, limit = 50, days = 30): Promise<StationMostHeard[]> {
+export async function getMostHeard(channel: Channel, limit = 50, days = 30, greaterThan = 2): Promise<StationMostHeard[]> {
   const daysAgo = subDays(new Date(), days);
   const mostHeard = await db('scrobble')
     .select('scrobble.track_id')
@@ -61,7 +61,7 @@ export async function getMostHeard(channel: Channel, limit = 50, days = 30): Pro
     .where('channel', channel.deeplink)
     .andWhere('scrobble.startTime', '>', daysAgo)
     .groupBy('scrobble.track_id')
-    .havingRaw(db.raw('count(scrobble.track_id) > 2'))
+    .havingRaw(db.raw(`count(scrobble.track_id) > ${greaterThan}`))
     .orderBy('count', 'desc')
     .limit(limit) as Array<{ trackId: string, count: string }>;
   const mostHeardById = _.keyBy(mostHeard, _.property('trackId'));

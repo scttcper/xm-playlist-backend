@@ -16,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/apm';
+import { Integrations as ApmIntegrations } from '@sentry/apm';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
@@ -30,9 +30,7 @@ import { useStores } from 'services/useStores';
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
   dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
-  integrations: [
-    new Integrations.Tracing(),
-  ],
+  integrations: [new ApmIntegrations.Tracing({ tracingOrigins: ['xmplaylist.com'] })],
   tracesSampleRate: 0.7,
 });
 

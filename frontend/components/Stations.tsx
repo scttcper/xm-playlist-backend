@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactGA from 'react-ga';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
+import { useEffect } from 'react';
 
 const fuseConfig = {
   threshold: 0.3,
@@ -14,33 +17,89 @@ const fuseConfig = {
 const allResultsFuse = () => new Fuse(channels, fuseConfig);
 
 export const Stations: React.FC = () => {
+  const router = useRouter();
   const [currentChannels, setCurrentChannels] = useState(channels);
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
   const [fuse, setFuse] = useState(allResultsFuse());
-  const [currentQuery, setQuery] = useState('');
+  const [currentQuery, setQuery] = useState(router.query.q as string || '');
+  const formRef = React.useRef<any>();
 
-  const handleGenreChange = (genre: Genre): void => {
-    const filteredChannels = channels.filter(channel => channel.genre === genre);
-    setFuse(new Fuse(filteredChannels, fuseConfig));
+  useEffect(() => {
+    setQuery(router.query.q as string);
+    setCurrentGenre(router.query.genre as string);
+  }, [router]);
+
+  useEffect(() => {
+    const filteredChannels = currentGenre ? channels.filter(channel => channel.genre === currentGenre) : channels;
     setCurrentChannels(filteredChannels);
-    setCurrentGenre(genre);
+    setFuse(new Fuse(filteredChannels, fuseConfig));
+  }, [currentGenre]);
+
+  const getQueryParms = (query?: string, genre?: string | null) => {
+    const params: any = {
+      q: query || undefined,
+      genre: genre || undefined,
+    };
+
+    for (const propName of Object.keys(params)) {
+      if (params[propName] === null || params[propName] === undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete params[propName];
+      }
+    }
+
+    return params;
+  };
+
+  const handleGenreChange = (genre: Genre | null): void => {
+    router.replace({
+      pathname: '/station',
+      query: getQueryParms(currentQuery, genre),
+    });
   };
 
   const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const query = (event.target as HTMLInputElement).value;
-    if (query.trim()) {
-      setQuery(query);
-    } else {
-      setQuery('');
-    }
+    const query = (event.target as HTMLInputElement).value.trim();
+
+    router.replace({
+      pathname: '/station',
+      query: getQueryParms(query, currentGenre),
+    });
+
+    ReactGA.event({
+      category: 'Action',
+      action: 'Filter station name',
+      label: query,
+    });
   };
 
-  const resetAll = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    (event.target as HTMLFormElement).reset();
+  const resetAll = (): void => {
+    formRef.current.reset();
     setCurrentChannels(channels);
     setFuse(allResultsFuse());
     setCurrentGenre(null);
+    router.replace({
+      pathname: '/station',
+      query: {},
+    });
+    ReactGA.event({
+      category: 'Action',
+      action: 'Reset stations form',
+    });
+  };
+
+  const pickFirstEvent = (event: React.FormEvent): void => {
+    event.preventDefault();
+    if (results.length === 0) {
+      return;
+    }
+
+    router.push(`/station/${results[0].deeplink.toLowerCase()}`);
+
+    ReactGA.event({
+      category: 'Action',
+      action: 'Enter key station name',
+    });
   };
 
   let results: Channel[];
@@ -50,21 +109,21 @@ export const Stations: React.FC = () => {
     results = currentChannels;
   }
 
-  console.log(results);
-
   return (
     <>
-      <form onSubmit={resetAll}>
+      <form ref={formRef} onSubmit={pickFirstEvent}>
         <div className="justify-center md:justify-start flex mb-5">
           {/* input */}
           <div className="flex-grow md:flex-initial md:w-4/12 lg:w-3/12 mr-1">
             <div className="relative rounded-md shadow-sm">
               <label className="hidden" htmlFor="searchStation">Filter Station</label>
               <input
+                autoFocus
                 id="searchStation"
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"
                 aria-label="Filter Stations"
+                defaultValue={currentQuery}
                 onChange={handleKeyUp}
               />
             </div>
@@ -79,10 +138,12 @@ export const Stations: React.FC = () => {
               type="button"
               aria-label="Clear"
               className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-3 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+              onClick={resetAll}
             >
               <FontAwesomeIcon className="h-5 w-5" size="sm" icon="times" />
             </button>
           </div>
+          <button type="submit" className="hidden" />
         </div>
       </form>
 

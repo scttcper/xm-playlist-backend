@@ -1,6 +1,6 @@
 import { Server as HapiServer } from '@hapi/hapi';
 import laabr from 'laabr';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 
@@ -55,10 +55,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }),
+        }) as any,
         query: Joi.object({
           last: Joi.date().timestamp('javascript'),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -88,7 +88,7 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -112,10 +112,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }),
+        }) as any,
         query: Joi.object({
           subDays: Joi.number().optional().default(30).valid(7, 14, 30),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -140,7 +140,7 @@ export async function registerApiRoutes(server: HapiServer) {
         params: Joi.object({
           channelId: Joi.string().required(),
           trackId: Joi.string().required(),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -167,7 +167,7 @@ export async function registerApiRoutes(server: HapiServer) {
             .valid(...channels.map(n => n.deeplink)),
           timeAgo: Joi.number().positive().optional(),
           currentPage: Joi.number().default(1).positive().optional(),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -212,7 +212,7 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           userId: Joi.string().required(),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
@@ -247,10 +247,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           userId: Joi.string().required(),
-        }),
+        }) as any,
         payload: Joi.object({
           isSubscribed: Joi.boolean().required(),
-        }),
+        }) as any,
       },
     },
     handler: async req => {
