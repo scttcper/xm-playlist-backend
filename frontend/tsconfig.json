@@ -10,7 +10,10 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2019"],
+    "lib": [
+      "dom",
+      "es2019"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -25,5 +28,10 @@
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
