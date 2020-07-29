@@ -181,12 +181,18 @@ export const NavBar: React.FC = () => {
       <div className={`${mobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="pt-2 pb-4">
           <Link href="/station">
-            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Stations
             </a>
           </Link>
           <Link href="/search">
-            <a className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a
+              className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Search
             </a>
           </Link>

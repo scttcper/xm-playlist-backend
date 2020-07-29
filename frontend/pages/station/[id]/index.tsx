@@ -23,6 +23,19 @@ function getLastStartTime(recent: StationRecent[]): number {
   return new Date(last).getTime();
 }
 
+const secondaryText = (track: TrackResponse): React.ReactNode => {
+  const date = new Date((track as StationRecent).start_time);
+  const timeAgo = formatDistanceStrict(date, new Date(), {
+    addSuffix: true,
+  });
+
+  return (
+    <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
+      {timeAgo}
+    </time>
+  );
+};
+
 const StationPage: NextComponentType<NextPageContext, any, StationProps> = props => {
   const { channelId } = props;
   const lowercaseId = channelId.toLowerCase();
@@ -45,15 +58,6 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
     setLoading(false);
     setRecent([...recent, ..._.chunk<any>(json, 12)]);
   }
-
-  const secondaryText = (track: TrackResponse): React.ReactNode => {
-    const date = new Date((track as StationRecent).start_time);
-    const timeAgo = formatDistanceStrict(date, new Date(), {
-      addSuffix: true,
-    });
-
-    return <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>{timeAgo}</time>;
-  };
 
   return (
     <>

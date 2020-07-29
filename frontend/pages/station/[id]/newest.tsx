@@ -18,26 +18,26 @@ type Props = {
   channelId: string;
 };
 
+const secondaryText = (track: TrackResponse): React.ReactNode => {
+  const date = new Date(track.track.created_at);
+  const timeAgo = formatDistanceStrict(date, new Date(), {
+    addSuffix: true,
+  });
+
+  return (
+    <span>
+      First Heard:{' '}
+      <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
+        {timeAgo}
+      </time>
+    </span>
+  );
+};
+
 const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   recent,
   channelId,
 }) => {
-  const secondaryText = (track: TrackResponse): React.ReactNode => {
-    const date = new Date(track.track.created_at);
-    const timeAgo = formatDistanceStrict(date, new Date(), {
-      addSuffix: true,
-    });
-
-    return (
-      <span>
-        First Heard:{' '}
-        <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
-          {timeAgo}
-        </time>
-      </span>
-    );
-  };
-
   const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,

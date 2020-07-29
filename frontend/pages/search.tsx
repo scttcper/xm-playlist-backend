@@ -191,7 +191,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         {/* summary */}
         <div>
           <h3 className="text-lg leading-6 font-medium text-gray-600 mt-4">Summary</h3>
-          <div className="mt-2 grid grid-cols-1 sm:rounded-md bg-white overflow-hidden shadow md:grid-cols-3">
+          <div className="mt-2 grid grid-cols-1 rounded-md bg-white overflow-hidden shadow md:grid-cols-3">
             <div>
               <div className="px-4 py-5 sm:p-6">
                 <dl>
@@ -235,7 +235,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
 
         {/* results */}
         <h3 className="text-lg leading-6 font-medium text-gray-600 mt-4">Results</h3>
-        <div className="bg-white shadow overflow-hidden sm:rounded-md my-3">
+        <div className="bg-white shadow overflow-hidden rounded-md my-3">
           <ul>
             {!searchResults.results?.length && (
               <li>
@@ -247,15 +247,15 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               </li>
             )}
             {searchResults.results?.map(result => {
-              const dateStr = format(new Date(result.startTime), 'MM/dd/yyyy KK:mm aaa');
+              const dateStr = format(new Date(result.startTime), 'Pp');
               return (
-                <li key={result.scrobbleId}>
+                <li key={result.scrobbleId} className="border-b-2 border-gray-100">
                   <Link
                     href="/station/[id]/track/[trackid]"
                     as={`/station/${result.channel.toLowerCase()}/track/${result.id}`}
                   >
                     <a className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                      <div className="flex items-center px-4 py-4">
+                      <div className="flex items-center px-1 py-3 md:px-4 md:py-4">
                         <div className="min-w-0 flex-1 flex items-center">
                           <div className="flex-shrink-0">
                             <img
@@ -269,16 +269,24 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                               <div className="text-sm leading-5 font-medium text-blue-600 truncate">
                                 {result.name}
                               </div>
-                              <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                              <div className="mt-2 flex items-center text-sm leading-5 text-gray-900">
                                 <span className="truncate">{result.artists.join(', ')}</span>
                               </div>
                             </div>
                             <div className="hidden md:block">
                               <div>
                                 <div className="text-sm leading-5 text-gray-900">{dateStr}</div>
-                                <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                <div className="mt-2 flex items-center text-sm leading-5 text-gray-900">
                                   {friendlyChannelName(result.channel)?.name}
                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="md:hidden">
+                            <div>
+                              <div className="text-sm leading-5 text-gray-900">{dateStr}</div>
+                              <div className="mt-2 flex items-center text-sm leading-5 text-gray-900">
+                                {friendlyChannelName(result.channel)?.name}
                               </div>
                             </div>
                           </div>
