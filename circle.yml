@@ -12,9 +12,9 @@ jobs:
       - run:
           name: yarn-install
           command: yarn
-      # - run:
-      #     name: lint
-      #     command: npm run lint
+      - run:
+          name: lint
+          command: yarn build
       # - run:
       #     name: build
       #     command: npm run build
