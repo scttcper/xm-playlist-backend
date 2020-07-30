@@ -130,8 +130,8 @@ export async function registerApiRoutes(server: HapiServer) {
     options: {
       cache: {
         privacy: 'public',
-        // 10 min
-        expiresIn: 180000,
+        // 10 min * 2
+        expiresIn: 180000 * 2,
         statuses: [200],
         otherwise: 'no-cache',
       },
