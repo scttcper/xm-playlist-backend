@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { Channel } from '../../frontend/channels';
 import { db } from './db';
 import { StationRecent, StationNewest, StationMostHeard, TrackPlay } from 'frontend/responses';
-import { ScrobbleModel } from './models';
 
 export async function getNewest(channel: Channel, limit = 50): Promise<StationNewest[]> {
   const daysAgo = subDays(new Date(), 30);
@@ -53,7 +52,12 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
   });
 }
 
-export async function getMostHeard(channel: Channel, limit = 50, days = 30, greaterThan = 2): Promise<StationMostHeard[]> {
+export async function getMostHeard(
+  channel: Channel,
+  limit = 50,
+  days = 30,
+  greaterThan = 2,
+): Promise<StationMostHeard[]> {
   const daysAgo = subDays(new Date(), days);
   const mostHeard = await db('scrobble')
     .select('scrobble.track_id')
@@ -63,7 +67,7 @@ export async function getMostHeard(channel: Channel, limit = 50, days = 30, grea
     .groupBy('scrobble.track_id')
     .havingRaw(db.raw(`count(scrobble.track_id) > ${greaterThan}`))
     .orderBy('count', 'desc')
-    .limit(limit) as Array<{ trackId: string, count: string }>;
+    .limit(limit) as Array<{ trackId: string; count: string }>;
   const mostHeardById = _.keyBy(mostHeard, _.property('trackId'));
   const trackIds = Object.keys(mostHeardById);
   const newest = await db('track')
@@ -79,7 +83,7 @@ export async function getMostHeard(channel: Channel, limit = 50, days = 30, grea
     ])
     .whereIn('track.id', trackIds)
     .leftJoin('spotify', 'track.id', 'spotify.trackId')
-    .leftJoin('links', 'track.id', 'links.trackId')
+    .leftJoin('links', 'track.id', 'links.trackId');
 
   const result = newest.map(data => {
     const spotify: StationMostHeard['spotify'] = {
@@ -151,24 +155,24 @@ export async function getRecent(channel: Channel, last?: Date): Promise<StationR
 
 export async function getPlays(trackId: string, channel: Channel): Promise<TrackPlay[]> {
   const thirtyDaysAgo = subDays(new Date(), 30);
-  const raw = await db<ScrobbleModel>('scrobble')
-    .select()
+  const raw = await db('scrobble')
+    .select(db.raw("date_trunc('day', start_time) as day"))
+    .count<{ day: string; count: string }[]>()
     .from('scrobble')
     .where('trackId', trackId)
     .andWhere('channel', channel.deeplink)
-    .andWhere('startTime', '>', thirtyDaysAgo);
+    .andWhere('startTime', '>', thirtyDaysAgo)
+    .groupBy('day');
 
-  const result: Record<string, TrackPlay> = {};
-  _.range(0, 30).forEach(x => {
-    result[x.toString()] = {
-      x: differenceInDays(new Date(), subDays(new Date(), x)).toString() + ' days ago',
-      y: 0,
+  const result = raw.map(n => {
+    const daysAgo = differenceInDays(new Date(), new Date(n.day));
+    return {
+      x: daysAgo > 0 ? `${daysAgo} days ago` : 'today',
+      y: parseInt(n.count, 10),
     };
   });
-  for (const data of raw) {
-    const daysAgo = differenceInDays(new Date(), data.startTime).toString();
-    result[daysAgo].y += 1;
-  }
 
-  return Object.values(result).reverse();
+  return result;
+
+  // return Object.values(result).reverse();
 }
