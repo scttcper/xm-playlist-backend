@@ -61,8 +61,17 @@ export async function search(
   if (offset > Number(total.count)) {
     offset = Number(total.count) - (Number(total.count) % 100);
   }
-  const stationQuery = trackQuery.clone();
-  const uniqueTracks = trackQuery.clone();
+
+  // Don't count stations if filtered by station
+  const stationsTotalPromise = station
+    ? Promise.resolve({ count: '1' })
+    : trackQuery.clone().countDistinct('scrobble.channel').first<{ count: string }>();
+
+  const uniqueTracksPromise = trackQuery
+    .clone()
+    .countDistinct('track.id')
+    .first<{ count: string }>();
+
   trackQuery
     .select<SearchResult[]>([
       'track.id as id',
@@ -78,12 +87,13 @@ export async function search(
     ])
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
     .orderByRaw('scrobble.start_time DESC NULLS LAST')
-    .offset(offset);
+    .offset(offset)
+    .limit(100);
 
   const [stationsTotal, uniqueTracksTotal, results] = await Promise.all([
-    stationQuery.countDistinct('scrobble.channel').first<{ count: string }>(),
-    uniqueTracks.countDistinct('track.id').first<{ count: string }>(),
-    trackQuery.limit(100),
+    stationsTotalPromise,
+    uniqueTracksPromise,
+    trackQuery,
   ]);
 
   const totalItems = Number(total.count);
@@ -91,7 +101,7 @@ export async function search(
     stationsTotal: Number(stationsTotal.count),
     uniqueTracksTotal: Number(uniqueTracksTotal.count),
     totalItems,
-    currentPage: (offset / 100) + 1,
+    currentPage: offset / 100 + 1,
     pages: Math.ceil(totalItems / 100),
     results,
     query: {
