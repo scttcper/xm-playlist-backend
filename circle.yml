@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: yarn-install
           command: yarn
@@ -18,10 +18,10 @@ jobs:
           name: build
           command: yarn build
       - save_cache:
-        key: dependency-cache-{{ checksum "yarn.lock" }}
-        paths:
-          - ./node_modules
-          - ./frontend/.next/cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+            - ./frontend/.next/cache
       # - run:
       #     name: build
       #     command: npm run build
