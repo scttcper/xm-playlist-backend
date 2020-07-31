@@ -164,15 +164,22 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
     .andWhere('startTime', '>', thirtyDaysAgo)
     .groupBy('day');
 
-  const result = raw.map(n => {
-    const daysAgo = differenceInDays(new Date(), new Date(n.day));
-    return {
+  const result: Record<string, TrackPlay> = {};
+  _.range(30, -1, -1).forEach(daysAgo => {
+    result[daysAgo.toString()] = {
       x: daysAgo > 0 ? `${daysAgo} days ago` : 'today',
-      y: parseInt(n.count, 10),
+      y: 0,
     };
   });
+  console.log(result)
 
-  return result;
+  raw.forEach(n => {
+    const daysAgo = differenceInDays(new Date(), new Date(n.day)).toString();
+    console.log(daysAgo);
+    result[daysAgo].y = parseInt(n.count, 10);
+  });
+
+  return Object.values(result).reverse();
 
   // return Object.values(result).reverse();
 }
