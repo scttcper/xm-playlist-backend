@@ -9,12 +9,19 @@ jobs:
           POSTGRES_DB: xmtest
     steps:
       - checkout
+      - restore_cache:
+        key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: yarn-install
           command: yarn
       - run:
-          name: lint
+          name: build
           command: yarn build
+      - save_cache:
+        key: dependency-cache-{{ checksum "yarn.lock" }}
+        paths:
+          - ./node_modules
+          - ./frontend/.next/cache
       # - run:
       #     name: build
       #     command: npm run build
