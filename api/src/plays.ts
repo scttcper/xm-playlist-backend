@@ -171,11 +171,9 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
       y: 0,
     };
   });
-  console.log(result)
 
   raw.forEach(n => {
     const daysAgo = differenceInDays(new Date(), new Date(n.day)).toString();
-    console.log(daysAgo);
     result[daysAgo].y = parseInt(n.count, 10);
   });
 
