@@ -37,7 +37,7 @@ const renderTooltip = ({ datum }) => (
 
 const renderLabel = (d: any) => d;
 
-const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, trackData, error }) => {
+const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, trackData }) => {
   const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
@@ -249,7 +249,7 @@ TrackPage.getInitialProps = async ({ query }) => {
     });
     return { trackData: res.data, channelId };
   } catch (error) {
-    return { trackData: null, channelId, error };
+    return { trackData: null, channelId };
   }
 };
 
