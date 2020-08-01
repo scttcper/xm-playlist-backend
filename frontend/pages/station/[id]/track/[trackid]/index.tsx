@@ -13,7 +13,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { SizeMe } from 'react-sizeme';
-import { format, formatDistanceStrict } from 'date-fns';
+import { format, formatDistanceStrict, formatISO } from 'date-fns';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
@@ -222,9 +222,9 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               {trackData.recent.map(datetime => (
                 <li key={datetime}>
                   <p className="text-sm text-gray-500 p-2">
-                    <time>{format(new Date(datetime), 'PPp')}</time>
+                    <time dateTime={formatISO(new Date(datetime))}>{format(new Date(datetime), 'PPp')}</time>
                     {' - '}
-                    <time>{formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}</time>
+                    {formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}
                   </p>
                 </li>
               ))}
