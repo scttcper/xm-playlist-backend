@@ -20,6 +20,7 @@ export interface TrackPlay {
 
 export interface TrackChannelResponse extends TrackResponse {
   plays: TrackPlay[];
+  recent: string[];
 }
 
 export interface StationRecent extends TrackResponse {

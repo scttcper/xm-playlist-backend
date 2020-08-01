@@ -31,18 +31,33 @@ export interface SearchResults {
   };
 }
 
+/**
+ *
+ * @param trackName
+ * @param artistName
+ * @param station
+ * @param timeAgo in seconds
+ * @param trackId
+ * @param currentPage
+ * @param limit
+ */
 export async function search(
-  trackName: string,
-  artistName: string,
-  station: string,
-  timeAgo: number,
-  currentPage: number,
+  trackName?: string,
+  artistName?: string,
+  station?: string,
+  timeAgo?: number,
+  trackId?: string,
+  currentPage = 1,
+  limit = 100,
 ): Promise<SearchResults> {
-  const daysAgo = subSeconds(new Date(), timeAgo);
+  const daysAgo = subSeconds(new Date(), timeAgo || 0);
 
   const trackQuery = db('track')
-    .innerJoin('scrobble', 'track.id', 'scrobble.trackId')
-    .where('scrobble.startTime', '>', daysAgo);
+    .innerJoin('scrobble', 'track.id', 'scrobble.trackId');
+
+  if (timeAgo) {
+    trackQuery.where('scrobble.startTime', '>', daysAgo);
+  }
 
   if (trackName) {
     trackQuery.andWhere('track.name', 'ILIKE', `%%${trackName}%%`);
@@ -54,6 +69,10 @@ export async function search(
 
   if (station) {
     trackQuery.andWhere('scrobble.channel', '=', station);
+  }
+
+  if (trackId) {
+    trackQuery.andWhere('track.id', '=', trackId);
   }
 
   const total = await trackQuery.clone().count('*').first<{ count: string }>();
@@ -88,7 +107,7 @@ export async function search(
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
     .orderByRaw('scrobble.start_time DESC NULLS LAST')
     .offset(offset)
-    .limit(100);
+    .limit(limit);
 
   const [stationsTotal, uniqueTracksTotal, results] = await Promise.all([
     stationsTotalPromise,

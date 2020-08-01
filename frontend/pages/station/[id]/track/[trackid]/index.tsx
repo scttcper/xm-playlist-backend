@@ -6,13 +6,14 @@ import {
   WithTooltip,
   PatternLines,
 } from '@data-ui/sparkline';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { NextComponentType } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { SizeMe } from 'react-sizeme';
+import { format, formatDistanceStrict } from 'date-fns';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
@@ -24,6 +25,7 @@ import { url } from '../../../../../url';
 interface StationProps {
   channelId: string;
   trackData: TrackChannelResponse | null;
+  error?: AxiosError;
 }
 
 const renderTooltip = ({ datum }) => (
@@ -35,16 +37,16 @@ const renderTooltip = ({ datum }) => (
 
 const renderLabel = (d: any) => d;
 
-const TrackPage: NextComponentType<any, any, StationProps> = props => {
-  const lowercaseId = props.channelId.toLowerCase();
+const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, trackData, error }) => {
+  const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
-  if (!channel || !props.trackData) {
+
+  if (!channel || !trackData) {
     return <Error statusCode={404} />;
   }
 
-  const { trackData } = props;
   const albumCover = trackData.spotify.cover || '/static/missing.png';
   const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
   const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
@@ -151,6 +153,19 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               </div>
             </div>
           </div>
+          {trackData.spotify.spotify_id && (
+            <div className="mt-5 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+              <SpotifyIframe track={trackData} />
+            </div>
+          )}
+          {trackData.links.length > 0 && (
+            <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+              <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
+                Links
+              </h4>
+              <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
+            </div>
+          )}
           <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
             <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
               Times Played Per Day
@@ -199,19 +214,22 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
               )}
             </SizeMe>
           </div>
-          {trackData.spotify.spotify_id && (
-            <div className="mt-5 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
-              <SpotifyIframe track={trackData} />
-            </div>
-          )}
-          {trackData.links.length > 0 && (
-            <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
-              <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
-                Links
-              </h4>
-              <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
-            </div>
-          )}
+          <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
+            <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-2">
+              Recent Plays - {trackData.track.name} on {channel.name}
+            </h4>
+            <ul className="pb-2">
+              {trackData.recent.map(datetime => (
+                <li key={datetime}>
+                  <p className="text-sm text-gray-500 p-2">
+                    <time>{format(new Date(datetime), 'PPp')}</time>
+                    {' - '}
+                    <time>{formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}</time>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
@@ -221,15 +239,17 @@ const TrackPage: NextComponentType<any, any, StationProps> = props => {
   );
 };
 
-TrackPage.getInitialProps = async context => {
-  const trackId = context.query.trackid as string;
-  const channelId = context.query.id as string;
+TrackPage.getInitialProps = async ({ query }) => {
+  const trackId = query.trackid as string;
+  const channelId = query.id as string;
 
   try {
-    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, { timeout: 15 * 1000 });
+    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, {
+      timeout: 15 * 1000,
+    });
     return { trackData: res.data, channelId };
   } catch (error) {
-    return { trackData: null, channelId };
+    return { trackData: null, channelId, error };
   }
 };
 

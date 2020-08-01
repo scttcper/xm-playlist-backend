@@ -5,7 +5,7 @@ import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 
 import { channels, Channel } from '../../frontend/channels';
-import { getRecent, getNewest, getMostHeard, getPlays } from './plays';
+import { getRecent, getNewest, getMostHeard, getPlays, getTrackRecent } from './plays';
 import { getTrack } from './track';
 import { search } from './search';
 import { admin } from './firebaseAdmin';
@@ -145,11 +145,13 @@ export async function registerApiRoutes(server: HapiServer) {
     },
     handler: async req => {
       const channel = getChannel(req.params.channelId);
-      const [track, plays] = await Promise.all([
+      const [track, plays, recent] = await Promise.all([
         getTrack(req.params.trackId),
         getPlays(req.params.trackId, channel),
+        getTrackRecent(req.params.trackId, channel),
       ]);
-      return { ...track, plays };
+
+      return { ...track, plays, recent };
     },
   });
 
@@ -165,7 +167,7 @@ export async function registerApiRoutes(server: HapiServer) {
           station: Joi.string()
             .optional()
             .valid(...channels.map(n => n.deeplink)),
-          timeAgo: Joi.number().positive().optional(),
+          timeAgo: Joi.number().default(60 * 60 * 24).positive().optional(),
           currentPage: Joi.number().default(1).positive().optional(),
         }) as any,
       },
@@ -199,6 +201,7 @@ export async function registerApiRoutes(server: HapiServer) {
         req.query.artistName as string,
         req.query.station as string | undefined,
         timeAgo,
+        undefined,
         currentPage,
       );
     },

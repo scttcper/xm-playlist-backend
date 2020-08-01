@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Channel } from '../../frontend/channels';
 import { db } from './db';
-import { StationRecent, StationNewest, StationMostHeard, TrackPlay } from 'frontend/responses';
+import { StationRecent, StationNewest, StationMostHeard, TrackPlay, TrackRecent } from 'frontend/responses';
 
 export async function getNewest(channel: Channel, limit = 50): Promise<StationNewest[]> {
   const daysAgo = subDays(new Date(), 30);
@@ -178,6 +178,16 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
   });
 
   return Object.values(result).reverse();
+}
 
-  // return Object.values(result).reverse();
+export async function getTrackRecent(trackId: string, channel: Channel): Promise<string[]> {
+  const raw = await db('scrobble')
+    .select('startTime')
+    .from('scrobble')
+    .where('trackId', trackId)
+    .andWhere('channel', channel.deeplink)
+    .orderBy('scrobble.startTime', 'desc')
+    .limit(10);
+
+  return raw.map(n => n.startTime);
 }
