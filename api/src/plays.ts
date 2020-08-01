@@ -177,7 +177,7 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
     result[daysAgo].y = parseInt(n.count, 10);
   });
 
-  return Object.values(result).reverse();
+  return Object.values(result).reverse().slice(1);
 }
 
 export async function getTrackRecent(trackId: string, channel: Channel): Promise<string[]> {
