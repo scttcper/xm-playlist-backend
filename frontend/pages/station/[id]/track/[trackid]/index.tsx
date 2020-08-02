@@ -166,54 +166,63 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               <TrackLinksButtons links={trackData.links} id={trackData.track.id} />
             </div>
           )}
-          <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
-            <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
-              Times Played Per Day
-            </h4>
-            <SizeMe>
-              {({ size }) => (
-                <WithTooltip renderTooltip={renderTooltip}>
-                  {({ onMouseMove, onMouseLeave, tooltipData }) => (
-                    <Sparkline
-                      ariaLabel="A line graph of randomly-generated data"
-                      height={80}
-                      width={size.width}
-                      data={trackData.plays}
-                      margin={{ top: 10, right: 4, bottom: 4, left: 4 }}
-                      onMouseLeave={onMouseLeave}
-                      onMouseMove={onMouseMove}
-                    >
-                      <PatternLines
-                        id="area_pattern"
-                        height={4}
-                        width={4}
-                        stroke="#3f83f8"
-                        strokeWidth={2}
-                        orientation={['diagonal']}
-                      />
-                      <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
-                      <PointSeries points={['all']} stroke="#3f83f8" fill="#fff" size={3} />
-                      <PointSeries
-                        points={['last']}
-                        fill="#3f83f8"
-                        renderLabel={renderLabel}
-                        labelPosition="right"
-                      />
-                      {tooltipData && [
-                        <VerticalReferenceLine
-                          key="ref-line"
-                          strokeWidth={1}
-                          reference={tooltipData.index}
-                          strokeDasharray="4 4"
-                        />,
-                        <PointSeries key="ref-point" points={[tooltipData.index]} fill="#3f83f8" />,
-                      ]}
-                    </Sparkline>
+          {trackData.plays.some(play => play.y > 0) && (
+            <div className="mt-8 max-w-lg py-2 pb-0 mx-auto rounded-lg rounded-b-none shadow-lg">
+              <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
+                Times Played Per Day
+              </h4>
+              <div style={{ height: '80px' }}>
+                <SizeMe monitorWidth monitorHeight={false}>
+                  {({ size }) => (
+                    <WithTooltip renderTooltip={renderTooltip}>
+                      {({ onMouseMove, onMouseLeave, tooltipData }) => (
+                        <Sparkline
+                          ariaLabel="A line graph of randomly-generated data"
+                          height={80}
+                          width={size.width}
+                          min={0}
+                          data={trackData.plays}
+                          margin={{ top: 10, right: 0, bottom: 0, left: 0 }}
+                          onMouseLeave={onMouseLeave}
+                          onMouseMove={onMouseMove}
+                        >
+                          <PatternLines
+                            id="area_pattern"
+                            height={4}
+                            width={4}
+                            stroke="#C5D9FC"
+                            strokeWidth={2}
+                            orientation={['diagonal']}
+                          />
+                          <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
+                          <PointSeries points={['all']} stroke="#3f83f8" fill="#fff" size={3} />
+                          <PointSeries
+                            points={['last']}
+                            fill="#3f83f8"
+                            renderLabel={renderLabel}
+                            labelPosition="right"
+                          />
+                          {tooltipData && [
+                            <VerticalReferenceLine
+                              key="ref-line"
+                              strokeWidth={1}
+                              reference={tooltipData.index}
+                              strokeDasharray="4 4"
+                            />,
+                            <PointSeries
+                              key="ref-point"
+                              points={[tooltipData.index]}
+                              fill="#3f83f8"
+                            />,
+                          ]}
+                        </Sparkline>
+                      )}
+                    </WithTooltip>
                   )}
-                </WithTooltip>
-              )}
-            </SizeMe>
-          </div>
+                </SizeMe>
+              </div>
+            </div>
+          )}
           <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
             <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-2">
               Recent Plays - {trackData.track.name} on {channel.name}
@@ -222,7 +231,9 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               {trackData.recent.map(datetime => (
                 <li key={datetime}>
                   <p className="text-sm text-gray-500 p-2">
-                    <time dateTime={formatISO(new Date(datetime))}>{format(new Date(datetime), 'PPp')}</time>
+                    <time dateTime={formatISO(new Date(datetime))}>
+                      {format(new Date(datetime), 'PPp')}
+                    </time>
                     {' - '}
                     {formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}
                   </p>
