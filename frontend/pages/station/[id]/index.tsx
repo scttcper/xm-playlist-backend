@@ -62,10 +62,10 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
   return (
     <>
       <Head>
-        <title>{channel.name} Recently Played - XM Playlist</title>
+        <title>{channel.name} Recently Played and Playlist - XM Playlist</title>
         <meta
           name="description"
-          content={`Recently played songs on ${channel.name}. ${channel.desc}`}
+          content={`Recently played songs on ${channel.name}. ${channel.name} playlist. ${channel.desc}`}
         />
         <meta
           property="og:image"

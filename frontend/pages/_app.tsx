@@ -71,7 +71,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   return (
     <>
       <Head>
-        <title>xmplaylist - Recently played songs from xm radio</title>
+        <title>xmplaylist - Recently played songs and playlists from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
 
         <meta
