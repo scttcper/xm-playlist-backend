@@ -93,10 +93,10 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
           </>
         )}
       </Head>
-      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle">
         <Adsense />
       </div>
-      <div className="relative bg-white pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+      <div className="relative pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
         <div className="relative max-w-7xl mx-auto">
           <div className="lg:mt-4 max-w-lg mx-auto">
             <nav className="flex items-center text-sm leading-5 font-medium">
@@ -134,15 +134,15 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               </svg>
               <span className="text-gray-500 truncate">{trackData.track.name}</span>
             </nav>
-            <div className="mt-5 flex flex-col rounded-lg shadow-lg">
+            <div className="mt-3 flex flex-col rounded-lg border md:shadow-lg bg-white">
               <div className="flex-shrink-0">
                 <img className="w-full object-cover" src={albumCover} alt="Album Cover" />
               </div>
               <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg">
-                <h3 className="text-2xl md:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+                <h3 className="text-xl sm:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:leading-10">
                   {trackData.track.name}
                 </h3>
-                <ul className="mt-3 text-base md:max-w-2xl md:leading-7 text-gray-500 sm:mt-4">
+                <ul className="text-base md:max-w-2xl md:leading-7 text-gray-700 sm:mt-4">
                   {trackData.track.artists.map((artist, index) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <li key={index} className="inline pr-2">
@@ -154,12 +154,12 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
             </div>
           </div>
           {trackData.spotify.spotify_id && (
-            <div className="mt-5 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+            <div className="mt-3 max-w-lg mx-auto p-2 rounded-lg border md:shadow-lg bg-white">
               <SpotifyIframe track={trackData} />
             </div>
           )}
           {trackData.links.length > 0 && (
-            <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg shadow-lg">
+            <div className="mt-3 max-w-lg mx-auto p-3 rounded-lg border md:shadow-lg bg-white">
               <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
                 Links
               </h4>
@@ -167,7 +167,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
             </div>
           )}
           {trackData.plays.some(play => play.y > 0) && (
-            <div className="mt-8 max-w-lg py-2 pb-0 mx-auto rounded-lg rounded-b-none shadow-lg">
+            <div className="mt-3 max-w-lg py-2 pb-0 mx-auto rounded-lg rounded-b-none border md:shadow-lg bg-white">
               <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
                 Times Played Per Day
               </h4>
@@ -195,13 +195,6 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
                             orientation={['diagonal']}
                           />
                           <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
-                          <PointSeries points={['all']} stroke="#3f83f8" fill="#fff" size={3} />
-                          <PointSeries
-                            points={['last']}
-                            fill="#3f83f8"
-                            renderLabel={renderLabel}
-                            labelPosition="right"
-                          />
                           {tooltipData && [
                             <VerticalReferenceLine
                               key="ref-line"
@@ -223,7 +216,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               </div>
             </div>
           )}
-          <div className="mt-8 max-w-lg p-2 pb-0 mx-auto rounded-lg shadow-lg">
+          <div className="mt-3 max-w-lg p-2 md:p-3 pb-0 mx-auto rounded-lg border md:shadow-lg bg-white">
             <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-2">
               Recent Plays - {trackData.track.name} on {channel.name}
             </h4>
@@ -243,7 +236,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle bg-white">
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle">
         <Adsense />
       </div>
     </>
