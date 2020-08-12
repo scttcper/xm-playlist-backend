@@ -182,6 +182,20 @@ const ignorePaterns = [
   'The Carles Show',
   'Celebrate!*',
   '#StayAtHome',
+  '#FantasyFestival',
+  '*1st Responders*',
+  'Deep Tracks',
+  'Ian Anderson',
+  'Virtual Festival',
+  'AA-Ian Anderson',
+  'Dave Mason',
+  '90s Rock',
+  '#TheJacksons',
+  '#KingOfPop',
+  'Blues Foundation',
+  '#WavelengthRadio',
+  '**curated by**',
+  '#Tomorrowland',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {
