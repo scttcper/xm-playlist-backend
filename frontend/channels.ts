@@ -193,7 +193,7 @@ export const channels: Channel[] = [
   {
     id: '9450',
     deeplink: 'PopRocks',
-    number: 17,
+    number: 12,
     name: 'PopRocks',
     genre: Genre.pop,
     desc: 'Rock & Pop from the \'90s & 2Ks',
@@ -292,11 +292,20 @@ export const channels: Channel[] = [
   {
     id: 'thespectrum',
     deeplink: 'TheSpectrum',
-    number: 291,
+    number: 29,
     name: 'The Spectrum',
     genre: Genre.rock,
     desc: 'Where classic rock meets new rock.',
     playlist: '5wf2VnbUFSaOENW4NzL4Id',
+  },
+  {
+    id: '9139',
+    deeplink: 'PhishRadio',
+    number: 291,
+    name: 'Phish Radio',
+    genre: Genre.rock,
+    desc: 'The entire Phish multi-verse',
+    playlist: '7652U2Q9wCcwYOGbx7L2xz',
   },
   {
     id: 'jamon',
@@ -328,11 +337,20 @@ export const channels: Channel[] = [
   {
     id: 'thebridge',
     deeplink: 'TheBridge',
-    number: 32,
+    number: 17,
     name: 'The Bridge',
     genre: Genre.rock,
     desc: 'Mellow Rock',
     playlist: '0NHFhSjOzj6WqKC35hnq3e',
+  },
+  {
+    id: '9507',
+    deeplink: 'U2XRadio',
+    number: 32,
+    name: 'U2 X-Radio',
+    genre: Genre.rock,
+    desc: 'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
+    playlist: '5voYlQdL9FT6QWnlIfSxTx',
   },
   {
     id: 'firstwave',
