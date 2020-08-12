@@ -1354,13 +1354,13 @@ export const channels: Channel[] = [
     desc: 'The Funniest Female Comedians',
     playlist: '2nOk54j5r7lZjBXj5SVQTV',
   },
-  {
-    id: '9398',
-    deeplink: 'Top1000Countdowns',
-    number: 177,
-    name: 'Top 1000 Countdowns',
-    genre: Genre.pop,
-    desc: 'Top 1000 Countdowns',
-    playlist: '6GCnMjegMN32SzrgdE6jKY',
-  },
+  // {
+  //   id: '9398',
+  //   deeplink: 'Top1000Countdowns',
+  //   number: 177,
+  //   name: 'Top 1000 Countdowns',
+  //   genre: Genre.pop,
+  //   desc: 'Top 1000 Countdowns',
+  //   playlist: '6GCnMjegMN32SzrgdE6jKY',
+  // },
 ];
