@@ -55,10 +55,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }) as any,
+        }),
         query: Joi.object({
           last: Joi.date().timestamp('javascript'),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -88,7 +88,7 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -112,10 +112,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           id: Joi.string().required(),
-        }) as any,
+        }),
         query: Joi.object({
           subDays: Joi.number().optional().default(30).valid(7, 14, 30),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -140,7 +140,7 @@ export async function registerApiRoutes(server: HapiServer) {
         params: Joi.object({
           channelId: Joi.string().required(),
           trackId: Joi.string().required(),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -169,7 +169,7 @@ export async function registerApiRoutes(server: HapiServer) {
             .valid(...channels.map(n => n.deeplink)),
           timeAgo: Joi.number().default(60 * 60 * 24).positive().optional(),
           currentPage: Joi.number().default(1).positive().optional(),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -215,7 +215,7 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           userId: Joi.string().required(),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
@@ -250,10 +250,10 @@ export async function registerApiRoutes(server: HapiServer) {
       validate: {
         params: Joi.object({
           userId: Joi.string().required(),
-        }) as any,
+        }),
         payload: Joi.object({
           isSubscribed: Joi.boolean().required(),
-        }) as any,
+        }),
       },
     },
     handler: async req => {
