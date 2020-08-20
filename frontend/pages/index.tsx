@@ -5,7 +5,7 @@ import { Stations } from 'components/Stations';
 export const Home: React.FC = () => {
   return (
     <>
-      <div className="pt-6 pb-24 mx-auto px-4 sm:pt-12 sm:px-6 md:pt-10 bg-cool-gray-100">
+      <div className="pt-6 pb-24 mx-auto px-4 sm:pt-12 sm:px-6 md:pt-10 bg-gradient-to-b from-white to-gray-200">
         <div className="text-center">
           <h2 className="text-4xl font-sans text-cool-gray-700 sm:leading-none md:text-4xl">
             xmplaylist
@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
       </div>
       <main className="-mt-16">
         <div className="max-w-7xl mx-auto pb-12 px-1 md:px-4 sm:px-6 lg:px-8">
-          <div className="bg-white sm:rounded-lg shadow-2xl px-3 py-6 sm:px-6">
+          <div className="bg-white rounded-lg shadow-2xl px-3 py-6 sm:px-6">
             <Stations />
           </div>
         </div>

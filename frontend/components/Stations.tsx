@@ -118,7 +118,6 @@ export const Stations: React.FC = () => {
             <div className="relative rounded-md shadow-sm">
               <label className="hidden" htmlFor="searchStation">Filter Station</label>
               <input
-                autoFocus
                 id="searchStation"
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"
@@ -150,7 +149,7 @@ export const Stations: React.FC = () => {
       {/* channels */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 md:gap-4">
         {results.map(channel => (
-          <div key={channel.id} className="text-cool-gray-800 hover:text-blue-800">
+          <div key={channel.id} className="text-cool-gray-500 hover:text-blue-800">
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
                 <div className="duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">

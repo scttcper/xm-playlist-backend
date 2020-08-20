@@ -34,9 +34,9 @@ export const StreamCardsLayout: React.FC<{
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
             {chunk.map((play, index) => {
               const albumCover = play.spotify.cover || '/static/missing.png';
-              const spotify = play.spotify
-                ? `https://open.spotify.com/track/${play.spotify.spotify_id}`
-                : play.links.find(n => n.site === 'spotify')?.url;
+              const spotify = play.spotify ?
+                `https://open.spotify.com/track/${play.spotify.spotify_id}` :
+                play.links.find(n => n.site === 'spotify')?.url;
               let apple: undefined | string;
               if (play.links) {
                 apple = play.links.find(n => n.site === 'itunes')?.url;
