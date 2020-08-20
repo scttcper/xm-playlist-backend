@@ -29,6 +29,8 @@
     "date-fns": "2.15.0",
     "debug": "4.1.1",
     "delay": "4.4.0",
+    "fastify": "3.2.1",
+    "fastify-cors": "4.1.0",
     "firebase-admin": "9.1.0",
     "got": "11.5.2",
     "knex": "0.21.5",
