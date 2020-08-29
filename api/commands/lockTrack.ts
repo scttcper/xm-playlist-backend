@@ -7,6 +7,10 @@ import { Spotify } from '../src/models';
 import { getToken, parseSpotify } from '../src/spotify';
 import { findAndCacheLinks } from '../src/linkfinder';
 
+/**
+ * NODE_ENV=localprod ts-node api/commands/lockTrack.ts --track NDCA-000146182-001 --spotify 3U2EoofSSuc4ujb7smTqca --update
+ */
+
 const trackId = argv.track as string;
 let spotifyId = argv.spotify as string;
 if (spotifyId.includes('open.spotify.com')) {

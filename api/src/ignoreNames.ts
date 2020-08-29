@@ -239,6 +239,7 @@ const ignorePaterns = [
   '**Bakersfield Beat**',
   '**1pE**',
   '**9pE**',
+  '**3amET**',
   '**SMBOfficial**',
   '**Weekly Roundup**',
   '**Latidos**',
@@ -246,6 +247,8 @@ const ignorePaterns = [
   '**GoodVibes**',
   'Top Shelf',
   'SXM',
+  'Country',
+  'Pass The Mic',
 ];
 
 export function matchesGarbage(marker: Marker): boolean {
