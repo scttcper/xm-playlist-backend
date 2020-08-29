@@ -118,6 +118,7 @@ export const Stations: React.FC = () => {
             <div className="relative rounded-md shadow-sm">
               <label className="hidden" htmlFor="searchStation">Filter Station</label>
               <input
+                autoFocus
                 id="searchStation"
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"

@@ -232,7 +232,7 @@ export async function playlistTracks(code: string, playlistId: string) {
 }
 
 export async function updatePlaylists(code: string) {
-  for (const channel of channels) {
+  for (const channel of channels.filter(ch => ch.playlist)) {
     const mostHeard = await getMostHeard(channel, 10_000, 30, 1);
     // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     const trackIds = mostHeard
