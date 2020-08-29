@@ -31,7 +31,7 @@ async function isValidToken(token = ''): Promise<firebaseAdmin.auth.DecodedIdTok
 /**
  * this seems to be required for registering all the nextjs pages right now
  */
-export async function registerApiRoutes(server: FastifyInstance) {
+export function registerApiRoutes(server: FastifyInstance) {
   server.route<{ Querystring: { last: string }; Params: { id: string } }>({
     method: 'GET',
     url: '/api/station/:id',
