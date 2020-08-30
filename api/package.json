@@ -21,11 +21,13 @@
   "dependencies": {
     "@hapi/boom": "9.1.0",
     "@sentry/node": "5.22.3",
+    "@sentry/tracing": "5.22.3",
     "date-fns": "2.16.0",
     "debug": "4.1.1",
     "delay": "4.4.0",
     "fastify": "3.3.0",
     "fastify-cors": "4.1.0",
+    "fastify-express": "0.1.0",
     "fastify-plugin": "2.3.3",
     "firebase-admin": "9.1.1",
     "got": "11.5.2",
@@ -34,6 +36,7 @@
     "knex-stringcase": "1.4.2",
     "lodash": "4.17.20",
     "micromatch": "4.0.2",
+    "middie": "^5.1.0",
     "p-forever": "2.1.0",
     "pg": "8.3.3",
     "redis": "3.0.2",
@@ -69,7 +72,7 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">1%",
       "not dead",
       "not op_mini all"
     ],

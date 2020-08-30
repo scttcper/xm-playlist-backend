@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import Joi from 'joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
+import * as Sentry from '@sentry/node';
 
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays, getTrackRecent } from './plays';
@@ -32,6 +33,27 @@ async function isValidToken(token = ''): Promise<firebaseAdmin.auth.DecodedIdTok
  * this seems to be required for registering all the nextjs pages right now
  */
 export function registerApiRoutes(server: FastifyInstance) {
+  server.route<{ Params: { id: string } }>({
+    method: 'GET',
+    url: '/error',
+    handler: (req, reply) => {
+      const transaction = Sentry.startTransaction({
+        op: 'test',
+        name: 'My First Test Transaction',
+      });
+
+      setTimeout(() => {
+        try {
+          reply.send('hello');
+        } catch (e) {
+          Sentry.captureException(e);
+        } finally {
+          transaction.finish();
+        }
+      }, 1000);
+    },
+  });
+
   server.route<{ Querystring: { last: string }; Params: { id: string } }>({
     method: 'GET',
     url: '/api/station/:id',
@@ -157,12 +179,16 @@ export function registerApiRoutes(server: FastifyInstance) {
       return (data: any) => schema.validate(data);
     },
     handler: async req => {
-      let identity: firebaseAdmin.auth.DecodedIdToken;
       try {
-        identity = await isValidToken(req.headers.authorization);
+        await isValidToken(req.headers.authorization);
       } catch {
         throw Boom.unauthorized();
       }
+
+      const transaction = Sentry.startTransaction({
+        op: 'search',
+        name: 'Search',
+      });
 
       const queryTimeAgo = Number(req.query.timeAgo);
       let timeAgo = queryTimeAgo;
@@ -172,14 +198,21 @@ export function registerApiRoutes(server: FastifyInstance) {
         throw Boom.badRequest();
       }
 
-      return search(
-        req.query.trackName as string,
-        req.query.artistName as string,
-        req.query.station as string | undefined,
-        timeAgo,
-        undefined,
-        currentPage,
-      );
+      try {
+        const results = await search(
+          req.query.trackName as string,
+          req.query.artistName as string,
+          req.query.station as string | undefined,
+          timeAgo,
+          undefined,
+          currentPage,
+        );
+        return results;
+      } catch (err) {
+        throw err;
+      } finally {
+        transaction.finish();
+      }
     },
   });
 
