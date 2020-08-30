@@ -53,7 +53,8 @@ export function registerApiRoutes(server: FastifyInstance) {
         return getRecent(channel, new Date(query.last));
       }
 
-      reply.header('Cache-Control', 'max-age=30, must-revalidate, private');
+      // 3 min
+      reply.header('Cache-Control', 'max-age=180, public');
       return getRecent(channel);
     },
   });
@@ -69,8 +70,11 @@ export function registerApiRoutes(server: FastifyInstance) {
     validatorCompiler: ({ schema }: any) => {
       return (data: any) => schema.validate(data);
     },
-    handler: async req => {
+    handler: async (req, reply) => {
       const channel = getChannel(req.params.id);
+
+      // 10 min
+      reply.header('Cache-Control', 'max-age=600, public');
       return getNewest(channel);
     },
   });
@@ -89,8 +93,11 @@ export function registerApiRoutes(server: FastifyInstance) {
     validatorCompiler: ({ schema }: any) => {
       return (data: any) => schema.validate(data);
     },
-    handler: async req => {
+    handler: async (req, reply) => {
       const channel = getChannel(req.params.id);
+
+      // 10 min
+      reply.header('Cache-Control', 'max-age=600, public');
       return getMostHeard(channel, undefined, Number(req.query.subDays));
     },
   });
@@ -107,7 +114,7 @@ export function registerApiRoutes(server: FastifyInstance) {
     validatorCompiler: ({ schema }: any) => {
       return (data: any) => schema.validate(data);
     },
-    handler: async req => {
+    handler: async (req, reply) => {
       const channel = getChannel(req.params.channelId);
       const [track, plays, recent] = await Promise.all([
         getTrack(req.params.trackId),
@@ -115,6 +122,8 @@ export function registerApiRoutes(server: FastifyInstance) {
         getTrackRecent(req.params.trackId, channel),
       ]);
 
+      // 10 min
+      reply.header('Cache-Control', 'max-age=600, public');
       return { ...track, plays, recent };
     },
   });

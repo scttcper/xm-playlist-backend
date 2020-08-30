@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering, @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/member-ordering */
 import firebase from 'firebase/app';
 import { User as FirebaseUser } from 'firebase';
 import { observable, action, runInAction } from 'mobx';
