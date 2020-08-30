@@ -15,6 +15,9 @@ const port = parseInt(process.env.PORT, 10) || 5000;
     logger: true,
   });
 
+  await server.register(fastifyCors);
+  await server.register(fastifyExpress);
+
   Sentry.init({
     dsn: config.dsn,
     integrations: [
@@ -23,9 +26,6 @@ const port = parseInt(process.env.PORT, 10) || 5000;
     ],
     tracesSampleRate: 1.0,
   });
-
-  await server.register(fastifyCors);
-  await server.register(fastifyExpress);
 
   server.use(Sentry.Handlers.requestHandler());
   server.use(Sentry.Handlers.errorHandler());

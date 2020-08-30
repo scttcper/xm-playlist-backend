@@ -26,6 +26,9 @@ function getChannel(id: string): Channel {
 async function isValidToken(token = ''): Promise<firebaseAdmin.auth.DecodedIdToken> {
   const jwt = token.slice(7);
   const user = await admin.auth().verifyIdToken(jwt);
+  Sentry.configureScope(scope => {
+    scope.setUser({ id: user.uid, email: user.email });
+  });
   return user;
 }
 
@@ -152,9 +155,9 @@ export function registerApiRoutes(server: FastifyInstance) {
 
   server.route<{
     Querystring: {
-      trackName: string;
-      artistName: string;
-      station: string;
+      trackName: string | undefined;
+      artistName: string | undefined;
+      station: string | undefined;
       timeAgo: number;
       currentPage: number;
     };
@@ -200,9 +203,9 @@ export function registerApiRoutes(server: FastifyInstance) {
 
       try {
         const results = await search(
-          req.query.trackName as string,
-          req.query.artistName as string,
-          req.query.station as string | undefined,
+          req.query.trackName,
+          req.query.artistName,
+          req.query.station,
           timeAgo,
           undefined,
           currentPage,
