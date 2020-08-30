@@ -16,7 +16,11 @@ const fuseConfig = {
 
 const allResultsFuse = () => new Fuse(channels, fuseConfig);
 
-export const Stations: React.FC = () => {
+type Props = {
+  autoFocus: boolean;
+}
+
+export const Stations = ({autoFocus}: Props) => {
   const router = useRouter();
   const [currentChannels, setCurrentChannels] = useState(channels);
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
@@ -118,7 +122,7 @@ export const Stations: React.FC = () => {
             <div className="relative rounded-md shadow-sm">
               <label className="hidden" htmlFor="searchStation">Filter Station</label>
               <input
-                autoFocus
+                autoFocus={autoFocus}
                 id="searchStation"
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"

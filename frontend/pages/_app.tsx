@@ -21,8 +21,6 @@ import { Integrations as ApmIntegrations } from '@sentry/apm';
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
 import { app } from 'services/firebase';
-// enable mobx batching
-import 'mobx-react-lite/batchingForReactDom';
 
 import '../css/tailwind.css';
 import { useStores } from 'services/useStores';
@@ -31,7 +29,7 @@ Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
   dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
   integrations: [new ApmIntegrations.Tracing({ tracingOrigins: ['xmplaylist.com'] })],
-  tracesSampleRate: 0.7,
+  tracesSampleRate: 0.5,
 });
 
 config.autoAddCss = false;

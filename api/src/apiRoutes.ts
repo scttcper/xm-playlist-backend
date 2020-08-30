@@ -36,244 +36,210 @@ export function registerApiRoutes(server: FastifyInstance) {
     method: 'GET',
     url: '/api/station/:id',
     schema: {
-      querystring: {
-        last: { type: 'string' },
-      },
-      params: {
-        id: { type: 'string' },
-      },
+      querystring: Joi.object({
+        last: Joi.date().timestamp('javascript'),
+      }),
+      params: Joi.object({
+        id: Joi.string().required(),
+      }),
     },
-    // options: {
-    //   cache: {
-    //     privacy: 'public',
-    //     // 3 min
-    //     expiresIn: 180000,
-    //     statuses: [200],
-    //     otherwise: 'no-cache',
-    //   },
-    //   cors: { origin: 'ignore' },
-    //   validate: {
-    //     params: Joi.object({
-    //       id: Joi.string().required(),
-    //     }),
-    //     query: Joi.object({
-    //       last: Joi.date().timestamp('javascript'),
-    //     }),
-    //   },
-    // },
-    handler: async (req, reply) => {
-      const channel = getChannel(req.params.id);
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async ({ query, params }, reply) => {
+      const channel = getChannel(params.id);
 
-      const { query } = req;
       if (query.last) {
-        return getRecent(channel, new Date(query.last as string));
+        return getRecent(channel, new Date(query.last));
       }
 
+      reply.header('Cache-Control', 'max-age=30, must-revalidate, private');
       return getRecent(channel);
     },
   });
 
-  // server.route({
-  //   path: '/api/station/{id}/newest',
-  //   method: 'GET',
-  //   options: {
-  //     cache: {
-  //       privacy: 'public',
-  //       // 10 min
-  //       expiresIn: 600000,
-  //       statuses: [200],
-  //       otherwise: 'no-cache',
-  //     },
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       params: Joi.object({
-  //         id: Joi.string().required(),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     const channel = getChannel(req.params.id);
-  //     return getNewest(channel);
-  //   },
-  // });
+  server.route<{ Params: { id: string } }>({
+    method: 'GET',
+    url: '/api/station/:id/newest',
+    schema: {
+      params: Joi.object({
+        id: Joi.string().required(),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.id);
+      return getNewest(channel);
+    },
+  });
 
-  // server.route({
-  //   path: '/api/station/{id}/most-heard',
-  //   method: 'GET',
-  //   options: {
-  //     cache: {
-  //       privacy: 'public',
-  //       // 10 min
-  //       expiresIn: 600000,
-  //       statuses: [200],
-  //       otherwise: 'no-cache',
-  //     },
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       params: Joi.object({
-  //         id: Joi.string().required(),
-  //       }),
-  //       query: Joi.object({
-  //         subDays: Joi.number().optional().default(30).valid(7, 14, 30),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     const channel = getChannel(req.params.id);
-  //     return getMostHeard(channel, undefined, Number(req.query.subDays));
-  //   },
-  // });
+  server.route<{ Params: { id: string }; Querystring: { subDays: string } }>({
+    method: 'GET',
+    url: '/api/station/:id/most-heard',
+    schema: {
+      params: Joi.object({
+        id: Joi.string().required(),
+      }),
+      querystring: Joi.object({
+        subDays: Joi.number().optional().default(30).valid(7, 14, 30),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.id);
+      return getMostHeard(channel, undefined, Number(req.query.subDays));
+    },
+  });
 
-  // server.route({
-  //   path: '/api/station/{channelId}/track/{trackId}',
-  //   method: 'GET',
-  //   options: {
-  //     cache: {
-  //       privacy: 'public',
-  //       // 10 min * 2
-  //       expiresIn: 600000,
-  //       statuses: [200],
-  //       otherwise: 'no-cache',
-  //     },
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       params: Joi.object({
-  //         channelId: Joi.string().required(),
-  //         trackId: Joi.string().required(),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     const channel = getChannel(req.params.channelId);
-  //     const [track, plays, recent] = await Promise.all([
-  //       getTrack(req.params.trackId),
-  //       getPlays(req.params.trackId, channel),
-  //       getTrackRecent(req.params.trackId, channel),
-  //     ]);
+  server.route<{ Params: { channelId: string; trackId: string } }>({
+    method: 'GET',
+    url: '/api/station/:channelId/track/:trackId',
+    schema: {
+      params: Joi.object({
+        channelId: Joi.string().required(),
+        trackId: Joi.string().required(),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      const channel = getChannel(req.params.channelId);
+      const [track, plays, recent] = await Promise.all([
+        getTrack(req.params.trackId),
+        getPlays(req.params.trackId, channel),
+        getTrackRecent(req.params.trackId, channel),
+      ]);
 
-  //     return { ...track, plays, recent };
-  //   },
-  // });
+      return { ...track, plays, recent };
+    },
+  });
 
-  // server.route({
-  //   path: '/api/search',
-  //   method: 'GET',
-  //   options: {
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       query: Joi.object({
-  //         trackName: Joi.string().min(2).max(30).optional(),
-  //         artistName: Joi.string().min(2).max(30).optional(),
-  //         station: Joi.string()
-  //           .optional()
-  //           .valid(...channels.map(n => n.deeplink)),
-  //         timeAgo: Joi.number().default(60 * 60 * 24).positive().optional(),
-  //         currentPage: Joi.number().default(1).positive().optional(),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     let identity: firebaseAdmin.auth.DecodedIdToken;
-  //     try {
-  //       identity = await isValidToken(req.headers.authorization);
-  //     } catch {
-  //       throw Boom.unauthorized();
-  //     }
+  server.route<{
+    Querystring: {
+      trackName: string;
+      artistName: string;
+      station: string;
+      timeAgo: number;
+      currentPage: number;
+    };
+  }>({
+    method: 'GET',
+    url: '/api/search',
+    schema: {
+      querystring: Joi.object({
+        trackName: Joi.string().min(2).max(30).optional(),
+        artistName: Joi.string().min(2).max(30).optional(),
+        station: Joi.string()
+          .optional()
+          .valid(...channels.map(n => n.deeplink)),
+        timeAgo: Joi.number()
+          .default(60 * 60 * 24)
+          .positive()
+          .optional(),
+        currentPage: Joi.number().default(1).positive().optional(),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      let identity: firebaseAdmin.auth.DecodedIdToken;
+      try {
+        identity = await isValidToken(req.headers.authorization);
+      } catch {
+        throw Boom.unauthorized();
+      }
 
-  //     const user = await db('user')
-  //       .select<{ id: string; }>([
-  //         'user.id as id',
-  //       ])
-  //       .where('user.id', '=', identity.uid)
-  //       .limit(1)
-  //       .first();
+      const queryTimeAgo = Number(req.query.timeAgo);
+      let timeAgo = queryTimeAgo;
+      let currentPage = Number(req.query.currentPage);
+      const maxDays = 30;
+      if (queryTimeAgo > 60 * 60 * 24 * maxDays) {
+        throw Boom.badRequest();
+      }
 
-  //     const queryTimeAgo = Number(req.query.timeAgo as string);
-  //     let timeAgo = queryTimeAgo;
-  //     let currentPage = Number(req.query.currentPage as string);
-  //     const maxDays = 30;
-  //     if (queryTimeAgo > 60 * 60 * 24 * maxDays) {
-  //       throw Boom.badRequest();
-  //     }
+      return search(
+        req.query.trackName as string,
+        req.query.artistName as string,
+        req.query.station as string | undefined,
+        timeAgo,
+        undefined,
+        currentPage,
+      );
+    },
+  });
 
-  //     return search(
-  //       req.query.trackName as string,
-  //       req.query.artistName as string,
-  //       req.query.station as string | undefined,
-  //       timeAgo,
-  //       undefined,
-  //       currentPage,
-  //     );
-  //   },
-  // });
+  server.route<{ Params: { userId: string } }>({
+    method: 'GET',
+    url: '/api/user/:userId',
+    schema: {
+      params: Joi.object({
+        userId: Joi.string().required(),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      const { userId } = req.params;
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
+      }
 
-  // server.route({
-  //   path: '/api/user/{userId}',
-  //   method: 'GET',
-  //   options: {
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       params: Joi.object({
-  //         userId: Joi.string().required(),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     const { userId } = req.params;
-  //     try {
-  //       const user = await isValidToken(req.headers.authorization);
-  //       console.log(userId, user.uid);
-  //       if (userId !== user.uid) {
-  //         throw Boom.unauthorized();
-  //       }
-  //     } catch {
-  //       throw Boom.unauthorized();
-  //     }
+      const user = await db('user')
+        .select<{ id: string; isSubscribed: boolean }>([
+          'user.id as id',
+          'user.isSubscribed as isSubscribed',
+        ])
+        .where('user.id', '=', userId)
+        .limit(1)
+        .first();
+      return user;
+    },
+  });
 
-  //     const user = await db('user')
-  //       .select<{ id: string; isSubscribed: boolean; }>([
-  //         'user.id as id',
-  //         'user.isSubscribed as isSubscribed',
-  //       ])
-  //       .where('user.id', '=', userId)
-  //       .limit(1)
-  //       .first();
-  //     return user;
-  //   },
-  // });
+  server.route<{ Params: { userId: string }; Body: { isSubscribed: boolean } }>({
+    method: 'POST',
+    url: '/api/user/:userId',
+    schema: {
+      params: Joi.object({
+        userId: Joi.string().required(),
+      }),
+      body: Joi.object({
+        isSubscribed: Joi.boolean().required(),
+      }),
+    },
+    validatorCompiler: ({ schema }: any) => {
+      return (data: any) => schema.validate(data);
+    },
+    handler: async req => {
+      const { userId } = req.params;
+      try {
+        const user = await isValidToken(req.headers.authorization);
+        if (userId !== user.uid) {
+          throw Boom.unauthorized();
+        }
+      } catch {
+        throw Boom.unauthorized();
+      }
 
-  // server.route({
-  //   path: '/api/user/{userId}',
-  //   method: 'POST',
-  //   options: {
-  //     cors: { origin: 'ignore' },
-  //     validate: {
-  //       params: Joi.object({
-  //         userId: Joi.string().required(),
-  //       }),
-  //       payload: Joi.object({
-  //         isSubscribed: Joi.boolean().required(),
-  //       }),
-  //     },
-  //   },
-  //   handler: async req => {
-  //     const { userId } = req.params;
-  //     try {
-  //       const user = await isValidToken(req.headers.authorization);
-  //       if (userId !== user.uid) {
-  //         throw Boom.unauthorized();
-  //       }
-  //     } catch {
-  //       throw Boom.unauthorized();
-  //     }
-
-  //     const user = await db('user')
-  //       .update({
-  //         isSubscribed: (req.payload as any).isSubscribed,
-  //         updatedAt: db.fn.now(),
-  //       })
-  //       .where('user.id', '=', userId);
-  //     return user;
-  //   },
-  // });
+      const user = await db('user')
+        .update({
+          isSubscribed: req.body.isSubscribed,
+          updatedAt: db.fn.now(),
+        })
+        .where('user.id', '=', userId);
+      return user;
+    },
+  });
 }

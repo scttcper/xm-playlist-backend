@@ -16,10 +16,6 @@ import { channels, Channel } from 'frontend/channels';
 import { Adsense } from 'components/Adsense';
 import { SearchResultsNav } from 'components/SearchResultsNav';
 
-type Props = {
-  query: any;
-};
-
 export interface SearchResult {
   id: string;
   scrobbleId: string;
@@ -58,6 +54,10 @@ function useUserData() {
     user: user.user,
   }));
 }
+
+type Props = {
+  query: any;
+};
 
 const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => {
   const router = useRouter();
