@@ -23,7 +23,7 @@ const port = parseInt(process.env.PORT, 10) || 5000;
   Sentry.init({
     dsn: config.dsn,
     integrations: [new Sentry.Integrations.Http({ tracing: true })],
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 0.6,
   });
 
   server.use(Sentry.Handlers.requestHandler());
