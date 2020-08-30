@@ -22,9 +22,7 @@ const port = parseInt(process.env.PORT, 10) || 5000;
 
   Sentry.init({
     dsn: config.dsn,
-    integrations: [
-      new Sentry.Integrations.Http({ tracing: true }),
-    ],
+    integrations: [new Sentry.Integrations.Http({ tracing: true })],
     tracesSampleRate: 1.0,
   });
 
@@ -32,9 +30,10 @@ const port = parseInt(process.env.PORT, 10) || 5000;
   server.use(Sentry.Handlers.errorHandler());
 
   function onRequest(req, res, done) {
+    const path = req.context?.config?.url ?? url.format(req.raw.url);
     res._transaction = Sentry.startTransaction({
-      op: req?.config?.url ?? url.format(req.raw.url),
-      name: `${req.raw.method} ${req?.config?.url ?? url.format(req.raw.url)}`,
+      op: path,
+      name: `${req.context?.config?.method ?? req.raw.method} ${path}`,
     });
     done();
   }
