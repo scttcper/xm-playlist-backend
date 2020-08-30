@@ -1,3 +1,5 @@
+import url from 'url';
+
 import fastify from 'fastify';
 import fastifyCors from 'fastify-cors';
 import * as Sentry from '@sentry/node';
@@ -22,13 +24,28 @@ const port = parseInt(process.env.PORT, 10) || 5000;
     dsn: config.dsn,
     integrations: [
       new Sentry.Integrations.Http({ tracing: true }),
-      new Tracing.Integrations.Express({ app: server })
     ],
     tracesSampleRate: 1.0,
   });
 
   server.use(Sentry.Handlers.requestHandler());
   server.use(Sentry.Handlers.errorHandler());
+
+  function onRequest(req, res, done) {
+    res._transaction = Sentry.startTransaction({
+      op: req.config.url || url.format(req.raw.url),
+      name: `${req.raw.method} ${req.config.url || url.format(req.raw.url)}`,
+    });
+    done();
+  }
+
+  function onResponse(req, res, done) {
+    res._transaction.finish();
+    done();
+  }
+
+  server.addHook('onRequest', onRequest);
+  server.addHook('onResponse', onResponse);
 
   server.setErrorHandler((error, request, reply) => {
     if (Boom.isBoom(error)) {

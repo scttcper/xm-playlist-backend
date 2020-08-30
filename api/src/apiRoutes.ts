@@ -166,8 +166,8 @@ export function registerApiRoutes(server: FastifyInstance) {
     url: '/api/search',
     schema: {
       querystring: Joi.object({
-        trackName: Joi.string().min(2).max(30).optional(),
-        artistName: Joi.string().min(2).max(30).optional(),
+        trackName: Joi.string().min(2).max(60).optional(),
+        artistName: Joi.string().min(2).max(60).optional(),
         station: Joi.string()
           .optional()
           .valid(...channels.map(n => n.deeplink)),
