@@ -33,8 +33,8 @@ const port = parseInt(process.env.PORT, 10) || 5000;
 
   function onRequest(req, res, done) {
     res._transaction = Sentry.startTransaction({
-      op: req.config.url || url.format(req.raw.url),
-      name: `${req.raw.method} ${req.config.url || url.format(req.raw.url)}`,
+      op: req?.config?.url ?? url.format(req.raw.url),
+      name: `${req.raw.method} ${req?.config?.url ?? url.format(req.raw.url)}`,
     });
     done();
   }
