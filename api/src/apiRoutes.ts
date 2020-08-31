@@ -36,27 +36,6 @@ async function isValidToken(token = ''): Promise<firebaseAdmin.auth.DecodedIdTok
  * this seems to be required for registering all the nextjs pages right now
  */
 export function registerApiRoutes(server: FastifyInstance) {
-  server.route<{ Params: { id: string } }>({
-    method: 'GET',
-    url: '/error',
-    handler: (req, reply) => {
-      const transaction = Sentry.startTransaction({
-        op: 'test',
-        name: 'My First Test Transaction',
-      });
-
-      setTimeout(() => {
-        try {
-          reply.send('hello');
-        } catch (e) {
-          Sentry.captureException(e);
-        } finally {
-          transaction.finish();
-        }
-      }, 1000);
-    },
-  });
-
   server.route<{ Querystring: { last: string }; Params: { id: string } }>({
     method: 'GET',
     url: '/api/station/:id',
