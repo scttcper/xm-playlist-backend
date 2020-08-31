@@ -10,6 +10,12 @@ import fastifyExpress from 'fastify-express';
 import config from '../config';
 import { registerApiRoutes } from './apiRoutes';
 
+Sentry.init({
+  dsn: config.dsn,
+  integrations: [new Sentry.Integrations.Http({ tracing: true })],
+  tracesSampleRate: 1,
+});
+
 const port = parseInt(process.env.PORT, 10) || 5000;
 
 (async function () {
@@ -20,29 +26,23 @@ const port = parseInt(process.env.PORT, 10) || 5000;
   await server.register(fastifyCors);
   await server.register(fastifyExpress);
 
-  Sentry.init({
-    dsn: config.dsn,
-    integrations: [new Sentry.Integrations.Http({ tracing: true })],
-    tracesSampleRate: 0.6,
-  });
-
   server.use(Sentry.Handlers.requestHandler());
   server.use(Sentry.Handlers.errorHandler());
 
   function onRequest(req, res, done) {
     const path = req.context?.config?.url ?? url.format(req.raw.url);
-    res._transaction = Sentry.startTransaction({
+    req.context._transaction = Sentry.startTransaction({
       op: path,
       name: `${req.context?.config?.method ?? req.raw.method} ${path}`,
     });
     Sentry.configureScope(scope => {
-      scope.setUser({ ip_address: req.ips?.[0] ?? req.ip })
+      scope.setUser({ ip_address: req.headers?.['X-Real-Ip'] ?? req.ips?.[0] ?? req.ip })
     });
     done();
   }
 
   function onResponse(req, res, done) {
-    res._transaction.finish();
+    req.context._transaction?.finish();
     done();
   }
 
