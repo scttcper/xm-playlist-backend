@@ -36,7 +36,7 @@ const port = parseInt(process.env.PORT, 10) || 5000;
       name: `${req.context?.config?.method ?? req.raw.method} ${path}`,
     });
     Sentry.configureScope(scope => {
-      scope.setUser({ ip_address: req.ip })
+      scope.setUser({ ip_address: req.ips?.[0] ?? req.ip })
     });
     done();
   }
