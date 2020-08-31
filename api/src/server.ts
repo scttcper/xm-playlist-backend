@@ -13,7 +13,7 @@ import { registerApiRoutes } from './apiRoutes';
 Sentry.init({
   dsn: config.dsn,
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
-  tracesSampleRate: 1,
+  tracesSampleRate: 0.6,
 });
 
 const port = parseInt(process.env.PORT, 10) || 5000;
