@@ -6,15 +6,14 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { useObserver } from 'mobx-react';
 import * as Sentry from '@sentry/browser';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
-import { useStores } from 'services/useStores';
 import { channels, Channel } from 'frontend/channels';
 import { Adsense } from 'components/Adsense';
 import { SearchResultsNav } from 'components/SearchResultsNav';
+import { useUser } from 'services/user';
 
 export interface SearchResult {
   id: string;
@@ -48,13 +47,6 @@ export interface SearchResults {
 const friendlyChannelName = (deeplink: string): Channel | undefined =>
   channels.find(channel => channel.deeplink === deeplink);
 
-function useUserData() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    user: user.user,
-  }));
-}
-
 type Props = {
   query: any;
 };
@@ -63,7 +55,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   const router = useRouter();
   const [searchResults, setSearchResults] = useState<Partial<SearchResults>>({ results: [] });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { user } = useUserData();
+  const { user } = useUser();
 
   const handleNextPage = () => {
     const data = { ...(searchResults.query as SearchResults['query']) };

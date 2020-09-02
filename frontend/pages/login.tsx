@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useStores } from 'services/useStores';
+import { useUser } from 'services/user';
 import { useRouter } from 'next/router';
 
 import { ThirdPartyLogin } from 'components/ThirdPartyLogin';
 
 const Login = () => {
   const [username, setUsername] = useState('');
-  const { user } = useStores();
+  const { signInWithLink } = useUser();
   const router = useRouter();
   const [error, setError] = useState('');
 
@@ -17,7 +17,7 @@ const Login = () => {
   const handleLoginWithLink = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await user.signInWithLink(username);
+      await signInWithLink(username);
       router.push('/linkAwait');
     } catch (error) {
       handleError(error);

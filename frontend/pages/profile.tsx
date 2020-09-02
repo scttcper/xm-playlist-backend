@@ -1,25 +1,12 @@
 import React from 'react';
-import { useObserver } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
-import { useStores } from 'services/useStores';
+import { useUser } from 'services/user';
 import { SubscribeToggle } from 'components/SubscribeToggle';
 
-function useUserData() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    user: user.user,
-    email: user.user?.email,
-    logout: user.logout,
-    loggedIn: user.loggedIn,
-    setIsSubscribed: user.setIsSubscribed,
-    isSubscribed: user.isSubscribed,
-  }));
-}
-
 const Profile = () => {
-  const { email, logout, loggedIn, setIsSubscribed, isSubscribed } = useUserData();
+  const { user, logout, loggedIn, setSubscription, isSubscribed } = useUser();
   const router = useRouter();
 
   if (loggedIn === false) {
@@ -43,25 +30,13 @@ const Profile = () => {
             <div className="sm:grid sm:grid-cols-3 sm:gap-4">
               <dt className="text-sm leading-5 font-medium text-gray-500">Email address</dt>
               <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                {email}
+                {user?.email}
               </dd>
             </div>
-            {/* <div className="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500">Created At</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                {metadata && format(new Date(metadata?.creationTime as string), 'PPpp')}
-              </dd>
-            </div>
-            <div className="mt-8 sm:grid sm:mt-5 sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500">Last Login</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                {metadata && format(new Date(metadata?.lastSignInTime as string), 'PPpp')}
-              </dd>
-            </div> */}
           </dl>
         </div>
       </div>
-      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setIsSubscribed} />
+      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setSubscription} />
       <div className="my-2">
         <button
           type="button"

@@ -17,13 +17,14 @@ import {
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/react';
 import { Integrations as ApmIntegrations } from '@sentry/apm';
+import { RecoilRoot } from 'recoil';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
 import { app } from 'services/firebase';
+import { useUser } from 'services/user';
 
 import '../css/tailwind.css';
-import { useStores } from 'services/useStores';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
@@ -51,23 +52,27 @@ library.add(
 
 ReactGA.initialize('UA-84656736-2');
 
-// not sure if err exists?
-// @ts-expect-error
-const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
-  const { user } = useStores();
-  useEffect(() => {
-    setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
-  });
-
+const User: React.FC<any> = ({ children }) => {
+  const { setUser } = useUser();
   useEffect(() => {
     app.auth().onAuthStateChanged(firebaseUser => {
-      user.setUser(firebaseUser);
+      setUser(firebaseUser);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  return children;
+};
+
+// not sure if err exists?
+// @ts-expect-error
+const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
+  useEffect(() => {
+    setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
+  });
+
   return (
-    <>
+    <RecoilRoot>
       <Head>
         <title>xmplaylist - Recently played songs and playlists from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
@@ -78,14 +83,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
         />
         <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
       </Head>
-      <div className="flex flex-col font-sans">
-        <NavBar />
-        <div className="flex-grow">
-          <Component {...pageProps} err={err} />
+      <User>
+        <div className="flex flex-col font-sans">
+          <NavBar />
+          <div className="flex-grow">
+            <Component {...pageProps} err={err} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </>
+      </User>
+    </RecoilRoot>
   );
 };
 

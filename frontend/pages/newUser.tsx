@@ -1,21 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { useObserver } from 'mobx-react';
 
-import { useStores } from 'services/useStores';
+import { useUser } from 'services/user';
 import { SubscribeToggle } from 'components/SubscribeToggle';
 
-function useUserData() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    loggedIn: user.loggedIn,
-    setIsSubscribed: user.setIsSubscribed,
-    isSubscribed: user.isSubscribed,
-  }));
-}
-
 const NewUser = () => {
-  const { setIsSubscribed, isSubscribed } = useUserData();
+  const { setSubscription, isSubscribed } = useUser();
   return (
     <main className="max-w-lg mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 mt-10">
       <h3
@@ -24,7 +14,7 @@ const NewUser = () => {
       >
         Welcome!
       </h3>
-      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setIsSubscribed} />
+      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setSubscription} />
 
       <div className="mt-3 text-right">
         <span className="inline-flex rounded-md shadow-sm">

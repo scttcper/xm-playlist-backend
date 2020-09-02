@@ -1,12 +1,11 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useObserver } from 'mobx-react';
 import Select from 'react-select';
 
-import { useStores } from 'services/useStores';
 import { channels } from 'frontend/channels';
 import Link from 'next/link';
+import { useUser } from 'services/user';
 
 export type Inputs = {
   artistName: string;
@@ -15,13 +14,6 @@ export type Inputs = {
   timeAgo: number;
   currentPage?: number;
 };
-
-function useUserData() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    user: user.user,
-  }));
-}
 
 type Props = Inputs & {
   onSubmit: (data: Inputs) => Promise<void>;
@@ -40,7 +32,7 @@ export const SearchForm = ({
   const { register, handleSubmit, control } = useForm<Inputs>({
     defaultValues: { artistName, timeAgo: timeAgo || hour * 24, station: station || '', trackName },
   });
-  const { user } = useUserData();
+  const { user } = useUser();
   const stationOptions = channels.map(channel => {
     return { value: `${channel.deeplink}`, label: `${channel.name}` };
   });

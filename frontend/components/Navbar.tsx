@@ -3,24 +3,16 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useClickAway } from 'react-use';
-import { useObserver } from 'mobx-react';
+import { useRecoilState } from 'recoil';
 
-import { useStores } from 'services/useStores';
-
-function useUserData() {
-  const { user } = useStores();
-  return useObserver(() => ({
-    user: user.user,
-    logout: user.logout,
-  }));
-}
+import { userAtom as userStore, useUser } from 'services/user';
 
 export const NavBar: React.FC = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { user, logout } = useUserData();
+  const { logout, user } = useUser();
 
   useClickAway(dropdownRef, () => {
     if (profileOpen) {
