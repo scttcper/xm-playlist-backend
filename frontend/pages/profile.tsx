@@ -6,10 +6,10 @@ import { useUser } from 'services/user';
 import { SubscribeToggle } from 'components/SubscribeToggle';
 
 const Profile = () => {
-  const { user, logout, loggedIn, setSubscription, isSubscribed } = useUser();
+  const { user, logout, setSubscription, isSubscribed } = useUser();
   const router = useRouter();
 
-  if (loggedIn === false) {
+  if (user === null) {
     router.push('/login');
   }
 
