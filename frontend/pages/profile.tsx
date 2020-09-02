@@ -9,7 +9,7 @@ const Profile = () => {
   const { user, logout, setSubscription, isSubscribed } = useUser();
   const router = useRouter();
 
-  if (user === null) {
+  if (typeof window !== 'undefined' && user === null) {
     router.push('/login');
   }
 
