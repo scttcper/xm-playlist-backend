@@ -96,8 +96,8 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
   );
 };
 
-StationPage.getInitialProps = async context => {
-  const id = context.query?.id as string;
+StationPage.getInitialProps = async ({ query, req }) => {
+  const id = query?.id as string;
   const lowercaseId = id.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
@@ -108,7 +108,7 @@ StationPage.getInitialProps = async context => {
   }
 
   const headers = process.browser ? undefined : {
-    'x-real-id': context.req?.headers?.['x-real-ip'] ?? '',
+    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
   };
 
   try {

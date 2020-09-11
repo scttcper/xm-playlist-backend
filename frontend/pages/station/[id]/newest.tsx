@@ -68,11 +68,15 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   );
 };
 
-Newest.getInitialProps = async context => {
-  const id = context.query.id as string;
+Newest.getInitialProps = async ({ query, req }) => {
+  const id = query.id as string;
+
+  const headers = process.browser ? undefined : {
+    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+  };
 
   try {
-    const res = await axios.get(`${url}/api/station/${id}/newest`, { timeout: 15 * 1000 });
+    const res = await axios.get(`${url}/api/station/${id}/newest`, { timeout: 15 * 1000, headers });
     const json = res.data as StationNewest[];
     return { recent: _.chunk(json, 12), channelId: id };
   } catch (error) {

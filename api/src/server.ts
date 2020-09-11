@@ -59,7 +59,9 @@ const logger = pino(undefined, stream);
         return;
       }
       const statusCode = res.statusCode;
-      const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip;
+      const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip ?? '';
+      const userAgent = req.headers?.['user-agent'] ?? '';
+
       logger.info(
           {
             msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
@@ -70,6 +72,7 @@ const logger = pino(undefined, stream);
               params: req.params,
               query: req.query,
               ip,
+              userAgent,
             },
             res: {
               statusCode: res.statusCode,

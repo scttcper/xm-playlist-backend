@@ -103,14 +103,18 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   );
 };
 
-MostHeard.getInitialProps = async context => {
-  const id = context.query.id as string;
+MostHeard.getInitialProps = async ({ req, query }) => {
+  const id = query.id as string;
   let api = `${url}/api/station/${id}/most-heard`;
-  if (context.query.subDays) {
-    api += `?subDays=${context.query.subDays as string}`;
+  if (query.subDays) {
+    api += `?subDays=${query.subDays as string}`;
   }
 
-  const res = await axios.get(api, { timeout: 15 * 1000 });
+  const headers = process.browser ? undefined : {
+    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+  };
+
+  const res = await axios.get(api, { timeout: 15 * 1000, headers });
   if (res.status !== 200) {
     return { recent: [], channelId: id };
   }

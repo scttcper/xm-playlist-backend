@@ -12,8 +12,8 @@ import Error from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { SizeMe } from 'react-sizeme';
 import { format, formatDistanceStrict, formatISO } from 'date-fns';
+import { useMeasure } from 'react-use';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
@@ -42,6 +42,8 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
+
+  const [ref, { width }] = useMeasure<HTMLDivElement>();
 
   if (!channel || !trackData) {
     return <Error statusCode={404} />;
@@ -171,48 +173,45 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
                 Times Played Per Day
               </h4>
-              <div style={{ height: '80px' }}>
-                <SizeMe monitorWidth monitorHeight={false}>
-                  {({ size }) => (
-                    <WithTooltip renderTooltip={renderTooltip}>
-                      {({ onMouseMove, onMouseLeave, tooltipData }) => (
-                        <Sparkline
-                          ariaLabel="A line graph of randomly-generated data"
-                          height={80}
-                          width={size.width}
-                          min={0}
-                          data={trackData.plays}
-                          margin={{ top: 10, right: 0, bottom: 0, left: 0 }}
-                          onMouseLeave={onMouseLeave}
-                          onMouseMove={onMouseMove}
-                        >
-                          <PatternLines
-                            id="area_pattern"
-                            height={4}
-                            width={4}
-                            stroke="#C5D9FC"
-                            strokeWidth={2}
-                            orientation={['diagonal']}
-                          />
-                          <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
-                          {tooltipData && [
-                            <VerticalReferenceLine
-                              key="ref-line"
-                              strokeWidth={1}
-                              reference={tooltipData.index}
-                              strokeDasharray="4 4"
-                            />,
-                            <PointSeries
-                              key="ref-point"
-                              points={[tooltipData.index]}
-                              fill="#3f83f8"
-                            />,
-                          ]}
-                        </Sparkline>
-                      )}
-                    </WithTooltip>
+              <div ref={ref} style={{ height: '80px' }}>
+                <WithTooltip renderTooltip={renderTooltip}>
+                  {({ onMouseMove, onMouseLeave, tooltipData }) => (
+                    <Sparkline
+                      ariaLabel="A line graph of randomly-generated data"
+                      height={80}
+                      width={width}
+                      min={0}
+                      data={trackData.plays}
+                      margin={{ top: 10, right: 0, bottom: 0, left: 0 }}
+                      onMouseLeave={onMouseLeave}
+                      onMouseMove={onMouseMove}
+                    >
+                      <PatternLines
+                        id="area_pattern"
+                        height={4}
+                        width={4}
+                        stroke="#C5D9FC"
+                        strokeWidth={2}
+                        orientation={['diagonal']}
+                      />
+                      <LineSeries showArea stroke="#3f83f8" fill="url(#area_pattern)" />
+                      {tooltipData && [
+                        <VerticalReferenceLine
+                          key="ref-line"
+                          strokeWidth={1}
+                          reference={tooltipData.index}
+                          strokeDasharray="4 4"
+                        />,
+                        <PointSeries
+                          key="ref-point"
+                          points={[tooltipData.index]}
+                          fill="#3f83f8"
+                        />,
+                      ]}
+                    </Sparkline>
                   )}
-                </SizeMe>
+                </WithTooltip>
+
               </div>
             </div>
           )}
@@ -243,13 +242,18 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
   );
 };
 
-TrackPage.getInitialProps = async ({ query }) => {
+TrackPage.getInitialProps = async ({ query, req }) => {
   const trackId = query.trackid as string;
   const channelId = query.id as string;
+
+  const headers = process.browser ? undefined : {
+    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+  };
 
   try {
     const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, {
       timeout: 15 * 1000,
+      headers,
     });
     return { trackData: res.data, channelId };
   } catch (error) {

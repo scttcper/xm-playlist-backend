@@ -320,8 +320,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   );
 };
 
-Search.getInitialProps = async context => {
-  const { query } = context;
+Search.getInitialProps = async ({ query }) => {
   return { query };
 };
 
