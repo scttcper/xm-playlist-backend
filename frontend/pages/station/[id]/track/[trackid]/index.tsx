@@ -247,7 +247,7 @@ TrackPage.getInitialProps = async ({ query, req }) => {
   const channelId = query.id as string;
 
   const headers = process.browser ? undefined : {
-    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
   };
 
   try {

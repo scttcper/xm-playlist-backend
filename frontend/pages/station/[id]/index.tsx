@@ -107,10 +107,8 @@ StationPage.getInitialProps = async ({ query, req }) => {
     return { recent: [], channelId: id };
   }
 
-  console.log({ url });
-  console.log(req?.headers);
   const headers = process.browser ? undefined : {
-    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
   };
 
   try {

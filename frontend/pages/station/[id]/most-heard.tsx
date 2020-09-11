@@ -111,7 +111,7 @@ MostHeard.getInitialProps = async ({ req, query }) => {
   }
 
   const headers = process.browser ? undefined : {
-    'x-real-id': req?.headers?.['x-real-ip'] ?? '',
+    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
   };
 
   const res = await axios.get(api, { timeout: 15 * 1000, headers });

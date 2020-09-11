@@ -62,8 +62,6 @@ const logger = pino(undefined, stream);
       const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip ?? '';
       const userAgent = req.headers?.['user-agent'] ?? '';
 
-      console.log(req.headers);
-
       logger.info(
           {
             msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
