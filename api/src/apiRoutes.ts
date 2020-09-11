@@ -58,7 +58,7 @@ export function registerApiRoutes(server: FastifyInstance) {
       }
 
       // 3 min
-      reply.header('Cache-Control', 'max-age=180, public');
+      reply.header('Cache-Control', 'public, max-age=180, must-revalidate');
       return getRecent(channel);
     },
   });
@@ -78,7 +78,7 @@ export function registerApiRoutes(server: FastifyInstance) {
       const channel = getChannel(req.params.id);
 
       // 10 min
-      reply.header('Cache-Control', 'max-age=600, public');
+      reply.header('Cache-Control', 'public, max-age=600, must-revalidate');
       return getNewest(channel);
     },
   });
@@ -101,7 +101,7 @@ export function registerApiRoutes(server: FastifyInstance) {
       const channel = getChannel(req.params.id);
 
       // 10 min
-      reply.header('Cache-Control', 'max-age=600, public');
+      reply.header('Cache-Control', 'public, max-age=600, must-revalidate');
       return getMostHeard(channel, undefined, Number(req.query.subDays));
     },
   });
@@ -127,7 +127,7 @@ export function registerApiRoutes(server: FastifyInstance) {
       ]);
 
       // 10 min
-      reply.header('Cache-Control', 'max-age=600, public');
+      reply.header('Cache-Control', 'public, max-age=600, must-revalidate');
       return { ...track, plays, recent };
     },
   });
