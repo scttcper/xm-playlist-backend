@@ -283,7 +283,7 @@ export const channels: Channel[] = [
   {
     id: 'thevault',
     deeplink: 'DeepTracks',
-    number: 290,
+    number: 27,
     name: 'Deep Tracks',
     genre: Genre.rock,
     desc: 'Deeper cuts from classic rock legends featuring Tom Petty\'s Buried Treasure.',

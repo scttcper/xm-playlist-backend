@@ -17,10 +17,12 @@ async function updateAll() {
   for (const channel of channels) {
     log(`checking ${channel.name}`);
     try {
-      const { track } = await checkEndpoint(channel);
-      const spotify = await spotifyFindAndCache(track);
-      if (spotify) {
-        await findAndCacheLinks(spotify);
+      const tracks = await checkEndpoint(channel);
+      for (const {track} of tracks) {
+        const spotify = await spotifyFindAndCache(track);
+        if (spotify) {
+          await findAndCacheLinks(spotify);
+        }
       }
     } catch (error) {
       await catchError(error);

@@ -107,8 +107,12 @@ StationPage.getInitialProps = async context => {
     return { recent: [], channelId: id };
   }
 
+  const headers = process.browser ? undefined : {
+    'x-real-id': context.req?.headers?.['x-real-ip'] ?? '',
+  };
+
   try {
-    const res = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000 });
+    const res = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000, headers });
     return { recent: _.chunk(res.data, 12), channelId: id };
   } catch (error) {
     return { recent: [], channelId: id };

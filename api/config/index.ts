@@ -20,8 +20,8 @@ let config = {
   spotifyClientSecret: '',
   location: '',
   googleCredentials: '',
+  logflare: '',
   cert: {} as any,
-  stripeSecret: '',
 };
 
 const filename = `./config.${env}`;

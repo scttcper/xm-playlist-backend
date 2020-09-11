@@ -33,25 +33,23 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
       data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails
         ?.liveChannelResponse.liveChannelResponses?.[0].markerLists ?? [];
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
-    const marker = cut?.markers?.find(
+    const markers = cut?.markers?.filter(
       marker =>
         (marker.cut.cutContentType === 'Song' || marker.cut.cutContentType === 'Link') &&
         marker.cut.title &&
         marker.cut.title.trim().length > 0 &&
         marker.cut.galaxyAssetId.trim().length > 1 &&
+        (!marker.duration || marker.duration > 35) &&
         // block @sxmwillie
         !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@') &&
-        (!marker.duration || marker.duration > 35) &&
         !matchesGarbage(marker),
     );
-    if (!marker || !marker.cut) {
-      throw new NoSongMarker();
-    }
 
-    return {
+    return markers.map(marker => ({
       song: marker.cut,
-      startTime: marker.timestamp.absolute,
-    };
+      startTime: new Date(marker.timestamp.absolute),
+      contentType: (marker.cut.cutContentType ?? '').toLowerCase() as 'song' | 'link',
+    }));
   } catch (e) {
     // log('parsing response error', e);
     throw e;
@@ -59,40 +57,52 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
 }
 
 export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
-  const { song, startTime } = parseDeeplinkResponse(res);
-  const artists = parseArtists(song.artists[0].name);
-  const name = parseName(song.title);
-  const track: TrackModel = {
-    id: song.galaxyAssetId,
-    name,
-    // stringify because knex errors otherwise
-    artists: JSON.stringify(artists) as any,
-  };
-  const scrobble: ScrobbleModel = {
-    trackId: track.id,
-    channel: channel.deeplink,
-    startTime: new Date(startTime),
-  };
+  const results = parseDeeplinkResponse(res);
 
-  const alreadyScrobbled = await db('scrobble')
-    .select<{ id: string } | undefined>('id')
-    .where(scrobble)
-    .first();
-  if (alreadyScrobbled) {
-    throw new AlreadyScrobbled();
+  const inserted: Array<{track: TrackModel; scrobble: ScrobbleModel}> = []
+  for (const { song, startTime, contentType } of results) {
+    const artists = parseArtists(song.artists[0].name);
+    const name = parseName(song.title);
+    const track: TrackModel = {
+      id: song.galaxyAssetId,
+      name,
+      // stringify because knex errors otherwise
+      artists: JSON.stringify(artists) as any,
+    };
+    const scrobble: ScrobbleModel = {
+      trackId: track.id,
+      channel: channel.deeplink,
+      startTime,
+      contentType,
+    };
+
+    const alreadyScrobbled = await db('scrobble')
+      .select<{ id: string } | undefined>('id')
+      .where({
+        trackId: track.id,
+        channel: channel.deeplink,
+        startTime,
+      })
+      .first();
+    if (alreadyScrobbled) {
+      // throw new AlreadyScrobbled();
+      continue;
+    }
+
+    const existingTrackCount = await db('track')
+      .select<{ id: string } | undefined>('id')
+      .where({ id: track.id })
+      .first();
+
+    if (!existingTrackCount) {
+      await db('track').insert(track);
+    }
+
+    await db('scrobble').insert(scrobble);
+    inserted.push({ track, scrobble });
   }
 
-  const existingTrackCount = await db('track')
-    .select<{ id: string } | undefined>('id')
-    .where({ id: track.id })
-    .first();
-  if (!existingTrackCount) {
-    await db('track').insert(track);
-  }
-
-  await db('scrobble').insert(scrobble);
-
-  return { track, scrobble };
+  return inserted;
 }
 
 export async function checkEndpoint(channel: Channel) {

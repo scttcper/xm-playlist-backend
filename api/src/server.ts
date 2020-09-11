@@ -6,6 +6,8 @@ import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
 import Boom from '@hapi/boom';
 import fastifyExpress from 'fastify-express';
+import { createWriteStream } from 'pino-logflare';
+import pino from 'pino';
 
 import config from '../config';
 import { registerApiRoutes } from './apiRoutes';
@@ -17,6 +19,12 @@ Sentry.init({
 });
 
 const port = parseInt(process.env.PORT, 10) || 5000;
+
+const stream =  createWriteStream({
+  apiKey: config.logflare,
+  sourceToken: '26f6fec8-c608-4b53-bdc2-c31bc3415730',
+});
+const logger = pino(undefined, stream);
 
 (async function () {
   const server = fastify({
@@ -44,6 +52,35 @@ const port = parseInt(process.env.PORT, 10) || 5000;
   function onResponse(req, res, done) {
     req.context._transaction?.finish();
     done();
+    try {
+      const path = req.context?.config?.url ?? url.format(req.raw.url);
+      const method = req.context?.config?.method ?? req.raw.method;
+      if (method === 'OPTIONS') {
+        return;
+      }
+      const statusCode = res.statusCode;
+      const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip;
+      logger.info(
+          {
+            msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
+            req: {
+              method,
+              routerPath: path,
+              url: url.format(req.raw.url),
+              params: req.params,
+              query: req.query,
+              ip,
+            },
+            res: {
+              statusCode: res.statusCode,
+            },
+          },
+
+        `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
+      );
+    } catch (err) {
+      // pass
+    }
   }
 
   server.addHook('onRequest', onRequest);
@@ -67,6 +104,6 @@ const port = parseInt(process.env.PORT, 10) || 5000;
 
   server.listen(port, (err, address) => {
     if (err) throw err;
-    server.log.info(`server listening on ${address}`);
+    console.log(`server listening on ${address}`);
   });
 })();

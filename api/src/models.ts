@@ -10,6 +10,8 @@ export interface ScrobbleModel {
   trackId: string;
   channel: Channel['deeplink'];
   startTime: Date;
+  // extra metadata from sirius
+  contentType: 'song' | 'link';
 }
 
 export interface Spotify {
