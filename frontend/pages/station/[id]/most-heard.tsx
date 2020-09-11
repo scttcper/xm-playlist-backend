@@ -103,24 +103,28 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
   );
 };
 
-MostHeard.getInitialProps = async ({ req, query }) => {
+MostHeard.getInitialProps = async ({ req, res, query }) => {
   const id = query.id as string;
   let api = `${url}/api/station/${id}/most-heard`;
   if (query.subDays) {
     api += `?subDays=${query.subDays as string}`;
   }
 
-  const headers = process.browser ? undefined : {
-    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
-  };
-
-  const res = await axios.get(api, { timeout: 15 * 1000, headers });
-  if (res.status !== 200) {
-    return { recent: [], channelId: id };
+  let headers: any;
+  if (!process.browser) {
+    res?.setHeader?.('Cache-Control', 'public, max-age=600, must-revalidate');
+    headers = {
+      'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
+    };
   }
 
   try {
-    const json = res.data as StationMostHeard[];
+    const response = await axios.get(api, { timeout: 15 * 1000, headers });
+    if (response.status !== 200) {
+      return { recent: [], channelId: id };
+    }
+
+    const json = response.data as StationMostHeard[];
     const recent = _.chunk(json, 12);
     return { recent, channelId: id };
   } catch (error) {

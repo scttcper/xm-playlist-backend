@@ -96,7 +96,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
   );
 };
 
-StationPage.getInitialProps = async ({ query, req }) => {
+StationPage.getInitialProps = async ({ query, req, res }) => {
   const id = query?.id as string;
   const lowercaseId = id.toLowerCase();
   const channel = channels.find(
@@ -107,13 +107,17 @@ StationPage.getInitialProps = async ({ query, req }) => {
     return { recent: [], channelId: id };
   }
 
-  const headers = process.browser ? undefined : {
-    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
-  };
+  let headers: any;
+  if (!process.browser) {
+    res?.setHeader?.('Cache-Control', 'public, max-age=120, must-revalidate');
+    headers = {
+      'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
+    };
+  }
 
   try {
-    const res = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000, headers });
-    return { recent: _.chunk(res.data, 12), channelId: id };
+    const response = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000, headers });
+    return { recent: _.chunk(response.data, 12), channelId: id };
   } catch (error) {
     return { recent: [], channelId: id };
   }

@@ -242,20 +242,24 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
   );
 };
 
-TrackPage.getInitialProps = async ({ query, req }) => {
+TrackPage.getInitialProps = async ({ query, req, res }) => {
   const trackId = query.trackid as string;
   const channelId = query.id as string;
 
-  const headers = process.browser ? undefined : {
-    'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
-  };
+  let headers: any;
+  if (!process.browser) {
+    res?.setHeader?.('Cache-Control', 'public, max-age=600, must-revalidate');
+    headers = {
+      'x-real-ip': req?.headers?.['x-real-ip'] ?? '',
+    };
+  }
 
   try {
-    const res = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, {
+    const response = await axios.get(`${url}/api/station/${channelId}/track/${trackId}`, {
       timeout: 15 * 1000,
       headers,
     });
-    return { trackData: res.data, channelId };
+    return { trackData: response.data, channelId };
   } catch (error) {
     return { trackData: null, channelId };
   }

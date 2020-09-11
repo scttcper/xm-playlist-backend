@@ -57,8 +57,8 @@ export function registerApiRoutes(server: FastifyInstance) {
         return getRecent(channel, new Date(query.last));
       }
 
-      // 3 min
-      reply.header('Cache-Control', 'public, max-age=180, must-revalidate');
+      // 2 min
+      reply.header('Cache-Control', 'public, max-age=120, must-revalidate');
       return getRecent(channel);
     },
   });
