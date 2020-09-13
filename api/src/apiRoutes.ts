@@ -174,11 +174,6 @@ export function registerApiRoutes(server: FastifyInstance) {
         throw Boom.unauthorized();
       }
 
-      const transaction = Sentry.startTransaction({
-        op: 'search',
-        name: 'Search',
-      });
-
       const queryTimeAgo = Number(req.query.timeAgo);
       let timeAgo = queryTimeAgo;
       let currentPage = Number(req.query.currentPage);
@@ -187,21 +182,15 @@ export function registerApiRoutes(server: FastifyInstance) {
         throw Boom.badRequest();
       }
 
-      try {
-        const results = await search(
-          req.query.trackName,
-          req.query.artistName,
-          req.query.station,
-          timeAgo,
-          undefined,
-          currentPage,
-        );
-        return results;
-      } catch (err) {
-        throw err;
-      } finally {
-        transaction.finish();
-      }
+      const results = await search(
+        req.query.trackName,
+        req.query.artistName,
+        req.query.station,
+        timeAgo,
+        undefined,
+        currentPage,
+      );
+      return results;
     },
   });
 
