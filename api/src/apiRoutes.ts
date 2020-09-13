@@ -3,6 +3,7 @@ import Joi from 'joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 import * as Sentry from '@sentry/node';
+import { isBefore, subDays } from 'date-fns';
 
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays, getTrackRecent } from './plays';
@@ -52,6 +53,12 @@ export function registerApiRoutes(server: FastifyInstance) {
     },
     handler: async ({ query, params }, reply) => {
       const channel = getChannel(params.id);
+
+
+      const maxDays = 30;
+      if (query.last && isBefore(new Date(query.last), subDays(new Date(), maxDays))) {
+        throw Boom.badRequest();
+      }
 
       if (query.last) {
         return getRecent(channel, new Date(query.last));
