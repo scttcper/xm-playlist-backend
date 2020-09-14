@@ -56,11 +56,11 @@ export function registerApiRoutes(server: FastifyInstance) {
 
 
       const maxDays = 30;
-      if (query.last && isBefore(new Date(query.last), subDays(new Date(), maxDays))) {
-        throw Boom.badRequest();
-      }
-
       if (query.last) {
+        if (isBefore(new Date(query.last), subDays(new Date(), maxDays))) {
+          throw Boom.badRequest();
+        }
+
         return getRecent(channel, new Date(query.last));
       }
 

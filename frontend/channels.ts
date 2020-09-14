@@ -41,6 +41,7 @@ export interface Channel {
   genre: Genre;
   desc: string;
   playlist: string;
+  allowLinkContent?: boolean;
 }
 
 export const channels: Channel[] = [
@@ -1285,6 +1286,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'Great American Comedy',
     playlist: '3LKURR6gd0q7j298ZDKqWn',
+    allowLinkContent: true,
   },
   {
     id: '9494',
@@ -1294,6 +1296,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'Ad-free Netflix standup',
     playlist: '4k4VSPD2zorw1HGRgvTY53',
+    allowLinkContent: true,
   },
   {
     id: '9408',
@@ -1303,6 +1306,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'All-Time Greatest Comedians XL',
     playlist: '06JTWY48k6CQxJrfKn4bWe',
+    allowLinkContent: true,
   },
   {
     id: '9356',
@@ -1312,6 +1316,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'Comedy Central Uncensored XL',
     playlist: '0iBXjXfvBVGe9NEVYyLwwR',
+    allowLinkContent: true,
   },
   {
     id: '9469',
@@ -1321,6 +1326,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'Comedy & Shows w/Kevin Hart-XL',
     playlist: '0Uh7YsOisgn6tfm4pt3cvD',
+    allowLinkContent: true,
   },
   {
     id: 'laughbreak',
@@ -1330,6 +1336,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'Comedy For The Entire Family',
     playlist: '4ASNqTcjhkhFtOjXFZliix',
+    allowLinkContent: true,
   },
   {
     id: 'rawdog',
@@ -1339,6 +1346,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'The Best Uncensored Comedy XL',
     playlist: '6qlAVjDpxjnfQqEnjUpMEp',
+    allowLinkContent: true,
   },
   {
     id: '8259',
@@ -1348,6 +1356,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'JUST FOR LAUGHS CANADA',
     playlist: '7AxlfnSgRtvk1SPwz5h6Bb',
+    allowLinkContent: true,
   },
   {
     id: '9503',
@@ -1357,6 +1366,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc: 'The Funniest Female Comedians',
     playlist: '2nOk54j5r7lZjBXj5SVQTV',
+    allowLinkContent: true,
   },
   // {
   //   id: '9398',

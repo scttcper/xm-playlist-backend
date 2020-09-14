@@ -27,22 +27,19 @@ export function parseArtists(artists: string): string[] {
   return artists.match(/(?:\/\\|[^/\\])+/g);
 }
 
-export function parseDeeplinkResponse(data: SiriusDeeplink) {
+export function parseDeeplinkResponse(channel: Channel, data: SiriusDeeplink) {
   try {
     const markerLists =
       data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails
         ?.liveChannelResponse.liveChannelResponses?.[0].markerLists ?? [];
     const cut = markerLists.find(markerList => markerList.layer === 'cut');
+    const allowedContentType = channel.allowLinkContent ? ['Song', 'Link'] : ['Song'];
     const markers = cut?.markers?.filter(
       marker =>
-        (marker.cut.cutContentType === 'Song' || marker.cut.cutContentType === 'Link') &&
+        allowedContentType.includes(marker.cut.cutContentType) &&
         marker.cut.title &&
         marker.cut.title.trim().length > 0 &&
-        marker.cut.galaxyAssetId.trim().length > 1 &&
-        (!marker.duration || marker.duration > 35) &&
-        // block @sxmwillie
-        !marker.cut?.artists?.[0]?.name?.trim()?.startsWith('@') &&
-        !matchesGarbage(marker),
+        marker.cut.galaxyAssetId.trim().length > 1
     );
 
     return markers.map(marker => ({
@@ -57,7 +54,7 @@ export function parseDeeplinkResponse(data: SiriusDeeplink) {
 }
 
 export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
-  const results = parseDeeplinkResponse(res);
+  const results = parseDeeplinkResponse(channel, res);
 
   const inserted: Array<{track: TrackModel; scrobble: ScrobbleModel}> = []
   for (const { song, startTime, contentType } of results) {
