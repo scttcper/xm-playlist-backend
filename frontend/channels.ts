@@ -199,6 +199,7 @@ export const channels: Channel[] = [
     genre: Genre.pop,
     desc: 'Rock & Pop from the \'90s & 2Ks',
     playlist: '1PcSu1p5PaLOssq9VnW30g',
+    allowLinkContent: true,
   },
   {
     id: '9446',
@@ -397,6 +398,7 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc: 'Pure, high-powered hard rock that\'s loud, uncensored and in your face.',
     playlist: '4uEfLey0UZfmEp4vobm378',
+    allowLinkContent: true,
   },
   {
     id: 'buzzsaw',
@@ -625,6 +627,7 @@ export const channels: Channel[] = [
     genre: Genre.pop,
     desc: 'The biggest Canadian Pop hits of the \'90s and 2000s',
     playlist: '01OjwkEpe11gmQhDx4wjtB',
+    allowLinkContent: true,
   },
   {
     id: '9475',
@@ -1047,6 +1050,7 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc: 'Emotionally Driven Alt Rock',
     playlist: '78boQ0amoXinbWAbBWGgpd',
+    allowLinkContent: true,
   },
   {
     id: '9451',
