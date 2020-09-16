@@ -40,7 +40,7 @@ export function parseDeeplinkResponse(channel: Channel, data: SiriusDeeplink) {
         marker.cut.title &&
         marker.cut.title.trim().length > 0 &&
         marker.cut.galaxyAssetId.trim().length > 1
-    );
+    ) ?? [];
 
     return markers.map(marker => ({
       song: marker.cut,

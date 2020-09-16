@@ -48,7 +48,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         id: Joi.string().required(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async ({ query, params }, reply) => {
@@ -78,7 +78,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         id: Joi.string().required(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async (req, reply) => {
@@ -101,7 +101,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         subDays: Joi.number().optional().default(30).valid(7, 14, 30),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async (req, reply) => {
@@ -122,7 +122,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         trackId: Joi.string().required(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async (req, reply) => {
@@ -164,7 +164,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         currentPage: Joi.number().default(1).positive().optional(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async req => {
@@ -202,7 +202,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         userId: Joi.string().required(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async req => {
@@ -239,7 +239,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         isSubscribed: Joi.boolean().required(),
       }),
     },
-    validatorCompiler: ({ schema }: any) => {
+    validatorCompiler: ({ schema }: any): any => {
       return (data: any) => schema.validate(data);
     },
     handler: async req => {
