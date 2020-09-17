@@ -90,6 +90,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
                 <option value={7}>7 days</option>
                 <option value={14}>14 days</option>
                 <option value={30}>30 days</option>
+                <option value={60}>60 days</option>
               </select>
             </div>
           </div>

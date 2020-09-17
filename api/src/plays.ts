@@ -54,7 +54,7 @@ export async function getNewest(channel: Channel, limit = 50): Promise<StationNe
 
 export async function getMostHeard(
   channel: Channel,
-  limit = 50,
+  limit = 60,
   days = 30,
   greaterThan = 2,
 ): Promise<StationMostHeard[]> {

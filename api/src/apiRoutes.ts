@@ -98,7 +98,7 @@ export function registerApiRoutes(server: FastifyInstance) {
         id: Joi.string().required(),
       }),
       querystring: Joi.object({
-        subDays: Joi.number().optional().default(30).valid(7, 14, 30),
+        subDays: Joi.number().optional().default(30).valid(7, 14, 30, 60),
       }),
     },
     validatorCompiler: ({ schema }: any): any => {
