@@ -27,7 +27,7 @@ async function updateAll() {
     } catch (error) {
       await catchError(error);
     } finally {
-      await delay(250);
+      await delay(400);
     }
   }
 

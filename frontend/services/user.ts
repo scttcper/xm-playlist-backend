@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import { User as FirebaseUser } from 'firebase';
 import axios from 'axios';
 import { atom, useRecoilState } from 'recoil';
+import { ga } from 'react-ga';
 
 import { emailRedirectUrl, url } from '../url';
 import { app } from './firebase';
@@ -59,6 +60,7 @@ export const useUser = () => {
         if (user) {
           setUser(user);
           loadExtra(user);
+          ga('set', 'userId', user.uid);
         } else {
           setUser(null);
         }
