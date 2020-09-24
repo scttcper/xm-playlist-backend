@@ -16,7 +16,7 @@ Sentry.init({
   dsn: config.dsn,
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
   tracesSampleRate: 0.6,
-  environment: process.env.NODE_ENV === 'production' ? 'prod' : 'test',
+  environment: process.env.NODE_ENV === 'production' ? 'prod' : 'dev',
 });
 
 const port = parseInt(process.env.PORT, 10) || 5000;
