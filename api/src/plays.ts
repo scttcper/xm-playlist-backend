@@ -1,3 +1,4 @@
+import { Span, Transaction } from '@sentry/tracing';
 import { subDays, differenceInDays } from 'date-fns';
 import _ from 'lodash';
 
@@ -109,7 +110,8 @@ export async function getMostHeard(
   return _.orderBy(result, _.property('plays'), 'desc');
 }
 
-export async function getRecent(channel: Channel, last?: Date): Promise<StationRecent[]> {
+export async function getRecent(channel: Channel, last?: Date, transaction?: Transaction): Promise<StationRecent[]> {
+  const span = transaction?.startChild({ description: 'getRecent' });
   const query = db('scrobble')
     .select([
       'track.name as name',
@@ -129,6 +131,7 @@ export async function getRecent(channel: Channel, last?: Date): Promise<StationR
     .leftJoin('links', 'scrobble.trackId', 'links.trackId')
     .orderBy('scrobble.startTime', 'desc')
     .limit(24);
+  span?.finish();
 
   if (last) {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -153,7 +156,8 @@ export async function getRecent(channel: Channel, last?: Date): Promise<StationR
   });
 }
 
-export async function getPlays(trackId: string, channel: Channel): Promise<TrackPlay[]> {
+export async function getPlays(trackId: string, channel: Channel, transaction?: Transaction): Promise<TrackPlay[]> {
+  const span = transaction?.startChild({ description: 'getPlays' });
   const thirtyDaysAgo = subDays(new Date(), 30);
   const raw = await db('scrobble')
     .select(db.raw("date_trunc('day', start_time) as day"))
@@ -163,6 +167,7 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
     .andWhere('channel', channel.deeplink)
     .andWhere('startTime', '>', thirtyDaysAgo)
     .groupBy('day');
+  span?.finish();
 
   const result: Record<string, TrackPlay> = {};
   _.range(30, -1, -1).forEach(daysAgo => {
@@ -180,14 +185,17 @@ export async function getPlays(trackId: string, channel: Channel): Promise<Track
   return Object.values(result).reverse().slice(1);
 }
 
-export async function getTrackRecent(trackId: string, channel: Channel): Promise<string[]> {
+export async function getTrackRecent(trackId: string, channel: Channel, transaction?: Transaction): Promise<string[]> {
+  const span = transaction?.startChild({ description: 'getTrackRecent' });
+  const thirtyDaysAgo = subDays(new Date(), 30);
   const raw = await db('scrobble')
     .select('startTime')
     .from('scrobble')
     .where('trackId', trackId)
     .andWhere('channel', channel.deeplink)
+    .andWhere('startTime', '>', thirtyDaysAgo)
     .orderBy('scrobble.startTime', 'desc')
     .limit(10);
-
+  span?.finish();
   return raw.map(n => n.startTime);
 }

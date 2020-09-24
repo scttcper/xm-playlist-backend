@@ -1,9 +1,11 @@
 import Boom from '@hapi/boom';
+import { Transaction } from '@sentry/tracing';
 
 import { db } from './db';
 import { TrackResponse } from 'frontend/responses';
 
-export async function getTrack(id: string): Promise<TrackResponse> {
+export async function getTrack(id: string, transaction?: Transaction): Promise<TrackResponse> {
+  const span = transaction?.startChild({ description: 'getPlays' });
   const data = await db('track')
     .select([
       'track.id as id',
@@ -19,6 +21,7 @@ export async function getTrack(id: string): Promise<TrackResponse> {
     .leftJoin('spotify', 'track.id', 'spotify.trackId')
     .leftJoin('links', 'track.id', 'links.trackId')
     .first();
+  span?.finish()
 
   if (!data) {
     throw Boom.notFound('Track not found');

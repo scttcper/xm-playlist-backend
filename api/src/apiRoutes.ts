@@ -54,7 +54,6 @@ export function registerApiRoutes(server: FastifyInstance) {
     handler: async ({ query, params }, reply) => {
       const channel = getChannel(params.id);
 
-
       const maxDays = 30;
       if (query.last) {
         if (isBefore(new Date(query.last), subDays(new Date(), maxDays))) {
@@ -126,11 +125,12 @@ export function registerApiRoutes(server: FastifyInstance) {
       return (data: any) => schema.validate(data);
     },
     handler: async (req, reply) => {
+      const transaction = (reply.context as any).transaction;
       const channel = getChannel(req.params.channelId);
       const [track, plays, recent] = await Promise.all([
-        getTrack(req.params.trackId),
-        getPlays(req.params.trackId, channel),
-        getTrackRecent(req.params.trackId, channel),
+        getTrack(req.params.trackId, transaction),
+        getPlays(req.params.trackId, channel, transaction),
+        getTrackRecent(req.params.trackId, channel, transaction),
       ]);
 
       // 10 min

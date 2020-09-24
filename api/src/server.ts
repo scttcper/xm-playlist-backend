@@ -15,7 +15,7 @@ import { registerApiRoutes } from './apiRoutes';
 Sentry.init({
   dsn: config.dsn,
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
-  tracesSampleRate: 0.6,
+  tracesSampleRate: 1,
 });
 
 const port = parseInt(process.env.PORT, 10) || 5000;
@@ -39,7 +39,7 @@ const logger = pino(undefined, stream);
 
   function onRequest(req, res, done) {
     const path = req.context?.config?.url ?? url.format(req.raw.url);
-    req.context._transaction = Sentry.startTransaction({
+    req.context.transaction = Sentry.startTransaction({
       op: path,
       name: `${req.context?.config?.method ?? req.raw.method} ${path}`,
     });
@@ -50,7 +50,13 @@ const logger = pino(undefined, stream);
   }
 
   function onResponse(req, res, done) {
-    req.context._transaction?.finish();
+    const txn = (req.context.transaction as Tracing.Transaction | undefined)
+    let duration = 0;
+    if (txn) {
+      txn?.finish();
+      duration = (txn.startTimestamp * 1000) - (txn.endTimestamp * 1000);
+    }
+
     done();
     try {
       const path = req.context?.config?.url ?? url.format(req.raw.url);
@@ -75,6 +81,7 @@ const logger = pino(undefined, stream);
               userAgent,
             },
             res: {
+              duration,
               statusCode: res.statusCode,
             },
           },
