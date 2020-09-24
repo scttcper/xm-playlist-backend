@@ -21,7 +21,7 @@ Sentry.init({
 
 const port = parseInt(process.env.PORT, 10) || 5000;
 
-const stream =  createWriteStream({
+const stream = createWriteStream({
   apiKey: config.logflare,
   sourceToken: '26f6fec8-c608-4b53-bdc2-c31bc3415730',
 });
@@ -51,11 +51,11 @@ const logger = pino(undefined, stream);
   }
 
   function onResponse(req, res, done) {
-    const txn = (req.context.transaction as Tracing.Transaction | undefined)
+    const txn = req.context.transaction as Tracing.Transaction | undefined;
     let duration = 0;
     if (txn) {
       txn?.finish();
-      duration = (txn.endTimestamp * 1000) - (txn.startTimestamp * 1000);
+      duration = txn.endTimestamp * 1000 - txn.startTimestamp * 1000;
     }
 
     done();
@@ -70,22 +70,22 @@ const logger = pino(undefined, stream);
       const userAgent = req.headers?.['user-agent'] ?? '';
 
       logger.info(
-          {
-            msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
-            req: {
-              method,
-              routerPath: path,
-              url: url.format(req.raw.url),
-              params: req.params,
-              query: req.query,
-              ip,
-              userAgent,
-            },
-            res: {
-              duration,
-              statusCode: res.statusCode,
-            },
+        {
+          msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
+          req: {
+            method,
+            routerPath: path,
+            url: url.format(req.raw.url),
+            params: req.params,
+            query: req.query,
+            ip,
+            userAgent,
           },
+          res: {
+            duration,
+            statusCode: res.statusCode,
+          },
+        },
 
         `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
       );
@@ -114,7 +114,8 @@ const logger = pino(undefined, stream);
   registerApiRoutes(server);
 
   server.listen(port, (err, address) => {
-    if (err) throw err;
-    console.log(`server listening on ${address}`);
+    if (err) {
+      throw err;
+    }
   });
 })();
