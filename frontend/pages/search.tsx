@@ -107,12 +107,6 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       query,
     });
 
-    const transaction = Sentry.startTransaction({ name: 'search' });
-    const span = transaction.startChild({
-      data: [...(searchParams as any)].reduce((o, i) => ({ ...o, [i[0]]: i[1] }), {}),
-      op: 'task',
-      description: 'search query',
-    });
     try {
       setIsLoading(true);
       const token: string = (await user?.getIdToken()) || '';
@@ -136,9 +130,6 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     } catch (error) {
       // TODO: handle errors
     }
-
-    span.finish();
-    transaction.finish();
 
     setIsLoading(false);
   };
