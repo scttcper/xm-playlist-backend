@@ -54,7 +54,7 @@ const logger = pino(undefined, stream);
     let duration = 0;
     if (txn) {
       txn?.finish();
-      duration = (txn.startTimestamp * 1000) - (txn.endTimestamp * 1000);
+      duration = (txn.endTimestamp * 1000) - (txn.startTimestamp * 1000);
     }
 
     done();

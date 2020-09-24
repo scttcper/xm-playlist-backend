@@ -5,7 +5,7 @@ import { db } from './db';
 import { TrackResponse } from 'frontend/responses';
 
 export async function getTrack(id: string, transaction?: Transaction): Promise<TrackResponse> {
-  const span = transaction?.startChild({ description: 'getPlays' });
+  const span = transaction?.startChild({ description: 'getTrack' });
   const data = await db('track')
     .select([
       'track.id as id',
