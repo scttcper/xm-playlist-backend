@@ -23,7 +23,7 @@ const port = parseInt(process.env.PORT, 10) || 5000;
 
 const stream = createWriteStream({
   apiKey: config.logflare,
-  sourceToken: '29d66129-9a12-48b5-8d16-236f088c1de5',
+  sourceToken: '26f6fec8-c608-4b53-bdc2-c31bc3415730',
 });
 const logger = pino(undefined, stream);
 
