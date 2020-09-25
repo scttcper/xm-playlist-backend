@@ -48,6 +48,7 @@ export const TrackLinksButtons = ({ links, id: trackId }: Props) => {
   }
 
   if (appleLink) {
+    appleLink.url = appleLink.url.replace('https://music.apple.com', 'https://geo.music.apple.com');
     links.unshift(appleLink);
   }
 
