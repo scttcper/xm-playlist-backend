@@ -69,6 +69,10 @@ export async function getLinks(spotify: Spotify): Promise<Array<{ site: string; 
       url = url.replace('{country}', link[0]?.countries[0]);
     }
 
+    // fix for older apple links
+    url = url.replace('https://music.apple.com', 'https://geo.music.apple.com');
+    url = url.replace('?tag=songwhip0eb-20', '');
+
     return {
       site: key,
       url,
