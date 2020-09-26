@@ -29,12 +29,6 @@ export const loadedExtraAtom = atom<boolean | null>({
   default: null,
 });
 
-function trackSignup() {
-  ga('event', 'conversion', {
-    send_to: 'AW-997285583/M9h7COenguABEM-9xdsD',
-  });
-}
-
 export const useUser = () => {
   const [user, setUser] = useRecoilState(userAtom);
   const [loadedExtra, setLoadedExtra] = useRecoilState(loadedExtraAtom);
@@ -104,8 +98,6 @@ export const useUser = () => {
           setUser(null);
           throw error;
         }
-
-        trackSignup();
       },
       [setUser],
     ),
@@ -115,7 +107,6 @@ export const useUser = () => {
       firebase.auth().useDeviceLanguage();
       const result = await firebase.auth().signInWithPopup(provider);
       setUser(result.user);
-      trackSignup();
       return result;
     }, [setUser]),
 
@@ -124,7 +115,6 @@ export const useUser = () => {
       firebase.auth().useDeviceLanguage();
       const result = await firebase.auth().signInWithPopup(provider);
       setUser(result.user);
-      trackSignup();
       return result;
     }, [setUser]),
   };

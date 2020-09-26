@@ -15,7 +15,7 @@ const log = debug('xmplaylist');
 
 async function updateAll() {
   for (const channel of channels) {
-    log(`checking ${channel.name}`);
+    // log(`checking ${channel.name}`);
     try {
       const tracks = await checkEndpoint(channel);
       for (const {track} of tracks) {
@@ -25,16 +25,14 @@ async function updateAll() {
         }
       }
     } catch (error) {
-      await catchError(error);
+      catchError(error);
     } finally {
       await delay(400);
     }
   }
-
-  return updateAll();
 }
 
-async function catchError(error: Error) {
+function catchError(error: Error) {
   if (error instanceof NoSongMarker) {
     return;
   }
@@ -52,27 +50,22 @@ async function catchError(error: Error) {
   }
 
   if (error instanceof RequestError) {
-    console.error('Request Error');
-    await delay(1000);
     return;
   }
 
-  Sentry.captureException(error);
   console.error(error);
-  return delay(2000).then(() => {
-    process.exit(0);
-  });
+  Sentry.captureException(error);
+  return;
 }
 
 if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
-  log('cron running');
-  pForever(() => updateAll()).catch(async (e: Error) => catchError(e));
+  pForever(async () => await updateAll().catch(catchError));
 
   // restart every 12 hours
-  const hours = 12;
-  setTimeout(() => {
-    console.log('Restarting');
-    process.exit(0);
-  }, 1000 * 60 * 60 * hours);
+  // const hours = 12;
+  // setTimeout(() => {
+  //   console.log('Restarting');
+  //   process.exit(0);
+  // }, 1000 * 60 * 60 * hours);
 }

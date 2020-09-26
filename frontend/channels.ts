@@ -125,6 +125,7 @@ export const channels: Channel[] = [
     genre: Genre.pop,
     desc: '\'80s Pop Hits',
     playlist: '47uqNTJniFyzXf5UMli4E7',
+    // allowLinkContent: true,
   },
   {
     id: '8206',
