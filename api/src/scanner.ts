@@ -6,8 +6,8 @@ import * as Sentry from '@sentry/node';
 import { RequestError } from 'got';
 
 import { channels } from '../../frontend/channels';
-import { checkEndpoint } from './sirius';
 import config from '../config';
+import { checkEndpoint } from './sirius';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
 import { Spotify } from './models';

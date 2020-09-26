@@ -93,6 +93,8 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       continue;
     }
 
+    log({ id: track.id, name, artists, startTime, contentType });
+
     const existingTrack = await db('track')
       .select<{ id: string } | undefined>('id')
       .where({ id: track.id })
