@@ -10,14 +10,6 @@ import { TrackModel, ScrobbleModel } from './models';
 
 const log = debug('xmplaylist');
 
-export class NoSongMarker extends Error {
-  message = 'no song marker found';
-}
-
-export class AlreadyScrobbled extends Error {
-  message = 'Already scrobbled';
-}
-
 export function parseName(name: string) {
   return name.split(' #')[0];
 }
@@ -98,16 +90,15 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       })
       .first();
     if (alreadyScrobbled) {
-      // throw new AlreadyScrobbled();
       continue;
     }
 
-    const existingTrackCount = await db('track')
+    const existingTrack = await db('track')
       .select<{ id: string } | undefined>('id')
       .where({ id: track.id })
       .first();
 
-    if (!existingTrackCount) {
+    if (!existingTrack) {
       await db('track').insert(track);
     }
 

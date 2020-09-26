@@ -6,10 +6,11 @@ import * as Sentry from '@sentry/node';
 import { RequestError } from 'got';
 
 import { channels } from '../../frontend/channels';
-import { checkEndpoint, NoSongMarker, AlreadyScrobbled } from './sirius';
+import { checkEndpoint } from './sirius';
 import config from '../config';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
+import { Spotify } from './models';
 
 const log = debug('xmplaylist');
 
@@ -18,37 +19,39 @@ async function updateAll() {
     // log(`checking ${channel.name}`);
     try {
       const tracks = await checkEndpoint(channel);
-      for (const {track} of tracks) {
-        const spotify = await spotifyFindAndCache(track);
+      for (const { track } of tracks) {
+        let spotify: Spotify;
+        try {
+          spotify = await spotifyFindAndCache(track);
+        } catch (error) {
+          if (error instanceof SpotifyFailed) {
+            continue;
+          }
+
+          throw error;
+        }
+
         if (spotify) {
-          await findAndCacheLinks(spotify);
+          try {
+            await findAndCacheLinks(spotify);
+          } catch (error) {
+            if (error instanceof FailedLinkFinding) {
+              continue;
+            }
+
+            throw error;
+          }
         }
       }
     } catch (error) {
       catchError(error);
     } finally {
-      await delay(400);
+      await delay(300);
     }
   }
 }
 
 function catchError(error: Error) {
-  if (error instanceof NoSongMarker) {
-    return;
-  }
-
-  if (error instanceof AlreadyScrobbled) {
-    return;
-  }
-
-  if (error instanceof SpotifyFailed) {
-    return;
-  }
-
-  if (error instanceof FailedLinkFinding) {
-    return;
-  }
-
   if (error instanceof RequestError) {
     return;
   }

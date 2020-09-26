@@ -19,7 +19,19 @@ const About = () => (
       </p>
 
       <p>
-        Contact us at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a> or on twitter <a href="https://twitter.com/scttcper">@scttcper</a>
+        Contact us at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a> or on twitter{' '}
+        <a href="https://twitter.com/scttcper">@scttcper</a>
+      </p>
+
+      <p>
+        Make sure to join the nice people in the{' '}
+        <a
+          href="https://www.facebook.com/groups/siriusxmfans"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          SiriusXM Fans Facebook group
+        </a>
       </p>
 
       <hr />
@@ -28,7 +40,8 @@ const About = () => (
       <h4>Why has a station stopped updating?</h4>
       <p>
         xmplaylist cannot track songs during live dj sets, talk shows, interviews, festivals, etc.
-        If it has been more than 3 days please email <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a>.
+        If it has been more than 3 days please email{' '}
+        <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a>.
       </p>
     </div>
   </div>
