@@ -112,7 +112,6 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
 }
 
 export async function matchSpotify(track: TrackModel, update = false): Promise<void> {
-  console.log({ artists: track.artists });
   const s = await searchTrack(JSON.parse(track.artists), track.name);
 
   if (!s || !s.spotifyName) {
