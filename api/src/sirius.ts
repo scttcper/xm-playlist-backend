@@ -120,7 +120,7 @@ export async function checkEndpoint(channel: Channel) {
     });
     res = await got
       .get('http://player.siriusxm.com/rest/v2/experience/modules/get/deeplink', {
-        timeout: 15_000, // 15 sec
+        timeout: 10_000, // 10 sec
         searchParams,
       })
       .json();

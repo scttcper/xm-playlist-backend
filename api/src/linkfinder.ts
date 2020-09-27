@@ -56,7 +56,7 @@ export async function getLinks(spotify: Spotify): Promise<Array<{ site: string; 
           country: 'US',
         },
         retry: 0,
-        timeout: 10_000, // 10 sec
+        timeout: 12_000, // 12 sec
       })
       .json();
   } catch (error) {

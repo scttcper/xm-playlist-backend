@@ -18,9 +18,9 @@ const allResultsFuse = () => new Fuse(channels, fuseConfig);
 
 type Props = {
   autoFocus: boolean;
-}
+};
 
-export const Stations = ({autoFocus}: Props) => {
+export const Stations = ({ autoFocus }: Props) => {
   const router = useRouter();
   const [currentChannels, setCurrentChannels] = useState(channels);
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
@@ -68,12 +68,6 @@ export const Stations = ({autoFocus}: Props) => {
     router.replace({
       pathname: '/station',
       query: getQueryParms(query, currentGenre),
-    });
-
-    ReactGA.event({
-      category: 'Action',
-      action: 'Filter station name',
-      label: query,
     });
   };
 

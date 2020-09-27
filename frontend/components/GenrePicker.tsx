@@ -45,11 +45,6 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
     event.preventDefault();
     setIsOpen(false);
     pickGenre(genre);
-    ReactGA.event({
-      category: 'Action',
-      action: 'Filtered Genre',
-      label: genre || 'reset',
-    });
   };
 
   useClickAway(dropdownRef, () => {
