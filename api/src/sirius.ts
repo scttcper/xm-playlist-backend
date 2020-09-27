@@ -73,6 +73,8 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       name,
       // stringify because knex errors otherwise
       artists: JSON.stringify(artists) as any,
+      album: song.album?.title || null,
+      itunesId: song.externalIds?.find(x => x.id === 'iTunes')?.id || null,
     };
     const scrobble: ScrobbleModel = {
       trackId: track.id,
@@ -93,7 +95,16 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       continue;
     }
 
-    log({ id: track.id, name, artists, startTime, contentType, deeplink: channel.deeplink });
+    log({
+      id: track.id,
+      name,
+      artists,
+      startTime,
+      contentType,
+      deeplink: channel.deeplink,
+      album: track.album,
+      itunesId: track.itunesId,
+    });
 
     const existingTrack = await db('track')
       .select<{ id: string } | undefined>('id')
@@ -102,6 +113,9 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
 
     if (!existingTrack) {
       await db('track').insert(track);
+    } else {
+      const { id: _, ...update } = { ...track, updatedAt: db.fn.now() };
+      await db('track').where('id', '=', track.id).update(update);
     }
 
     await db('scrobble').insert(scrobble);

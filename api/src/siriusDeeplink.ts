@@ -168,21 +168,18 @@ export interface Marker {
 export interface Cut {
   legacyIds: LegacyIDS;
   title: string;
-  artists: Artist[];
-  album?: Album;
-  clipGUID?: string;
+  artists: Array<{ name: string }>;
   galaxyAssetId: string;
   cutContentType: string;
+  clipGUID?: string;
   mref: string;
+  album?: Album;
+  externalIds?: Array<{ id: 'iTunes'; value: string }>;
 }
 
 export interface Album {
   title: string;
-  creativeArts: any[];
-}
-
-export interface Artist {
-  name: string;
+  creativeArts?: any[];
 }
 
 export interface LegacyIDS {
