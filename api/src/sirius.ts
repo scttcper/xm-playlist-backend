@@ -74,7 +74,7 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       // stringify because knex errors otherwise
       artists: JSON.stringify(artists) as any,
       album: song.album?.title || null,
-      itunesId: song.externalIds?.find(x => x.id === 'iTunes')?.id || null,
+      itunesId: song.externalIds?.find(x => x.id === 'iTunes')?.value || null,
     };
     const scrobble: ScrobbleModel = {
       trackId: track.id,
