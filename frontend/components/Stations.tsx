@@ -25,7 +25,7 @@ export const Stations = ({ autoFocus }: Props) => {
   const [currentChannels, setCurrentChannels] = useState(channels);
   const [currentGenre, setCurrentGenre] = useState<string | null>(null);
   const [fuse, setFuse] = useState(allResultsFuse());
-  const [currentQuery, setQuery] = useState(router.query.q as string || '');
+  const [currentQuery, setQuery] = useState((router.query.q as string) || '');
   const formRef = React.useRef<any>();
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export const Stations = ({ autoFocus }: Props) => {
   }, [router]);
 
   useEffect(() => {
-    const filteredChannels = currentGenre ? channels.filter(channel => channel.genre === currentGenre) : channels;
+    const filteredChannels = currentGenre ?
+      channels.filter(channel => channel.genre === currentGenre) :
+      channels;
     setCurrentChannels(filteredChannels);
     setFuse(new Fuse(filteredChannels, fuseConfig));
   }, [currentGenre]);
@@ -114,7 +116,9 @@ export const Stations = ({ autoFocus }: Props) => {
           {/* input */}
           <div className="flex-grow md:flex-initial md:w-4/12 lg:w-3/12 mr-1">
             <div className="relative rounded-md shadow-sm">
-              <label className="hidden" htmlFor="searchStation">Filter Station</label>
+              <label className="hidden" htmlFor="searchStation">
+                Filter Station
+              </label>
               <input
                 autoFocus={autoFocus}
                 id="searchStation"
@@ -151,7 +155,7 @@ export const Stations = ({ autoFocus }: Props) => {
           <div key={channel.id} className="text-cool-gray-500 hover:text-blue-800">
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
-                <div className="duration-500 ease-in-out bg-cool-gray-900 hover:bg-cool-gray-700 transform rounded-lg p-3 md:p-5">
+                <div className="bg-cool-gray-900 hover:bg-cool-gray-700 rounded-lg p-3 md:p-5">
                   <img
                     src={`/static/img/${channel.deeplink}-sm.png`}
                     loading="lazy"
