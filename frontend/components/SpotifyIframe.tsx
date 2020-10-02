@@ -2,7 +2,9 @@ import React from 'react';
 
 import { TrackResponse } from 'frontend/responses';
 
-export const SpotifyIframe = (props: { track: TrackResponse }): React.ReactNode => {
+type Props = { track: TrackResponse };
+
+export const SpotifyIframe = (props: Props) => {
   const src = `https://open.spotify.com/embed/track/${props.track.spotify.spotify_id}`;
 
   return (
