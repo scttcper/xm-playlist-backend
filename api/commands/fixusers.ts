@@ -11,7 +11,7 @@ async function listAllUsers(nextPageToken?: any) {
     const user = userRecord.toJSON() as any;
     console.log('user', user);
     const existing = await db('user')
-      .select<{ id: string; }>(['user.id as id'])
+      .select<{ id: string }>(['user.id as id'])
       .where('user.id', '=', user.uid)
       .limit(1)
       .first();
@@ -24,6 +24,7 @@ async function listAllUsers(nextPageToken?: any) {
       missing += 1;
     }
   }
+
   if (listUsersResult.pageToken) {
     // List next batch of users.
     return listAllUsers(listUsersResult.pageToken);

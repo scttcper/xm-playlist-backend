@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import url from 'url';
 
 import fastify from 'fastify';
@@ -51,7 +52,7 @@ const logger = pino(undefined, stream);
   }
 
   function onResponse(req, res, done) {
-    const statusCode = res.statusCode;
+    const { statusCode } = res;
     const txn = req.context.transaction as Tracing.Transaction | undefined;
     let duration = 0;
     if (txn) {
@@ -66,6 +67,7 @@ const logger = pino(undefined, stream);
       if (method === 'OPTIONS') {
         return;
       }
+
       const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip ?? '';
       const userAgent = req.headers?.['user-agent'] ?? '';
 

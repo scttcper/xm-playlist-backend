@@ -41,6 +41,7 @@ export interface SearchResults {
  * @param currentPage
  * @param limit
  */
+// eslint-disable-next-line max-params
 export async function search(
   trackName?: string,
   artistName?: string,
@@ -52,8 +53,7 @@ export async function search(
 ): Promise<SearchResults> {
   const daysAgo = subSeconds(new Date(), timeAgo || 0);
 
-  const trackQuery = db('track')
-    .innerJoin('scrobble', 'track.id', 'scrobble.trackId');
+  const trackQuery = db('track').innerJoin('scrobble', 'track.id', 'scrobble.trackId');
 
   if (timeAgo) {
     trackQuery.where('scrobble.startTime', '>', daysAgo);

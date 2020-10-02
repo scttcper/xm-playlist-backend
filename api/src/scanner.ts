@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable max-depth */
 import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
@@ -58,12 +58,11 @@ function catchError(error: Error) {
 
   console.error(error);
   Sentry.captureException(error);
-  return;
 }
 
 if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
-  pForever(async () => await updateAll().catch(catchError));
+  pForever(async () => updateAll().catch(catchError));
 
   // restart every 12 hours
   // const hours = 12;

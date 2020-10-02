@@ -94,7 +94,7 @@ export const useUser = () => {
         window.localStorage.setItem('emailForSignIn', email);
         try {
           await app.auth().sendSignInLinkToEmail(email, actionCodeSettings);
-        } catch (error) {
+        } catch (error: unknown) {
           setUser(null);
           throw error;
         }

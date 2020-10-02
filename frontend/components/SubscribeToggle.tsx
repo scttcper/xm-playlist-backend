@@ -14,9 +14,7 @@ export const SubscribeToggle = ({ isSubscribed, onChange }: Props) => {
         </h3>
         <div className="mt-2 flex items-start justify-between">
           <div className="max-w-xl text-sm leading-5 text-gray-500">
-            <p id="subscribe-description">
-              Subscribe to news and updates about xmplaylist.com
-            </p>
+            <p id="subscribe-description">Subscribe to news and updates about xmplaylist.com</p>
           </div>
           <div className="mt-0 ml-6 flex-shrink-0 flex items-center">
             <span

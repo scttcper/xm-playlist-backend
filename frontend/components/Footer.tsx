@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-child-element-spacing */
 import React from 'react';
 import Link from 'next/link';
 
@@ -32,11 +33,12 @@ export const Footer = () => (
         </p>
         <p className="text-center text-xs leading-6 text-gray-400">
           Not affiliated, associated, authorized, endorsed by, or in any way officially connected
-          with Sirius XM Radio Inc. The official SiriusXM website can be
-          found at{' '}
+          with Sirius XM Radio Inc. The official SiriusXM website can be found at{' '}
           <a target="_blank" rel="noopener noreferrer" href="https://www.siriusxm.com/">
             siriusxm.com
-          </a>. The channel names, marks, emblems and images are registered trademarks of their respective owners.
+          </a>
+          . The channel names, marks, emblems and images are registered trademarks of their
+          respective owners.
         </p>
       </div>
     </div>

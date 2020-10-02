@@ -125,7 +125,7 @@ export function registerApiRoutes(server: FastifyInstance) {
       return (data: any) => schema.validate(data);
     },
     handler: async (req, reply) => {
-      const transaction = (reply.context as any).transaction;
+      const { transaction } = reply.context as any;
       const channel = getChannel(req.params.channelId);
       const [track, plays, recent] = await Promise.all([
         getTrack(req.params.trackId, transaction),
@@ -175,8 +175,8 @@ export function registerApiRoutes(server: FastifyInstance) {
       }
 
       const queryTimeAgo = Number(req.query.timeAgo);
-      let timeAgo = queryTimeAgo;
-      let currentPage = Number(req.query.currentPage);
+      const timeAgo = queryTimeAgo;
+      const currentPage = Number(req.query.currentPage);
       const maxDays = 30;
       if (queryTimeAgo > 60 * 60 * 24 * maxDays) {
         throw Boom.badRequest();

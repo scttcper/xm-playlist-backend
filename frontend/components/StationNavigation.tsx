@@ -1,4 +1,3 @@
-/* eslint-disable operator-linebreak */
 import Link from 'next/link';
 import React from 'react';
 

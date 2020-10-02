@@ -45,7 +45,7 @@ const LinkLogin = () => {
           // Common errors could be invalid email and invalid or expired OTPs.
         });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>Loading...</div>;

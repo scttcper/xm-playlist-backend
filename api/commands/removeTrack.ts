@@ -8,7 +8,10 @@ const artistName = argv.artist as string;
 console.log({ trackName, artistName });
 
 async function removeTrack(): Promise<void> {
-  const tracksQuery = db('track').select<Array<{ id: string; name: string }>>(['track.id as id', 'track.name as name']);
+  const tracksQuery = db('track').select<Array<{ id: string; name: string }>>([
+    'track.id as id',
+    'track.name as name',
+  ]);
 
   if (trackName) {
     tracksQuery.where('track.name', 'ilike', trackName);

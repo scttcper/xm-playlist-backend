@@ -37,7 +37,6 @@ export function cleanMusicVideo(str: string) {
 }
 
 export function cleanSpaces(str: string) {
-  // tslint:disable-next-line:no-regex-spaces
   return str.replace(/  +/g, ' ').trim();
 }
 

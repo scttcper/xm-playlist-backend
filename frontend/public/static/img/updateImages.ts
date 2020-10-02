@@ -24,7 +24,9 @@ async function updateImages() {
     console.log(channel.deeplink);
     const response = await got.get(url).json<any>();
     // eslint-disable-next-line prefer-destructuring
-    const images = response.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails.liveChannelResponse.liveChannelResponses[0].channel.images.images;
+    const images =
+      response.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails
+        .liveChannelResponse.liveChannelResponses[0].channel.images.images;
     const sqImage = images.find(x => x.name === 'color channel logo (on dark) ~ square');
     if (sqImage.height !== sqImage.width) {
       console.log(`SIZE SKIPPING ${channel.deeplink}`);

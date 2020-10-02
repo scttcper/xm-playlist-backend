@@ -11,4 +11,3 @@ export async function down(knex: Knex): Promise<any> {
     table.dropColumn('lock');
   });
 }
-

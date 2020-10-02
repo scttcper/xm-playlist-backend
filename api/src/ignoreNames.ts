@@ -197,7 +197,7 @@ const ignorePaterns = [
   '**curated by**',
   '#Tomorrowland',
   '**Ch31**',
-  'Willie\'s Roadhouse',
+  "Willie's Roadhouse",
   '**Luv 80s**',
   'Next Week',
   '**Big 40**',

@@ -21,7 +21,7 @@ export async function getTrack(id: string, transaction?: Transaction): Promise<T
     .leftJoin('spotify', 'track.id', 'spotify.trackId')
     .leftJoin('links', 'track.id', 'links.trackId')
     .first();
-  span?.finish()
+  span?.finish();
 
   if (!data) {
     throw Boom.notFound('Track not found');

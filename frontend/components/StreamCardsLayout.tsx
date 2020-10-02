@@ -34,9 +34,9 @@ export const StreamCardsLayout: React.FC<{
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
             {chunk.map((play, index) => {
               const albumCover = play.spotify.cover || '/static/missing.png';
-              const spotify = play.spotify ?
-                `https://open.spotify.com/track/${play.spotify.spotify_id}` :
-                play.links.find(n => n.site === 'spotify')?.url;
+              const spotify = play.spotify
+                ? `https://open.spotify.com/track/${play.spotify.spotify_id}`
+                : play.links.find(n => n.site === 'spotify')?.url;
               let apple: undefined | string;
               if (play.links) {
                 apple = play.links.find(n => n.site === 'itunes')?.url;
@@ -103,7 +103,10 @@ export const StreamCardsLayout: React.FC<{
                         {apple && (
                           <a
                             className="ml-1.5 hidden sm:inline-flex lg:hidden xl:inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
-                            href={apple.replace('https://music.apple.com', 'https://geo.music.apple.com')}
+                            href={apple.replace(
+                              'https://music.apple.com',
+                              'https://geo.music.apple.com',
+                            )}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackOut('apple', play.track.id)}

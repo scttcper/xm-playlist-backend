@@ -10,9 +10,7 @@ async function main() {
     .count();
   console.log('Scrobbles removed', total[0].count);
 
-  await db('scrobble')
-    .delete()
-    .where('scrobble.startTime', '<', sixtyDaysAgo);
+  await db('scrobble').delete().where('scrobble.startTime', '<', sixtyDaysAgo);
 }
 
 main()

@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import * as Sentry from '@sentry/browser';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';

@@ -226,14 +226,12 @@ export async function playlistTracks(code: string, playlistId: string) {
     res.items.forEach(n => items.push(n.track.uri));
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
   return items.sort();
 }
 
 export async function updatePlaylists(code: string) {
   for (const channel of channels.filter(ch => ch.playlist)) {
     const mostHeard = await getMostHeard(channel, 10_000, 30, 0);
-    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     const trackIds = mostHeard
       .filter(track => track.spotify.spotify_id)
       .map(track => `spotify:track:${track.spotify.spotify_id}`)

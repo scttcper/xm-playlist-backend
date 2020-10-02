@@ -47,20 +47,20 @@ describe('spotify', () => {
     const res = await searchTrack(artists, name);
     expect(res.spotifyId).toBe('50RJdoxw8iajGNtHQe6QeS');
   });
-  it('should find Jumpin\' Jumpin\'', async () => {
-    const name = 'Jumpin\' Jumpin\' (00)';
-    const artists = ['Destiny\'s Child'];
+  it("should find Jumpin' Jumpin'", async () => {
+    const name = "Jumpin' Jumpin' (00)";
+    const artists = ["Destiny's Child"];
     const res = await searchTrack(artists, name);
     expect(res.spotifyId).toBe('4pmc2AxSEq6g7hPVlJCPyP');
   });
-  it('should find Don\'t Kill My Vibe (Gryffin Remix)', async () => {
-    const name = 'Don\'t Kill My Vibe (Gryffin Remix)';
+  it("should find Don't Kill My Vibe (Gryffin Remix)", async () => {
+    const name = "Don't Kill My Vibe (Gryffin Remix)";
     const artists = ['Sigrid'];
     const res = await searchTrack(artists, name);
     expect(res.spotifyId).toBe('6VEbv3jRYbOeo2UZ0mkN7h');
   });
-  it('should find The Creator (\'92)', async () => {
-    const name = 'The Creator (\'92)';
+  it("should find The Creator ('92)", async () => {
+    const name = "The Creator ('92)";
     const artists = ['Pete Rock & C.L. Smooth'];
     const res = await searchTrack(artists, name);
     expect(res.spotifyId).toBe('0vDgtmc5vMDyE69oYnAbUm');

@@ -20,45 +20,40 @@ export function parseArtists(artists: string): string[] {
 }
 
 export function parseDeeplinkResponse(channel: Channel, data: SiriusDeeplink) {
-  try {
-    const markerLists =
-      data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails
-        ?.liveChannelResponse.liveChannelResponses?.[0].markerLists ?? [];
-    const cut = markerLists.find(markerList => markerList.layer === 'cut');
-    const allowedContentType = channel.allowLinkContent ? ['Song', 'Link'] : ['Song'];
-    const markers =
-      cut?.markers?.filter(
-        marker =>
-          allowedContentType.includes(marker.cut.cutContentType) &&
-          marker.cut.title &&
-          marker.cut.title.trim().length > 0 &&
-          marker.cut.galaxyAssetId.trim().length > 1,
-      ) ?? [];
+  const markerLists =
+    data?.ModuleListResponse?.moduleList?.modules?.[0].moduleResponse?.moduleDetails
+      ?.liveChannelResponse.liveChannelResponses?.[0].markerLists ?? [];
+  const cut = markerLists.find(markerList => markerList.layer === 'cut');
+  const allowedContentType = channel.allowLinkContent ? ['Song', 'Link'] : ['Song'];
+  const markers =
+    cut?.markers?.filter(
+      marker =>
+        allowedContentType.includes(marker.cut.cutContentType) &&
+        marker.cut.title &&
+        marker.cut.title.trim().length > 0 &&
+        marker.cut.galaxyAssetId.trim().length > 1,
+    ) ?? [];
 
-    // more filtering
-    const filteredMarkers = markers.filter(marker => {
-      if (marker.cut.cutContentType === 'Song') {
-        return true;
-      }
+  // more filtering
+  const filteredMarkers = markers.filter(marker => {
+    if (marker.cut.cutContentType === 'Song') {
+      return true;
+    }
 
-      return (
-        (!marker.duration || marker.duration > 35) &&
-        // block @sxmwillie
-        !marker.cut?.artists?.[0]?.name?.startsWith('@') &&
-        !marker.cut?.artists?.[0]?.name?.startsWith('#') &&
-        !marker.cut.title.startsWith('@')
-      );
-    });
+    return (
+      (!marker.duration || marker.duration > 35) &&
+      // block @sxmwillie
+      !marker.cut?.artists?.[0]?.name?.startsWith('@') &&
+      !marker.cut?.artists?.[0]?.name?.startsWith('#') &&
+      !marker.cut.title.startsWith('@')
+    );
+  });
 
-    return filteredMarkers.map(marker => ({
-      song: marker.cut,
-      startTime: new Date(marker.timestamp.absolute),
-      contentType: (marker.cut.cutContentType ?? '').toLowerCase() as 'song' | 'link',
-    }));
-  } catch (e) {
-    // log('parsing response error', e);
-    throw e;
-  }
+  return filteredMarkers.map(marker => ({
+    song: marker.cut,
+    startTime: new Date(marker.timestamp.absolute),
+    contentType: (marker.cut.cutContentType ?? '').toLowerCase() as 'song' | 'link',
+  }));
 }
 
 export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
@@ -111,11 +106,11 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       .where({ id: track.id })
       .first();
 
-    if (!existingTrack) {
-      await db('track').insert(track);
-    } else {
+    if (existingTrack) {
       const { id: _, ...update } = { ...track, updatedAt: db.fn.now() };
       await db('track').where('id', '=', track.id).update(update);
+    } else {
+      await db('track').insert(track);
     }
 
     await db('scrobble').insert(scrobble);

@@ -34,9 +34,9 @@ export const Stations = ({ autoFocus }: Props) => {
   }, [router]);
 
   useEffect(() => {
-    const filteredChannels = currentGenre ?
-      channels.filter(channel => channel.genre === currentGenre) :
-      channels;
+    const filteredChannels = currentGenre
+      ? channels.filter(channel => channel.genre === currentGenre)
+      : channels;
     setCurrentChannels(filteredChannels);
     setFuse(new Fuse(filteredChannels, fuseConfig));
   }, [currentGenre]);

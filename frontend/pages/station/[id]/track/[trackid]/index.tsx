@@ -202,16 +202,11 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
                           reference={tooltipData.index}
                           strokeDasharray="4 4"
                         />,
-                        <PointSeries
-                          key="ref-point"
-                          points={[tooltipData.index]}
-                          fill="#3f83f8"
-                        />,
+                        <PointSeries key="ref-point" points={[tooltipData.index]} fill="#3f83f8" />,
                       ]}
                     </Sparkline>
                   )}
                 </WithTooltip>
-
               </div>
             </div>
           )}

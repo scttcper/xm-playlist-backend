@@ -23,8 +23,11 @@ export const SearchResultsNav = ({ searchResults, nextPage, previousPage }: Prop
       <div className="hidden sm:block">
         <p className="text-sm leading-5 text-gray-700">
           Showing <span className="font-medium">{offsetStart}</span> to{' '}
-          <span className="font-medium">{offsetStart + searchResults.results!.length - 1}</span> of{' '}
-          <span className="font-medium">{searchResults.totalItems}</span> results
+          <span className="font-medium">
+            {/* eslint-disable-next-line @typescript-eslint/restrict-plus-operands */}
+            {offsetStart + searchResults.results!.length - 1}
+          </span>{' '}
+          of <span className="font-medium">{searchResults.totalItems}</span> results
         </p>
       </div>
       <div className="flex-1 flex justify-between sm:justify-end">

@@ -120,15 +120,9 @@ export const SearchForm = ({
               <option value={hour}>last hour</option>
               <option value={hour * 12}>last 12 hours</option>
               <option value={hour * 24}>last 24 hours</option>
-              <option value={hour * 24 * 7}>
-                last 7 days
-              </option>
-              <option value={hour * 24 * 14}>
-                last 14 days
-              </option>
-              <option value={hour * 24 * 30}>
-                last 30 days
-              </option>
+              <option value={hour * 24 * 7}>last 7 days</option>
+              <option value={hour * 24 * 14}>last 14 days</option>
+              <option value={hour * 24 * 30}>last 30 days</option>
               {/* <option value={hour * 24 * 60}>
                 last 60 days
               </option> */}

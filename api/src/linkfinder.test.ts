@@ -1,4 +1,4 @@
-import {findAndCacheLinks} from './linkfinder';
+import { findAndCacheLinks } from './linkfinder';
 
 describe('linkfinder', () => {
   it('should get links', async () => {
@@ -12,5 +12,5 @@ describe('linkfinder', () => {
       updatedAt: new Date(),
     });
     expect(links).toBeTruthy();
-  })
-})
+  });
+});

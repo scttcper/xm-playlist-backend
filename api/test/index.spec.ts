@@ -24,7 +24,7 @@ const channel: Channel = {
   name: 'Lithium',
   playlist: '',
   genre: 'Rock',
-  desc: '\'90s Alternative/Grunge',
+  desc: "'90s Alternative/Grunge",
 };
 
 describe('index', () => {
@@ -37,9 +37,7 @@ describe('index', () => {
   });
   it('should parse metadata response', async () => {
     await insertPlay(play, channel);
-    const res = await supertest(server.listener)
-      .get('/channel/90salternative')
-      .expect(200);
+    const res = await supertest(server.listener).get('/channel/90salternative').expect(200);
     expect(res.body.length).toBe(1);
   });
 });

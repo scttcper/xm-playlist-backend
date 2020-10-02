@@ -40,7 +40,11 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
             </div>
           </div>
 
-          {channel.playlist && <div><StationSpotifyPlaylist channel={channel} /></div>}
+          {channel.playlist && (
+            <div>
+              <StationSpotifyPlaylist channel={channel} />
+            </div>
+          )}
         </div>
       </div>
       {/* old */}
