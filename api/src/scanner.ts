@@ -22,7 +22,7 @@ async function updateAll() {
       for (const { track } of tracks) {
         let spotify: Spotify;
         try {
-          spotify = await spotifyFindAndCache(track);
+          spotify = await spotifyFindAndCache(track, channel);
         } catch (error) {
           if (error instanceof SpotifyFailed) {
             continue;

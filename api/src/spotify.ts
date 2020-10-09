@@ -52,7 +52,7 @@ export function parseSpotify(obj: any): SpotifyParsed {
 
 export function optionalBlacklist(track: string, artists: string, channel?: Channel) {
   const all = track.toLowerCase() + artists.toLowerCase();
-  if (channel.deeplink === 'TheCoversChannel') {
+  if (channel?.deeplink === 'TheCoversChannel') {
     return '';
   }
 
