@@ -19,7 +19,7 @@ export const SearchResultsNav = ({ searchResults, nextPage, previousPage }: Prop
   );
 
   return (
-    <nav className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+    <nav className="bg-white px-4 py-3 flex items-center justify-between border-b border-gray-200 sm:px-6">
       <div className="hidden sm:block">
         <p className="text-sm leading-5 text-gray-700">
           Showing <span className="font-medium">{offsetStart}</span> to{' '}

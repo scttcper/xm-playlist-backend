@@ -12,6 +12,7 @@ export enum Genre {
   christian = 'christian',
   classical = 'classical',
   latino = 'latino',
+  french = 'french',
   comedy = 'comedy',
   kids = 'kids',
 }
@@ -29,6 +30,7 @@ export const FriendlyGenre: Record<Genre, string> = {
   [Genre.christian]: 'Christian',
   [Genre.classical]: 'Classical',
   [Genre.latino]: 'Latino',
+  [Genre.french]: 'French',
   [Genre.comedy]: 'Comedy',
   [Genre.kids]: 'Kids',
 } as const;
@@ -145,26 +147,24 @@ export const channels: Channel[] = [
     desc: '2000s Pop Hits',
     playlist: '0ho4C6Yj4EYJSpiFgwzXWC',
   },
-  // Disabled 4/21/20
-  // {
-  //   id: '8241',
-  //   deeplink: 'KIISLosAngeles',
-  //   number: 11,
-  //   name: 'KIIS-Los Angeles',
-  //   genre: Genre.pop,
-  //   desc: 'KIIS FM LOS Angeles',
-  //   playlist: '3MYdmAHsoA1mhMXfjUjomx',
-  // },
-  // Disabled 4/21/20
-  // {
-  //   id: '8242',
-  //   deeplink: 'Z100NY',
-  //   number: 12,
-  //   name: 'Z100/NY',
-  //   genre: Genre.pop,
-  //   desc: 'Z100 plays all the hits',
-  //   playlist: '1SQBFErYoQj8XrubWeqeex',
-  // },
+  {
+    id: '8241',
+    deeplink: 'KIISLosAngeles',
+    number: 11,
+    name: 'KIIS-Los Angeles',
+    genre: Genre.pop,
+    desc: "KIIS FM is LA's #1 Hit Music Station",
+    playlist: '3MYdmAHsoA1mhMXfjUjomx',
+  },
+  {
+    id: '8242',
+    deeplink: 'Z100NY',
+    number: 12,
+    name: 'Z100/NY',
+    genre: Genre.pop,
+    desc: "Z100 is New York's Hit Music Station",
+    playlist: '1SQBFErYoQj8XrubWeqeex',
+  },
   {
     id: 'coffeehouse',
     deeplink: 'TheCoffeeHouse',
@@ -355,6 +355,16 @@ export const channels: Channel[] = [
     desc:
       'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
     playlist: '5voYlQdL9FT6QWnlIfSxTx',
+  },
+  {
+    id: '9482',
+    deeplink: 'TheBillyJoelChannel',
+    number: 70,
+    name: 'The Billy Joel Channel',
+    genre: Genre.rock,
+    desc:
+      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
+    playlist: '',
   },
   {
     id: 'firstwave',
@@ -859,6 +869,25 @@ export const channels: Channel[] = [
     playlist: '4KdXsNll67tp8qsp8wT0jF',
   },
   {
+    id: '9504',
+    deeplink: 'LesTubes8090',
+    number: 756,
+    name: 'Les Tubes 80-90',
+    genre: Genre.pop,
+    desc:
+      "The biggest Francophone pop-rock hits from the 80's and 90's including Francis Cabrel and Céline Dion.",
+    playlist: '',
+  },
+  {
+    id: 'energie2',
+    deeplink: 'AttitudeFranco',
+    number: 759,
+    name: 'Attitude Franco',
+    genre: Genre.french,
+    desc: 'The biggest French Canadian hits from the past 50 years.',
+    playlist: '',
+  },
+  {
     id: 'rumbon',
     deeplink: 'Caliente',
     number: 158,
@@ -1145,20 +1174,6 @@ export const channels: Channel[] = [
   //   desc: 'Home for limited-run channels',
   // },
   // {
-  //   id: '8211',
-  //   number: 750,
-  //   name: 'Cinemagic',
-  //   genre: Genre.jazz,
-  //   desc: 'Movie Soundtracks and More',
-  // },
-  // {
-  //   id: '9179',
-  //   number: 751,
-  //   name: 'Krishna Das Yoga Radio',
-  //   genre: Genre.jazz,
-  //   desc: 'Chant/Sacred/Spiritual Music',
-  // },
-  // {
   //   id: 'siriuspops',
   //   number: 755,
   //   name: 'SiriusXM Pops',
@@ -1181,13 +1196,15 @@ export const channels: Channel[] = [
     desc: 'Regional Mexican Music',
     playlist: '0WRHaBdzi7LucUaZ9Eto5b',
   },
-  // {
-  //   id: '9188',
-  //   number: 762,
-  //   name: 'Caricia',
-  //   genre: Genre.latino,
-  //   desc: 'Ballads in Spanish & English',
-  // },
+  {
+    id: '9188',
+    deeplink: 'Caricia',
+    number: 762,
+    name: 'Caricia',
+    genre: Genre.latino,
+    desc: 'Relive the classics from unforgettable artists in Spanish and English.',
+    playlist: '',
+  },
   {
     id: '8225',
     deeplink: 'Viva',
@@ -1278,6 +1295,45 @@ export const channels: Channel[] = [
     genre: Genre.pop,
     desc: 'Traditional Holiday Music',
     playlist: '6CuCQZ5cksOpuLGm1kOI89',
+  },
+  {
+    id: 'siriuslove',
+    deeplink: 'SiriusXMLove',
+    number: 290,
+    name: 'SiriusXM Love',
+    genre: Genre.pop,
+    desc: 'Romantic ballads and soft pop music featuring lyrics of love.',
+    playlist: '',
+  },
+  {
+    id: '9416',
+    deeplink: 'TheCoversChannel',
+    number: 302,
+    name: 'The Covers Channel',
+    genre: Genre.pop,
+    desc:
+      "Artists paying tribute to their peers, cover songs from every genre of music of the past 6 decades. Including today's pop hits.",
+    playlist: '',
+  },
+  {
+    id: '9179',
+    deeplink: 'KrishnaDasYogaRadio',
+    number: 751,
+    name: 'Krishna Das Yoga Radio',
+    genre: Genre.pop,
+    desc:
+      'Music transporting listeners to a deeper place where they can quiet the mind and open the heart.',
+    playlist: '',
+  },
+  {
+    id: 'siriuspops',
+    deeplink: 'SiriusXMPops',
+    number: 751,
+    name: 'SiriusXM Pops',
+    genre: Genre.classical,
+    desc:
+      "Classical Music's greatest hits. The most popular classical pieces of all time, performed by the world's most renowned orchestras and soloists.",
+    playlist: '',
   },
   // Disabled 4/21/20
   // {

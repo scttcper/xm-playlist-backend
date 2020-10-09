@@ -218,6 +218,13 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         {/* results */}
         <h3 className="text-lg leading-6 font-medium text-gray-600 mt-4">Results</h3>
         <div className="bg-white shadow overflow-hidden rounded-md my-3">
+          {searchResults.results?.length !== 0 && (
+            <SearchResultsNav
+              searchResults={searchResults}
+              nextPage={handleNextPage}
+              previousPage={handlePreviousPage}
+            />
+          )}
           <ul>
             {!searchResults.results?.length && (
               <li>
