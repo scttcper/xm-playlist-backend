@@ -8,7 +8,7 @@ import { client, getCache } from './redis';
 import * as util from './util';
 import { TrackModel, Spotify } from './models';
 import { db } from './db';
-import { channels } from '../../frontend/channels';
+import { Channel, channels } from '../../frontend/channels';
 import { getMostHeard } from './plays';
 
 export class SpotifyFailed extends Error {
@@ -50,8 +50,12 @@ export function parseSpotify(obj: any): SpotifyParsed {
   };
 }
 
-export function optionalBlacklist(track: string, artists: string) {
+export function optionalBlacklist(track: string, artists: string, channel?: Channel) {
   const all = track.toLowerCase() + artists.toLowerCase();
+  if (channel.deeplink === 'TheCoversChannel') {
+    return '';
+  }
+
   return blacklist
     .map(b => {
       if (!all.includes(b)) {
@@ -82,7 +86,11 @@ export async function getToken(): Promise<string> {
   return res.access_token;
 }
 
-export async function searchTrack(artists: string[], name: string): Promise<SpotifyParsed> {
+export async function searchTrack(
+  artists: string[],
+  name: string,
+  channel?: Channel,
+): Promise<SpotifyParsed> {
   const cleanArtists = util.cleanupExtra(util.cleanCutoff(artists.join(' ')));
   const cleanTrack = util.cleanupExtra(
     util.cleanRemix(util.cleanFt(util.cleanClean(util.cleanCutoff(util.cleanYear(name))))),
@@ -92,7 +100,7 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   const headers = { Authorization: `Bearer ${token}` };
   // Console.log('ORIGINAL:', options.qs.q);
   const searchParams = new URLSearchParams({
-    q: `${cleanTrack} ${cleanArtists} ${optionalBlacklist(cleanTrack, cleanArtists)}`,
+    q: `${cleanTrack} ${cleanArtists} ${optionalBlacklist(cleanTrack, cleanArtists, channel)}`,
     type: 'track',
     limit: '1',
   });
@@ -111,8 +119,12 @@ export async function searchTrack(artists: string[], name: string): Promise<Spot
   throw new SpotifyFailed();
 }
 
-export async function matchSpotify(track: TrackModel, update = false): Promise<void> {
-  const s = await searchTrack(JSON.parse(track.artists), track.name);
+export async function matchSpotify(
+  track: TrackModel,
+  update = false,
+  channel?: Channel,
+): Promise<void> {
+  const s = await searchTrack(JSON.parse(track.artists), track.name, channel);
 
   if (!s || !s.spotifyName) {
     throw new SpotifyFailed();
@@ -139,7 +151,10 @@ export async function matchSpotify(track: TrackModel, update = false): Promise<v
   });
 }
 
-export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | undefined> {
+export async function spotifyFindAndCache(
+  track: TrackModel,
+  channel?: Channel,
+): Promise<Spotify | undefined> {
   const doc = await db<Spotify>('spotify').select().where('trackId', track.id).first();
 
   // TODO: check spotify age
@@ -152,7 +167,7 @@ export async function spotifyFindAndCache(track: TrackModel): Promise<Spotify | 
     return doc;
   }
 
-  await matchSpotify(track);
+  await matchSpotify(track, undefined, channel);
 
   return db<Spotify>('spotify').select().where('trackId', track.id).first();
 }
