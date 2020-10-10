@@ -30,9 +30,12 @@ const secondaryText = (track: TrackResponse): React.ReactNode => {
   });
 
   return (
-    <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
-      {timeAgo}
-    </time>
+    <>
+      {`${timeAgo} - `}
+      <time title={format(date, 'PPpp')} dateTime={date.toISOString()}>
+        {format(date, 'p')}
+      </time>
+    </>
   );
 };
 
