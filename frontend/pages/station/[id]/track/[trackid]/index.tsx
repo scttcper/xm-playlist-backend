@@ -214,15 +214,15 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
             <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-2">
               Recent Plays - {trackData.track.name} on {channel.name}
             </h4>
-            <ul className="pb-2">
+            <ul className="pb-2 text-center">
               {trackData.recent.map(datetime => (
                 <li key={datetime}>
-                  <p className="text-sm text-gray-500 p-2">
+                  <p className="text-sm text-gray-500 p-1">
+                    {formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}
+                    {' - '}
                     <time dateTime={formatISO(new Date(datetime))}>
                       {format(new Date(datetime), 'PPp')}
                     </time>
-                    {' - '}
-                    {formatDistanceStrict(new Date(datetime), new Date(), { addSuffix: true })}
                   </p>
                 </li>
               ))}

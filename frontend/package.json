@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ctrl/react-adsense": "1.1.3",
+    "@headlessui/react": "0.2.0",
     "@data-ui/sparkline": "0.0.84",
     "@data-ui/theme": "0.0.84",
     "@fortawesome/fontawesome-svg-core": "1.2.32",
