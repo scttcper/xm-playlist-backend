@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReactGA from 'react-ga';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -82,10 +81,6 @@ export const Stations = ({ autoFocus }: Props) => {
       pathname: '/station',
       query: {},
     });
-    ReactGA.event({
-      category: 'Action',
-      action: 'Reset stations form',
-    });
   };
 
   const pickFirstEvent = (event: React.FormEvent): void => {
@@ -95,11 +90,6 @@ export const Stations = ({ autoFocus }: Props) => {
     }
 
     router.push(`/station/${results[0].deeplink.toLowerCase()}`);
-
-    ReactGA.event({
-      category: 'Action',
-      action: 'Enter key station name',
-    });
   };
 
   let results: Channel[];

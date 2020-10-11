@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReactGA from 'react-ga';
 import LazyLoad from 'react-lazyload';
 import { useClickAway } from 'react-use';
 
@@ -19,10 +18,6 @@ export const TrackLinks: React.FC<{
   });
 
   const handleShow = () => {
-    ReactGA.event({
-      category: 'Links',
-      action: 'Opened Modal',
-    });
     setShow(true);
   };
 
@@ -39,16 +34,15 @@ export const TrackLinks: React.FC<{
       </a>
 
       {show && (
-        <div className="fixed bottom-0 inset-x-0 px-3 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+        <div className="fixed bottom-5 inset-x-0 px-3 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
           <div className="fixed inset-0 transition-opacity">
             <div className="absolute inset-0 bg-gray-500 opacity-75" />
           </div>
           <div
             ref={modalRef}
-            className="bg-white max-h-screen overflow-scroll md:overflow-hidden rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6"
+            className="bg-white max-h-screen md:overflow-hidden rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="modal-headline"
           >
             <div className="flex justify-end">
               <button
