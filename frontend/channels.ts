@@ -1342,7 +1342,7 @@ export const channels: Channel[] = [
     playlist: '',
   },
   {
-    id: '9489',
+    id: '9346',
     deeplink: 'HolidaySoul',
     number: 778,
     name: 'Holiday Soul',
