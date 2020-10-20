@@ -13,18 +13,21 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
   const dropdownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const genres: Genre[] = [
-    Genre.rock,
     Genre.pop,
+    Genre.rock,
+    Genre.country,
     Genre.electronic,
     Genre.hiphop,
     Genre.rnb,
     Genre.jazz,
-    Genre.country,
+    Genre.reggae,
     Genre.classical,
-    Genre.latino,
     Genre.comedy,
     Genre.kids,
     Genre.christian,
+    Genre.holiday,
+    Genre.latino,
+    Genre.french,
   ];
   const handlePickGenre = (event: any, genre: Genre | null) => {
     event.preventDefault();
