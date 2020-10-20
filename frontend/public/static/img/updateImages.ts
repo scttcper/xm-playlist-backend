@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
@@ -30,6 +30,27 @@ async function updateImages() {
     const sqImage = images.find(x => x.name === 'color channel logo (on dark) ~ square');
     if (sqImage.height !== sqImage.width) {
       console.log(`SIZE SKIPPING ${channel.deeplink}`);
+    }
+
+    const channelInfo =
+      response.ModuleListResponse.moduleList.modules[0].moduleResponse.moduleDetails
+        .liveChannelResponse.liveChannelResponses[0];
+    if (channel.id !== channelInfo.channelId) {
+      throw new Error(`${channel.id} !== ${channelInfo.channelId}`);
+    }
+
+    if (channel.name !== channelInfo.channel.name) {
+      console.log(channelInfo.channel.name);
+      throw new Error(`name`);
+    }
+
+    if (channel.number !== Number(channelInfo.channel.xmChannelNumber)) {
+      console.log(channelInfo.channel.xmChannelNumber);
+      throw new Error(`xmChannelNumber`);
+    }
+
+    if (channel.desc.trim() !== channelInfo.channel.mediumDescription.trim()) {
+      console.error(channelInfo.channel.mediumDescription);
     }
 
     const filepath = path.join(__dirname, `${channel.deeplink}-lg.png`);
