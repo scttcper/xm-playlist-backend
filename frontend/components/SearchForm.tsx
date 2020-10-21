@@ -12,7 +12,7 @@ export type Inputs = {
   artistName: string;
   station: string;
   trackName: string;
-  timeAgo: number | string;
+  timeAgo?: number | string;
   currentPage?: number;
   startDate?: string;
   endDate?: string;
@@ -173,7 +173,7 @@ export const SearchForm = ({
               name="startDate"
               min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
               max={formatISO9075(new Date(), { representation: 'date' })}
-              onChange={() => setValue('timeAgo', null)}
+              onChange={() => setValue('timeAgo', undefined)}
             />
             <label
               htmlFor="endDate"
@@ -185,7 +185,7 @@ export const SearchForm = ({
               className="text-blue-700 text-sm ml-1"
               onClick={() => {
                 setValue('endDate', formatISO9075(new Date(), { representation: 'date' }));
-                setValue('timeAgo', null);
+                setValue('timeAgo', undefined);
               }}
             >
               (today)
@@ -198,7 +198,7 @@ export const SearchForm = ({
               name="endDate"
               min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
               max={formatISO9075(new Date(), { representation: 'date' })}
-              onChange={() => setValue('timeAgo', null)}
+              onChange={() => setValue('timeAgo', undefined)}
             />
           </div>
         </div>
