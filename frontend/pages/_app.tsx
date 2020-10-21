@@ -16,7 +16,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/react';
-import { Integrations as ApmIntegrations } from '@sentry/apm';
 import { RecoilRoot } from 'recoil';
 
 import { NavBar } from 'components/Navbar';
@@ -29,8 +28,7 @@ import '../css/tailwind.css';
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
   dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
-  integrations: [new ApmIntegrations.Tracing({ tracingOrigins: ['xmplaylist.com'] })],
-  tracesSampleRate: 0.5,
+  ignoreErrors: [/google/gi, /Beacon/gi, /ads/],
 });
 
 config.autoAddCss = false;
