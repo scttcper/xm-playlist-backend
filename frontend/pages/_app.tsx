@@ -82,7 +82,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
         <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
       </Head>
       <User>
-        <div className="flex flex-col font-sans">
+        <div className="flex flex-col font-sans min-h-screen">
           <NavBar />
           <div className="flex-grow">
             <Component {...pageProps} err={err} />
