@@ -3,7 +3,7 @@ import Joi from 'joi';
 import Boom from '@hapi/boom';
 import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
 import * as Sentry from '@sentry/node';
-import { isBefore, subDays } from 'date-fns';
+import { addHours, isAfter, isBefore, subDays } from 'date-fns';
 
 import { channels, Channel } from '../../frontend/channels';
 import { getRecent, getNewest, getMostHeard, getPlays, getTrackRecent } from './plays';
@@ -145,6 +145,8 @@ export function registerApiRoutes(server: FastifyInstance) {
       artistName: string | undefined;
       station: string | undefined;
       timeAgo: number;
+      startDate: number;
+      endDate: number;
       currentPage: number;
     };
   }>({
@@ -161,6 +163,8 @@ export function registerApiRoutes(server: FastifyInstance) {
           .default(60 * 60 * 24)
           .positive()
           .optional(),
+        startDate: Joi.date().max('now').raw().optional(),
+        endDate: Joi.date().max('now').raw().optional(),
         currentPage: Joi.number().default(1).positive().optional(),
       }),
     },
@@ -174,12 +178,28 @@ export function registerApiRoutes(server: FastifyInstance) {
         throw Boom.unauthorized();
       }
 
-      const queryTimeAgo = Number(req.query.timeAgo);
-      const timeAgo = queryTimeAgo;
+      let timeAgo: number | undefined = req.query.timeAgo ? Number(req.query.timeAgo) : undefined;
       const currentPage = Number(req.query.currentPage);
-      const maxDays = 30;
-      if (queryTimeAgo > 60 * 60 * 24 * maxDays) {
-        throw Boom.badRequest();
+      const maxDays = 60;
+      if (timeAgo > 60 * 60 * 24 * maxDays) {
+        throw Boom.badRequest(`Too many days ago max - ${maxDays} days`);
+      }
+
+      const startDate = req.query.startDate
+        ? addHours(new Date(`${req.query.startDate} GMT`), 6)
+        : undefined;
+      const endDate = req.query.endDate
+        ? addHours(new Date(`${req.query.endDate} GMT`), 6)
+        : undefined;
+      if (req.query.startDate && req.query.endDate) {
+        if (
+          isAfter(subDays(new Date(), maxDays), startDate) &&
+          isAfter(subDays(new Date(), maxDays), endDate)
+        ) {
+          throw Boom.badRequest(`Out of allowed range of ${maxDays} days`);
+        }
+
+        timeAgo = undefined;
       }
 
       const results = await search(
@@ -187,6 +207,8 @@ export function registerApiRoutes(server: FastifyInstance) {
         req.query.artistName,
         req.query.station,
         timeAgo,
+        startDate,
+        endDate,
         undefined,
         currentPage,
       );

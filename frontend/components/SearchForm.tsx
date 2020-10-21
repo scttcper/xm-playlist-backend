@@ -6,13 +6,16 @@ import Select from 'react-select';
 import { channels } from 'frontend/channels';
 import Link from 'next/link';
 import { useUser } from 'services/user';
+import { subDays, formatISO9075 } from 'date-fns';
 
 export type Inputs = {
   artistName: string;
   station: string;
   trackName: string;
-  timeAgo: number;
+  timeAgo: number | string;
   currentPage?: number;
+  startDate?: string;
+  endDate?: string;
 };
 
 type Props = Inputs & {
@@ -27,10 +30,20 @@ export const SearchForm = ({
   timeAgo,
   station,
   trackName,
+  startDate,
+  endDate,
 }: Props) => {
   const hour = 60 * 60;
-  const { register, handleSubmit, control } = useForm<Inputs>({
-    defaultValues: { artistName, timeAgo: timeAgo || hour * 24, station: station || '', trackName },
+  console.log(station, startDate, endDate);
+  const { register, handleSubmit, control, setValue } = useForm<Inputs>({
+    defaultValues: {
+      artistName,
+      timeAgo: startDate && endDate ? '' : timeAgo || hour * 24,
+      station: station || '',
+      trackName,
+      startDate: startDate || '',
+      endDate: endDate || '',
+    },
   });
   const { user } = useUser();
   const stationOptions = channels.map(channel => {
@@ -109,6 +122,9 @@ export const SearchForm = ({
             className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
           >
             Date played
+            <div className="font-normal text-xs text-gray-500">
+              Select either a date played or date range
+            </div>
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <select
@@ -116,18 +132,74 @@ export const SearchForm = ({
               name="timeAgo"
               id="timeAgo"
               className="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              onChange={() => {
+                setValue('startDate', null);
+                setValue('endDate', null);
+              }}
             >
+              <option value="">Date Range</option>
               <option value={hour}>last hour</option>
               <option value={hour * 12}>last 12 hours</option>
               <option value={hour * 24}>last 24 hours</option>
               <option value={hour * 24 * 7}>last 7 days</option>
               <option value={hour * 24 * 14}>last 14 days</option>
               <option value={hour * 24 * 30}>last 30 days</option>
+              <option value={hour * 24 * 60}>last 60 days</option>
               {/* <option value={hour * 24 * 60}>
                 last 60 days
               </option> */}
               {/* <option value={hour * 24 * 90}>last 90 days</option> */}
             </select>
+          </div>
+        </div>
+
+        <div className="mt-6 mb-5 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
+          <label className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Date Range (GMT -6:00)
+            <div className="font-normal text-xs text-gray-500">Uses Central time</div>
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-2">
+            <label
+              htmlFor="startDate"
+              className="inline-block text-sm leading-5 text-gray-700 sm:mt-px sm:pt-2"
+            >
+              Start Date
+            </label>
+            <input
+              ref={register}
+              type="date"
+              id="startDate"
+              className="block form-input w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-2"
+              name="startDate"
+              min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
+              max={formatISO9075(new Date(), { representation: 'date' })}
+              onChange={() => setValue('timeAgo', null)}
+            />
+            <label
+              htmlFor="endDate"
+              className="inline-block text-sm leading-5 text-gray-700 sm:mt-px sm:pt-2"
+            >
+              End Date{' '}
+            </label>
+            <a
+              className="text-blue-700 text-sm ml-1"
+              onClick={() => {
+                setValue('endDate', formatISO9075(new Date(), { representation: 'date' }));
+                setValue('timeAgo', null);
+              }}
+            >
+              (today)
+            </a>
+            <input
+              ref={register}
+              type="date"
+              id="endDate"
+              className="block form-input w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              name="endDate"
+              min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
+              max={formatISO9075(new Date(), { representation: 'date' })}
+              onChange={() => setValue('timeAgo', null)}
+            />
           </div>
         </div>
       </div>

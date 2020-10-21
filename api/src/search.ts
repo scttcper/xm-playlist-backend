@@ -1,4 +1,4 @@
-import { subSeconds } from 'date-fns';
+import { subSeconds, formatISO9075, addHours } from 'date-fns';
 
 import { db } from './db';
 
@@ -27,6 +27,8 @@ export interface SearchResults {
     artistName: string;
     station: string;
     timeAgo: number;
+    startDate: string;
+    endDate: string;
     currentPage: number;
   };
 }
@@ -37,6 +39,8 @@ export interface SearchResults {
  * @param artistName
  * @param station
  * @param timeAgo in seconds
+ * @param startDate
+ * @param endDate
  * @param trackId
  * @param currentPage
  * @param limit
@@ -47,16 +51,22 @@ export async function search(
   artistName?: string,
   station?: string,
   timeAgo?: number,
+  startDate?: Date,
+  endDate?: Date,
   trackId?: string,
   currentPage = 1,
   limit = 100,
 ): Promise<SearchResults> {
-  const daysAgo = subSeconds(new Date(), timeAgo || 0);
+  const daysAgo = subSeconds(new Date(), timeAgo ?? 0);
+  console.log(daysAgo);
 
   const trackQuery = db('track').innerJoin('scrobble', 'track.id', 'scrobble.trackId');
 
-  if (timeAgo) {
-    trackQuery.where('scrobble.startTime', '>', daysAgo);
+  if (startDate && endDate) {
+    trackQuery.where('scrobble.start_time', '>', startDate);
+    trackQuery.andWhere('scrobble.start_time', '<=', endDate);
+  } else if (timeAgo) {
+    trackQuery.where('scrobble.start_time', '>', daysAgo);
   }
 
   if (trackName) {
@@ -105,7 +115,8 @@ export async function search(
       'spotify.cover as cover',
     ])
     .leftJoin('spotify', 'scrobble.trackId', 'spotify.trackId')
-    .orderByRaw('scrobble.start_time DESC NULLS LAST')
+    .whereNotNull('start_time')
+    .orderByRaw(`scrobble.start_time ${startDate && endDate ? 'ASC' : 'DESC'}`)
     .offset(offset)
     .limit(limit);
 
@@ -128,6 +139,8 @@ export async function search(
       artistName,
       station,
       timeAgo,
+      startDate: startDate ? addHours(startDate, 6).toISOString().split('T')[0] : undefined,
+      endDate: endDate ? addHours(endDate, 6).toISOString().split('T')[0] : undefined,
       currentPage,
     },
   };

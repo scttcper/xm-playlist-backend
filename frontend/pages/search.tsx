@@ -39,6 +39,8 @@ export interface SearchResults {
     artistName: string;
     station: string;
     timeAgo: number;
+    startDate: string;
+    endDate: string;
     currentPage: number;
   };
 }
@@ -54,6 +56,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   const router = useRouter();
   const [searchResults, setSearchResults] = useState<Partial<SearchResults>>({ results: [] });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { user } = useUser();
 
   const handleNextPage = () => {
@@ -73,6 +76,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
       return;
     }
 
+    setErrorMessage(null);
     const searchParams = new URLSearchParams();
     const query: Record<string, string> = {};
     setSearchResults({ results: [] });
@@ -94,6 +98,13 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
     if (data.timeAgo) {
       query.timeAgo = data.timeAgo.toString();
       searchParams.append('timeAgo', data.timeAgo.toString());
+    }
+
+    if (data.startDate && data.endDate) {
+      query.startDate = data.startDate;
+      query.endDate = data.endDate;
+      searchParams.append('startDate', data.startDate);
+      searchParams.append('endDate', data.endDate);
     }
 
     if (data.currentPage) {
@@ -127,7 +138,14 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
 
       setSearchResults(res.data);
     } catch (error) {
-      // TODO: handle errors
+      if (typeof error?.response?.data?.message === 'string') {
+        setErrorMessage(error?.response?.data?.message);
+        return;
+      }
+
+      if (error?.message === 'Network Error') {
+        setErrorMessage(error?.message);
+      }
     }
 
     setIsLoading(false);
@@ -165,6 +183,8 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               artistName={query.artistName}
               station={query.station}
               timeAgo={query.timeAgo}
+              startDate={query.startDate}
+              endDate={query.endDate}
               onSubmit={search}
             />
           </div>
@@ -228,9 +248,17 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
           <ul>
             {!searchResults.results?.length && (
               <li>
-                <div className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                  <div className="flex items-center px-4 py-4 sm:px-6">
-                    {isLoading ? 'Loading...' : 'No Results'}
+                <div
+                  className={`block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out ${
+                    errorMessage ? 'bg-red-100' : ''
+                  }`}
+                >
+                  <div
+                    className={`flex items-center px-4 py-4 sm:px-6 ${
+                      errorMessage ? 'text-red-700' : ''
+                    }`}
+                  >
+                    {isLoading ? 'Loading...' : errorMessage ? errorMessage : 'No Results'}
                   </div>
                 </div>
               </li>
