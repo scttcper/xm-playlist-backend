@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import firebase from 'firebase/app';
-import { User as FirebaseUser } from 'firebase';
 import axios from 'axios';
 import { atom, useRecoilState } from 'recoil';
 import { ga } from 'react-ga';
 
 import { emailRedirectUrl, url } from '../url';
 import { app } from './firebase';
+
+type FirebaseUser = firebase.auth.UserCredential['user'];
 
 const actionCodeSettings: firebase.auth.ActionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
