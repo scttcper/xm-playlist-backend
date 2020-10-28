@@ -152,8 +152,8 @@ export const Stations = ({ autoFocus }: Props) => {
                     loading="lazy"
                     alt={`${channel.name} Logo`}
                     quality={100}
-                    width={720}
-                    height={720}
+                    width={138}
+                    height={138}
                   />
                 </div>
                 <div className="mt-2">
