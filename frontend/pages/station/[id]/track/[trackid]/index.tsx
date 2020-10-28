@@ -49,8 +49,8 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
     return <Error statusCode={404} />;
   }
 
-  const albumCover = trackData.spotify.cover || '/static/missing.png';
-  const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/static/missing.png';
+  const albumCover = trackData.spotify.cover || '/missing.png';
+  const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/missing.png';
   const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
     channel.name
   }`;

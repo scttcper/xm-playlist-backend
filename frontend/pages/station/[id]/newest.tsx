@@ -52,7 +52,7 @@ const Newest: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
         <title>{channel.name} Newest Songs - sirius xm playlist</title>
         <meta
           property="og:image"
-          content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
+          content={`https://xmplaylist.com/img/${channel.deeplink}-lg.png`}
         />
       </Head>
       <StationHeader channel={channel} currentPage="newest" />

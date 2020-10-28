@@ -22,7 +22,7 @@ const About = () => (
       <figure>
         <a href="https://www.buymeacoffee.com/scooper" target="_blank" rel="noopener noreferrer">
           <img
-            src="/static/img/default-orange.png"
+            src="/img/default-orange.png"
             alt="Buy Me A Coffee"
             className="w-60"
             style={{ margin: 0 }}

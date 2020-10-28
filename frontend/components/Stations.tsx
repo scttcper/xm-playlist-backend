@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -146,16 +147,17 @@ export const Stations = ({ autoFocus }: Props) => {
             <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
               <a>
                 <div className="bg-cool-gray-900 hover:bg-cool-gray-700 rounded-lg p-3 md:p-5">
-                  <img
-                    src={`/static/img/${channel.deeplink}-sm.png`}
+                  <Image
+                    src={`/img/${channel.deeplink}-sm.png`}
                     loading="lazy"
                     alt={`${channel.name} Logo`}
+                    quality={100}
                     width={720}
                     height={720}
                   />
                 </div>
                 <div className="mt-2">
-                  <h3 className="text-center truncate text-sm md:text-lg leading-6 font-medium ">
+                  <h3 className="text-center truncate text-sm md:text-lg leading-6 font-medium">
                     {channel.name}
                   </h3>
                 </div>

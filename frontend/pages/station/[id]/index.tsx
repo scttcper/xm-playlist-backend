@@ -72,7 +72,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
         />
         <meta
           property="og:image"
-          content={`https://xmplaylist.com/static/img/${channel.deeplink}-lg.png`}
+          content={`https://xmplaylist.com/img/${channel.deeplink}-lg.png`}
         />
       </Head>
       <StationHeader channel={channel} currentPage="recent" />
