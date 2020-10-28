@@ -277,7 +277,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                           <div className="flex-shrink-0">
                             <img
                               className="h-12 w-12 rounded"
-                              src={result.cover || '/missing.png'}
+                              src={result.cover || '/img/missing.png'}
                               alt={`${result.name} album cover`}
                             />
                           </div>
