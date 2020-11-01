@@ -98,7 +98,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle">
         <Adsense />
       </div>
-      <div className="relative pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
+      <div className="relative pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 text-center">
         <div className="relative max-w-7xl mx-auto">
           <div className="lg:mt-4 max-w-lg mx-auto">
             <nav className="flex items-center text-sm leading-5 font-medium">
@@ -140,7 +140,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
               <div className="flex-shrink-0">
                 <img className="w-full object-cover" src={albumCover} alt="Album Cover" />
               </div>
-              <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg">
+              <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg text-left">
                 <h3 className="text-xl sm:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:leading-10">
                   {trackData.track.name}
                 </h3>
@@ -169,7 +169,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
             </div>
           )}
           {trackData.plays.some(play => play.y > 0) && (
-            <div className="mt-3 max-w-lg py-2 pb-0 mx-auto rounded-lg rounded-b-none border md:shadow-lg bg-white">
+            <div className="mt-3 max-w-lg py-2 pb-0 mx-auto rounded-lg border md:shadow-lg bg-white">
               <h4 className="text-center font-medium text-sm text-gray-900 leading-8 mb-3">
                 Times Played Per Day
               </h4>
@@ -177,6 +177,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
                 <WithTooltip renderTooltip={renderTooltip}>
                   {({ onMouseMove, onMouseLeave, tooltipData }) => (
                     <Sparkline
+                      className="overflow-hidden"
                       ariaLabel="A line graph of randomly-generated data"
                       height={80}
                       width={width}

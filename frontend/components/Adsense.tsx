@@ -3,7 +3,10 @@ import { Adsense as GoogleAdsense } from '@ctrl/react-adsense';
 
 export const Adsense = () => {
   return (
-    <div className="adsbygoogle block mt-3 mx-auto">
+    <div
+      className="adsbygoogle block mt-3 mx-auto max-w-full text-center"
+      style={{ display: 'block' }}
+    >
       <GoogleAdsense
         client="ca-pub-7640562161899788"
         slot="5645069928"
