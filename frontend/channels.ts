@@ -1436,7 +1436,7 @@ export const channels: Channel[] = [
     name: 'SiriusXM Love',
     genre: Genre.pop,
     desc: 'Romantic ballads and soft pop music featuring lyrics of love.',
-    playlist: '',
+    playlist: '17QwfZGnyVO1WP7vSL2etL',
   },
   {
     id: '9416',
