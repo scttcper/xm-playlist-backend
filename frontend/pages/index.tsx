@@ -19,7 +19,7 @@ export const Home: React.FC = () => {
       <div className="max-w-7xl mx-auto pb-3 px-1 md:px-4 sm:px-6 lg:px-8 adsbygoogle">
         <Adsense />
       </div>
-      <main className="-mt-16">
+      <main>
         <div className="max-w-7xl mx-auto pb-12 px-1 md:px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg shadow-2xl px-3 py-6 sm:px-6">
             <Stations autoFocus={false} />
