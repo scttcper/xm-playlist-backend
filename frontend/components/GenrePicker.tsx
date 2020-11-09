@@ -70,7 +70,7 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute w-32 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+            <Menu.Items className="absolute w-32 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none z-50">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
