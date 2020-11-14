@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import Joi from 'joi';
 import Boom from '@hapi/boom';
-import { admin as firebaseAdmin } from 'firebase-admin/lib/auth';
+import * as firebaseAdmin from 'firebase-admin/lib/auth';
 import * as Sentry from '@sentry/node';
 import { addHours, isAfter, isBefore, subDays } from 'date-fns';
 
