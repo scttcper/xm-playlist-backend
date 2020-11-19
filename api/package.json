@@ -48,10 +48,10 @@
     "@types/jest": "26.0.15",
     "@types/lodash": "4.14.165",
     "@types/micromatch": "4.0.1",
-    "@types/node": "14.14.7",
+    "@types/node": "14.14.8",
     "@types/pino": "6.3.3",
     "@types/redis": "2.8.28",
-    "@types/yargs": "15.0.9",
+    "@types/yargs": "15.0.10",
     "inquirer": "7.3.3",
     "jest": "26.6.3",
     "nodemon": "2.0.6",
@@ -59,7 +59,7 @@
     "ts-node": "9.0.0",
     "ts-node-dev": "1.0.0",
     "typescript": "4.0.5",
-    "yargs": "16.1.0"
+    "yargs": "16.1.1"
   },
   "jest": {
     "preset": "ts-jest",
