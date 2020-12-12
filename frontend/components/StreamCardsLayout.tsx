@@ -55,6 +55,7 @@ export const StreamCardsLayout: React.FC<{
                       scrollPosition={scrollPosition}
                       src={albumCover}
                       className="h-40 w-40"
+                      visibleByDefault={index === 0}
                       alt={`${play.track.name} album cover`}
                     />
                   </div>
