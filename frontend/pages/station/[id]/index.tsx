@@ -1,4 +1,4 @@
-import { formatDistanceStrict, format } from 'date-fns';
+import { formatDistanceStrict, format, subHours } from 'date-fns';
 import axios from 'axios';
 import _ from 'lodash';
 import { NextComponentType, NextPageContext } from 'next';
@@ -62,6 +62,17 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
     setRecent([...recent, ..._.chunk<any>(json, 12)]);
   }
 
+  async function jumpBack(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> {
+    setLoading(true);
+    const hoursAgo = Number(event.target.value);
+    event.target.selectedIndex = 0;
+    const lastDateTime = subHours(new Date(recent[0][0].start_time), Number(hoursAgo)).getTime();
+    const res = await fetch(`${url}/api/station/${channelId}?last=${lastDateTime}`);
+    const json = await res.json();
+    setLoading(false);
+    setRecent(_.chunk<any>(json, 12));
+  }
+
   return (
     <>
       <Head>
@@ -78,6 +89,32 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
       <StationHeader channel={channel} currentPage="recent" />
       {/* Main body */}
       <main className="max-w-7xl mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-3">
+        <div className="relative max-w-7xl mx-auto">
+          <div className="flex justify-end mb-2">
+            <div>
+              <label
+                htmlFor="jumpBack"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Jump back
+              </label>
+              <select
+                id="jumpBack"
+                className="mt-1 block form-select w-48 px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                value={undefined}
+                onChange={jumpBack}
+              >
+                <option>-</option>
+                <option value={2}>4 hours</option>
+                <option value={8}>8 hours</option>
+                <option value={12}>12 hours</option>
+                <option value={24}>24 hours</option>
+                <option value={36}>36 hours</option>
+                <option value={48}>48 hours</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div className="relative max-w-7xl mx-auto">
           <StreamCardsLayout tracks={recent} channel={channel} secondaryText={secondaryText} />
         </div>
