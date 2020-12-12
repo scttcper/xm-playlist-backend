@@ -65,6 +65,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
   async function jumpBack(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> {
     setLoading(true);
     const hoursAgo = Number(event.target.value);
+    // Reset jumpBack dropdown
     event.target.selectedIndex = 0;
     const lastDateTime = subHours(new Date(recent[0][0].start_time), Number(hoursAgo)).getTime();
     const res = await fetch(`${url}/api/station/${channelId}?last=${lastDateTime}`);

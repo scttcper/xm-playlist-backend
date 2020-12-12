@@ -40,12 +40,12 @@ async function updateImages() {
     }
 
     if (channel.name !== channelInfo.channel.name) {
-      console.log(channelInfo.channel.name);
+      console.error(channelInfo.channel.name);
       throw new Error(`name`);
     }
 
     if (channel.number !== Number(channelInfo.channel.xmChannelNumber)) {
-      console.log(channelInfo.channel.xmChannelNumber);
+      console.error(channelInfo.channel.xmChannelNumber);
       throw new Error(`xmChannelNumber`);
     }
 

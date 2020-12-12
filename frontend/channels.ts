@@ -222,7 +222,7 @@ export const channels: Channel[] = [
   {
     id: 'elvisradio',
     deeplink: 'ElvisRadio',
-    number: 19,
+    number: 75,
     name: 'Elvis Radio',
     genre: Genre.rock,
     desc: "From the early years to his comeback, it's all music from Elvis Presley.",
@@ -348,6 +348,16 @@ export const channels: Channel[] = [
     playlist: '0G2ZTnmGv2slp2vNszb5C0',
   },
   {
+    id: '9352',
+    deeplink: 'PettysBuriedTreasure',
+    number: 711,
+    name: "Petty's Buried Treasure",
+    genre: Genre.rock,
+    desc:
+      "Tom Petty's eclectic SiriusXM radio show, Tom Petty's Buried Treasure, is now its own 24/7 commercial-free channel.",
+    playlist: '',
+  },
+  {
     id: 'thebridge',
     deeplink: 'TheBridge',
     number: 17,
@@ -376,16 +386,16 @@ export const channels: Channel[] = [
       'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
     playlist: '5voYlQdL9FT6QWnlIfSxTx',
   },
-  {
-    id: '9482',
-    deeplink: 'TheBillyJoelChannel',
-    number: 70,
-    name: 'The Billy Joel Channel',
-    genre: Genre.rock,
-    desc:
-      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
-    playlist: '',
-  },
+  // {
+  //   id: '9482',
+  //   deeplink: 'TheBillyJoelChannel',
+  //   number: 70,
+  //   name: 'The Billy Joel Channel',
+  //   genre: Genre.rock,
+  //   desc:
+  //     "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
+  //   playlist: '',
+  // },
   {
     id: 'firstwave',
     deeplink: '1stWave',
@@ -499,22 +509,31 @@ export const channels: Channel[] = [
   {
     id: 'reggaerhythms',
     deeplink: 'TheJoint',
-    number: 42,
+    number: 722,
     name: 'The Joint',
     genre: Genre.reggae,
     desc: 'Reggae music from its roots to today.',
     playlist: '3unI3vzoWlLSJzoeitejbC',
   },
-  // {
-  //   id: '9402',
-  //   deeplink: 'BobMarleyTuffGong',
-  //   number: 42,
-  //   name: 'Bob Marley Tuff Gong',
-  //   genre: Genre.reggae,
-  //   desc:
-  //     'Bob\'s music in one place- with rare gems, his family\'s recordings, and music from Tuff Gong, the family-label he founded',
-  //   playlist: '6lOhI4hjfbm1RBsSOQfB06',
-  // },
+  {
+    id: '9524',
+    deeplink: 'SiriusXM42',
+    number: 42,
+    name: 'SiriusXM 42',
+    genre: Genre.hiphop,
+    desc: '',
+    playlist: '',
+  },
+  {
+    id: '9523',
+    deeplink: 'BobMarleyTuffGong',
+    number: 19,
+    name: 'Bob Marley Tuff Gong',
+    genre: Genre.reggae,
+    desc:
+      "Bob's music in one place- with rare gems, his family's recordings, and music from Tuff Gong, the family-label he founded",
+    playlist: '6lOhI4hjfbm1RBsSOQfB06',
+  },
   // {
   //   id: '9399',
   //   deeplink: 'ColdplayRadio',
@@ -583,7 +602,7 @@ export const channels: Channel[] = [
   {
     id: 'soultown',
     deeplink: 'SoulTown',
-    number: 49,
+    number: 292,
     name: 'Soul Town',
     genre: Genre.rnb,
     desc: "Classic soul and Motown music from the '60s and '70s.",
@@ -671,7 +690,7 @@ export const channels: Channel[] = [
     name: 'Bakersfield Beat',
     genre: Genre.country,
     desc:
-      'Music from Dwight Yoakam, and all of the artists that shaped the Bakersfield sound… and beyond.',
+      'Music from Dwight Yoakam, and all of the artists that shaped the Bakersfield sound... and beyond.',
     playlist: '5jOvBe6sJ51p3cTotKSqH4',
   },
   {
@@ -733,7 +752,7 @@ export const channels: Channel[] = [
   {
     id: 'primecountry',
     deeplink: 'PrimeCountry',
-    number: 58,
+    number: 294,
     name: 'Prime Country',
     genre: Genre.country,
     desc: "'80s/'90s Country Hits",
@@ -754,7 +773,8 @@ export const channels: Channel[] = [
     number: 60,
     name: 'Outlaw Country',
     genre: Genre.country,
-    desc: 'Renegades, rebels, rabble rousers and rogues.',
+    desc:
+      "No borders, no b.s.-from country's roots and legends to today's outsiders that just won't be fenced in.",
     playlist: '7q3kzMhlxwd9eoo9ZCPfSq',
   },
   {
@@ -869,7 +889,7 @@ export const channels: Channel[] = [
   {
     id: '8205',
     deeplink: '40sJunction',
-    number: 73,
+    number: 296,
     name: '40s Junction',
     genre: Genre.jazz,
     desc:
@@ -879,7 +899,7 @@ export const channels: Channel[] = [
   {
     id: 'metropolitanopera',
     deeplink: 'MetOperaRadio',
-    number: 75,
+    number: 355,
     name: 'Met Opera Radio',
     genre: Genre.classical,
     desc:
@@ -892,8 +912,7 @@ export const channels: Channel[] = [
     number: 76,
     name: 'Symphony Hall',
     genre: Genre.classical,
-    desc:
-      'Classical music performed by top orchestras, chamber music ensembles and instrumental soloists.',
+    desc: 'Classical music by top orchestras, chamber music ensembles and instrumental soloists.',
     playlist: '4KdXsNll67tp8qsp8wT0jF',
   },
   {
@@ -954,15 +973,25 @@ export const channels: Channel[] = [
       'A hand-selected mix of all kinds of music sharing one goal - to make you wanna roll the windows down and turn the radio up!',
     playlist: '07GjrjDZV4egbvK15AYoR6',
   },
+  // {
+  //   id: '9361',
+  //   deeplink: 'Velvet',
+  //   number: 304,
+  //   name: 'Velvet',
+  //   genre: Genre.pop,
+  //   desc:
+  //     "Today's strong vocalists such as Sam Smith, Josh Groban, Idina Menzel, Susan Boyle, John Legend, Adele, and Adam Lambert.",
+  //   playlist: '0rO5UkNWpDLOCPgBZdHNfK',
+  // },
   {
-    id: '9361',
-    deeplink: 'Velvet',
-    number: 304,
-    name: 'Velvet',
+    id: '9502',
+    deeplink: '88risingRadio',
+    number: 305,
+    name: '88rising Radio',
     genre: Genre.pop,
     desc:
-      "Today's strong vocalists such as Sam Smith, Josh Groban, Idina Menzel, Susan Boyle, John Legend, Adele, and Adam Lambert.",
-    playlist: '0rO5UkNWpDLOCPgBZdHNfK',
+      'Only the best music from all across Asia, from K-Pop, hip-hop, RnB, and more. Curated by 88rising.',
+    playlist: '',
   },
   {
     id: '9174',
@@ -1137,6 +1166,16 @@ export const channels: Channel[] = [
     desc: 'This continuous Classic Rock Party never ends with a lampshade on your head.',
     playlist: '19DiREdiropsGcjcNIXFY8',
   },
+  {
+    id: '9501',
+    deeplink: 'TheTragicallyHipRadio',
+    number: 757,
+    name: 'The Tragically Hip Radio',
+    genre: Genre.rock,
+    desc:
+      "The Tragically Hip Radio, playing music from the band's entire catalogue, interviews and more!",
+    playlist: '',
+  },
   // {
   //   id: '9139',
   //   number: 716,
@@ -1243,7 +1282,7 @@ export const channels: Channel[] = [
     name: 'Viva',
     genre: Genre.latino,
     desc:
-      'Playing a unique blend of romantic, rhythmic and urban pop from the biggest Latin stars from around the world.  Viva-Pop de Hoy!',
+      'Playing a unique blend of romantic, rhythmic and urban pop from the biggest Latin stars from around the world. Viva-Pop de Hoy!',
     playlist: '6wC4Kr9NK5sSKINGGqEDhq',
   },
   {
@@ -1271,18 +1310,18 @@ export const channels: Channel[] = [
     name: 'Luna',
     genre: Genre.latino,
     desc:
-      'Latin percussion and Afro Cuban rhythms blended with Jazz for a fun filled musical journey.',
+      'Latin percussion and Afro Cuban rhythms blended with Jazz for a fun-filled musical journey.',
     playlist: '3WmVgs0QfIxPRERYuNg3s1',
   },
-  {
-    id: '9190',
-    number: 767,
-    deeplink: 'Rumbon',
-    name: 'Rumbón',
-    genre: Genre.latino,
-    desc: 'Classic Salsa',
-    playlist: '0onanEy3SOLW14YUuPsAyw',
-  },
+  // {
+  //   id: '9190',
+  //   number: 767,
+  //   deeplink: 'Rumbon',
+  //   name: 'Rumbón',
+  //   genre: Genre.latino,
+  //   desc: 'Classic Salsa',
+  //   playlist: '0onanEy3SOLW14YUuPsAyw',
+  // },
   {
     id: '9191',
     number: 768,
@@ -1323,13 +1362,23 @@ export const channels: Channel[] = [
   //   desc: 'Pop Hits For The Entire Family',
   //   playlist: '1ViEZTgPDYRlx5O2Apk1PL',
   // },
+  // {
+  //   id: '9351',
+  //   deeplink: 'ScreamRadio',
+  //   number: 105,
+  //   name: 'Scream Radio',
+  //   genre: Genre.holiday,
+  //   desc: '',
+  //   playlist: '',
+  // },
   {
-    id: '9351',
-    deeplink: 'ScreamRadio',
-    number: 105,
-    name: 'Scream Radio',
+    id: '9349',
+    deeplink: 'RadioHanukkah',
+    number: 788,
+    name: 'Radio Hanukkah',
     genre: Genre.holiday,
-    desc: '',
+    desc:
+      "Extensive collection of Hanukkah music, including contemporary, traditional and children's Hanukkah selections.",
     playlist: '',
   },
   {
@@ -1355,7 +1404,7 @@ export const channels: Channel[] = [
   {
     id: '9345',
     deeplink: 'CountryChristmas',
-    number: 779,
+    number: 58,
     name: 'Country Christmas',
     genre: Genre.holiday,
     desc:
@@ -1375,7 +1424,7 @@ export const channels: Channel[] = [
   {
     id: '9346',
     deeplink: 'HolidaySoul',
-    number: 778,
+    number: 49,
     name: 'Holiday Soul',
     genre: Genre.holiday,
     desc:
@@ -1385,7 +1434,7 @@ export const channels: Channel[] = [
   {
     id: '9343',
     deeplink: 'Holly',
-    number: 775,
+    number: 105,
     name: 'Holly',
     genre: Genre.holiday,
     desc: 'Contemporary holiday hits.',
@@ -1403,7 +1452,7 @@ export const channels: Channel[] = [
   {
     id: '9483',
     deeplink: 'HallmarkChannelRadio',
-    number: 777,
+    number: 70,
     name: 'Hallmark Channel Radio',
     genre: Genre.holiday,
     desc:
@@ -1423,7 +1472,7 @@ export const channels: Channel[] = [
   {
     id: '9342',
     deeplink: 'HolidayTraditions',
-    number: 776,
+    number: 73,
     name: 'Holiday Traditions',
     genre: Genre.holiday,
     desc: "Traditional holiday recordings from the '40s through the '60s.",
