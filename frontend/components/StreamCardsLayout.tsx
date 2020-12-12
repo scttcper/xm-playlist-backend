@@ -27,10 +27,10 @@ export const StreamCardsLayout: React.FC<{
 
   return (
     <div>
-      {props.tracks.map((chunk, index) => (
+      {props.tracks.map((chunk, topIdx) => (
         // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={index}>
-          {index > 0 && <Adsense />}
+        <React.Fragment key={topIdx}>
+          {topIdx > 0 && <Adsense />}
           <div className="grid gap-2 mt-3 md:gap-3 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
             {chunk.map((play, index) => {
               const albumCover = play.spotify.cover || '/img/missing.png';
@@ -55,7 +55,7 @@ export const StreamCardsLayout: React.FC<{
                       scrollPosition={scrollPosition}
                       src={albumCover}
                       className="h-40 w-40"
-                      visibleByDefault={index === 0}
+                      visibleByDefault={topIdx === 0}
                       alt={`${play.track.name} album cover`}
                     />
                   </div>
