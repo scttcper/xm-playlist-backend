@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-operators */
 import React from 'react';
 import { SearchResults } from 'pages/search';
 

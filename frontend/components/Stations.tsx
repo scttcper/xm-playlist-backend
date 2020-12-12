@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
-import { useEffect } from 'react';
 
 const fuseConfig = {
   threshold: 0.3,

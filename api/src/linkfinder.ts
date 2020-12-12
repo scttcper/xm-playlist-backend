@@ -23,7 +23,7 @@ export interface Data {
   sourceCountry: string;
   images: string[];
   image: string;
-  links?: { [key: string]: Link[] };
+  links?: Record<string, Link[]>;
   linksCountries?: string[];
   linksOverride?: null;
   aliasId: null;

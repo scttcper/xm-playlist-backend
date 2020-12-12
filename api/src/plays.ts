@@ -138,7 +138,6 @@ export async function getRecent(
   span?.finish();
 
   if (last) {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     query.andWhere('startTime', '<', last);
   }
 

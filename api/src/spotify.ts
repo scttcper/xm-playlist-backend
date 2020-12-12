@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import _ from 'lodash';
 import got from 'got';
 import { URLSearchParams } from 'url';

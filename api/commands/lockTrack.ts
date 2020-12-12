@@ -61,7 +61,11 @@ async function lockTrack(): Promise<void> {
   // remove incorrect links
   await db('links').delete().where({ trackId: spotify.trackId }).limit(1);
 
-  await findAndCacheLinks(spotify);
+  try {
+    await findAndCacheLinks(spotify);
+  } catch (err) {
+    throw new Error('Find and cache links error');
+  }
 }
 
 lockTrack()
