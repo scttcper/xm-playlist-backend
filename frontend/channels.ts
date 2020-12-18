@@ -1441,6 +1441,15 @@ export const channels: Channel[] = [
     playlist: '',
   },
   {
+    id: '9403',
+    deeplink: 'MannheimSteamroller',
+    number: 743,
+    name: 'Mannheim Steamroller',
+    genre: Genre.holiday,
+    desc: 'Mannheim Steamroller takes holiday classics in a refreshing new direction',
+    playlist: '',
+  },
+  {
     id: '9348',
     deeplink: 'Navidad',
     number: 787,
