@@ -1371,16 +1371,16 @@ export const channels: Channel[] = [
   //   desc: '',
   //   playlist: '',
   // },
-  {
-    id: '9349',
-    deeplink: 'RadioHanukkah',
-    number: 788,
-    name: 'Radio Hanukkah',
-    genre: Genre.holiday,
-    desc:
-      "Extensive collection of Hanukkah music, including contemporary, traditional and children's Hanukkah selections.",
-    playlist: '',
-  },
+  // {
+  //   id: '9349',
+  //   deeplink: 'RadioHanukkah',
+  //   number: 788,
+  //   name: 'Radio Hanukkah',
+  //   genre: Genre.holiday,
+  //   desc:
+  //     "Extensive collection of Hanukkah music, including contemporary, traditional and children's Hanukkah selections.",
+  //   playlist: '',
+  // },
   {
     id: '9521',
     deeplink: 'JollyChristmas',
