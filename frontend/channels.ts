@@ -1382,6 +1382,16 @@ export const channels: Channel[] = [
   //   playlist: '',
   // },
   {
+    id: '9351',
+    deeplink: 'NewYearsNation',
+    number: 105,
+    name: 'New Years Nation',
+    genre: Genre.pop,
+    desc:
+      "Your ultimate New Year's party playlist featuring the biggest, upbeat party hits to ring in the new year!",
+    playlist: '',
+  },
+  {
     id: '9521',
     deeplink: 'JollyChristmas',
     number: 786,
