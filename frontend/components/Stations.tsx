@@ -67,7 +67,6 @@ export const Stations = ({ autoFocus }: Props) => {
     const query = (event.target as HTMLInputElement).value.trim();
 
     router.replace({
-      pathname: '/station',
       query: getQueryParms(query, currentGenre),
     });
   };
@@ -78,8 +77,7 @@ export const Stations = ({ autoFocus }: Props) => {
     setFuse(allResultsFuse());
     setCurrentGenre(null);
     router.replace({
-      pathname: '/station',
-      query: {},
+      query: undefined,
     });
   };
 
@@ -94,7 +92,7 @@ export const Stations = ({ autoFocus }: Props) => {
 
   let results: Channel[];
   if (currentQuery) {
-    results = fuse.search(currentQuery, { limit: 15 }).map(result => result.item);
+    results = fuse.search(currentQuery, { limit: 15 }).map(result => result.item) as Channel[];
   } else {
     results = currentChannels;
   }
@@ -110,8 +108,8 @@ export const Stations = ({ autoFocus }: Props) => {
                 Filter Station
               </label>
               <input
-                autoFocus={autoFocus}
                 id="searchStation"
+                autoFocus={autoFocus}
                 className="form-input block w-full text-sm leading-5 py-2"
                 placeholder="Filter Stations"
                 aria-label="Filter Stations"
@@ -128,7 +126,8 @@ export const Stations = ({ autoFocus }: Props) => {
           <div className="flex-grow-0">
             <button
               type="button"
-              aria-label="Clear"
+              aria-label="Reset"
+              title="Reset"
               className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-3 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
               onClick={resetAll}
             >
