@@ -1388,7 +1388,7 @@ export const channels: Channel[] = [
     name: 'Billy Joel Channel',
     genre: Genre.pop,
     desc:
-      "Your ultimate New Year's party playlist featuring the biggest, upbeat party hits to ring in the new year!",
+      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
     playlist: '',
   },
   // {
