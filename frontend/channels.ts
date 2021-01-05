@@ -1385,7 +1385,7 @@ export const channels: Channel[] = [
     id: '9351',
     deeplink: 'NewYearsNation',
     number: 105,
-    name: 'New Years Nation',
+    name: 'Billy Joel Channel',
     genre: Genre.pop,
     desc:
       "Your ultimate New Year's party playlist featuring the biggest, upbeat party hits to ring in the new year!",
