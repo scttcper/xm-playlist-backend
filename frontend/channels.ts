@@ -386,16 +386,16 @@ export const channels: Channel[] = [
       'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
     playlist: '5voYlQdL9FT6QWnlIfSxTx',
   },
-  // {
-  //   id: '9482',
-  //   deeplink: 'TheBillyJoelChannel',
-  //   number: 70,
-  //   name: 'The Billy Joel Channel',
-  //   genre: Genre.rock,
-  //   desc:
-  //     "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
-  //   playlist: '',
-  // },
+  {
+    id: '9351',
+    deeplink: 'TheBillyJoelChannel',
+    number: 105,
+    name: 'The Billy Joel Channel',
+    genre: Genre.rock,
+    desc:
+      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes. Limited-run channel.",
+    playlist: '',
+  },
   {
     id: 'firstwave',
     deeplink: '1stWave',
@@ -1381,16 +1381,16 @@ export const channels: Channel[] = [
   //     "Extensive collection of Hanukkah music, including contemporary, traditional and children's Hanukkah selections.",
   //   playlist: '',
   // },
-  {
-    id: '9351',
-    deeplink: 'NewYearsNation',
-    number: 105,
-    name: 'Billy Joel Channel',
-    genre: Genre.pop,
-    desc:
-      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
-    playlist: '',
-  },
+  // {
+  //   id: '9351',
+  //   deeplink: 'NewYearsNation',
+  //   number: 105,
+  //   name: 'Billy Joel Channel',
+  //   genre: Genre.pop,
+  //   desc:
+  //     "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes.  Limited-run channel.",
+  //   playlist: '',
+  // },
   // {
   //   id: '9521',
   //   deeplink: 'JollyChristmas',
@@ -1459,15 +1459,15 @@ export const channels: Channel[] = [
   //   desc: 'Mannheim Steamroller takes holiday classics in a refreshing new direction',
   //   playlist: '',
   // },
-  {
-    id: '9348',
-    deeplink: 'Navidad',
-    number: 787,
-    name: 'Navidad',
-    genre: Genre.latino,
-    desc: 'Latin holiday music and traditional sounds.',
-    playlist: '',
-  },
+  // {
+  //   id: '9348',
+  //   deeplink: 'Navidad',
+  //   number: 787,
+  //   name: 'Navidad',
+  //   genre: Genre.latino,
+  //   desc: 'Latin holiday music and traditional sounds.',
+  //   playlist: '',
+  // },
   // {
   //   id: '9483',
   //   deeplink: 'HallmarkChannelRadio',
