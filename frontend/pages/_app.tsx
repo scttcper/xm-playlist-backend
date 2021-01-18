@@ -15,7 +15,6 @@ import {
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
-import * as Sentry from '@sentry/react';
 import { RecoilRoot } from 'recoil';
 
 import { NavBar } from 'components/Navbar';
@@ -24,12 +23,6 @@ import { app } from 'services/firebase';
 import { useUser } from 'services/user';
 
 import '../css/tailwind.css';
-
-Sentry.init({
-  enabled: process.env.NODE_ENV === 'production',
-  dsn: 'https://beb4a51c9cad4585946d450b9b3005b9@o54215.ingest.sentry.io/5338805',
-  ignoreErrors: [/google/gi, /Beacon/gi, /ads/],
-});
 
 config.autoAddCss = false;
 library.add(
@@ -66,7 +59,9 @@ const User: React.FC<any> = ({ children }) => {
 // @ts-expect-error
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   useEffect(() => {
-    setTimeout(() => ReactGA.pageview(window.location.pathname + window.location.search), 100);
+    setTimeout(() => {
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }, 100);
   });
 
   return (
@@ -94,4 +89,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   );
 };
 
-export default Sentry.withProfiler(MyApp);
+export default MyApp;
