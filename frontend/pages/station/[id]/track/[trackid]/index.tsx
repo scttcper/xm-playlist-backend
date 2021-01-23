@@ -14,6 +14,7 @@ import Link from 'next/link';
 import React from 'react';
 import { format, formatDistanceStrict, formatISO } from 'date-fns';
 import { useMeasure } from 'react-use';
+import Image from 'next/image';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
@@ -49,7 +50,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
     return <Error statusCode={404} />;
   }
 
-  const albumCover = trackData.spotify.cover || '/img/missing.png';
+  const albumCover = trackData.spotify.cover;
   const metaAlbumCover = trackData.spotify.cover || 'https://xmplaylist.com/img/missing.png';
   const description = `${trackData.track.name} by ${trackData.track.artists.join(' ')} on ${
     channel.name
@@ -138,7 +139,21 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
             </nav>
             <div className="mt-3 flex flex-col rounded-lg border md:shadow-lg bg-white">
               <div className="flex-shrink-0">
-                <img className="w-full object-cover" src={albumCover} alt="Album Cover" />
+                {albumCover ? (
+                  <img
+                    className="w-full object-cover"
+                    src={albumCover}
+                    alt={`${trackData.track.name} album cover`}
+                  />
+                ) : (
+                  <Image
+                    src="/img/missing.png"
+                    alt={`${trackData.track.name} album cover`}
+                    quality={100}
+                    width={600}
+                    height={600}
+                  />
+                )}
               </div>
               <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg text-left">
                 <h3 className="text-xl sm:text-3xl md:leading-9 tracking-tight font-extrabold text-gray-900 sm:leading-10">

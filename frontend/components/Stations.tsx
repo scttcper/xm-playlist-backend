@@ -92,7 +92,7 @@ export const Stations = ({ autoFocus }: Props) => {
 
   let results: Channel[];
   if (currentQuery) {
-    results = fuse.search(currentQuery, { limit: 15 }).map(result => result.item) as Channel[];
+    results = fuse.search(currentQuery, { limit: 15 }).map(result => result.item)!;
   } else {
     results = currentChannels;
   }

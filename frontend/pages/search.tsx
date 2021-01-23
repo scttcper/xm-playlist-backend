@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
@@ -60,13 +61,13 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   const { user } = useUser();
 
   const handleNextPage = () => {
-    const data = { ...(searchResults.query as SearchResults['query']) };
+    const data = { ...searchResults.query! };
     data.currentPage = (data.currentPage || 1) + 1;
     search(data);
   };
 
   const handlePreviousPage = () => {
-    const data = { ...(searchResults.query as SearchResults['query']) };
+    const data = { ...searchResults.query! };
     data.currentPage = (data.currentPage || 1) - 1;
     search(data);
   };
@@ -275,11 +276,21 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                       <div className="flex items-center px-1 py-3 md:px-4 md:py-4">
                         <div className="min-w-0 flex-1 flex items-center">
                           <div className="flex-shrink-0">
-                            <img
-                              className="h-12 w-12 rounded"
-                              src={result.cover || '/img/missing.png'}
-                              alt={`${result.name} album cover`}
-                            />
+                            {result.cover ? (
+                              <img
+                                className="h-12 w-12 rounded"
+                                src={result.cover}
+                                alt={`${result.name} album cover`}
+                              />
+                            ) : (
+                              <Image
+                                src="/img/missing.png"
+                                alt={`${result.name} album cover`}
+                                quality={100}
+                                width={48}
+                                height={48}
+                              />
+                            )}
                           </div>
                           <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                             <div>

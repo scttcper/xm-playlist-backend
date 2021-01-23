@@ -3,9 +3,8 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useClickAway } from 'react-use';
-import { useRecoilState } from 'recoil';
 
-import { userAtom as userStore, useUser } from 'services/user';
+import { useUser } from 'services/user';
 
 export const NavBar: React.FC = () => {
   const router = useRouter();
@@ -37,7 +36,9 @@ export const NavBar: React.FC = () => {
               className="inline-flex items-center justify-center p-2 rounded-md text-cool-gray-400 hover:text-cool-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-cool-gray-500 transition duration-150 ease-in-out"
               aria-label="Main menu"
               aria-expanded="false"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
             >
               <svg
                 className={`h-6 w-6 ${mobileMenuOpen ? 'hidden' : 'block'}`}
@@ -109,10 +110,12 @@ export const NavBar: React.FC = () => {
                     id="user-menu"
                     aria-label="User menu"
                     aria-haspopup="true"
-                    onClick={() => setProfileOpen(!profileOpen)}
+                    onClick={() => {
+                      setProfileOpen(!profileOpen);
+                    }}
                   >
                     <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
-                      {user.photoURL && <img src={user.photoURL} />}
+                      {user.photoURL && <img src={user.photoURL} alt="user avatar" />}
                       {!user.photoURL && (
                         <svg
                           className="h-full w-full text-cool-gray-300"
@@ -150,7 +153,9 @@ export const NavBar: React.FC = () => {
                   <Link href="/profile">
                     <a
                       className="block px-4 py-2 text-sm leading-5 text-cool-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                      onClick={() => setProfileOpen(false)}
+                      onClick={() => {
+                        setProfileOpen(false);
+                      }}
                     >
                       Profile
                     </a>
@@ -175,7 +180,9 @@ export const NavBar: React.FC = () => {
           <Link href="/station">
             <a
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+              }}
             >
               Stations
             </a>
@@ -183,7 +190,9 @@ export const NavBar: React.FC = () => {
           <Link href="/search">
             <a
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-cool-gray-600 hover:text-cool-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-cool-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+              }}
             >
               Search
             </a>

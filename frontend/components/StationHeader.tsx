@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
@@ -17,10 +18,13 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
     <>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-4 md:mb-3 flex">
         <div className="flex-0 bg-cool-gray-900 rounded-lg p-3 mr-2 md:mr-3 flex">
-          <img
+          <Image
             src={`/img/${channel.deeplink}-sm.png`}
             className="w-24 h-24 md:h-32 md:w-32"
-            alt={`${channel.name} logo`}
+            alt={`${channel.name} Logo`}
+            quality={100}
+            width={138}
+            height={138}
           />
         </div>
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-4 pt-2 flex flex-col justify-between">
