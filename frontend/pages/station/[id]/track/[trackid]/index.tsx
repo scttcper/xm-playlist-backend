@@ -44,7 +44,8 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
 
-  const [ref, { width }] = useMeasure<HTMLDivElement>();
+  // TODO: types are messed up
+  const [ref, { width }] = useMeasure<HTMLDivElement>() as any;
 
   if (!channel || !trackData) {
     return <Error statusCode={404} />;
