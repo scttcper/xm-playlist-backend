@@ -196,7 +196,7 @@ export const channels: Channel[] = [
     number: 16,
     name: 'The Blend',
     genre: Genre.pop,
-    desc: 'Bright Pop Hits',
+    desc: 'A bright blend of pop hits',
     playlist: '4U1w1DNhpN6Y8ZvxvJpwn0',
   },
   {
@@ -334,7 +334,7 @@ export const channels: Channel[] = [
     number: 710,
     name: 'The Loft',
     genre: Genre.rock,
-    desc: 'Hand selected, eclectic music from legends and up-and-coming artists.',
+    desc: 'Adventurous music for grown-ups, from a diversity of styles and eras.',
     playlist: '5SnpYIF1lrdv5pM9GYhpgJ',
   },
   {
@@ -457,7 +457,7 @@ export const channels: Channel[] = [
     number: 39,
     name: 'Hair Nation',
     genre: Genre.rock,
-    desc: "Vintage rock from the big '80s hair bands.",
+    desc: "Hair Metal, Glam and Hard Rock from 80's Hair Bands!",
     playlist: '1lsFTg8ohGiqf1JHnwIrmB',
   },
   {
@@ -524,16 +524,16 @@ export const channels: Channel[] = [
     desc: '',
     playlist: '',
   },
-  {
-    id: '9523',
-    deeplink: 'BobMarleyTuffGong',
-    number: 19,
-    name: 'Bob Marley Tuff Gong',
-    genre: Genre.reggae,
-    desc:
-      "Bob's music in one place- with rare gems, his family's recordings, and music from Tuff Gong, the family-label he founded",
-    playlist: '6lOhI4hjfbm1RBsSOQfB06',
-  },
+  // {
+  //   id: '9523',
+  //   deeplink: 'BobMarleyTuffGong',
+  //   number: 19,
+  //   name: 'Bob Marley Tuff Gong',
+  //   genre: Genre.reggae,
+  //   desc:
+  //     "Bob's music in one place- with rare gems, his family's recordings, and music from Tuff Gong, the family-label he founded",
+  //   playlist: '6lOhI4hjfbm1RBsSOQfB06',
+  // },
   // {
   //   id: '9399',
   //   deeplink: 'ColdplayRadio',
@@ -602,7 +602,7 @@ export const channels: Channel[] = [
   {
     id: 'soultown',
     deeplink: 'SoulTown',
-    number: 292,
+    number: 49,
     name: 'Soul Town',
     genre: Genre.rnb,
     desc: "Classic soul and Motown music from the '60s and '70s.",
@@ -679,7 +679,7 @@ export const channels: Channel[] = [
     number: 754,
     name: 'Poplandia',
     genre: Genre.pop,
-    desc: "The biggest Canadian Pop hits of the '90s and 2000s.",
+    desc: "The hottest Canadian Pop hits from the '90s, 2000s and today.",
     playlist: '01OjwkEpe11gmQhDx4wjtB',
     allowLinkContent: true,
   },
@@ -736,7 +736,7 @@ export const channels: Channel[] = [
     number: 56,
     name: 'The Highway',
     genre: Genre.country,
-    desc: "Today's Country Hits",
+    desc: "Today's country hits featuring Storme Warren.",
     playlist: '1NEhiGacNUMoSdH4pI73yr',
   },
   {
@@ -752,7 +752,7 @@ export const channels: Channel[] = [
   {
     id: 'primecountry',
     deeplink: 'PrimeCountry',
-    number: 294,
+    number: 58,
     name: 'Prime Country',
     genre: Genre.country,
     desc: "'80s/'90s Country Hits",
@@ -889,7 +889,7 @@ export const channels: Channel[] = [
   {
     id: '8205',
     deeplink: '40sJunction',
-    number: 296,
+    number: 73,
     name: '40s Junction',
     genre: Genre.jazz,
     desc:
@@ -1183,13 +1183,15 @@ export const channels: Channel[] = [
   //   genre: Genre.rock,
   //   desc: 'Home for limited-run channels',
   // },
-  // {
-  //   id: '9353',
-  //   number: 717,
-  //   name: 'SiriusXM Limited Edition 3',
-  //   genre: Genre.rock,
-  //   desc: 'Home for limited-run channels',
-  // },
+  {
+    id: '9402',
+    deeplink: 'MilesDavisRadio',
+    number: 719,
+    name: 'Miles Davis Radio',
+    genre: Genre.rock,
+    desc: 'Limited run Feb 22 - Feb 28',
+    playlist: '',
+  },
   // {
   //   id: '9397',
   //   deeplink: 'SwaysUniverse',
@@ -1206,20 +1208,24 @@ export const channels: Channel[] = [
   //   genre: Genre.hiphop,
   //   desc: 'Home for limited-run channels XL',
   // },
-  // {
-  //   id: '9399',
-  //   number: 726,
-  //   name: 'SiriusXM Limited Edition 5',
-  //   genre: Genre.rnb,
-  //   desc: 'Home for limited-run channels',
-  // },
-  // {
-  //   id: '9400',
-  //   number: 730,
-  //   name: 'SiriusXM Limited Edition 6',
-  //   genre: Genre.electronic,
-  //   desc: 'Home for limited-run channels',
-  // },
+  {
+    id: '9399',
+    deeplink: 'ArethaFranklinChannel',
+    number: 726,
+    name: 'Aretha Franklin Channel',
+    genre: Genre.rnb,
+    desc: 'Limited run Feb 15 - Feb 21',
+    playlist: '',
+  },
+  {
+    id: '9400',
+    deeplink: 'TheMotownChannel',
+    number: 730,
+    name: 'The Motown Channel',
+    genre: Genre.rnb,
+    desc: 'Limited run Feb 1 - Feb 7',
+    playlist: '',
+  },
   {
     id: '8227',
     deeplink: 'TheVillage',
@@ -1450,15 +1456,15 @@ export const channels: Channel[] = [
   //   desc: 'Contemporary holiday hits.',
   //   playlist: '',
   // },
-  // {
-  //   id: '9403',
-  //   deeplink: 'MannheimSteamroller',
-  //   number: 743,
-  //   name: 'Mannheim Steamroller',
-  //   genre: Genre.holiday,
-  //   desc: 'Mannheim Steamroller takes holiday classics in a refreshing new direction',
-  //   playlist: '',
-  // },
+  {
+    id: '9403',
+    deeplink: 'JimiHendrixExperience',
+    number: 743,
+    name: 'Jimi Hendrix Experience',
+    genre: Genre.rock,
+    desc: 'Limited run Feb 8 - Feb 14',
+    playlist: '',
+  },
   // {
   //   id: '9348',
   //   deeplink: 'Navidad',
@@ -1491,7 +1497,7 @@ export const channels: Channel[] = [
   {
     id: '9342',
     deeplink: 'HolidayTraditions',
-    number: 73,
+    number: 776,
     name: 'Holiday Traditions',
     genre: Genre.holiday,
     desc: "Traditional holiday recordings from the '40s through the '60s.",
@@ -1500,7 +1506,7 @@ export const channels: Channel[] = [
   {
     id: 'siriuslove',
     deeplink: 'SiriusXMLove',
-    number: 290,
+    number: 70,
     name: 'SiriusXM Love',
     genre: Genre.pop,
     desc: 'Romantic ballads and soft pop music featuring lyrics of love.',
