@@ -388,12 +388,12 @@ export const channels: Channel[] = [
   },
   {
     id: '9351',
-    deeplink: 'TheBillyJoelChannel',
+    deeplink: 'FooFightersRadio',
     number: 105,
-    name: 'The Billy Joel Channel',
+    name: 'Foo Fighters Radio',
     genre: Genre.rock,
     desc:
-      "Music from Billy Joel's career plus stories behind the songs and Billy's memories and anecdotes. Limited-run channel.",
+      'Foo Fighters Radio features insight behind their biggest songs, demos, rarities, live cuts, influences & band hosted shows',
     playlist: '',
   },
   {
@@ -653,6 +653,26 @@ export const channels: Channel[] = [
     desc:
       'Chill plays downtempo electronic and deep house. Music that takes you away to a relaxing poolside or chic hotel.',
     playlist: '4zCgB1d2enUh63CdekFeij',
+  },
+  {
+    id: '9527',
+    deeplink: 'AStateofArmin',
+    number: 736,
+    name: 'A State of Armin',
+    genre: Genre.electronic,
+    desc:
+      'Armin van Buuren\'s "A State of Armin" features the latest in Trance & Progressive Dance Music from superstar DJ Armin van Buuren',
+    playlist: '',
+  },
+  {
+    id: '9526',
+    deeplink: 'SteveAokisRemixRadio',
+    number: 735,
+    name: "Steve Aoki's Remix Radio",
+    genre: Genre.electronic,
+    desc:
+      'A channel curated by DJ/Producer, Steve Aoki featuring his favorite remixes of Pop & Dance songs, and his original tracks.',
+    playlist: '',
   },
   {
     id: '9481',
