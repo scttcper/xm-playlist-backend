@@ -18,5 +18,5 @@ export const NeworAd = ({ id, className = '', style = {}, ...rest }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div className={className} style={style} {...rest} />;
+  return <div id={id} className={className} style={style} {...rest} />;
 };
