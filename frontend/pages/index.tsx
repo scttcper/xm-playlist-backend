@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto pb-3 px-1 md:px-4 sm:px-6 lg:px-8">
-        <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px' }} />
+        <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px', display: 'inline-block' }} />
       </div>
       <main>
         <div className="max-w-7xl mx-auto pb-12 px-1 md:px-4 sm:px-6 lg:px-8">
