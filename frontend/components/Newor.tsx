@@ -18,5 +18,12 @@ export const NeworAd = ({ id, className = '', style = {}, ...rest }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div id={id} className={className} style={style} {...rest} />;
+  return (
+    <div
+      id={id}
+      className={`block mt-3 mx-auto max-w-full text-center ${className}`}
+      style={style}
+      {...rest}
+    />
+  );
 };
