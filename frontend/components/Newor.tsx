@@ -6,7 +6,7 @@ type Props = {
   style?: React.CSSProperties;
 };
 
-export const NeworAd = ({ id, className = '', style = { display: 'block' }, ...rest }: Props) => {
+export const NeworAd = ({ id, className = '', style = {}, ...rest }: Props) => {
   useEffect(() => {
     try {
       if (typeof window === 'object') {
