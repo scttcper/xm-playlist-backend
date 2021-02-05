@@ -150,6 +150,7 @@ StationPage.getInitialProps = async ({ query, req, res }) => {
 
   let headers: any;
   if (!process.browser) {
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     res?.setHeader?.('Cache-Control', 'public, max-age=120, must-revalidate');
     headers = {
       'x-real-ip': req?.headers?.['x-real-ip'] ?? '',

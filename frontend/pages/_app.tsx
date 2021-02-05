@@ -69,6 +69,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
       <Head>
         <title>xmplaylist - Recently played songs and playlists from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+        <script type="text/javascript" src="//cdn.thisiswaldo.com/static/js/9956.js" />
 
         <meta
           name="description"

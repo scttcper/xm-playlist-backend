@@ -2,10 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Channel } from '../channels';
 import { StationNavigation } from './StationNavigation';
 import { StationSpotifyPlaylist } from './StationSpotifyPlaylist';
-import { Channel } from '../channels';
-import { Adsense } from './Adsense';
+import { NeworAd } from './Newor';
 
 type Props = {
   channel: Channel;
@@ -54,8 +54,8 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
       </div>
       {/* old */}
 
-      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center adsbygoogle my-2">
-        <Adsense />
+      <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center my-2">
+        <NeworAd id="waldo-tag-9958" />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3">

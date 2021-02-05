@@ -25,7 +25,7 @@ const LinkLogin = () => {
       firebase
         .auth()
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        .signInWithEmailLink(email as string, window.location.href)
+        .signInWithEmailLink(email!, window.location.href)
         .then(result => {
           // Clear email from storage.
           window.localStorage.removeItem('emailForSignIn');
