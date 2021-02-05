@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto pb-3 px-1 md:px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto pb-3 px-1 md:px-4 sm:px-6 lg:px-8 text-center">
         <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px' }} />
       </div>
       <main>
