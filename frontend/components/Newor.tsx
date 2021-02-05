@@ -21,7 +21,7 @@ export const NeworAd = ({ id, className = '', style = {}, ...rest }: Props) => {
   return (
     <div
       id={id}
-      className={`mt-3 mx-auto max-w-full text-center ${className}`}
+      className={`inline-block mt-3 mx-auto max-w-full text-center ${className}`}
       style={style}
       {...rest}
     />

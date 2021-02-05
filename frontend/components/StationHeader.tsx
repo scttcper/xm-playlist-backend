@@ -55,7 +55,7 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
       {/* old */}
 
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center my-2">
-        <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px', display: 'inline-block' }} />
+        <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px' }} />
       </div>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8">
         <div className="flex-1 bg-white rounded-lg p-3">
