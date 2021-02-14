@@ -10,7 +10,7 @@ import fastifyExpress from 'fastify-express';
 
 import config from '../config';
 import { registerApiRoutes } from './apiRoutes';
-import { logger } from './logger';
+import { apiLogger } from './logger';
 
 Sentry.init({
   dsn: config.dsn,
@@ -64,7 +64,7 @@ const port = parseInt(process.env.PORT, 10) || 5000;
       const ip = req.headers?.['x-real-ip'] ?? req.ips?.[0] ?? req.ip ?? '';
       const userAgent = req.headers?.['user-agent'] ?? '';
 
-      logger.info(
+      apiLogger.info(
         {
           msg: `${method} ${req.raw.url} | ${statusCode} | ${ip}`,
           req: {

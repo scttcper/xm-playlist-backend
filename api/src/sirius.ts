@@ -6,7 +6,7 @@ import { db } from './db';
 import { Channel } from '../../frontend/channels';
 import { SiriusDeeplink } from './siriusDeeplink';
 import { TrackModel, ScrobbleModel } from './models';
-import { logger } from './logger';
+import { scannerLogger } from './logger';
 
 const log = debug('xmplaylist');
 
@@ -110,7 +110,7 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       await db('track').insert(track);
     }
 
-    logger.info(
+    scannerLogger.info(
       {
         msg: `scrobble: ${channel.deeplink} - ${name} by ${artists.join(' ')}`,
         scanner: {

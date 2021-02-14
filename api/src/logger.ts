@@ -3,9 +3,22 @@ import pino from 'pino';
 
 import config from '../config';
 
-const stream = createWriteStream({
-  apiKey: config.logflare,
-  sourceToken: '26f6fec8-c608-4b53-bdc2-c31bc3415730',
-  size: 10,
-});
-export const logger = pino(undefined, stream);
+// xmplaylist.api
+export const apiLogger = pino(
+  undefined,
+  createWriteStream({
+    apiKey: config.logflare,
+    sourceToken: '8a504398-e7fa-44a3-a34a-cbc8b4e4ebb1',
+    size: 10,
+  }),
+);
+
+// xmplaylist.scanner
+export const scannerLogger = pino(
+  undefined,
+  createWriteStream({
+    apiKey: config.logflare,
+    sourceToken: '9f9c3485-c9b4-48f5-8a4b-e12c33605b9b',
+    size: 10,
+  }),
+);
