@@ -3,10 +3,10 @@ import got from 'got';
 import { URLSearchParams } from 'url';
 import { db } from './db';
 
-import { matchesGarbage } from './ignoreNames';
 import { Channel } from '../../frontend/channels';
 import { SiriusDeeplink } from './siriusDeeplink';
 import { TrackModel, ScrobbleModel } from './models';
+import { logger } from './logger';
 
 const log = debug('xmplaylist');
 
@@ -106,12 +106,27 @@ export async function handleResponse(channel: Channel, res: SiriusDeeplink) {
       .where({ id: track.id })
       .first();
 
-    if (existingTrack) {
-      const { id: _, ...update } = { ...track, updatedAt: db.fn.now() };
-      await db('track').where('id', '=', track.id).update(update);
-    } else {
+    if (!existingTrack) {
       await db('track').insert(track);
     }
+
+    logger.info(
+      {
+        msg: `scrobble: ${channel.deeplink} - ${name} by ${artists.join(' ')}`,
+        scanner: {
+          id: track.id,
+          name,
+          artists,
+          startTime,
+          contentType,
+          deeplink: channel.deeplink,
+          album: track.album,
+          itunesId: track.itunesId,
+        },
+      },
+
+      `scrobble: ${channel.deeplink} - ${name} by ${artists.join(' ')}`,
+    );
 
     await db('scrobble').insert(scrobble);
     inserted.push({ track, scrobble });

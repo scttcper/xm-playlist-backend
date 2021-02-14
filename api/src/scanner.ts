@@ -10,7 +10,6 @@ import config from '../config';
 import { checkEndpoint } from './sirius';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
-import { Spotify } from './models';
 
 const log = debug('xmplaylist');
 
@@ -18,32 +17,25 @@ async function updateAll() {
   for (const channel of channels) {
     // log(`checking ${channel.name}`);
     try {
-      const tracks = await checkEndpoint(channel);
-      for (const { track } of tracks) {
-        let spotify: Spotify;
-        try {
-          spotify = await spotifyFindAndCache(track, channel);
-        } catch (error) {
-          if (error instanceof SpotifyFailed) {
-            continue;
-          }
-
-          throw error;
+      const results = await checkEndpoint(channel);
+      for (const { track, scrobble } of results) {
+        // Skip spotify for links, mostly ads
+        if (scrobble.contentType === 'link') {
+          continue;
         }
 
-        if (spotify) {
-          try {
-            await findAndCacheLinks(spotify);
-          } catch (error) {
-            if (error instanceof FailedLinkFinding) {
-              continue;
-            }
-
-            throw error;
-          }
-        }
+        const spotify = await spotifyFindAndCache(track, channel);
+        await findAndCacheLinks(spotify);
       }
     } catch (error) {
+      if (error instanceof SpotifyFailed) {
+        continue;
+      }
+
+      if (error instanceof FailedLinkFinding) {
+        continue;
+      }
+
       catchError(error);
     } finally {
       await delay(250);
