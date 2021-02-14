@@ -1,5 +1,5 @@
 import axios from 'axios';
-import _ from 'lodash';
+import chunk from 'lodash.chunk';
 import Error from 'next/error';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -52,7 +52,7 @@ const MostHeard: NextComponentType<NextPageContext, Promise<Props>, Props> = ({
 
     router.push(router.route, { pathname: path, query }, { shallow: true });
     const res = await axios.get(api, { timeout: 15 * 1000 });
-    setTracks(_.chunk<any>(res.data, 12));
+    setTracks(chunk<any>(res.data, 12));
   }
 
   const handleSubDaysChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -126,7 +126,7 @@ MostHeard.getInitialProps = async ({ req, res, query }) => {
     }
 
     const json = response.data as StationMostHeard[];
-    const recent = _.chunk(json, 12);
+    const recent = chunk(json, 12);
     return { recent, channelId: id };
   } catch (error) {
     return { recent: [], channelId: id };

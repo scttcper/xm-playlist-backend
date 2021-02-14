@@ -1,4 +1,4 @@
-import { Span, Transaction } from '@sentry/tracing';
+import { Transaction } from '@sentry/tracing';
 import { subDays, differenceInDays } from 'date-fns';
 import _ from 'lodash';
 

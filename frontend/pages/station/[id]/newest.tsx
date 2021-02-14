@@ -1,6 +1,6 @@
 import { formatDistanceStrict, format } from 'date-fns';
 import axios from 'axios';
-import _ from 'lodash';
+import chunk from 'lodash.chunk';
 import Error from 'next/error';
 import Head from 'next/head';
 import React from 'react';
@@ -85,7 +85,7 @@ Newest.getInitialProps = async ({ query, req, res }) => {
       headers,
     });
     const json = response.data as StationNewest[];
-    return { recent: _.chunk(json, 12), channelId: id };
+    return { recent: chunk(json, 12), channelId: id };
   } catch (error) {
     return { recent: [], channelId: id };
   }

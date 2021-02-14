@@ -1,6 +1,6 @@
 import { formatDistanceStrict, format, subHours } from 'date-fns';
 import axios from 'axios';
-import _ from 'lodash';
+import chunk from 'lodash.chunk';
 import { NextComponentType, NextPageContext } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
@@ -59,7 +59,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
     const res = await fetch(`${url}/api/station/${channelId}?last=${lastDateTime}`);
     const json = await res.json();
     setLoading(false);
-    setRecent([...recent, ..._.chunk<any>(json, 12)]);
+    setRecent([...recent, ...chunk<any>(json, 12)]);
   }
 
   async function jumpBack(event: React.ChangeEvent<HTMLSelectElement>): Promise<void> {
@@ -71,7 +71,7 @@ const StationPage: NextComponentType<NextPageContext, any, StationProps> = props
     const res = await fetch(`${url}/api/station/${channelId}?last=${lastDateTime}`);
     const json = await res.json();
     setLoading(false);
-    setRecent(_.chunk<any>(json, 12));
+    setRecent(chunk<any>(json, 12));
   }
 
   return (
@@ -159,7 +159,7 @@ StationPage.getInitialProps = async ({ query, req, res }) => {
 
   try {
     const response = await axios.get(`${url}/api/station/${id}`, { timeout: 15 * 1000, headers });
-    return { recent: _.chunk(response.data, 12), channelId: id };
+    return { recent: chunk(response.data, 12), channelId: id };
   } catch (error) {
     return { recent: [], channelId: id };
   }
