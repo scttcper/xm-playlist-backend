@@ -37,16 +37,13 @@ const renderTooltip = ({ datum }) => (
   </div>
 );
 
-const renderLabel = (d: any) => d;
-
 const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, trackData }) => {
   const lowercaseId = channelId.toLowerCase();
   const channel = channels.find(
     channel => channel.deeplink.toLowerCase() === lowercaseId || channel.id === lowercaseId,
   );
 
-  // TODO: types are messed up
-  const [ref, { width }] = useMeasure<HTMLDivElement>() as any;
+  const [ref, { width }] = useMeasure<HTMLDivElement>();
 
   if (!channel || !trackData) {
     return <Error statusCode={404} />;

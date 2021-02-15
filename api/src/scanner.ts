@@ -1,5 +1,3 @@
-/* eslint-disable max-depth */
-import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
@@ -10,8 +8,6 @@ import config from '../config';
 import { checkEndpoint } from './sirius';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
-
-const log = debug('xmplaylist');
 
 async function updateAll() {
   for (const channel of channels) {
@@ -55,11 +51,4 @@ function catchError(error: Error) {
 if (!module.parent) {
   Sentry.init({ dsn: config.dsn });
   pForever(async () => updateAll().catch(catchError));
-
-  // restart every 12 hours
-  // const hours = 12;
-  // setTimeout(() => {
-  //   console.log('Restarting');
-  //   process.exit(0);
-  // }, 1000 * 60 * 60 * hours);
 }
