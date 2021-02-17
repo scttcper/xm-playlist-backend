@@ -18,7 +18,6 @@ import Image from 'next/image';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
-import { NeworAd } from 'components/Newor';
 import { SpotifyIframe } from 'components/SpotifyIframe';
 import { TrackLinksButtons } from 'components/TrackLinksButtons';
 import { TrackChannelResponse } from 'frontend/responses';
@@ -96,7 +95,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
         )}
       </Head>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 text-center">
-        <NeworAd id="waldo-tag-9958" style={{ maxWidth: '970px' }} />
+        <Adsense />
       </div>
       <div className="relative pt-4 md:pt-16 pb-20 px-2 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 text-center">
         <div className="relative max-w-7xl mx-auto">
