@@ -14,7 +14,6 @@ import {
   faSpinner,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import ReactGA from 'react-ga';
 import { RecoilRoot } from 'recoil';
 
 import { NavBar } from 'components/Navbar';
@@ -41,8 +40,6 @@ library.add(
   faSignOutAlt,
 );
 
-ReactGA.initialize('UA-84656736-2');
-
 const User: React.FC<any> = ({ children }) => {
   const { setUser } = useUser();
   useEffect(() => {
@@ -59,9 +56,20 @@ const User: React.FC<any> = ({ children }) => {
 // @ts-expect-error
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   useEffect(() => {
-    setTimeout(() => {
-      ReactGA.pageview(window.location.pathname + window.location.search);
-    }, 100);
+    if (typeof window === 'object') {
+      // @ts-expect-error
+      window.dataLayer = window.dataLayer || [];
+
+      // eslint-disable-next-line func-names
+      window.gtag = function gtag() {
+        // @ts-expect-error
+        // eslint-disable-next-line prefer-rest-params
+        window.dataLayer.push(arguments);
+      };
+
+      gtag('js', new Date());
+      gtag('config', 'G-3CYFENTWD4', { debug: true });
+    }
   });
 
   return (
@@ -69,6 +77,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
       <Head>
         <title>xmplaylist - Recently played songs and playlists from xm radio</title>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CYFENTWD4" />
 
         <meta
           name="description"

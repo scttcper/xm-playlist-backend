@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-import ReactGA from 'react-ga';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useWindowScroll } from 'react-use';
 
@@ -18,8 +17,8 @@ export const StreamCardsLayout: React.FC<{
   const scrollPosition = useWindowScroll();
 
   const trackOut = (site: string, id: string): void => {
-    ReactGA.event({
-      category: 'MusicClick',
+    gtag('event', 'music_click', {
+      category: 'engagement',
       action: site,
       label: id,
     });

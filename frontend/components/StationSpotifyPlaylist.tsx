@@ -1,12 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReactGA from 'react-ga';
 
 import { Channel } from '../channels';
 
 function trackPlaylistClick(type: string, channelId: string): void {
-  ReactGA.event({
-    category: 'Playlist',
+  gtag('event', 'playlist_click', {
+    category: 'engagement',
     action: type,
     label: channelId,
   });

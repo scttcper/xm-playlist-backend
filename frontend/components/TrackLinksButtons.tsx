@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactGA from 'react-ga';
 
 const siteConversion = {
   tidal: 'Tidal',
@@ -37,8 +36,8 @@ export const TrackLinksButtons = ({ links, id: trackId }: Props) => {
   );
 
   const trackOut = (site: string, id: string): void => {
-    ReactGA.event({
-      category: 'MusicClick',
+    gtag('event', 'music_click', {
+      category: 'engagement',
       action: site,
       label: id,
     });
