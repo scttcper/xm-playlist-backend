@@ -60,7 +60,7 @@ export const useUser = () => {
         if (user) {
           setUser(user);
           loadExtra(user);
-          gtag('set', 'GA_MEASUREMENT_ID', { user_id: user.uid });
+          gtag('set', 'MEASUREMENT_ID', { user_id: user.uid });
         } else {
           setUser(null);
         }
