@@ -60,7 +60,9 @@ export const useUser = () => {
         if (user) {
           setUser(user);
           loadExtra(user);
-          gtag('config', 'MEASUREMENT_ID', { user_id: user.uid });
+          gtag('set', 'user_properties', {
+            user_id: user.uid,
+          });
         } else {
           setUser(null);
         }
