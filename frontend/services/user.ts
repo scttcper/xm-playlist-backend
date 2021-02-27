@@ -100,6 +100,10 @@ export const useUser = () => {
           setUser(null);
           throw error;
         }
+
+        gtag('event', 'login', {
+          method: 'emailForSignIn',
+        });
       },
       [setUser],
     ),
@@ -109,6 +113,13 @@ export const useUser = () => {
       firebase.auth().useDeviceLanguage();
       const result = await firebase.auth().signInWithPopup(provider);
       setUser(result.user);
+
+      try {
+        gtag('event', 'login', {
+          method: 'google',
+        });
+      } catch (e) {}
+
       return result;
     }, [setUser]),
 
@@ -117,6 +128,13 @@ export const useUser = () => {
       firebase.auth().useDeviceLanguage();
       const result = await firebase.auth().signInWithPopup(provider);
       setUser(result.user);
+
+      try {
+        gtag('event', 'login', {
+          method: 'twitter',
+        });
+      } catch (e) {}
+
       return result;
     }, [setUser]),
   };
