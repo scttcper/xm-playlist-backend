@@ -18,8 +18,9 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
     <>
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-4 md:mb-3 flex">
         <div className="flex-0 mr-2 md:mr-3 flex w-24 md:w-32">
-          <div className="bg-cool-gray-900 rounded-lg p-3">
+          <div className="bg-gray-900 rounded-lg p-3">
             <Image
+              priority
               src={`/img/${channel.deeplink}-sm.png`}
               alt={`${channel.name} Logo`}
               quality={100}

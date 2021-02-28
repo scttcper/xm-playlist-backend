@@ -28,7 +28,7 @@
     "fastify-express": "0.3.2",
     "fastify-plugin": "3.0.0",
     "firebase-admin": "9.5.0",
-    "got": "11.8.1",
+    "got": "11.8.2",
     "joi": "17.4.0",
     "knex": "0.21.18",
     "knex-stringcase": "1.4.5",

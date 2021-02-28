@@ -65,9 +65,10 @@ export const SearchForm = ({
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <input
               ref={register}
+              type="text"
               name="trackName"
               id="trackName"
-              className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -83,10 +84,11 @@ export const SearchForm = ({
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <input
               ref={register}
+              type="text"
               name="artistName"
               id="artistName"
               minLength={2}
-              className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -131,7 +133,7 @@ export const SearchForm = ({
               ref={register}
               name="timeAgo"
               id="timeAgo"
-              className="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               onChange={() => {
                 setValue('startDate', undefined);
                 setValue('endDate', undefined);
@@ -169,7 +171,7 @@ export const SearchForm = ({
               ref={register}
               type="date"
               id="startDate"
-              className="block form-input h-10 w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-2"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md mb-2"
               name="startDate"
               min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
               max={formatISO9075(new Date(), { representation: 'date' })}
@@ -194,7 +196,7 @@ export const SearchForm = ({
               ref={register}
               type="date"
               id="endDate"
-              className="block form-input h-10 w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md mb-2"
               name="endDate"
               min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
               max={formatISO9075(new Date(), { representation: 'date' })}

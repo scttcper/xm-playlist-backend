@@ -67,7 +67,7 @@ export const StreamCardsLayout: React.FC<{
                       <h3 className="mt-2 text-lg md:text-xl lg:text-lg xl:text-xl leading-5 md:leading-6 font-semibold text-gray-900">
                         {play.track.name}
                       </h3>
-                      <ul className="mt-1 text-sm md:text-base lg:text-sm xl:text-base md:leading-6 text-cool-gray-500">
+                      <ul className="mt-1 text-sm md:text-base lg:text-sm xl:text-base md:leading-6 text-gray-500">
                         {play.track.artists.map((artist, index) => (
                           // eslint-disable-next-line react/no-array-index-key
                           <li key={index} className="inline pr-2">

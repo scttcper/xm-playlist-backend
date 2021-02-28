@@ -14,7 +14,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.15.2",
     "@typescript-eslint/parser": "4.15.2",
-    "eslint": "7.20.0",
+    "eslint": "7.21.0",
     "eslint-config-xo-react": "0.24.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-config-xo-space": "0.27.0",

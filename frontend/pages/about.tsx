@@ -7,28 +7,24 @@ const About = () => (
       <h1>About</h1>
 
       <p>
-        Created by <a href="https://twitter.com/scttcper">@scttcper</a> to discover new songs being
-        featured on{' '}
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href="https://en.wikipedia.org/wiki/XM_Satellite_Radio"
-        >
-          XM Satellite Radio
+        Created by Scott (<a href="https://twitter.com/scttcper">@scttcper</a>) to discover new
+        music heard on{' '}
+        <a rel="noopener noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/Sirius_XM">
+          Sirius XM Satellite Radio
         </a>{' '}
-        to track the most played songs and organize them into spotify playlists.
+        and organize them into spotify playlists.
       </p>
 
       <h3>Donate</h3>
       <figure>
         <a href="https://www.buymeacoffee.com/scooper" target="_blank" rel="noopener noreferrer">
           <Image
+            unoptimized
             src="/img/default-orange.png"
-            className="w-24 h-24 md:h-32 md:w-32"
             alt="Buy Me A Coffee"
             quality={100}
-            width={545}
-            height={153}
+            width={356}
+            height={100}
           />
         </a>
         <figcaption>Support future development by buying me a coffee.</figcaption>
@@ -36,7 +32,7 @@ const About = () => (
 
       <h3>Contact</h3>
       <p>
-        Email us at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a> or on twitter{' '}
+        Email me at <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a> or on twitter{' '}
         <a href="https://twitter.com/scttcper">@scttcper</a>. Or join the nice people in the
         SiriusXM Fans{' '}
         <a
@@ -51,12 +47,18 @@ const About = () => (
       <hr />
 
       <h1 id="faq">FAQ</h1>
+
       <h4>Why has a station stopped updating?</h4>
       <p>
         xmplaylist cannot track songs during live dj sets, talk shows, interviews, festivals, etc.
-        If it has been more than 3 days please email{' '}
-        <a href="mailto:hello@xmplaylist.com">hello@xmplaylist.com</a>.
+        If it has been more than 3 days please <a href="mailto:hello@xmplaylist.com">email</a>.
       </p>
+
+      <h4>Do you know what song played at [time] on Channel XYZ?</h4>
+      <p>xmplaylist displays all the information I have.</p>
+
+      <h4>Will I add a song to a playlist?</h4>
+      <p>Sorry, the playlists are automatically controlled by what is played on Sirius XM.</p>
     </div>
   </div>
 );
