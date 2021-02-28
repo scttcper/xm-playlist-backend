@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-child-element-spacing */
 import React from 'react';
 import Link from 'next/link';
 

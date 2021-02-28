@@ -858,7 +858,7 @@ export const channels: Channel[] = [
     number: 67,
     name: 'Real Jazz',
     genre: Genre.jazz,
-    desc: 'Classic Jazz',
+    desc: 'The classic sounds and styles of jazz masters, past and present.',
     playlist: '3mDuSPlntj533CvZXvMnDS',
   },
   {
@@ -951,7 +951,7 @@ export const channels: Channel[] = [
     number: 759,
     name: 'Attitude Franco',
     genre: Genre.french,
-    desc: 'The biggest French Canadian hits from the past 50 years.',
+    desc: 'The biggest French hits from the past 50 years.',
     playlist: '',
   },
   {
@@ -1040,7 +1040,7 @@ export const channels: Channel[] = [
     name: 'FACTION PUNK',
     genre: Genre.rock,
     desc:
-      "Modern Punk Rock music 24/7. Pop Punk, Hardcore, '90s Punk, Ska Punk, Thrash …If it's MODERN PUNK, it's on Faction Punk!",
+      "Modern Punk Rock music 24/7. Pop Punk, Hardcore, '90s Punk, Ska Punk, Thrash ...If it's MODERN PUNK, it's on Faction Punk!",
     playlist: '3HRoF7JJ3UcyRoc49eGNpZ',
   },
   {
@@ -1058,7 +1058,8 @@ export const channels: Channel[] = [
     number: 330,
     name: 'SiriusXM Silk',
     genre: Genre.rnb,
-    desc: 'Classic, smooth R&B... with just a touch of today!',
+    desc:
+      "Slow, mature music that you feel. Sexy, strong, soft and filled with emotion, it's not a channel-it's really a vibe.",
     playlist: '3OxxBFDjqm5QIZNn0pOeSJ',
   },
   // {
@@ -1075,7 +1076,7 @@ export const channels: Channel[] = [
     name: 'Utopia',
     genre: Genre.electronic,
     desc:
-      'From club anthems to guilty pop pleasures to underground classics - dance hits from the 90s & 2000s.',
+      "From club anthems to guilty pop pleasures to underground classics - dance hits from the '90s & 2000s.",
     playlist: '3FEpFULHGJMO8a9Khm0ZG7',
   },
   {
@@ -1133,13 +1134,16 @@ export const channels: Channel[] = [
       "Good Time Oldies from the '50s and '60s!  Oldies Party plays the fun hits from the dawn of rock into the Woodstock years.",
     playlist: '6dMdtesN5GCJdY6CI2fwZC',
   },
-  // {
-  //   id: '9372',
-  //   number: 704,
-  //   name: '70s/80s Pop',
-  //   genre: Genre.pop,
-  //   desc: "''70s & '80s Super Party Hits",
-  // },
+  {
+    id: '9372',
+    deeplink: '70s80sPop',
+    number: 704,
+    name: '70s/80s Pop',
+    genre: Genre.pop,
+    desc:
+      "Dude! You can rock your party with these hits from the '70s & '80s. From Disco to Devo...it's Masterblaster jammin' time!",
+    playlist: '64HUUSEKOulACKgRWniSas',
+  },
   {
     id: '9373',
     deeplink: '80s90sPop',
@@ -1147,7 +1151,7 @@ export const channels: Channel[] = [
     name: '80s/90s Pop',
     genre: Genre.pop,
     desc:
-      "Ya can't touch this!  Essential party hits from the Awesome '80s & the Whassup! '90s…it's Electric!",
+      "Ya can't touch this!  Essential party hits from the Awesome '80s & the Whassup! '90s...it's Electric!",
     playlist: '5tWH2KZxXUYEZwDRg9VywX',
   },
   // {
@@ -1610,8 +1614,7 @@ export const channels: Channel[] = [
     number: 95,
     name: 'Comedy Central Radio',
     genre: Genre.comedy,
-    desc:
-      "Comedy Central's massive stand-up library, The Bonfire with Big Jay Oakerson and Dan Soder, and more",
+    desc: "Comedy Central's massive stand-up library",
     playlist: '0iBXjXfvBVGe9NEVYyLwwR',
     allowLinkContent: true,
   },
