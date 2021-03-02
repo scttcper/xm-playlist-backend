@@ -161,7 +161,7 @@ export const channels: Channel[] = [
   //   name: 'KIIS-Los Angeles',
   //   genre: Genre.pop,
   //   desc: "KIIS FM is LA's #1 Hit Music Station",
-  //   playlist: '3MYdmAHsoA1mhMXfjUjomx',
+  //   playlist: '',
   // },
   // {
   //   id: '8242',
@@ -170,7 +170,7 @@ export const channels: Channel[] = [
   //   name: 'Z100/NY',
   //   genre: Genre.pop,
   //   desc: "Z100 is New York's Hit Music Station",
-  //   playlist: '1SQBFErYoQj8XrubWeqeex',
+  //   playlist: '',
   // },
   {
     id: 'coffeehouse',
@@ -355,7 +355,7 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc:
       "Tom Petty's eclectic SiriusXM radio show, Tom Petty's Buried Treasure, is now its own 24/7 commercial-free channel.",
-    playlist: '',
+    playlist: '0Dm39aDQ9nch70LyQJSGcK',
   },
   {
     id: 'thebridge',
@@ -374,7 +374,7 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc:
       'DMB hits, fan favorites, rarities, live trax, complete concerts, and music from other artists they love.',
-    playlist: '',
+    playlist: '5Tyj1foqZB3lWSZiBSoWhs',
   },
   {
     id: '9507',
@@ -394,7 +394,7 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc:
       'Foo Fighters Radio features insight behind their biggest songs, demos, rarities, live cuts, influences & band hosted shows',
-    playlist: '',
+    playlist: '3nXosxIS8BoW5eeN8nUYHG',
   },
   {
     id: 'firstwave',
@@ -477,17 +477,17 @@ export const channels: Channel[] = [
   //   name: 'The Prince Channel',
   //   genre: Genre.rock,
   //   desc: 'Prince hits, classics, B-sides and live performances.',
-  //   playlist: '2gzkxocsjXND6TRNGzd8XY',
+  //   playlist: '',
   // },
-  // {
-  //   id: '9353',
-  //   deeplink: 'BeastieBoysChannel',
-  //   number: 35,
-  //   name: 'Beastie Boys Channel',
-  //   genre: Genre.rock,
-  //   desc: 'The Beastie Boys follow up their #1 selling book and movie with their own channel!',
-  //   playlist: '37VyPuE56xPJk93gJQH9A6',
-  // },
+  {
+    id: '9353',
+    deeplink: 'TheGrammyChannel',
+    number: 104,
+    name: 'The Grammy Channel',
+    genre: Genre.pop,
+    desc: 'Celebrating the artists, albums and songs nominated for the 63rd Annual GRAMMY Awards',
+    playlist: '',
+  },
   // {
   //   id: '9400',
   //   deeplink: 'TheQueenChannel',
@@ -495,7 +495,7 @@ export const channels: Channel[] = [
   //   name: 'The Queen Channel',
   //   genre: Genre.rock,
   //   desc: 'Freddie Mercury and Queen 24/7.',
-  //   playlist: '4MXtD0Ta5FHQ7zj8Fc8KPo',
+  //   playlist: '',
   // },
   {
     id: '9413',
@@ -521,8 +521,8 @@ export const channels: Channel[] = [
     number: 42,
     name: 'SiriusXM 42',
     genre: Genre.hiphop,
-    desc: '',
-    playlist: '',
+    desc: 'SiriusXM 42',
+    playlist: '4RcLjTrGyNtdYJsiTnyopB',
   },
   // {
   //   id: '9523',
@@ -532,7 +532,7 @@ export const channels: Channel[] = [
   //   genre: Genre.reggae,
   //   desc:
   //     "Bob's music in one place- with rare gems, his family's recordings, and music from Tuff Gong, the family-label he founded",
-  //   playlist: '6lOhI4hjfbm1RBsSOQfB06',
+  //   playlist: '',
   // },
   // {
   //   id: '9399',
@@ -542,7 +542,7 @@ export const channels: Channel[] = [
   //   genre: Genre.rock,
   //   desc:
   //     'Coldplay hits, "live" concerts, acoustic sessions, unreleased songs, and all the influences that made them who they are today.',
-  //   playlist: '6ubTRKHs684HNyyFgBkSpa',
+  //   playlist: '',
   // },
   {
     id: '9471',
@@ -624,7 +624,7 @@ export const channels: Channel[] = [
   //   name: 'Michael Jackson Channel',
   //   genre: Genre.pop,
   //   desc: 'All Michael Jackson, all day',
-  //   playlist: '24p00T9EitFA68q61UDZSy',
+  //   playlist: '',
   // },
   {
     id: 'thebeat',
@@ -662,7 +662,7 @@ export const channels: Channel[] = [
     genre: Genre.electronic,
     desc:
       'Armin van Buuren\'s "A State of Armin" features the latest in Trance & Progressive Dance Music from superstar DJ Armin van Buuren',
-    playlist: '',
+    playlist: '1gH8yTWVZ5AM2ZVqw3pZiG',
   },
   {
     id: '9526',
@@ -672,7 +672,7 @@ export const channels: Channel[] = [
     genre: Genre.electronic,
     desc:
       'A channel curated by DJ/Producer, Steve Aoki featuring his favorite remixes of Pop & Dance songs, and his original tracks.',
-    playlist: '',
+    playlist: '5hdEZIuSsqzmlAbPhsOm1u',
   },
   {
     id: '9481',
@@ -1011,7 +1011,7 @@ export const channels: Channel[] = [
     genre: Genre.pop,
     desc:
       'Only the best music from all across Asia, from K-Pop, hip-hop, RnB, and more. Curated by 88rising.',
-    playlist: '',
+    playlist: '4sxl0MqMJxF4sxI69VwRSz',
   },
   {
     id: '9174',
@@ -1207,15 +1207,15 @@ export const channels: Channel[] = [
   //   genre: Genre.rock,
   //   desc: 'Home for limited-run channels',
   // },
-  {
-    id: '9402',
-    deeplink: 'MilesDavisRadio',
-    number: 719,
-    name: 'Miles Davis Radio',
-    genre: Genre.rock,
-    desc: 'Limited run Feb 22 - Feb 28',
-    playlist: '',
-  },
+  // {
+  //   id: '9402',
+  //   deeplink: 'MilesDavisRadio',
+  //   number: 719,
+  //   name: 'Miles Davis Radio',
+  //   genre: Genre.rock,
+  //   desc: 'Limited run Feb 22 - Feb 28',
+  //   playlist: '',
+  // },
   // {
   //   id: '9397',
   //   deeplink: 'SwaysUniverse',
@@ -1223,7 +1223,7 @@ export const channels: Channel[] = [
   //   name: 'Sway\'s Universe',
   //   genre: Genre.hiphop,
   //   desc: 'Sway\'s Lifestyle Channel',
-  //   playlist: '5BJ0RlHf9koVZbwgEePFse',
+  //   playlist: '',
   // },
   // {
   //   id: '9398',
@@ -1232,24 +1232,24 @@ export const channels: Channel[] = [
   //   genre: Genre.hiphop,
   //   desc: 'Home for limited-run channels XL',
   // },
-  {
-    id: '9399',
-    deeplink: 'ArethaFranklinChannel',
-    number: 726,
-    name: 'Aretha Franklin Channel',
-    genre: Genre.rnb,
-    desc: 'Limited run Feb 15 - Feb 21',
-    playlist: '',
-  },
-  {
-    id: '9400',
-    deeplink: 'TheMotownChannel',
-    number: 730,
-    name: 'The Motown Channel',
-    genre: Genre.rnb,
-    desc: 'Limited run Feb 1 - Feb 7',
-    playlist: '',
-  },
+  // {
+  //   id: '9399',
+  //   deeplink: 'ArethaFranklinChannel',
+  //   number: 726,
+  //   name: 'Aretha Franklin Channel',
+  //   genre: Genre.rnb,
+  //   desc: 'Limited run Feb 15 - Feb 21',
+  //   playlist: '',
+  // },
+  // {
+  //   id: '9400',
+  //   deeplink: 'TheMotownChannel',
+  //   number: 730,
+  //   name: 'The Motown Channel',
+  //   genre: Genre.rnb,
+  //   desc: 'Limited run Feb 1 - Feb 7',
+  //   playlist: '',
+  // },
   {
     id: '8227',
     deeplink: 'TheVillage',
@@ -1294,7 +1294,7 @@ export const channels: Channel[] = [
     name: 'Águila',
     genre: Genre.latino,
     desc: 'Banda, Norteño, Mariachi and all the sounds of traditional Mexican music.',
-    playlist: '0WRHaBdzi7LucUaZ9Eto5b',
+    playlist: '',
   },
   {
     id: '9188',
@@ -1313,7 +1313,7 @@ export const channels: Channel[] = [
     genre: Genre.latino,
     desc:
       'Playing a unique blend of romantic, rhythmic and urban pop from the biggest Latin stars from around the world. Viva-Pop de Hoy!',
-    playlist: '6wC4Kr9NK5sSKINGGqEDhq',
+    playlist: '',
   },
   {
     id: '9187',
@@ -1322,7 +1322,7 @@ export const channels: Channel[] = [
     name: 'Latidos',
     genre: Genre.latino,
     desc: "Romantic love songs from the '90s to today.",
-    playlist: '02zY0UVXtSCA8boGxQjwlF',
+    playlist: '',
   },
   {
     id: '9185',
@@ -1331,7 +1331,7 @@ export const channels: Channel[] = [
     name: 'Flow Nación',
     genre: Genre.latino,
     desc: 'The hottest sounds in Reggaeton, Latin Hip Hop and more!',
-    playlist: '4c4IxB5XpHC7jOk8waDaNk',
+    playlist: '',
   },
   {
     id: '9189',
@@ -1350,7 +1350,7 @@ export const channels: Channel[] = [
   //   name: 'Rumbón',
   //   genre: Genre.latino,
   //   desc: 'Classic Salsa',
-  //   playlist: '0onanEy3SOLW14YUuPsAyw',
+  //   playlist: '',
   // },
   {
     id: '9191',
@@ -1380,7 +1380,7 @@ export const channels: Channel[] = [
     genre: Genre.kids,
     desc:
       "It's all KIDZ BOP, all the time. Tune in for a 24/7 POP STAR Party hosted by the KIDZ BOP Kids, featuring today's biggest hits.",
-    playlist: '7kMH8fsSB44c25CiED3PQL',
+    playlist: '',
   },
   // Disabled 4/21/20
   // {
@@ -1390,7 +1390,7 @@ export const channels: Channel[] = [
   //   name: 'Radio Disney',
   //   genre: Genre.kids,
   //   desc: 'Pop Hits For The Entire Family',
-  //   playlist: '1ViEZTgPDYRlx5O2Apk1PL',
+  //   playlist: '',
   // },
   // {
   //   id: '9351',
@@ -1480,15 +1480,15 @@ export const channels: Channel[] = [
   //   desc: 'Contemporary holiday hits.',
   //   playlist: '',
   // },
-  {
-    id: '9403',
-    deeplink: 'JimiHendrixExperience',
-    number: 743,
-    name: 'Jimi Hendrix Experience',
-    genre: Genre.rock,
-    desc: 'Limited run Feb 8 - Feb 14',
-    playlist: '',
-  },
+  // {
+  //   id: '9403',
+  //   deeplink: 'JimiHendrixExperience',
+  //   number: 743,
+  //   name: 'Jimi Hendrix Experience',
+  //   genre: Genre.rock,
+  //   desc: 'Limited run Feb 8 - Feb 14',
+  //   playlist: '',
+  // },
   // {
   //   id: '9348',
   //   deeplink: 'Navidad',
@@ -1583,7 +1583,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc:
       'Jeff Foxworthy and Larry the Cable Guy host shows and curate stand-up from the best in American comedy.',
-    playlist: '3LKURR6gd0q7j298ZDKqWn',
+    playlist: '',
     allowLinkContent: true,
   },
   {
@@ -1615,7 +1615,7 @@ export const channels: Channel[] = [
     name: 'Comedy Central Radio',
     genre: Genre.comedy,
     desc: "Comedy Central's massive stand-up library",
-    playlist: '0iBXjXfvBVGe9NEVYyLwwR',
+    playlist: '',
     allowLinkContent: true,
   },
   {
@@ -1657,7 +1657,7 @@ export const channels: Channel[] = [
     genre: Genre.comedy,
     desc:
       "The spotlight is on Canada's rich pool of extraordinary uncensored Canadian comedy presented by Just For Laughs",
-    playlist: '7AxlfnSgRtvk1SPwz5h6Bb',
+    playlist: '',
     allowLinkContent: true,
   },
   {
@@ -1667,7 +1667,7 @@ export const channels: Channel[] = [
     name: "She's So Funny",
     genre: Genre.comedy,
     desc: 'The Funniest Female Comedians.',
-    playlist: '2nOk54j5r7lZjBXj5SVQTV',
+    playlist: '',
     allowLinkContent: true,
   },
   {
@@ -1686,6 +1686,6 @@ export const channels: Channel[] = [
   //   name: 'Top 1000 Countdowns',
   //   genre: Genre.pop,
   //   desc: 'Top 1000 Countdowns',
-  //   playlist: '6GCnMjegMN32SzrgdE6jKY',
+  //   playlist: '',
   // },
 ];
