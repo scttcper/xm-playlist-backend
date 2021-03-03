@@ -34,7 +34,6 @@ export const SearchForm = ({
   endDate,
 }: Props) => {
   const hour = 60 * 60;
-  console.log(station, startDate, endDate);
   const { register, handleSubmit, control, setValue } = useForm<Inputs>({
     defaultValues: {
       artistName,

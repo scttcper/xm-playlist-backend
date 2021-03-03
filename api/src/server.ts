@@ -15,7 +15,7 @@ import { apiLogger } from './logger';
 Sentry.init({
   dsn: config.dsn,
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
-  tracesSampleRate: 0.1,
+  tracesSampleRate: 0.4,
   environment: process.env.NODE_ENV === 'production' ? 'prod' : 'dev',
 });
 

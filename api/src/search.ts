@@ -58,7 +58,6 @@ export async function search(
   limit = 100,
 ): Promise<SearchResults> {
   const daysAgo = subSeconds(new Date(), timeAgo ?? 0);
-  console.log(daysAgo);
 
   const trackQuery = db('track').innerJoin('scrobble', 'track.id', 'scrobble.trackId');
 
