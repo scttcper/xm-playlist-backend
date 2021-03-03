@@ -126,7 +126,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
         headers: {
           authorization: `Bearer ${token}`,
         },
-        timeout: 15 * 1000,
+        timeout: 35 * 1000,
       });
 
       if (res.data.currentPage !== data.currentPage) {
