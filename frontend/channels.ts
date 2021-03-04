@@ -517,11 +517,11 @@ export const channels: Channel[] = [
   },
   {
     id: '9524',
-    deeplink: 'SiriusXM42',
+    deeplink: 'Sound42',
     number: 42,
-    name: 'SiriusXM 42',
-    genre: Genre.hiphop,
-    desc: 'SiriusXM 42',
+    name: 'Sound 42',
+    genre: Genre.pop,
+    desc: 'Sound 42',
     playlist: '4RcLjTrGyNtdYJsiTnyopB',
   },
   // {
@@ -1546,16 +1546,16 @@ export const channels: Channel[] = [
       "Artists paying tribute to their peers, cover songs from every genre of music of the past 6 decades. Including today's pop hits.",
     playlist: '',
   },
-  {
-    id: '9179',
-    deeplink: 'KrishnaDasYogaRadio',
-    number: 751,
-    name: 'Krishna Das Yoga Radio',
-    genre: Genre.pop,
-    desc:
-      'Music transporting listeners to a deeper place where they can quiet the mind and open the heart.',
-    playlist: '',
-  },
+  // {
+  //   id: '9179',
+  //   deeplink: 'KrishnaDasYogaRadio',
+  //   number: 751,
+  //   name: 'Krishna Das Yoga Radio',
+  //   genre: Genre.pop,
+  //   desc:
+  //     'Music transporting listeners to a deeper place where they can quiet the mind and open the heart.',
+  //   playlist: '',
+  // },
   {
     id: 'siriuspops',
     deeplink: 'SiriusXMPops',
