@@ -520,7 +520,7 @@ export const channels: Channel[] = [
     deeplink: 'Sound42',
     number: 42,
     name: 'Sound 42',
-    genre: Genre.pop,
+    genre: Genre.rnb,
     desc: 'Sound 42',
     playlist: '4RcLjTrGyNtdYJsiTnyopB',
   },
