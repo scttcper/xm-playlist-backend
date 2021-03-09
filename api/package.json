@@ -30,7 +30,7 @@
     "firebase-admin": "9.5.0",
     "got": "11.8.2",
     "joi": "17.4.0",
-    "knex": "0.95.1",
+    "knex": "0.21.15",
     "knex-stringcase": "1.4.5",
     "lodash": "4.17.21",
     "micromatch": "4.0.2",

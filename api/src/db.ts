@@ -1,4 +1,4 @@
-import { knex } from 'knex';
+import knex from 'knex';
 import knexStringcase from 'knex-stringcase';
 
 import config from '../config';
