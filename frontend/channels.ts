@@ -151,7 +151,8 @@ export const channels: Channel[] = [
     number: 10,
     name: 'Pop2K',
     genre: Genre.pop,
-    desc: '2000s Pop Hits',
+    desc:
+      "Hear the hits from the 2000s that hit you right in the memories. It's all the songs you have a story about.",
     playlist: '0ho4C6Yj4EYJSpiFgwzXWC',
   },
   // {
@@ -205,7 +206,8 @@ export const channels: Channel[] = [
     number: 12,
     name: 'PopRocks',
     genre: Genre.pop,
-    desc: "Rock that pops!  Rock & Pop songs from the '90s & 2000s.",
+    desc:
+      "Rock songs that became the pop hits of the 90s and 2k. You'll know the lyrics to every song that comes on.",
     playlist: '1PcSu1p5PaLOssq9VnW30g',
     allowLinkContent: true,
   },
@@ -438,7 +440,8 @@ export const channels: Channel[] = [
     number: 37,
     name: 'Octane',
     genre: Genre.rock,
-    desc: "Pure, high-powered hard rock that's loud, uncensored and in your face.",
+    desc:
+      'The cutting edge of new hard rock, featuring the next generation of headbangers destined to be headliners.',
     playlist: '4uEfLey0UZfmEp4vobm378',
     allowLinkContent: true,
   },
@@ -479,15 +482,15 @@ export const channels: Channel[] = [
   //   desc: 'Prince hits, classics, B-sides and live performances.',
   //   playlist: '',
   // },
-  {
-    id: '9353',
-    deeplink: 'TheGrammyChannel',
-    number: 104,
-    name: 'The Grammy Channel',
-    genre: Genre.pop,
-    desc: 'Celebrating the artists, albums and songs nominated for the 63rd Annual GRAMMY Awards',
-    playlist: '',
-  },
+  // {
+  //   id: '9353',
+  //   deeplink: 'TheGrammyChannel',
+  //   number: 104,
+  //   name: 'The Grammy Channel',
+  //   genre: Genre.pop,
+  //   desc: 'Celebrating the artists, albums and songs nominated for the 63rd Annual GRAMMY Awards',
+  //   playlist: '',
+  // },
   // {
   //   id: '9400',
   //   deeplink: 'TheQueenChannel',
@@ -521,7 +524,8 @@ export const channels: Channel[] = [
     number: 42,
     name: 'Sound 42',
     genre: Genre.pop,
-    desc: 'Sound 42',
+    desc:
+      'The vision of multi-platinum recording artist Drake. An exploration of boundary-pushing Hip-Hop, R&B, and global vibes.',
     playlist: '4RcLjTrGyNtdYJsiTnyopB',
   },
   // {
@@ -775,7 +779,7 @@ export const channels: Channel[] = [
     number: 58,
     name: 'Prime Country',
     genre: Genre.country,
-    desc: "'80s/'90s Country Hits",
+    desc: "Country hits from the '80s and '90s.",
     playlist: '7jnOANbKO2EHLg4bjCD4IO',
   },
   {
@@ -1043,15 +1047,15 @@ export const channels: Channel[] = [
       "Modern Punk Rock music 24/7. Pop Punk, Hardcore, '90s Punk, Ska Punk, Thrash ...If it's MODERN PUNK, it's on Faction Punk!",
     playlist: '3HRoF7JJ3UcyRoc49eGNpZ',
   },
-  {
-    id: '9176',
-    deeplink: 'SiriusXMComesAlive',
-    number: 316,
-    name: 'SiriusXM Comes Alive!',
-    genre: Genre.rock,
-    desc: 'Hear live classic rock recordings seamlessly hand crafted, song by song.',
-    playlist: '2XYFWA88EEK3szMesnXBJs',
-  },
+  // {
+  //   id: '9176',
+  //   deeplink: 'SiriusXMComesAlive',
+  //   number: 316,
+  //   name: 'SiriusXM Comes Alive!',
+  //   genre: Genre.rock,
+  //   desc: 'Hear live classic rock recordings seamlessly hand crafted, song by song.',
+  //   playlist: '2XYFWA88EEK3szMesnXBJs',
+  // },
   {
     id: '9364',
     deeplink: 'SiriusXMSilk',
@@ -1330,7 +1334,7 @@ export const channels: Channel[] = [
     deeplink: 'FlowNacion',
     name: 'Flow Nación',
     genre: Genre.latino,
-    desc: 'The hottest sounds in Reggaeton, Latin Hip Hop and more!',
+    desc: 'The hottest sounds in Reggaeton, Latin Hip-Hop and more!',
     playlist: '',
   },
   {
@@ -1363,13 +1367,21 @@ export const channels: Channel[] = [
     playlist: '383VxcqOpZcmz4lbMNkNiv',
   },
   {
+    id: '9530',
+    deeplink: 'DisneyHits',
+    number: 302,
+    name: 'Disney Hits',
+    genre: Genre.kids,
+    desc: 'All of your favorite Disney songs, from all time on one channel. Disney Hits!',
+    playlist: '',
+  },
+  {
     id: '8216',
     deeplink: 'KidsPlaceLive',
     number: 78,
     name: 'Kids Place Live',
     genre: Genre.kids,
-    desc:
-      "Award-winning hosts spinning kindie, movie tunes and more. It's real, live radio for kids and grownups to play along together.",
+    desc: 'Family-friendly music, games, laughs and live shows for 24/7 kid-approved entertainment',
     playlist: '0Qu2crzuwmYxi7IjZeDrJ6',
   },
   {
@@ -1536,16 +1548,16 @@ export const channels: Channel[] = [
     desc: 'Romantic ballads and soft pop music featuring lyrics of love.',
     playlist: '17QwfZGnyVO1WP7vSL2etL',
   },
-  {
-    id: '9416',
-    deeplink: 'TheCoversChannel',
-    number: 302,
-    name: 'The Covers Channel',
-    genre: Genre.pop,
-    desc:
-      "Artists paying tribute to their peers, cover songs from every genre of music of the past 6 decades. Including today's pop hits.",
-    playlist: '',
-  },
+  // {
+  //   id: '9416',
+  //   deeplink: 'TheCoversChannel',
+  //   number: 302,
+  //   name: 'The Covers Channel',
+  //   genre: Genre.pop,
+  //   desc:
+  //     "Artists paying tribute to their peers, cover songs from every genre of music of the past 6 decades. Including today's pop hits.",
+  //   playlist: '',
+  // },
   // {
   //   id: '9179',
   //   deeplink: 'KrishnaDasYogaRadio',
@@ -1614,7 +1626,7 @@ export const channels: Channel[] = [
     number: 95,
     name: 'Comedy Central Radio',
     genre: Genre.comedy,
-    desc: "Comedy Central's massive stand-up library",
+    desc: "Comedy Central's massive stand-up library.",
     playlist: '',
     allowLinkContent: true,
   },
