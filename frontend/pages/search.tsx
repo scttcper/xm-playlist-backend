@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
@@ -269,6 +268,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
               return (
                 <li key={result.scrobbleId} className="border-b-2 border-gray-100">
                   <Link
+                    prefetch={false}
                     href="/station/[id]/track/[trackid]"
                     as={`/station/${result.channel.toLowerCase()}/track/${result.id}`}
                   >
@@ -283,13 +283,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                                 alt={`${result.name} album cover`}
                               />
                             ) : (
-                              <Image
-                                src="/img/missing.png"
-                                alt={`${result.name} album cover`}
-                                quality={100}
-                                width={48}
-                                height={48}
-                              />
+                              <img src="/img/missing.png" alt={`${result.name} album cover`} />
                             )}
                           </div>
                           <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">

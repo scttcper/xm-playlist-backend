@@ -79,6 +79,7 @@ export const StreamCardsLayout: React.FC<{
                     <div className="mt-1.5 flex items-center">
                       <span className="inline-flex rounded-md shadow-sm">
                         <Link
+                          prefetch={false}
                           href="/station/[id]/track/[trackid]"
                           as={`/station/${props.channel.deeplink.toLowerCase()}/track/${
                             play.track.id

@@ -9,7 +9,11 @@ export const StationNavigation: React.FC<{
 }> = props => {
   return (
     <nav className="grid gap-2 md:gap-3 grid-cols-3 text-center">
-      <Link href="/station/[id]" as={`/station/${props.channelDeeplink.toLowerCase()}`}>
+      <Link
+        prefetch={false}
+        href="/station/[id]"
+        as={`/station/${props.channelDeeplink.toLowerCase()}`}
+      >
         <a
           className={`px-3 py-2 font-medium text-sm leading-5 rounded-md focus:outline-none ${
             props.currentPage === 'recent'
@@ -21,6 +25,7 @@ export const StationNavigation: React.FC<{
         </a>
       </Link>
       <Link
+        prefetch={false}
         href="/station/[id]/newest"
         as={`/station/${props.channelDeeplink.toLowerCase()}/newest`}
       >
@@ -35,6 +40,7 @@ export const StationNavigation: React.FC<{
         </a>
       </Link>
       <Link
+        prefetch={false}
         href="/station/[id]/most-heard"
         as={`/station/${props.channelDeeplink.toLowerCase()}/most-heard`}
       >

@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { format, formatDistanceStrict, formatISO } from 'date-fns';
-import Image from 'next/image';
 
 import { channels } from '../../../../../channels';
 import { Adsense } from 'components/Adsense';
@@ -83,7 +82,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
         <div className="relative max-w-7xl mx-auto">
           <div className="lg:mt-4 max-w-lg mx-auto">
             <nav className="flex items-center text-sm leading-5 font-medium">
-              <Link href="/station">
+              <Link prefetch={false} href="/station">
                 <a className="text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out">
                   Stations
                 </a>
@@ -99,7 +98,11 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
                   clipRule="evenodd"
                 />
               </svg>
-              <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
+              <Link
+                prefetch={false}
+                href="/station/[id]"
+                as={`/station/${channel.deeplink.toLowerCase()}`}
+              >
                 <a>
                   <span className="text-gray-500 truncate">{channel.name}</span>
                 </a>
@@ -126,13 +129,7 @@ const TrackPage: NextComponentType<any, any, StationProps> = ({ channelId, track
                     alt={`${trackData.track.name} album cover`}
                   />
                 ) : (
-                  <Image
-                    src="/img/missing.png"
-                    alt={`${trackData.track.name} album cover`}
-                    quality={100}
-                    width={600}
-                    height={600}
-                  />
+                  <img src="/img/missing.png" alt={`${trackData.track.name} album cover`} />
                 )}
               </div>
               <div className="bg-white p-4 py-6 lg:p-8 lg:py-10 flex flex-col justify-between rounded-lg text-left">

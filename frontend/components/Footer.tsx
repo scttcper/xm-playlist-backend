@@ -6,22 +6,22 @@ export const Footer = () => (
     <div className="max-w-screen-xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
       <nav className="-mx-5 -my-2 flex flex-wrap justify-center">
         <div className="px-5 py-2">
-          <Link href="/about">
+          <Link prefetch={false} href="/about">
             <a className="text-base leading-6 text-gray-600 hover:text-gray-900">About</a>
           </Link>
         </div>
         <div className="px-5 py-2">
-          <Link href="/about">
+          <Link prefetch={false} href="/about">
             <a className="text-base leading-6 text-gray-600 hover:text-gray-900">FAQ</a>
           </Link>
         </div>
         <div className="px-5 py-2">
-          <Link href="/tos">
+          <Link prefetch={false} href="/tos">
             <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Terms</a>
           </Link>
         </div>
         <div className="px-5 py-2">
-          <Link href="/privacy">
+          <Link prefetch={false} href="/privacy">
             <a className="text-base leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
           </Link>
         </div>

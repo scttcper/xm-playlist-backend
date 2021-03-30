@@ -72,17 +72,17 @@ export const NavBar: React.FC = () => {
           {/* menu */}
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center font-sans text-gray-900 hover:text-blue-600">
-              <Link href="/">
+              <Link prefetch={false} href="/">
                 <a>xmplaylist</a>
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex">
-              <Link href="/station">
+              <Link prefetch={false} href="/station">
                 <a className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                   Stations
                 </a>
               </Link>
-              <Link href="/search">
+              <Link prefetch={false} href="/search">
                 <a className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                   Search
                 </a>
@@ -99,7 +99,7 @@ export const NavBar: React.FC = () => {
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Link href="/search">
+            <Link prefetch={false} href="/search">
               <a
                 className="sm:hidden p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
                 aria-label="Notifications"
@@ -158,7 +158,7 @@ export const NavBar: React.FC = () => {
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
                 >
-                  <Link href="/profile">
+                  <Link prefetch={false} href="/profile">
                     <a
                       className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       onClick={() => {
@@ -185,7 +185,7 @@ export const NavBar: React.FC = () => {
       {/* mobile menu */}
       <div className={`${mobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="pt-2 pb-4">
-          <Link href="/station">
+          <Link prefetch={false} href="/station">
             <a
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
               onClick={() => {
@@ -195,7 +195,7 @@ export const NavBar: React.FC = () => {
               Stations
             </a>
           </Link>
-          <Link href="/search">
+          <Link prefetch={false} href="/search">
             <a
               className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
               onClick={() => {

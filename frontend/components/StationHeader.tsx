@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { Channel } from '../channels';
 import { StationNavigation } from './StationNavigation';
@@ -19,21 +18,14 @@ export const StationHeader = ({ channel, currentPage }: Props) => {
       <div className="max-w-7xl mx-auto px-1 md:px-4 sm:px-6 lg:px-8 my-2 md:mt-4 md:mb-3 flex">
         <div className="flex-0 mr-2 md:mr-3 flex w-24 md:w-32">
           <div className="bg-gray-900 rounded-lg p-3">
-            <Image
-              priority
-              src={`/img/${channel.deeplink}-sm.png`}
-              alt={`${channel.name} Logo`}
-              quality={100}
-              width={138}
-              height={138}
-            />
+            <img src={`/img/${channel.deeplink}-sm.png`} alt={`${channel.name} Logo`} />
           </div>
         </div>
         <div className="flex-1 bg-white rounded-lg p-3 sm:p-4 pt-2 flex flex-col justify-between">
           <div className="flex-1">
             <h2 className="flex text-2xl font-bold leading-7 mb-1 text-gray-900 sm:text-3xl sm:leading-7">
               {channel.name}
-              <Link href={`/station?genre=${channel.genre}`}>
+              <Link prefetch={false} href={`/station?genre=${channel.genre}`}>
                 <a className="ml-3 hidden md:inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-gray-100 text-gray-800 capitalize">
                   {channel.genre}
                 </a>

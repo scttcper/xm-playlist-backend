@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 const About = () => (
   <div className="bg-white mx-auto my-3 pb-12 py-1 px-4 md:px-6 lg:px-8 rounded-lg prose pt-10">
@@ -18,14 +17,7 @@ const About = () => (
       <h3>Donate</h3>
       <figure>
         <a href="https://www.buymeacoffee.com/scooper" target="_blank" rel="noopener noreferrer">
-          <Image
-            unoptimized
-            src="/img/default-orange.png"
-            alt="Buy Me A Coffee"
-            quality={100}
-            width={356}
-            height={100}
-          />
+          <img src="/img/default-orange.png" alt="Buy Me A Coffee" />
         </a>
         <figcaption>Support future development by buying me a coffee.</figcaption>
       </figure>

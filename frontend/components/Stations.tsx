@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -144,16 +143,17 @@ export const Stations = ({ autoFocus }: Props) => {
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 md:gap-4">
         {results.map(channel => (
           <div key={channel.id} className="text-gray-500 hover:text-blue-800">
-            <Link href="/station/[id]" as={`/station/${channel.deeplink.toLowerCase()}`}>
+            <Link
+              prefetch={false}
+              href="/station/[id]"
+              as={`/station/${channel.deeplink.toLowerCase()}`}
+            >
               <a>
                 <div className="bg-gray-900 hover:bg-gray-700 rounded-lg p-3 md:p-5">
-                  <Image
+                  <img
                     src={`/img/${channel.deeplink}-sm.png`}
-                    loading="lazy"
                     alt={`${channel.name} Logo`}
-                    quality={100}
-                    width={138}
-                    height={138}
+                    loading="lazy"
                   />
                 </div>
                 <div className="mt-2">
