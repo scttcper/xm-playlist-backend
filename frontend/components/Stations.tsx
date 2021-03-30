@@ -129,7 +129,7 @@ export const Stations = ({ autoFocus }: Props) => {
               type="button"
               aria-label="Reset"
               title="Reset"
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-3 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-3 py-2 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
               onClick={resetAll}
             >
               <FontAwesomeIcon className="h-5 w-5" size="sm" icon="times" />
