@@ -30,9 +30,15 @@ export const TrackLinksButtons = ({ links, id: trackId }: Props) => {
 
   links = links.filter(
     link =>
-      !['spotify', 'itunes', 'youtube', 'googleplay', 'googleplayStore', 'itunesStore'].includes(
-        link.site,
-      ),
+      ![
+        'spotify',
+        'itunes',
+        'youtube',
+        'googleplay',
+        'googleplayStore',
+        'itunesStore',
+        'yandex',
+      ].includes(link.site),
   );
 
   const trackOut = (site: string, id: string): void => {

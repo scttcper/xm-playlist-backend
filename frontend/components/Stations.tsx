@@ -16,6 +16,7 @@ const fuseConfig = {
 const allResultsFuse = () => new Fuse(channels, fuseConfig);
 
 type Props = {
+  // eslint-disable-next-line react/boolean-prop-naming
   autoFocus: boolean;
 };
 
