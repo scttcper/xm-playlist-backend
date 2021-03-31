@@ -1,8 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
-import { useUser } from 'services/user';
+import { extractUser, login } from 'services/userSlice';
+import firebase from 'firebase/app';
 
 type Props = {
   handleError: (error: Error) => void;
@@ -10,18 +12,28 @@ type Props = {
 
 export const ThirdPartyLogin = ({ handleError }: Props) => {
   const router = useRouter();
-  const { signInWithGoogle, signInWithTwitter } = useUser();
+  const dispatch = useDispatch();
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithGoogle();
-      if (result.additionalUserInfo?.isNewUser) {
-        router.push('/newUser');
-      } else {
-        router.push('/profile');
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().useDeviceLanguage();
+      const { user, additionalUserInfo } = await firebase.auth().signInWithPopup(provider);
+      if (!user) {
+        throw new Error('Error');
       }
 
-      return;
+      dispatch(login(extractUser(user)));
+
+      gtag('event', 'login', {
+        method: 'google',
+      });
+
+      if (additionalUserInfo?.isNewUser) {
+        await router.push('/newUser');
+      } else {
+        await router.push('/profile');
+      }
     } catch (error) {
       handleError(error);
       throw error;
@@ -30,14 +42,24 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
 
   const handleTwitterLogin = async () => {
     try {
-      const result = await signInWithTwitter();
-      if (result.additionalUserInfo?.isNewUser) {
-        router.push('/newUser');
-      } else {
-        router.push('/profile');
+      const provider = new firebase.auth.TwitterAuthProvider();
+      firebase.auth().useDeviceLanguage();
+      const { user, additionalUserInfo } = await firebase.auth().signInWithPopup(provider);
+      if (!user) {
+        throw new Error('Error');
       }
 
-      return;
+      dispatch(login(extractUser(user)));
+
+      gtag('event', 'login', {
+        method: 'twitter',
+      });
+
+      if (additionalUserInfo?.isNewUser) {
+        await router.push('/newUser');
+      } else {
+        await router.push('/profile');
+      }
     } catch (error) {
       handleError(error);
       throw error;

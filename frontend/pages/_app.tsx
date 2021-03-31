@@ -15,13 +15,15 @@ import {
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { RecoilRoot } from 'recoil';
+import { Provider, useDispatch } from 'react-redux';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
 import { app } from 'services/firebase';
-import { useUser } from 'services/user';
+import { store } from 'services/store';
 
 import '../css/tailwind.css';
+import { login, extractUser, logout } from 'services/userSlice';
 
 config.autoAddCss = false;
 library.add(
@@ -40,16 +42,20 @@ library.add(
   faSignOutAlt,
 );
 
-const User: React.FC<any> = ({ children }) => {
-  const { setUser } = useUser();
+const User: React.FC<any> = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     app.auth().onAuthStateChanged(firebaseUser => {
-      setUser(firebaseUser);
+      if (firebaseUser) {
+        dispatch(login(extractUser(firebaseUser)));
+      } else {
+        dispatch(logout());
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return children;
+  return null;
 };
 
 // not sure if err exists?
@@ -73,19 +79,20 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
   });
 
   return (
-    <RecoilRoot>
-      <Head>
-        <title>xmplaylist - Recently played songs and playlists from xm radio</title>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CYFENTWD4" />
+    <Provider store={store}>
+      <RecoilRoot>
+        <Head>
+          <title>xmplaylist - Recently played songs and playlists from xm radio</title>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CYFENTWD4" />
 
-        <meta
-          name="description"
-          content="Find recently played songs from XM Sirius radio stations. Listen to them on Apple Music, Spotify, YouTube and others."
-        />
-        <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
-      </Head>
-      <User>
+          <meta
+            name="description"
+            content="Find recently played songs from XM Sirius radio stations. Listen to them on Apple Music, Spotify, YouTube and others."
+          />
+          <meta name="keywords" content="xmplaylist,xm,playlist,siriusxm,sirius" />
+        </Head>
+        <User />
         <div className="flex flex-col font-sans min-h-screen">
           <NavBar />
           <div className="flex-grow">
@@ -93,8 +100,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, err }) => {
           </div>
           <Footer />
         </div>
-      </User>
-    </RecoilRoot>
+      </RecoilRoot>
+    </Provider>
   );
 };
 

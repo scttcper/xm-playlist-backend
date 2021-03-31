@@ -3,15 +3,18 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useClickAway } from 'react-use';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useUser } from 'services/user';
+import { logout, selectUser } from 'services/userSlice';
+import { app } from 'services/firebase';
 
 export const NavBar: React.FC = () => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { logout, user } = useUser();
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useClickAway(dropdownRef, () => {
     if (profileOpen) {
@@ -19,8 +22,9 @@ export const NavBar: React.FC = () => {
     }
   });
 
-  const handleLogOut = () => {
-    logout();
+  const handleLogOut = async () => {
+    await app.auth().signOut();
+    dispatch(logout());
     router.push('/login');
     setProfileOpen(false);
   };

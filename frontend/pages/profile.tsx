@@ -1,20 +1,26 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useUser } from 'services/user';
+import { logout, selectUser, selectIsSubscribed, toggleSubscription } from 'services/userSlice';
 import { SubscribeToggle } from 'components/SubscribeToggle';
+import { app } from 'services/firebase';
 
 const Profile = () => {
-  const { user, logout, setSubscription, isSubscribed } = useUser();
   const router = useRouter();
+  const user = useSelector(selectUser);
+  const isSubscribed = useSelector(selectIsSubscribed);
+  const dispatch = useDispatch();
 
+  console.log(user);
   if (typeof window !== 'undefined' && user === null) {
     router.push('/login');
   }
 
-  const handleLogOut = () => {
-    logout();
+  const handleLogOut = async () => {
+    await app.auth().signOut();
+    dispatch(logout());
     router.push('/login');
   };
 
@@ -22,8 +28,7 @@ const Profile = () => {
     <main className="min-h-screen max-w-lg mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 my-2 mt-4">
       <div className="bg-white shadow px-4 py-5 rounded-lg sm:p-6">
         <div>
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Profile</h3>
-          <p className="max-w-2xl text-sm leading-5 text-gray-500">User settings</p>
+          <h1 className="text-lg leading-6 font-medium text-gray-900">User Settings</h1>
         </div>
         <div className="mt-5 border-t border-gray-200 pt-5">
           <dl>
@@ -36,7 +41,10 @@ const Profile = () => {
           </dl>
         </div>
       </div>
-      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setSubscription} />
+      <SubscribeToggle
+        isSubscribed={isSubscribed}
+        onChange={() => dispatch(toggleSubscription())}
+      />
       <div className="my-2">
         <button
           type="button"

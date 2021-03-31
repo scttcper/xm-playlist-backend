@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch } from '@headlessui/react';
 
 type Props = {
   isSubscribed: boolean;
@@ -17,24 +18,20 @@ export const SubscribeToggle = ({ isSubscribed, onChange }: Props) => {
             <p id="subscribe-description">Subscribe to news and updates about xmplaylist.com</p>
           </div>
           <div className="mt-0 ml-6 flex-shrink-0 flex items-center">
-            <span
-              role="checkbox"
-              tabIndex={0}
-              aria-checked="false"
-              aria-labelledby="subscribe-headline"
-              aria-describedby="subscribe-description"
-              className={`bg-gray-200 relative inline-block flex-no-shrink h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline ${
-                isSubscribed ? 'bg-blue-600' : ''
-              }`}
-              onClick={() => onChange(!isSubscribed)}
+            <Switch
+              checked={isSubscribed}
+              className={`${
+                isSubscribed ? 'bg-blue-600' : 'bg-gray-200'
+              } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+              onChange={() => onChange(!isSubscribed)}
             >
+              <span className="sr-only">Enable email updates</span>
               <span
-                aria-hidden="true"
-                className={`translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200 ${
+                className={`${
                   isSubscribed ? 'translate-x-5' : 'translate-x-0'
-                }`}
+                } translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
               />
-            </span>
+            </Switch>
           </div>
         </div>
       </div>

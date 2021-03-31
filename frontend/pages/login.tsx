@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useUser } from 'services/user';
 import { useRouter } from 'next/router';
 
 import { ThirdPartyLogin } from 'components/ThirdPartyLogin';
+import { actionCodeSettings, app } from 'services/firebase';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const { signInWithLink } = useUser();
+  const [email, setEmail] = useState('');
   const router = useRouter();
   const [error, setError] = useState('');
 
@@ -17,15 +16,20 @@ const Login = () => {
   const handleLoginWithLink = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await signInWithLink(username);
+      window.localStorage.setItem('emailForSignIn', email);
+      await app.auth().sendSignInLinkToEmail(email, actionCodeSettings);
+
       router.push('/linkAwait');
+      gtag('event', 'login', {
+        method: 'emailForSignIn',
+      });
     } catch (error) {
       handleError(error);
     }
   };
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
+    setEmail(event.target.value);
   };
 
   return (
@@ -54,6 +58,7 @@ const Login = () => {
                 <input
                   required
                   id="email"
+                  name="email"
                   type="email"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   onChange={handleUsernameChange}
