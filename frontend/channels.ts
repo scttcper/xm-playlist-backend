@@ -788,7 +788,7 @@ export const channels: Channel[] = [
     number: 59,
     name: "Willie's Roadhouse",
     genre: Genre.country,
-    desc: "Classic country songs from the '60s, '70s and '80s.",
+    desc: "Classic Country from the '60s, '70s and '80s.",
     playlist: '0VTk5reFEU3RCTFMJsepOF',
   },
   {
@@ -807,7 +807,7 @@ export const channels: Channel[] = [
     number: 61,
     name: 'Y2Kountry',
     genre: Genre.country,
-    desc: '2000s Country Hits',
+    desc: 'Country Hits from the 2000s',
     playlist: '5anBQRaNx5vSG3x6ia0VpX',
   },
   {
@@ -1166,6 +1166,16 @@ export const channels: Channel[] = [
   //   desc: 'Tom Petty’s Buried Treasure 24/7',
   // },
   {
+    id: '9470',
+    deeplink: 'MarkyRamonesPunkRock',
+    number: 712,
+    name: "Marky Ramone's Punk Rock",
+    genre: Genre.rock,
+    desc:
+      "Marky Ramone's Punk Rock Blitzkrieg. Classic Punk 24/7 + Songs from Marky's record collection, rare tracks, live songs & more!",
+    playlist: '',
+  },
+  {
     id: '9447',
     deeplink: 'TheEmoProject',
     number: 713,
@@ -1220,15 +1230,15 @@ export const channels: Channel[] = [
   //   desc: 'Limited run Feb 22 - Feb 28',
   //   playlist: '',
   // },
-  // {
-  //   id: '9397',
-  //   deeplink: 'SwaysUniverse',
-  //   number: 720,
-  //   name: 'Sway\'s Universe',
-  //   genre: Genre.hiphop,
-  //   desc: 'Sway\'s Lifestyle Channel',
-  //   playlist: '',
-  // },
+  {
+    id: '9397',
+    deeplink: 'SwaysUniverse',
+    number: 720,
+    name: "Sway's Universe",
+    genre: Genre.hiphop,
+    desc: "Sway's Lifestyle Channel",
+    playlist: '',
+  },
   // {
   //   id: '9398',
   //   number: 721,
@@ -1679,6 +1689,17 @@ export const channels: Channel[] = [
     name: "She's So Funny",
     genre: Genre.comedy,
     desc: 'The Funniest Female Comedians.',
+    playlist: '',
+    allowLinkContent: true,
+  },
+  {
+    id: '9353',
+    deeplink: 'ComedyClassics',
+    number: 104,
+    name: 'Comedy Classics',
+    genre: Genre.comedy,
+    desc:
+      'Classic stand-up from legendary comedians of the past like Bob Newhart, Joan Rivers, Redd Foxx, and more!',
     playlist: '',
     allowLinkContent: true,
   },
