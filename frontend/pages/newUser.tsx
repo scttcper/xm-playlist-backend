@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useUser } from 'services/user';
+import { selectIsSubscribed, toggleSubscription } from 'services/userSlice';
 import { SubscribeToggle } from 'components/SubscribeToggle';
 
 const NewUser = () => {
-  const { setSubscription, isSubscribed } = useUser();
+  const isSubscribed = useSelector(selectIsSubscribed);
+  const dispatch = useDispatch();
+
   return (
     <main className="max-w-lg mx-auto px-1 mb-10 md:px-4 sm:px-6 lg:px-8 mt-10">
       <h3
@@ -14,7 +17,10 @@ const NewUser = () => {
       >
         Welcome!
       </h3>
-      <SubscribeToggle isSubscribed={isSubscribed ?? false} onChange={setSubscription} />
+      <SubscribeToggle
+        isSubscribed={isSubscribed}
+        onChange={() => dispatch(toggleSubscription())}
+      />
 
       <div className="mt-3 text-right">
         <span className="inline-flex rounded-md shadow-sm">

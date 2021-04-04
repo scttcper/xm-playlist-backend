@@ -6,13 +6,15 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
+import { app } from 'services/firebase';
 import { channels, Channel } from 'frontend/channels';
 import { Adsense } from 'components/Adsense';
 import { SearchResultsNav } from 'components/SearchResultsNav';
-import { useUser } from 'services/user';
+import { selectUser } from 'services/userSlice';
 
 export interface SearchResult {
   id: string;
@@ -57,7 +59,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
   const [searchResults, setSearchResults] = useState<Partial<SearchResults>>({ results: [] });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { user } = useUser();
+  const user = useSelector(selectUser);
 
   const handleNextPage = () => {
     const data = { ...searchResults.query! };
@@ -119,7 +121,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
 
     try {
       setIsLoading(true);
-      const token: string = (await user?.getIdToken()) || '';
+      const token: string = (await app.auth().currentUser!.getIdToken()) || '';
 
       const res = await axios.get<SearchResults>(`${url}/api/search?${searchParams.toString()}`, {
         headers: {

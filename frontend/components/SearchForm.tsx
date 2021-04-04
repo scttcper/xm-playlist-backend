@@ -2,10 +2,11 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
+import { useSelector } from 'react-redux';
 
+import { selectUser } from 'services/userSlice';
 import { channels } from 'frontend/channels';
 import Link from 'next/link';
-import { useUser } from 'services/user';
 import { subDays, formatISO9075 } from 'date-fns';
 
 export type Inputs = {
@@ -34,6 +35,7 @@ export const SearchForm = ({
   endDate,
 }: Props) => {
   const hour = 60 * 60;
+  const user = useSelector(selectUser);
   const { register, handleSubmit, control, setValue } = useForm<Inputs>({
     defaultValues: {
       artistName,
@@ -44,7 +46,6 @@ export const SearchForm = ({
       endDate: endDate || '',
     },
   });
-  const { user } = useUser();
   const stationOptions = channels.map(channel => {
     return { value: `${channel.deeplink}`, label: `${channel.name}` };
   });

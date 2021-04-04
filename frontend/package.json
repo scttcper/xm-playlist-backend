@@ -37,7 +37,6 @@
     "react-redux": "7.2.3",
     "react-select": "4.3.0",
     "react-use": "17.2.1",
-    "recoil": "0.2.0",
     "redux-devtools-extension": "2.13.9",
     "tailwindcss": "2.0.4"
   },

@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 import type firebase from 'firebase/app';
+
+import { url } from '../url';
 import type { RootState } from './store';
 
 type User = Pick<firebase.User, 'displayName' | 'email' | 'photoURL' | 'uid'>;
@@ -25,6 +27,20 @@ export function extractUser(user: firebase.User): User {
   };
 }
 
+export const fetchUserExtra = createAsyncThunk(
+  'user/loadUserData',
+  async (user: firebase.User, _thunkAPI) => {
+    const token: string = (await user?.getIdToken()) ?? '';
+    const response = await axios.get<{ isSubscribed: boolean }>(`${url}/api/user/${user?.uid}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      timeout: 15 * 1000,
+    });
+    return response.data;
+  },
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -41,6 +57,11 @@ export const userSlice = createSlice({
     toggleSubscription: state => {
       state.isSubscribed = !state.isSubscribed;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchUserExtra.fulfilled, (state, action) => {
+      state.isSubscribed = action.payload.isSubscribed;
+    });
   },
 });
 
