@@ -63,10 +63,8 @@ export const SearchForm = ({
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <input
-              ref={register}
               type="text"
-              name="trackName"
-              id="trackName"
+              {...register('trackName')}
               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -82,11 +80,8 @@ export const SearchForm = ({
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <input
-              ref={register}
               type="text"
-              name="artistName"
-              id="artistName"
-              minLength={2}
+              {...register('artistName', { minLength: 2 })}
               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -103,14 +98,14 @@ export const SearchForm = ({
             <Controller
               control={control}
               name="station"
-              render={({ onChange, onBlur, value }) => (
+              render={({ field }) => (
                 <Select
-                  defaultValue={stationOptions.find(x => x.value === value)}
+                  defaultValue={stationOptions.find(x => x.value === field.value)}
                   id="station"
                   instanceId="station"
                   options={stationOptions}
-                  onBlur={onBlur}
-                  onChange={(value: any) => onChange(value.value)}
+                  onBlur={field.onBlur}
+                  onChange={(value: any) => field.onChange(value.value)}
                 />
               )}
             />
@@ -129,9 +124,7 @@ export const SearchForm = ({
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-2">
             <select
-              ref={register}
-              name="timeAgo"
-              id="timeAgo"
+              {...register('timeAgo')}
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
               onChange={() => {
                 setValue('startDate', undefined);
@@ -167,13 +160,12 @@ export const SearchForm = ({
               Start Date
             </label>
             <input
-              ref={register}
               type="date"
-              id="startDate"
+              {...register('startDate', {
+                min: formatISO9075(subDays(new Date(), 59), { representation: 'date' }),
+                max: formatISO9075(new Date(), { representation: 'date' }),
+              })}
               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md mb-2"
-              name="startDate"
-              min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
-              max={formatISO9075(new Date(), { representation: 'date' })}
               onChange={() => setValue('timeAgo', undefined)}
             />
             <label
@@ -192,13 +184,12 @@ export const SearchForm = ({
               (today)
             </a>
             <input
-              ref={register}
               type="date"
-              id="endDate"
+              {...register('endDate', {
+                min: formatISO9075(subDays(new Date(), 59), { representation: 'date' }),
+                max: formatISO9075(new Date(), { representation: 'date' }),
+              })}
               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md mb-2"
-              name="endDate"
-              min={formatISO9075(subDays(new Date(), 59), { representation: 'date' })}
-              max={formatISO9075(new Date(), { representation: 'date' })}
               onChange={() => setValue('timeAgo', undefined)}
             />
           </div>

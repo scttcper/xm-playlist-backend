@@ -141,8 +141,8 @@ export const Stations = ({ autoFocus }: Props) => {
 
       {/* channels */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 md:gap-4">
-        {results.map(channel => (
-          <div key={channel.id} className="text-gray-500 hover:text-blue-800">
+        {results.map((channel, idx) => (
+          <div key={channel.id} className="text-gray-600 hover:text-blue-800">
             <Link
               prefetch={false}
               href="/station/[id]"
@@ -153,11 +153,13 @@ export const Stations = ({ autoFocus }: Props) => {
                   <img
                     src={`/img/${channel.deeplink}-sm.png`}
                     alt={`${channel.name} Logo`}
-                    loading="lazy"
+                    loading={idx > 12 ? 'lazy' : 'eager'}
+                    width="320"
+                    height="320"
                   />
                 </div>
                 <div className="mt-2">
-                  <h3 className="text-center truncate text-sm md:text-lg leading-6 font-medium">
+                  <h3 className="text-center truncate text-sm md:text-base leading-6 font-medium">
                     {channel.name}
                   </h3>
                 </div>

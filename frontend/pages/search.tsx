@@ -283,7 +283,11 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                                 alt={`${result.name} album cover`}
                               />
                             ) : (
-                              <img src="/img/missing.png" alt={`${result.name} album cover`} />
+                              <img
+                                className="h-12 w-12 rounded"
+                                src="/img/missing.png"
+                                alt={`${result.name} album cover`}
+                              />
                             )}
                           </div>
                           <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
