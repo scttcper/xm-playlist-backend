@@ -388,16 +388,16 @@ export const channels: Channel[] = [
       'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
     playlist: '5voYlQdL9FT6QWnlIfSxTx',
   },
-  {
-    id: '9351',
-    deeplink: 'FooFightersRadio',
-    number: 105,
-    name: 'Foo Fighters Radio',
-    genre: Genre.rock,
-    desc:
-      'Foo Fighters Radio features insight behind their biggest songs, demos, rarities, live cuts, influences & band hosted shows',
-    playlist: '3nXosxIS8BoW5eeN8nUYHG',
-  },
+  // {
+  //   id: '9351',
+  //   deeplink: 'FooFightersRadio',
+  //   number: 105,
+  //   name: 'Foo Fighters Radio',
+  //   genre: Genre.rock,
+  //   desc:
+  //     'Foo Fighters Radio features insight behind their biggest songs, demos, rarities, live cuts, influences & band hosted shows',
+  //   playlist: '3nXosxIS8BoW5eeN8nUYHG',
+  // },
   {
     id: 'firstwave',
     deeplink: '1stWave',
@@ -1166,6 +1166,15 @@ export const channels: Channel[] = [
   //   desc: 'Tom Petty’s Buried Treasure 24/7',
   // },
   {
+    id: '9351',
+    deeplink: 'SiriusXM105',
+    number: 105,
+    name: 'SiriusXM 105',
+    genre: Genre.rock,
+    desc: 'SiriusXM 105',
+    playlist: '',
+  },
+  {
     id: '9470',
     deeplink: 'MarkyRamonesPunkRock',
     number: 712,
@@ -1236,7 +1245,7 @@ export const channels: Channel[] = [
     number: 720,
     name: "Sway's Universe",
     genre: Genre.hiphop,
-    desc: "Sway's Lifestyle Channel",
+    desc: "Sway's Universe, the Lifestyle channel created by Sway Calloway",
     playlist: '',
   },
   // {
