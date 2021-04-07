@@ -195,6 +195,21 @@ export async function getUserToken(code: string): Promise<string> {
   return res.access_token;
 }
 
+export async function setPlaylistDetails(code: string, playlistId: string, channel: Channel) {
+  const token = await getUserToken(code);
+  const url = `https://api.spotify.com/v1/playlists/${playlistId}`;
+
+  await got.put(url, {
+    headers: { Authorization: `Bearer ${token}` },
+    json: {
+      name: `${channel.name} - xmplaylist.com`,
+      description:
+        `Last 30 days heard on ${channel.name} by xmplaylist.com.` +
+        `Updated a few times a month. Newest songs are added to the bottom of the playlist and old songs are removed.`,
+    },
+  });
+}
+
 export async function addToPlaylist(code: string, playlistId: string, trackIds: string[]) {
   const token = await getUserToken(code);
   const url = `https://api.spotify.com/v1/users/xmplaylist/playlists/${playlistId}/tracks`;
@@ -263,6 +278,7 @@ export async function updatePlaylists(code: string) {
     const toAdd = _.pullAll(uniqueTrackIds, current);
 
     await addToPlaylist(code, channel.playlist, toAdd).catch(e => console.error('ADD ERROR', e));
+    await setPlaylistDetails(code, channel.playlist, channel);
     console.log(`Removed: ${toRemove.length} from ${channel.name}`);
     console.log(`Added: ${toAdd.length} to ${channel.name}`);
   }

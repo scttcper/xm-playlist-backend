@@ -1,5 +1,5 @@
 import * as inquirer from 'inquirer';
-import URL from 'url';
+import { URL } from 'url';
 
 import config from '../config';
 import { updatePlaylists } from '../src/spotify';
@@ -11,7 +11,7 @@ async function main() {
   const answers = await inquirer.prompt<any>([{ name: 'url', type: 'input', message: 'Gib code' }]);
   const { url } = answers;
 
-  const code = URL.parse(url, true).query.code as string;
+  const code = new URL(url).searchParams.get('code');
 
   if (!code) {
     throw new Error('No update code');
