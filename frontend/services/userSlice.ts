@@ -49,8 +49,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     logout: state => {
-      // todo figure out calling rootReducer with undefined
-      state.user = initialState.user;
+      state.user = null;
       state.isSubscribed = initialState.isSubscribed;
       state.loadedExtra = initialState.loadedExtra;
     },

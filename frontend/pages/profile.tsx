@@ -13,7 +13,6 @@ const Profile = () => {
   const isSubscribed = useSelector(selectIsSubscribed);
   const dispatch = useDispatch();
 
-  console.log(user);
   if (typeof window !== 'undefined' && user === null) {
     router.push('/login');
   }

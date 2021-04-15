@@ -202,9 +202,9 @@ export async function setPlaylistDetails(code: string, playlistId: string, chann
   await got.put(url, {
     headers: { Authorization: `Bearer ${token}` },
     json: {
-      name: `${channel.name} - xmplaylist.com`,
+      name: `Ch. ${channel.number} - xmplaylist.com`,
       description:
-        `Last 30 days heard on ${channel.name} by xmplaylist.com.` +
+        `Last 30 days heard on a specific radio station by xmplaylist.com. ` +
         `Updated a few times a month. Newest songs are added to the bottom of the playlist and old songs are removed.`,
     },
   });

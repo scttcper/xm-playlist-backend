@@ -1,12 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { useClickAway } from 'react-use';
 import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 
 import { Genre, FriendlyGenre } from '../channels';
 
 interface GenrePickerProps {
   pickGenre: (genre: Genre | null) => void;
   currentGenre: string | null;
+}
+
+function classNames(...classes: string[]): string {
+  return classes.filter(Boolean).join(' ');
 }
 
 export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenre }) => {
@@ -42,27 +47,19 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
   });
 
   return (
-    <Menu>
+    <Menu as="div" className="relative inline-block text-left">
       {({ open }) => (
         <>
-          <span className="rounded-md shadow-sm">
-            <Menu.Button
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white leading-5 text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
-              onClick={() => setIsOpen(!isOpen)}
-            >
+          <div>
+            <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
               {currentGenre ? FriendlyGenre[currentGenre] : 'Genre'}
-              <svg className="-mr-1 ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
             </Menu.Button>
-          </span>
+          </div>
 
           <Transition
             show={open}
+            as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
@@ -70,14 +67,18 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute w-32 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none z-50">
+            <Menu.Items
+              static
+              className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+            >
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
                     <a
-                      className={`${
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                      } block px-4 py-2 text-sm bg-white w-full text-left leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900`}
+                      className={classNames(
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm',
+                      )}
                       onClick={event => handlePickGenre(event, null)}
                     >
                       All
@@ -88,9 +89,10 @@ export const GenrePicker: React.FC<GenrePickerProps> = ({ pickGenre, currentGenr
                   <Menu.Item key={genre}>
                     {({ active }) => (
                       <a
-                        className={`${
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                        } block px-4 py-2 text-sm bg-white w-full text-left leading-5 text-gray-900 hover:bg-blue-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900`}
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm',
+                        )}
                         onClick={event => handlePickGenre(event, genre)}
                       >
                         {FriendlyGenre[genre]}

@@ -71,7 +71,6 @@ const port = parseInt(process.env.PORT, 10) || 5000;
             method,
             routerPath: path,
             url: url.format(req.raw.url),
-            params: req.params,
             query: req.query,
             ip,
             userAgent,

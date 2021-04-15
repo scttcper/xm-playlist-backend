@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LazyLoad from 'react-lazyload';
 import { useClickAway } from 'react-use';
+import { XIcon } from '@heroicons/react/outline';
 
 import { TrackLinksButtons } from './TrackLinksButtons';
 
@@ -48,17 +49,10 @@ export const TrackLinks: React.FC<{
               <button
                 type="button"
                 className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
-                aria-label="Close"
                 onClick={() => setShow(false)}
               >
-                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <span className="sr-only">Close</span>
+                <XIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
 

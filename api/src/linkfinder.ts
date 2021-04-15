@@ -1,6 +1,7 @@
 import got from 'got';
-import { Spotify } from './models';
 import uaString from 'ua-string';
+
+import { Spotify } from './models';
 import { db } from './db';
 
 export class FailedLinkFinding extends Error {
