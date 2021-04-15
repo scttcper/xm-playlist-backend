@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { Fragment } from 'react';
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { SearchIcon } from '@heroicons/react/solid';
 
 import { logout, selectUser } from 'services/userSlice';
 import { app } from 'services/firebase';
@@ -73,7 +73,7 @@ export const NavBar: React.FC = () => {
                     className="sm:hidden p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out"
                     aria-label="Search"
                   >
-                    <FontAwesomeIcon icon="search" />
+                    <SearchIcon className="w-5 h-5" aria-hidden="true" />
                   </a>
                 </Link>
 

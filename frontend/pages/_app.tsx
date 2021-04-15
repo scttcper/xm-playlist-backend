@@ -1,19 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
-import { library, config } from '@fortawesome/fontawesome-svg-core';
-import { faApple, faSpotify, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import {
-  faArrowLeft,
-  faEllipsisH,
-  faExternalLinkAlt,
-  faInfoCircle,
-  faMusic,
-  faTimes,
-  faSearch,
-  faSpinner,
-  faSignOutAlt,
-} from '@fortawesome/free-solid-svg-icons';
 import { Provider, useDispatch } from 'react-redux';
 
 import { NavBar } from 'components/Navbar';
@@ -23,23 +10,6 @@ import { store } from 'services/store';
 
 import '../css/tailwind.css';
 import { login, extractUser, logout, fetchUserExtra } from 'services/userSlice';
-
-config.autoAddCss = false;
-library.add(
-  faSpotify,
-  faApple,
-  faEllipsisH,
-  faInfoCircle,
-  faMusic,
-  faExternalLinkAlt,
-  faArrowLeft,
-  faTimes,
-  faSearch,
-  faSpinner,
-  faGoogle,
-  faTwitter,
-  faSignOutAlt,
-);
 
 const User: React.FC<any> = () => {
   const dispatch = useDispatch();

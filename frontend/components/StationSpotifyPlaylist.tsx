@@ -1,7 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ExternalLinkIcon } from '@heroicons/react/solid';
 
 import { Channel } from '../channels';
+import { Spotify } from './icons/Spotify';
 
 function trackPlaylistClick(type: string, channelId: string): void {
   gtag('event', 'playlist_click', {
@@ -25,8 +26,8 @@ export const StationSpotifyPlaylist = ({ channel }: Props) => {
         className="inline-flex items-center px-2 md:px-3 py-1 md:py-2 border border-gray-300 text-xs md:text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
         onClick={() => trackPlaylistClick('spotify', channel.id)}
       >
-        <FontAwesomeIcon icon={['fab', 'spotify']} className="mr-1" />
-        View on Spotify <FontAwesomeIcon className="ml-2" size="sm" icon="external-link-alt" />
+        <Spotify className="mr-1 h-3.5 w-3.5" />
+        View on Spotify <ExternalLinkIcon className="ml-1 h-4 w-4" aria-hidden="true" />
       </a>
     </span>
   );

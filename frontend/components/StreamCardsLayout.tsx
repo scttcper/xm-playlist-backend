@@ -1,13 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useWindowScroll } from 'react-use';
+import { InformationCircleIcon } from '@heroicons/react/solid';
 
 import { Adsense } from './Adsense';
 import { Channel } from '../channels';
 import { TrackResponse } from 'frontend/responses';
 import { TrackLinks } from './TrackLinks';
+import { Spotify } from './icons/Spotify';
+import { Apple } from './icons/Apple';
 
 export const StreamCardsLayout: React.FC<{
   tracks: TrackResponse[][];
@@ -86,7 +88,11 @@ export const StreamCardsLayout: React.FC<{
                           }`}
                         >
                           <a className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                            <FontAwesomeIcon icon="info-circle" className="mr-1.5" /> Info
+                            <InformationCircleIcon
+                              className="h-3.5 w-3.5 -ml-0.5 mr-1"
+                              aria-hidden="true"
+                            />
+                            Info
                           </a>
                         </Link>
                         {play?.spotify?.spotify_id && (
@@ -97,7 +103,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('spotify', play.track.id)}
                           >
-                            <FontAwesomeIcon className="mr-1.5" icon={['fab', 'spotify']} />
+                            <Spotify className="h-3 w-3 -ml-0.5 mr-1" />
                             Spotify
                           </a>
                         )}
@@ -112,7 +118,7 @@ export const StreamCardsLayout: React.FC<{
                             rel="noopener noreferrer"
                             onClick={() => trackOut('apple', play.track.id)}
                           >
-                            <FontAwesomeIcon className="mr-1.5" icon={['fab', 'apple']} />
+                            <Apple className="h-3 w-3 -ml-0.5 mr-1" />
                             Apple
                           </a>
                         )}

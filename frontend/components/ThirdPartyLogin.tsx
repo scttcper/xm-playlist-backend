@@ -1,10 +1,11 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
 import { extractUser, login } from 'services/userSlice';
 import firebase from 'firebase/app';
+import { Twitter } from './icons/Twitter';
+import { Google } from './icons/Google';
 
 type Props = {
   handleError: (error: Error) => void;
@@ -90,11 +91,12 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
         <span className="w-full inline-flex rounded-md shadow-sm">
           <button
             type="button"
+            id="twitter"
             className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out"
             aria-label="Sign in with Twitter"
             onClick={handleTwitterLogin}
           >
-            <FontAwesomeIcon size="lg" icon={['fab', 'twitter']} />
+            <Twitter className="h-4 w-4" />
           </button>
         </span>
       </div>
@@ -103,11 +105,12 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
         <span className="w-full inline-flex rounded-md shadow-sm">
           <button
             type="button"
+            id="google"
             className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition duration-150 ease-in-out"
             aria-label="Sign in with Google"
             onClick={handleGoogleLogin}
           >
-            <FontAwesomeIcon size="lg" icon={['fab', 'google']} />
+            <Google className="h-4 w-4" />
           </button>
         </span>
       </div>

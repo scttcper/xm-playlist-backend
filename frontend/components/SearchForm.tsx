@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
 import { useSelector } from 'react-redux';
+import { SearchIcon } from '@heroicons/react/solid';
 
 import { selectUser } from 'services/userSlice';
 import { channels } from 'frontend/channels';
@@ -205,14 +205,10 @@ export const SearchForm = ({
             user ? 'bg-blue-600 hover:bg-blue-500' : 'bg-gray-300'
           }`}
         >
-          {isLoading && (
-            <>
-              <FontAwesomeIcon spin className="mr-2" icon="spinner" /> Loading...
-            </>
-          )}
+          {isLoading && 'Loading...'}
           {!isLoading && (
             <>
-              <FontAwesomeIcon className="mr-2" icon="search" />
+              <SearchIcon className="h-4 w-4 -ml-1 mr-2" aria-hidden="true" />
               Search
             </>
           )}

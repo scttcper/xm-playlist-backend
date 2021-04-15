@@ -1,7 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
+import { LogoutIcon } from '@heroicons/react/solid';
 
 import { logout, selectUser, selectIsSubscribed, toggleSubscription } from 'services/userSlice';
 import { SubscribeToggle } from 'components/SubscribeToggle';
@@ -50,7 +50,7 @@ const Profile = () => {
           className="inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-md bg-white text-gray-500 hover:text-white hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
           onClick={handleLogOut}
         >
-          <FontAwesomeIcon className="mr-2" icon="sign-out-alt" />
+          <LogoutIcon className="h-3.5 w-3.5 mr-2 -ml-1" />
           Sign Out
         </button>
       </div>

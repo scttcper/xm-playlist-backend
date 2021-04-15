@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Fuse from 'fuse.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { XIcon } from '@heroicons/react/solid';
 
 import { channels, Channel, Genre } from '../channels';
 import { GenrePicker } from 'components/GenrePicker';
@@ -104,9 +104,6 @@ export const Stations = ({ autoFocus }: Props) => {
           {/* input */}
           <div className="flex-grow md:flex-initial md:w-4/12 lg:w-3/12 mr-1">
             <div className="relative rounded-md shadow-sm">
-              <label className="hidden" htmlFor="searchStation">
-                Filter Station
-              </label>
               <input
                 id="searchStation"
                 type="text"
@@ -129,10 +126,10 @@ export const Stations = ({ autoFocus }: Props) => {
               type="button"
               aria-label="Reset"
               title="Reset"
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-3 py-2 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+              className="inline-flex justify-center w-full rounded-md border border-gray-300 p-3 sm:p-2.5 h-auto bg-white text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
               onClick={resetAll}
             >
-              <FontAwesomeIcon className="h-5 w-5" size="sm" icon="times" />
+              <XIcon className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
           <button type="submit" className="hidden" />
