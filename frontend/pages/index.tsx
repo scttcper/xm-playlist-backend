@@ -30,8 +30,8 @@ export const Home: React.FC = () => {
               </div>
               <div className="ml-3 flex-1 md:flex md:justify-between">
                 <p className="text-sm text-blue-700">
-                  (April 14th) New playlists have been created. The old ones will no longer be
-                  updated.
+                  (April 14th) New spotify playlists have been created. The old ones will no longer
+                  be updated.
                 </p>
               </div>
             </div>
