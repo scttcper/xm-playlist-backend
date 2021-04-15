@@ -1,5 +1,5 @@
 import got from 'got';
-import uaString from 'ua-string';
+// import uaString from 'ua-string';
 
 import { Spotify } from './models';
 import { db } from './db';
@@ -50,7 +50,8 @@ export async function getLinks(spotify: Spotify): Promise<Array<{ site: string; 
       .post('https://songwhip.com/api/', {
         headers: {
           'content-type': 'application/json',
-          'user-agent': uaString,
+          'user-agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
         },
         json: {
           url: `https://open.spotify.com/track/${spotify.spotifyId}`,
