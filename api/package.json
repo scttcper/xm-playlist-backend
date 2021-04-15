@@ -35,7 +35,7 @@
     "lodash": "4.17.21",
     "micromatch": "4.0.4",
     "middie": "5.2.0",
-    "p-forever": "3.0.0",
+    "p-forever": "2.1.0",
     "pg": "8.6.0",
     "pino": "6.11.2",
     "pino-logflare": "0.3.8",
