@@ -1,3 +1,4 @@
+import debug from 'debug';
 import delay from 'delay';
 import pForever from 'p-forever';
 import * as Sentry from '@sentry/node';
@@ -8,6 +9,8 @@ import config from '../config';
 import { checkEndpoint } from './sirius';
 import { spotifyFindAndCache, SpotifyFailed } from './spotify';
 import { findAndCacheLinks, FailedLinkFinding } from './linkfinder';
+
+const log = debug('xmplaylist');
 
 async function updateAll() {
   for (const channel of channels) {
@@ -25,10 +28,12 @@ async function updateAll() {
       }
     } catch (error) {
       if (error instanceof SpotifyFailed) {
+        log('SpotifyFailed');
         continue;
       }
 
       if (error instanceof FailedLinkFinding) {
+        log('SpotifyFailed');
         continue;
       }
 
