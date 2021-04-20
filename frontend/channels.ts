@@ -1719,7 +1719,7 @@ export const channels: Channel[] = [
     name: 'Cinemagic',
     genre: Genre.classical,
     desc: 'Escape into the movies.',
-    playlist: '',
+    playlist: '0DuXdZ2rdffyB5v5mt32aB',
   },
   // {
   //   id: '9398',
