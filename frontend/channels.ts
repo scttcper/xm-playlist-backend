@@ -1392,7 +1392,7 @@ export const channels: Channel[] = [
     name: 'Disney Hits',
     genre: Genre.kids,
     desc: 'All of your favorite Disney songs, from all time on one channel. Disney Hits!',
-    playlist: '',
+    playlist: '5EcZwzad4EL2iouLK8fyy6',
   },
   {
     id: '8216',

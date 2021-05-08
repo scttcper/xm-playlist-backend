@@ -1,9 +1,17 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  useDeviceLanguage,
+  TwitterAuthProvider,
+  getAdditionalUserInfo,
+  UserCredential,
+} from 'firebase/auth';
 
 import { extractUser, login } from 'services/userSlice';
-import firebase from 'firebase/app';
+import { auth } from 'services/firebase';
 import { Twitter } from './icons/Twitter';
 import { Google } from './icons/Google';
 
@@ -15,26 +23,35 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  async function postLogin(method: string, userCredential: UserCredential | null) {
+    if (!userCredential || !userCredential.user) {
+      throw new Error('Error');
+    }
+
+    dispatch(login(extractUser(userCredential.user)));
+
+    gtag('event', 'login', {
+      method,
+    });
+
+    if (getAdditionalUserInfo(userCredential)?.isNewUser) {
+      await router.push('/newUser');
+    } else {
+      await router.push('/profile');
+    }
+  }
+
   const handleGoogleLogin = async () => {
     try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().useDeviceLanguage();
-      const { user, additionalUserInfo } = await firebase.auth().signInWithPopup(provider);
-      if (!user) {
+      const provider = new GoogleAuthProvider();
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDeviceLanguage(auth);
+      const userCredential = await signInWithPopup(auth, provider);
+      if (!userCredential || !userCredential.user) {
         throw new Error('Error');
       }
 
-      dispatch(login(extractUser(user)));
-
-      gtag('event', 'login', {
-        method: 'google',
-      });
-
-      if (additionalUserInfo?.isNewUser) {
-        await router.push('/newUser');
-      } else {
-        await router.push('/profile');
-      }
+      postLogin('google', userCredential);
     } catch (error) {
       handleError(error);
       throw error;
@@ -43,24 +60,12 @@ export const ThirdPartyLogin = ({ handleError }: Props) => {
 
   const handleTwitterLogin = async () => {
     try {
-      const provider = new firebase.auth.TwitterAuthProvider();
-      firebase.auth().useDeviceLanguage();
-      const { user, additionalUserInfo } = await firebase.auth().signInWithPopup(provider);
-      if (!user) {
-        throw new Error('Error');
-      }
+      const provider = new TwitterAuthProvider();
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDeviceLanguage(auth);
+      const userCredential = await signInWithPopup(auth, provider);
 
-      dispatch(login(extractUser(user)));
-
-      gtag('event', 'login', {
-        method: 'twitter',
-      });
-
-      if (additionalUserInfo?.isNewUser) {
-        await router.push('/newUser');
-      } else {
-        await router.push('/profile');
-      }
+      postLogin('twitter', userCredential);
     } catch (error) {
       handleError(error);
       throw error;

@@ -2,10 +2,11 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { LogoutIcon } from '@heroicons/react/solid';
+import { signOut } from 'firebase/auth';
 
 import { logout, selectUser, selectIsSubscribed, toggleSubscription } from 'services/userSlice';
 import { SubscribeToggle } from 'components/SubscribeToggle';
-import { app } from 'services/firebase';
+import { auth } from 'services/firebase';
 
 const Profile = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Profile = () => {
   }
 
   const handleLogOut = async () => {
-    await app.auth().signOut();
+    await signOut(auth);
     dispatch(logout());
     router.push('/login');
   };

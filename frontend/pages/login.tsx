@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { sendSignInLinkToEmail } from 'firebase/auth';
 
 import { ThirdPartyLogin } from 'components/ThirdPartyLogin';
-import { actionCodeSettings, app } from 'services/firebase';
+import { auth, actionCodeSettings } from 'services/firebase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const Login = () => {
     event.preventDefault();
     try {
       window.localStorage.setItem('emailForSignIn', email);
-      await app.auth().sendSignInLinkToEmail(email, actionCodeSettings);
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
 
       router.push('/linkAwait');
       gtag('event', 'login', {

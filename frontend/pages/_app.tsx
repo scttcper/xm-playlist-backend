@@ -5,8 +5,9 @@ import { Provider, useDispatch } from 'react-redux';
 
 import { NavBar } from 'components/Navbar';
 import { Footer } from 'components/Footer';
-import { app } from 'services/firebase';
+import { app, auth } from 'services/firebase';
 import { store } from 'services/store';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import '../css/tailwind.css';
 import { login, extractUser, logout, fetchUserExtra } from 'services/userSlice';
@@ -14,7 +15,7 @@ import { login, extractUser, logout, fetchUserExtra } from 'services/userSlice';
 const User: React.FC<any> = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    app.auth().onAuthStateChanged(firebaseUser => {
+    onAuthStateChanged(auth, firebaseUser => {
       if (firebaseUser) {
         dispatch(login(extractUser(firebaseUser)));
         dispatch(fetchUserExtra(firebaseUser));

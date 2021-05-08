@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import type firebase from 'firebase/app';
+import type firebase from 'firebase/auth';
 
 import { url } from '../url';
 import type { RootState } from './store';

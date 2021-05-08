@@ -11,7 +11,7 @@ import { SearchIcon } from '@heroicons/react/outline';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
-import { app } from 'services/firebase';
+import { auth } from 'services/firebase';
 import { channels, Channel } from 'frontend/channels';
 import { Adsense } from 'components/Adsense';
 import { SearchResultsNav } from 'components/SearchResultsNav';
@@ -122,7 +122,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
 
     try {
       setIsLoading(true);
-      const token: string = (await app.auth().currentUser!.getIdToken()) || '';
+      const token: string = (await auth.currentUser?.getIdToken()) || '';
 
       const res = await axios.get<SearchResults>(`${url}/api/search?${searchParams.toString()}`, {
         headers: {

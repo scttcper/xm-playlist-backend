@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import firebase from 'firebase/app';
 import { useRouter } from 'next/router';
+import { isSignInWithEmailLink, signInWithEmailLink, getAdditionalUserInfo } from 'firebase/auth';
+
+import { auth } from 'services/firebase';
 
 const LinkLogin = () => {
   const router = useRouter();
   // Confirm the link is a sign-in with email link.
   useEffect(() => {
-    if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    if (isSignInWithEmailLink(auth, window.location.href)) {
       // Additional state parameters can also be passed via URL.
       // This can be used to continue the user's intended action before triggering
       // the sign-in operation.
@@ -22,28 +24,16 @@ const LinkLogin = () => {
       }
 
       // The client SDK will parse the code from the link for you.
-      firebase
-        .auth()
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        .signInWithEmailLink(email!, window.location.href)
-        .then(result => {
-          // Clear email from storage.
-          window.localStorage.removeItem('emailForSignIn');
-          // You can access the new user via result.user
-          // Additional user info profile not available via:
-          // result.additionalUserInfo.profile == null
-          // You can check if the user is new or existing:
-          // result.additionalUserInfo.isNewUser
-          if (result.additionalUserInfo?.isNewUser) {
-            router.push('/newUser');
-          } else {
-            router.push('/profile');
-          }
-        })
-        .catch(() => {
-          // Some error occurred, you can inspect the code: error.code
-          // Common errors could be invalid email and invalid or expired OTPs.
-        });
+      signInWithEmailLink(auth, `${email}`, window.location.href).then(userCredential => {
+        // Clear email from storage.
+        window.localStorage.removeItem('emailForSignIn');
+
+        if (getAdditionalUserInfo(userCredential)?.isNewUser) {
+          router.push('/newUser');
+        } else {
+          router.push('/profile');
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

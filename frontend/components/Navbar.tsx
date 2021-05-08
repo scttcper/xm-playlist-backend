@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import { signOut } from 'firebase/auth';
 
 import { logout, selectUser } from 'services/userSlice';
-import { app } from 'services/firebase';
+import { auth } from 'services/firebase';
 
 export const NavBar: React.FC = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ export const NavBar: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = async () => {
-    await app.auth().signOut();
+    signOut(auth);
     dispatch(logout());
     router.push('/login');
   };
