@@ -13,13 +13,13 @@ const oops = 0;
 async function refreshLinks(trackId) {
   const track = await getTrack(trackId);
   // whatever
-  const spotify = ({
+  const spotify = {
     trackId: track.track.id,
     spotifyId: track.spotify.spotify_id,
     name: track.track.name,
     cover: '',
     previewUrl: '',
-  } as any) as Spotify;
+  } as any as Spotify;
 
   await db('links').delete().where('trackId', trackId).limit(1);
   await findAndCacheLinks(spotify);

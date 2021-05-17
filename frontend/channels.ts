@@ -55,8 +55,7 @@ export const channels: Channel[] = [
     number: 2,
     name: 'SiriusXM Hits 1',
     genre: Genre.pop,
-    desc:
-      'The Most Hit-Music, featuring The Morning Mash Up, Hits 1 in Hollywood, The Weekend Countdown and Hit-Bound.',
+    desc: 'The Most Hit-Music, featuring The Morning Mash Up, Hits 1 in Hollywood, The Weekend Countdown and Hit-Bound.',
     playlist: '6l09sdIi3KD5JduLDj4Tsb',
   },
   {
@@ -74,8 +73,7 @@ export const channels: Channel[] = [
     number: 4,
     name: 'SoulCycle Radio',
     genre: Genre.pop,
-    desc:
-      'High-energy hits, instructor guided workouts, and motivating messages for your mind, body, and Soul.',
+    desc: 'High-energy hits, instructor guided workouts, and motivating messages for your mind, body, and Soul.',
     playlist: '035skALUZSUluHmbAt0NMY',
   },
   {
@@ -102,8 +100,7 @@ export const channels: Channel[] = [
     number: 5,
     name: '50s on 5',
     genre: Genre.pop,
-    desc:
-      "The roots of rock 'n' roll. Chuck Berry, The Coasters, Connie Francis, Little Richard, Elvis Presley, The Platters.",
+    desc: "The roots of rock 'n' roll. Chuck Berry, The Coasters, Connie Francis, Little Richard, Elvis Presley, The Platters.",
     playlist: '3PYZ4AxunPFMnR8A6YCGkU',
   },
   {
@@ -121,8 +118,7 @@ export const channels: Channel[] = [
     number: 7,
     name: '70s on 7',
     genre: Genre.pop,
-    desc:
-      'Pop tunes and pop DJs from the wild and funky decade of mood rings, disco and bell bottoms!  The Super 70s!',
+    desc: 'Pop tunes and pop DJs from the wild and funky decade of mood rings, disco and bell bottoms!  The Super 70s!',
     playlist: '6bvogNXc9tThQdySGvkaVW',
   },
   {
@@ -131,8 +127,7 @@ export const channels: Channel[] = [
     number: 8,
     name: '80s on 8',
     genre: Genre.pop,
-    desc:
-      "The defining hit music of the '80s. Featuring the original MTV VJs Mark Goodman, Nina Blackwood, Alan Hunter and Martha Quinn.",
+    desc: "The defining hit music of the '80s. Featuring the original MTV VJs Mark Goodman, Nina Blackwood, Alan Hunter and Martha Quinn.",
     playlist: '2fUUuznL1UdtEZUftJ9tG4',
     // allowLinkContent: true,
   },
@@ -151,8 +146,7 @@ export const channels: Channel[] = [
     number: 10,
     name: 'Pop2K',
     genre: Genre.pop,
-    desc:
-      "Hear the hits from the 2000s that hit you right in the memories. It's all the songs you have a story about.",
+    desc: "Hear the hits from the 2000s that hit you right in the memories. It's all the songs you have a story about.",
     playlist: '7mRH4No6VXXU29FCHYMBam',
   },
   // {
@@ -206,8 +200,7 @@ export const channels: Channel[] = [
     number: 12,
     name: 'PopRocks',
     genre: Genre.pop,
-    desc:
-      "Rock songs that became the pop hits of the 90s and 2k. You'll know the lyrics to every song that comes on.",
+    desc: "Rock songs that became the pop hits of the 90s and 2k. You'll know the lyrics to every song that comes on.",
     playlist: '7z5rE4CsYhLIgPKjQOz23k',
     allowLinkContent: true,
   },
@@ -217,8 +210,7 @@ export const channels: Channel[] = [
     number: 18,
     name: 'The Beatles Channel',
     genre: Genre.rock,
-    desc:
-      'John, Paul, George, and Ringo changed music forever.  The songs, stories, influences and legacy of the Beatles - 24/8!',
+    desc: 'John, Paul, George, and Ringo changed music forever.  The songs, stories, influences and legacy of the Beatles - 24/8!',
     playlist: '51TlE2elaSXvkMwrW11tya',
   },
   {
@@ -299,8 +291,7 @@ export const channels: Channel[] = [
     number: 27,
     name: 'Deep Tracks',
     genre: Genre.rock,
-    desc:
-      "Album cuts, forgotten gems and lesser played songs from some of Classic Rock's most influential artists and essential albums",
+    desc: "Album cuts, forgotten gems and lesser played songs from some of Classic Rock's most influential artists and essential albums",
     playlist: '0L7rkDd5o3W8uu9DsCvB9S',
   },
   {
@@ -345,8 +336,7 @@ export const channels: Channel[] = [
     number: 31,
     name: 'Tom Petty Radio',
     genre: Genre.rock,
-    desc:
-      "Music from Tom Petty's entire Rock & Roll Hall of Fame career, plus Tom's critically acclaimed Buried Treasure radio show.",
+    desc: "Music from Tom Petty's entire Rock & Roll Hall of Fame career, plus Tom's critically acclaimed Buried Treasure radio show.",
     playlist: '2pQrurDB4Cfdy0Bnpi6VoQ',
   },
   {
@@ -355,8 +345,7 @@ export const channels: Channel[] = [
     number: 711,
     name: "Petty's Buried Treasure",
     genre: Genre.rock,
-    desc:
-      "Tom Petty's eclectic SiriusXM radio show, Tom Petty's Buried Treasure, is now its own 24/7 commercial-free channel.",
+    desc: "Tom Petty's eclectic SiriusXM radio show, Tom Petty's Buried Treasure, is now its own 24/7 commercial-free channel.",
     playlist: '1u7TBb23v0wgBvELx707AG',
   },
   {
@@ -374,8 +363,7 @@ export const channels: Channel[] = [
     number: 30,
     name: 'Dave Matthews Band Radio',
     genre: Genre.rock,
-    desc:
-      'DMB hits, fan favorites, rarities, live trax, complete concerts, and music from other artists they love.',
+    desc: 'DMB hits, fan favorites, rarities, live trax, complete concerts, and music from other artists they love.',
     playlist: '1xpfolO6nLMUV3H2vOKzzD',
   },
   {
@@ -384,8 +372,7 @@ export const channels: Channel[] = [
     number: 32,
     name: 'U2 X-Radio',
     genre: Genre.rock,
-    desc:
-      'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
+    desc: 'Music and more from the Northside of Dublin and beyond. Inspiration, conversation, meditation. This is U2.',
     playlist: '3fnXrRf7zopPTTbEbX8TIA',
   },
   // {
@@ -440,8 +427,7 @@ export const channels: Channel[] = [
     number: 37,
     name: 'Octane',
     genre: Genre.rock,
-    desc:
-      'The cutting edge of new hard rock, featuring the next generation of headbangers destined to be headliners.',
+    desc: 'The cutting edge of new hard rock, featuring the next generation of headbangers destined to be headliners.',
     playlist: '65NEbKIIz4qtiDqrrIaeHz',
     allowLinkContent: true,
   },
@@ -469,8 +455,7 @@ export const channels: Channel[] = [
     number: 40,
     name: 'Liquid Metal',
     genre: Genre.rock,
-    desc:
-      'The heaviest metal on or off the planet, from the ones that created it all the way to the ones that are perfecting it today.',
+    desc: 'The heaviest metal on or off the planet, from the ones that created it all the way to the ones that are perfecting it today.',
     playlist: '3sZL0BvJMEBpHstfccBkUR',
   },
   // {
@@ -524,8 +509,7 @@ export const channels: Channel[] = [
     number: 42,
     name: 'Sound 42',
     genre: Genre.pop,
-    desc:
-      'The vision of multi-platinum recording artist Drake. An exploration of boundary-pushing Hip-Hop, R&B, and global vibes.',
+    desc: 'The vision of multi-platinum recording artist Drake. An exploration of boundary-pushing Hip-Hop, R&B, and global vibes.',
     playlist: '4gT2qkRlZIRJwSwvbYJUE2',
   },
   // {
@@ -554,8 +538,7 @@ export const channels: Channel[] = [
     number: 43,
     name: 'Rock the Bells Radio',
     genre: Genre.hiphop,
-    desc:
-      "LL COOL J's Rock The Bells Radio is a channel dedicated exclusively to Hip-Hop fans who want that classic Hip-Hop sound.",
+    desc: "LL COOL J's Rock The Bells Radio is a channel dedicated exclusively to Hip-Hop fans who want that classic Hip-Hop sound.",
     playlist: '03O42VeIOFZ4LurrqZ2l4h',
   },
   {
@@ -654,8 +637,7 @@ export const channels: Channel[] = [
     number: 53,
     name: 'SiriusXM Chill',
     genre: Genre.electronic,
-    desc:
-      'Chill plays downtempo electronic and deep house. Music that takes you away to a relaxing poolside or chic hotel.',
+    desc: 'Chill plays downtempo electronic and deep house. Music that takes you away to a relaxing poolside or chic hotel.',
     playlist: '6IkL66p1NPYQSsmTkiHxos',
   },
   {
@@ -664,8 +646,7 @@ export const channels: Channel[] = [
     number: 736,
     name: 'A State of Armin',
     genre: Genre.electronic,
-    desc:
-      'Armin van Buuren\'s "A State of Armin" features the latest in Trance & Progressive Dance Music from superstar DJ Armin van Buuren',
+    desc: 'Armin van Buuren\'s "A State of Armin" features the latest in Trance & Progressive Dance Music from superstar DJ Armin van Buuren',
     playlist: '3yzmv5OstBT33dsVGUKb8e',
   },
   {
@@ -674,8 +655,7 @@ export const channels: Channel[] = [
     number: 735,
     name: "Steve Aoki's Remix Radio",
     genre: Genre.electronic,
-    desc:
-      'A channel curated by DJ/Producer, Steve Aoki featuring his favorite remixes of Pop & Dance songs, and his original tracks.',
+    desc: 'A channel curated by DJ/Producer, Steve Aoki featuring his favorite remixes of Pop & Dance songs, and his original tracks.',
     playlist: '2h2vTRxnbUK8knXQPSHHWN',
   },
   {
@@ -693,8 +673,7 @@ export const channels: Channel[] = [
     number: 758,
     name: 'Iceberg',
     genre: Genre.rock,
-    desc:
-      "Canada's biggest rock hits from Bryan Adams and The Guess Who to Blue Rodeo and Alanis Morissette.",
+    desc: "Canada's biggest rock hits from Bryan Adams and The Guess Who to Blue Rodeo and Alanis Morissette.",
     playlist: '7zTLDuEwNbKwXyER3Pk0lu',
   },
   {
@@ -713,8 +692,7 @@ export const channels: Channel[] = [
     number: 349,
     name: 'Bakersfield Beat',
     genre: Genre.country,
-    desc:
-      'Music from Dwight Yoakam, and all of the artists that shaped the Bakersfield sound... and beyond.',
+    desc: 'Music from Dwight Yoakam, and all of the artists that shaped the Bakersfield sound... and beyond.',
     playlist: '3s1WzN2vOqIXRkVywiDwuD',
   },
   {
@@ -723,8 +701,7 @@ export const channels: Channel[] = [
     number: 359,
     name: 'North Americana',
     genre: Genre.country,
-    desc:
-      'North Americana mixes songs from the outskirts of Rock and Country and blends them with Folk artists from yesterday and today.',
+    desc: 'North Americana mixes songs from the outskirts of Rock and Country and blends them with Folk artists from yesterday and today.',
     playlist: '6MnuIldyNo1L8xs5r50EV0',
   },
   // {
@@ -769,8 +746,7 @@ export const channels: Channel[] = [
     number: 57,
     name: 'No Shoes Radio',
     genre: Genre.country,
-    desc:
-      'Music from & chosen by Kenny Chesney.  Never heard recordings, live concerts, unplugged moments & No Shoes Nation drop-ins.',
+    desc: 'Music from & chosen by Kenny Chesney.  Never heard recordings, live concerts, unplugged moments & No Shoes Nation drop-ins.',
     playlist: '7hOnJvOYnQyoptu06wapsG',
   },
   {
@@ -797,8 +773,7 @@ export const channels: Channel[] = [
     number: 60,
     name: 'Outlaw Country',
     genre: Genre.country,
-    desc:
-      "No borders, no b.s.-from country's roots and legends to today's outsiders that just won't be fenced in.",
+    desc: "No borders, no b.s.-from country's roots and legends to today's outsiders that just won't be fenced in.",
     playlist: '4dgqm9d8GAvrh6YycaSUdS',
   },
   {
@@ -834,8 +809,7 @@ export const channels: Channel[] = [
     number: 64,
     name: "Kirk Franklin's Praise",
     genre: Genre.christian,
-    desc:
-      "Grammy winning icon Kirk Franklin presents the uplifting sounds of today's gospel superstars.",
+    desc: "Grammy winning icon Kirk Franklin presents the uplifting sounds of today's gospel superstars.",
     playlist: '4GbBRv0uYgbceX3SlOqbMQ',
   },
   {
@@ -916,8 +890,7 @@ export const channels: Channel[] = [
     number: 73,
     name: '40s Junction',
     genre: Genre.jazz,
-    desc:
-      "Board the Savoy Express with Big Bands, classic vocal stars and hits from the 1940s and beyond. Next stop, the '40s Junction!",
+    desc: "Board the Savoy Express with Big Bands, classic vocal stars and hits from the 1940s and beyond. Next stop, the '40s Junction!",
     playlist: '6YZ3adAznI9qYQWcPp2VEU',
   },
   {
@@ -926,8 +899,7 @@ export const channels: Channel[] = [
     number: 355,
     name: 'Met Opera Radio',
     genre: Genre.classical,
-    desc:
-      'Thrilling live performances from the Met, plus gems from the archives - commercial-free, around the clock.',
+    desc: 'Thrilling live performances from the Met, plus gems from the archives - commercial-free, around the clock.',
     playlist: '6xySQbrS8aRY9ehD53Q2Ts',
   },
   {
@@ -937,7 +909,7 @@ export const channels: Channel[] = [
     name: 'Symphony Hall',
     genre: Genre.classical,
     desc: 'Classical music by top orchestras, chamber music ensembles and instrumental soloists.',
-    playlist: '',
+    playlist: '7pBQrpbXOzo3jjMYhNbp4D',
   },
   {
     id: '9504',
@@ -945,8 +917,7 @@ export const channels: Channel[] = [
     number: 756,
     name: 'Les Tubes 80-90',
     genre: Genre.french,
-    desc:
-      "The biggest Francophone pop-rock hits from the 80's and 90's including Francis Cabrel and Céline Dion.",
+    desc: "The biggest Francophone pop-rock hits from the 80's and 90's including Francis Cabrel and Céline Dion.",
     playlist: '',
   },
   {
@@ -956,7 +927,7 @@ export const channels: Channel[] = [
     name: 'Attitude Franco',
     genre: Genre.french,
     desc: 'The biggest French hits from the past 50 years.',
-    playlist: '',
+    playlist: '3iHrsjAvetDBjGfDKfMGZW',
   },
   {
     id: 'rumbon',
@@ -964,9 +935,8 @@ export const channels: Channel[] = [
     number: 158,
     name: 'Caliente',
     genre: Genre.pop,
-    desc:
-      'A red-hot Latin mix where the sounds of the Caribbean and the Americas collide. Salsa, bachata, reggaeton and Latin Urban hits.',
-    playlist: '',
+    desc: 'A red-hot Latin mix where the sounds of the Caribbean and the Americas collide. Salsa, bachata, reggaeton and Latin Urban hits.',
+    playlist: '5wpJ56ypVmYrCrRbnuqkg2',
   },
   {
     id: '9420',
@@ -974,8 +944,7 @@ export const channels: Channel[] = [
     number: 311,
     name: 'Yacht Rock Radio',
     genre: Genre.rock,
-    desc:
-      "Smooth-sailing soft rock from the late '70s and early '80s. It's the kind of rock that doesn't rock the boat!",
+    desc: "Smooth-sailing soft rock from the late '70s and early '80s. It's the kind of rock that doesn't rock the boat!",
     playlist: '1Z4FnVPriS4iedeeCu12Zy',
   },
   {
@@ -993,8 +962,7 @@ export const channels: Channel[] = [
     number: 301,
     name: 'Road Trip Radio',
     genre: Genre.pop,
-    desc:
-      'A hand-selected mix of all kinds of music sharing one goal - to make you wanna roll the windows down and turn the radio up!',
+    desc: 'A hand-selected mix of all kinds of music sharing one goal - to make you wanna roll the windows down and turn the radio up!',
     playlist: '4v68dWIfMoln6lbcVj5t5C',
   },
   // {
@@ -1013,8 +981,7 @@ export const channels: Channel[] = [
     number: 305,
     name: '88rising Radio',
     genre: Genre.pop,
-    desc:
-      'Only the best music from all across Asia, from K-Pop, hip-hop, RnB, and more. Curated by 88rising.',
+    desc: 'Only the best music from all across Asia, from K-Pop, hip-hop, RnB, and more. Curated by 88rising.',
     playlist: '7DhVuB4oEPiVqj2TAU3Gba',
   },
   {
@@ -1023,8 +990,7 @@ export const channels: Channel[] = [
     number: 310,
     name: 'SXM Rock Hall Radio',
     genre: Genre.rock,
-    desc:
-      'Hear music & stories from Rock Hall inductees Buddy Holly, Beatles, Marvin Gaye, Doors, Nirvana, Pink Floyd, Prince, U2 & more.',
+    desc: 'Hear music & stories from Rock Hall inductees Buddy Holly, Beatles, Marvin Gaye, Doors, Nirvana, Pink Floyd, Prince, U2 & more.',
     playlist: '2GE5O359IReXXUpfYpBWWn',
   },
   {
@@ -1033,8 +999,7 @@ export const channels: Channel[] = [
     number: 313,
     name: 'RockBar',
     genre: Genre.rock,
-    desc:
-      "A non-stop rockin' party with sing-a-long anthems from artists like AC/DC, Lynyrd Skynyrd, Van Halen and more.",
+    desc: "A non-stop rockin' party with sing-a-long anthems from artists like AC/DC, Lynyrd Skynyrd, Van Halen and more.",
     playlist: '6SxqNeOFBXKFwEnnmoDEHF',
   },
   {
@@ -1043,8 +1008,7 @@ export const channels: Channel[] = [
     number: 314,
     name: 'FACTION PUNK',
     genre: Genre.rock,
-    desc:
-      "Modern Punk Rock music 24/7. Pop Punk, Hardcore, '90s Punk, Ska Punk, Thrash ...If it's MODERN PUNK, it's on Faction Punk!",
+    desc: "Modern Punk Rock music 24/7. Pop Punk, Hardcore, '90s Punk, Ska Punk, Thrash ...If it's MODERN PUNK, it's on Faction Punk!",
     playlist: '6cnjJcF7naSeHnqFHe0TOc',
   },
   // {
@@ -1062,8 +1026,7 @@ export const channels: Channel[] = [
     number: 330,
     name: 'SiriusXM Silk',
     genre: Genre.rnb,
-    desc:
-      "Slow, mature music that you feel. Sexy, strong, soft and filled with emotion, it's not a channel-it's really a vibe.",
+    desc: "Slow, mature music that you feel. Sexy, strong, soft and filled with emotion, it's not a channel-it's really a vibe.",
     playlist: '6dBIcmd2U3yRl2Vc3gzwq7',
   },
   // {
@@ -1079,8 +1042,7 @@ export const channels: Channel[] = [
     number: 341,
     name: 'Utopia',
     genre: Genre.electronic,
-    desc:
-      "From club anthems to guilty pop pleasures to underground classics - dance hits from the '90s & 2000s.",
+    desc: "From club anthems to guilty pop pleasures to underground classics - dance hits from the '90s & 2000s.",
     playlist: '2bYk532lMoUXg4VcC3I3sy',
   },
   {
@@ -1105,8 +1067,7 @@ export const channels: Channel[] = [
     number: 701,
     name: 'Carolina Shag Radio',
     genre: Genre.pop,
-    desc:
-      'A channel dedicated to the vintage R&B sounds that have meant Beach Music in the Carolinas for decades.',
+    desc: 'A channel dedicated to the vintage R&B sounds that have meant Beach Music in the Carolinas for decades.',
     playlist: '4iXlP6xbt6qf7JOLMHGG5b',
   },
   {
@@ -1124,8 +1085,7 @@ export const channels: Channel[] = [
     number: 706,
     name: 'Elevations',
     genre: Genre.pop,
-    desc:
-      'Piano, string and orchestral versions of Classic Rock & Pop songs, now reimagined and on one unique channel!',
+    desc: 'Piano, string and orchestral versions of Classic Rock & Pop songs, now reimagined and on one unique channel!',
     playlist: '6DbrB6P4l9rzqGLRgTkAdQ',
   },
   {
@@ -1134,8 +1094,7 @@ export const channels: Channel[] = [
     number: 703,
     name: 'Oldies Party',
     genre: Genre.pop,
-    desc:
-      "Good Time Oldies from the '50s and '60s!  Oldies Party plays the fun hits from the dawn of rock into the Woodstock years.",
+    desc: "Good Time Oldies from the '50s and '60s!  Oldies Party plays the fun hits from the dawn of rock into the Woodstock years.",
     playlist: '7l2fM13ScaBKZtgjWUUm1V',
   },
   {
@@ -1144,8 +1103,7 @@ export const channels: Channel[] = [
     number: 704,
     name: '70s/80s Pop',
     genre: Genre.pop,
-    desc:
-      "Dude! You can rock your party with these hits from the '70s & '80s. From Disco to Devo...it's Masterblaster jammin' time!",
+    desc: "Dude! You can rock your party with these hits from the '70s & '80s. From Disco to Devo...it's Masterblaster jammin' time!",
     playlist: '45AWZ4wQotKDdIdFqHC3kw',
   },
   {
@@ -1154,8 +1112,7 @@ export const channels: Channel[] = [
     number: 705,
     name: '80s/90s Pop',
     genre: Genre.pop,
-    desc:
-      "Ya can't touch this!  Essential party hits from the Awesome '80s & the Whassup! '90s...it's Electric!",
+    desc: "Ya can't touch this!  Essential party hits from the Awesome '80s & the Whassup! '90s...it's Electric!",
     playlist: '4J2L5Sg2iVbDjMdiBbRNNB',
   },
   // {
@@ -1180,8 +1137,7 @@ export const channels: Channel[] = [
     number: 712,
     name: "Marky Ramone's Punk Rock",
     genre: Genre.rock,
-    desc:
-      "Marky Ramone's Punk Rock Blitzkrieg. Classic Punk 24/7 + Songs from Marky's record collection, rare tracks, live songs & more!",
+    desc: "Marky Ramone's Punk Rock Blitzkrieg. Classic Punk 24/7 + Songs from Marky's record collection, rare tracks, live songs & more!",
     playlist: '1SEsnGKKVryUMOnLcKgzod',
   },
   {
@@ -1200,8 +1156,7 @@ export const channels: Channel[] = [
     number: 714,
     name: 'Indie 1.0',
     genre: Genre.rock,
-    desc:
-      'First-Gen Indie Rock from college radio grads like Pavement and Pixies to early cult classics from The Strokes and Arcade Fire.',
+    desc: 'First-Gen Indie Rock from college radio grads like Pavement and Pixies to early cult classics from The Strokes and Arcade Fire.',
     playlist: '5wZ20pHcjG4tdLvfd8CzIs',
   },
   {
@@ -1219,8 +1174,7 @@ export const channels: Channel[] = [
     number: 757,
     name: 'The Tragically Hip Radio',
     genre: Genre.rock,
-    desc:
-      "The Tragically Hip Radio, playing music from the band's entire catalogue, interviews and more!",
+    desc: "The Tragically Hip Radio, playing music from the band's entire catalogue, interviews and more!",
     playlist: '3SgFyRmKbDcxd69f0vFnr1',
   },
   // {
@@ -1317,7 +1271,7 @@ export const channels: Channel[] = [
     name: 'Águila',
     genre: Genre.latino,
     desc: 'Banda, Norteño, Mariachi and all the sounds of traditional Mexican music.',
-    playlist: '',
+    playlist: '5t8qMJHSsTqLVG1aWLGKZa',
   },
   {
     id: '9188',
@@ -1326,7 +1280,7 @@ export const channels: Channel[] = [
     name: 'Caricia',
     genre: Genre.latino,
     desc: 'Relive the classics from unforgettable artists in Spanish and English.',
-    playlist: '',
+    playlist: '3Rnbk4PvrAqfOLgGcaKuGL',
   },
   {
     id: '8225',
@@ -1334,8 +1288,7 @@ export const channels: Channel[] = [
     number: 763,
     name: 'Viva',
     genre: Genre.latino,
-    desc:
-      'Playing a unique blend of romantic, rhythmic and urban pop from the biggest Latin stars from around the world. Viva-Pop de Hoy!',
+    desc: 'Playing a unique blend of romantic, rhythmic and urban pop from the biggest Latin stars from around the world. Viva-Pop de Hoy!',
     playlist: '',
   },
   {
@@ -1345,7 +1298,7 @@ export const channels: Channel[] = [
     name: 'Latidos',
     genre: Genre.latino,
     desc: "Romantic love songs from the '90s to today.",
-    playlist: '',
+    playlist: '3rpDpFMXGspNoSWTxw0K9j',
   },
   {
     id: '9185',
@@ -1354,7 +1307,7 @@ export const channels: Channel[] = [
     name: 'Flow Nación',
     genre: Genre.latino,
     desc: 'The hottest sounds in Reggaeton, Latin Hip-Hop and more!',
-    playlist: '',
+    playlist: '5q31zZOEYiwrHT0Y11WFsB',
   },
   {
     id: '9189',
@@ -1362,9 +1315,8 @@ export const channels: Channel[] = [
     deeplink: 'Luna',
     name: 'Luna',
     genre: Genre.latino,
-    desc:
-      'Latin percussion and Afro Cuban rhythms blended with Jazz for a fun-filled musical journey.',
-    playlist: '',
+    desc: 'Latin percussion and Afro Cuban rhythms blended with Jazz for a fun-filled musical journey.',
+    playlist: '41bE6VN2mOfsdzA7QenDCC',
   },
   // {
   //   id: '9190',
@@ -1381,9 +1333,8 @@ export const channels: Channel[] = [
     deeplink: 'LaKueva',
     name: 'La Kueva',
     genre: Genre.latino,
-    desc:
-      "The Latin Rock and Alternative classics you know and love with today's upcoming artists.",
-    playlist: '',
+    desc: "The Latin Rock and Alternative classics you know and love with today's upcoming artists.",
+    playlist: '1vXaeALUVxzz3AD9CpJZlV',
   },
   {
     id: '9530',
@@ -1401,7 +1352,7 @@ export const channels: Channel[] = [
     name: 'Kids Place Live',
     genre: Genre.kids,
     desc: 'Family-friendly music, games, laughs and live shows for 24/7 kid-approved entertainment',
-    playlist: '',
+    playlist: '6X6E2y98ndt3HOgKRsr8iE',
   },
   {
     id: '9366',
@@ -1409,9 +1360,8 @@ export const channels: Channel[] = [
     number: 77,
     name: 'KIDZ BOP Radio',
     genre: Genre.kids,
-    desc:
-      "It's all KIDZ BOP, all the time. Tune in for a 24/7 POP STAR Party hosted by the KIDZ BOP Kids, featuring today's biggest hits.",
-    playlist: '',
+    desc: "It's all KIDZ BOP, all the time. Tune in for a 24/7 POP STAR Party hosted by the KIDZ BOP Kids, featuring today's biggest hits.",
+    playlist: '6gMCkNNbluG8AYIyvCj281',
   },
   // Disabled 4/21/20
   // {
@@ -1556,7 +1506,7 @@ export const channels: Channel[] = [
     name: 'Holiday Traditions',
     genre: Genre.holiday,
     desc: "Traditional holiday recordings from the '40s through the '60s.",
-    playlist: '',
+    playlist: '7FuozSBjyQN6CroiS0ftf6',
   },
   {
     id: 'siriuslove',
@@ -1565,7 +1515,7 @@ export const channels: Channel[] = [
     name: 'SiriusXM Love',
     genre: Genre.pop,
     desc: 'Romantic ballads and soft pop music featuring lyrics of love.',
-    playlist: '',
+    playlist: '4xwId52jcIgj1qGunqeELB',
   },
   // {
   //   id: '9416',
@@ -1594,7 +1544,7 @@ export const channels: Channel[] = [
     name: 'SiriusXM Pops',
     genre: Genre.classical,
     desc: "Classical Music's greatest hits -- beautiful and fun!",
-    playlist: '',
+    playlist: '7lp7vWfjoZDsMQEKZwyxoG',
   },
   // Disabled 4/21/20
   // {
@@ -1612,8 +1562,7 @@ export const channels: Channel[] = [
     number: 97,
     name: 'Comedy Roundup',
     genre: Genre.comedy,
-    desc:
-      'Jeff Foxworthy and Larry the Cable Guy host shows and curate stand-up from the best in American comedy.',
+    desc: 'Jeff Foxworthy and Larry the Cable Guy host shows and curate stand-up from the best in American comedy.',
     playlist: '6k0bbGRHtyI1sgpeR3mbp8',
     allowLinkContent: true,
   },
@@ -1623,8 +1572,7 @@ export const channels: Channel[] = [
     number: 93,
     name: 'Netflix Is A Joke Radio',
     genre: Genre.comedy,
-    desc:
-      "Ad-free home of the best of Netflix's standup specials and comedy talk shows, as well as original radio programming.",
+    desc: "Ad-free home of the best of Netflix's standup specials and comedy talk shows, as well as original radio programming.",
     playlist: '02L5I1Ppe0Tu9PatWi4rI9',
     allowLinkContent: true,
   },
@@ -1634,9 +1582,8 @@ export const channels: Channel[] = [
     number: 94,
     name: 'Comedy Greats',
     genre: Genre.comedy,
-    desc:
-      'The greatest stand-up comedians of all time, featuring legends like Richard Pryor, Robin Williams, and Chris Rock.',
-    playlist: '',
+    desc: 'The greatest stand-up comedians of all time, featuring legends like Richard Pryor, Robin Williams, and Chris Rock.',
+    playlist: '2hOkpE56YWOIhIs24BEyB6',
     allowLinkContent: true,
   },
   {
@@ -1656,7 +1603,7 @@ export const channels: Channel[] = [
     name: 'KevinHart Laugh Out Loud',
     genre: Genre.comedy,
     desc: 'Kevin Hart presents comedy, shows and other fun content.',
-    playlist: '',
+    playlist: '3m7SiQAkqg3D6qOQk9Tt2T',
     allowLinkContent: true,
   },
   {
@@ -1665,9 +1612,8 @@ export const channels: Channel[] = [
     number: 98,
     name: 'Laugh USA',
     genre: Genre.comedy,
-    desc:
-      'Clean stand-up from top comics like Jim Gaffigan and Jerry Seinfeld as well as classics from Bob Newhart, Steven Wright, & more',
-    playlist: '',
+    desc: 'Clean stand-up from top comics like Jim Gaffigan and Jerry Seinfeld as well as classics from Bob Newhart, Steven Wright, & more',
+    playlist: '7MdzZQU6pduI901klrsXL9',
     allowLinkContent: true,
   },
   {
@@ -1686,8 +1632,7 @@ export const channels: Channel[] = [
     number: 168,
     name: 'Just For Laughs Canada',
     genre: Genre.comedy,
-    desc:
-      "The spotlight is on Canada's rich pool of extraordinary uncensored Canadian comedy presented by Just For Laughs",
+    desc: "The spotlight is on Canada's rich pool of extraordinary uncensored Canadian comedy presented by Just For Laughs",
     playlist: '',
     allowLinkContent: true,
   },
@@ -1707,9 +1652,8 @@ export const channels: Channel[] = [
     number: 104,
     name: 'Comedy Classics',
     genre: Genre.comedy,
-    desc:
-      'Classic stand-up from legendary comedians of the past like Bob Newhart, Joan Rivers, Redd Foxx, and more!',
-    playlist: '',
+    desc: 'Classic stand-up from legendary comedians of the past like Bob Newhart, Joan Rivers, Redd Foxx, and more!',
+    playlist: '2CwMwZ0odR1iUjfqwixaUa',
     allowLinkContent: true,
   },
   {

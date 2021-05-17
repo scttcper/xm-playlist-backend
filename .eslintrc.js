@@ -27,6 +27,7 @@ module.exports = {
     '@typescript-eslint/no-confusing-void-expression': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
     'no-await-in-loop': 'off',
     'react/jsx-curly-newline': 'off',
     'react/jsx-tag-spacing': [
