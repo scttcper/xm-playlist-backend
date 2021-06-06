@@ -173,7 +173,7 @@ export const channels: Channel[] = [
     number: 14,
     name: 'The Coffee House',
     genre: Genre.pop,
-    desc: 'Singer-songwriters and rare acoustic versions of songs.',
+    desc: 'A mix of fresh music vibes from various music styles designed to put you in relaxation mode.',
     playlist: '1pAAGsAdgQpfHBbnjlMmY9',
   },
   {
@@ -690,7 +690,7 @@ export const channels: Channel[] = [
     number: 754,
     name: 'Poplandia',
     genre: Genre.pop,
-    desc: "The hottest Canadian Pop hits from the '90s, 2000s and today.",
+    desc: 'Canadian Pop Hits from the 2000s and today.',
     playlist: '5c7RJiKjmSZTPvZjZGaurC',
     allowLinkContent: true,
   },
@@ -1000,6 +1000,15 @@ export const channels: Channel[] = [
     genre: Genre.rock,
     desc: 'Hear music & stories from Rock Hall inductees Buddy Holly, Beatles, Marvin Gaye, Doors, Nirvana, Pink Floyd, Prince, U2 & more.',
     playlist: '2GE5O359IReXXUpfYpBWWn',
+  },
+  {
+    id: '9543',
+    deeplink: 'AndyCohensKikiLounge',
+    number: 312,
+    name: "Andy Cohen's Kiki Lounge",
+    genre: Genre.pop,
+    desc: 'Hand-picked songs you may not know from artists Andy Cohen loves. And nightly DJ sets.',
+    playlist: '',
   },
   {
     id: '9175',
