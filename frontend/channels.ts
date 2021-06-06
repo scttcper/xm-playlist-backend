@@ -1008,7 +1008,7 @@ export const channels: Channel[] = [
     name: "Andy Cohen's Kiki Lounge",
     genre: Genre.pop,
     desc: 'Hand-picked songs you may not know from artists Andy Cohen loves. And nightly DJ sets.',
-    playlist: '',
+    playlist: '29S9A3WUadj0Lm4AmUst8C',
   },
   {
     id: '9175',
