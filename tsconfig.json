@@ -4,10 +4,12 @@
     "target": "es2019",
     "module": "commonjs",
     "jsx": "react",
+    "declaration": false,
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": ["dom", "es7"]
+    "lib": ["dom", "es7"],
+    "skipLibCheck": true
   }
 }
