@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { SearchIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 
 import { url } from '../url';
 import { SearchForm, Inputs as SearchFormInputs } from 'components/SearchForm';
@@ -321,7 +321,7 @@ const Search: NextComponentType<NextPageContext, Props, Props> = ({ query }) => 
                           </div>
                         </div>
                         <div>
-                          <SearchIcon className="h-6 w-6" aria-hidden="true" />
+                          <ChevronRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </div>
                       </div>
                     </a>

@@ -29,7 +29,9 @@ const port = parseInt(process.env.PORT, 10) || 5000;
   await server.register(fastifyCors);
   await server.register(fastifyExpress);
 
+  // @ts-expect-error
   server.use(Sentry.Handlers.requestHandler());
+  // @ts-expect-error
   server.use(Sentry.Handlers.errorHandler());
 
   function onRequest(req, res, done) {
