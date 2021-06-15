@@ -61,7 +61,8 @@
   },
   "browserslist": {
     "production": [
-      ">5%",
+      ">3%",
+      "last 1 firefox version",
       "not dead",
       "not op_mini all",
       "not ie 9-11"
