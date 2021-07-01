@@ -377,11 +377,11 @@ export const channels: Channel[] = [
   },
   {
     id: '9351',
-    deeplink: 'BlackMusicForever',
+    deeplink: 'TheBeachBoysChannel',
     number: 105,
-    name: 'Black Music Forever',
-    genre: Genre.rnb,
-    desc: 'Black Music Forever',
+    name: 'The Beach Boys Channel',
+    genre: Genre.pop,
+    desc: 'The Beach Boys Channel',
     playlist: '',
   },
   {

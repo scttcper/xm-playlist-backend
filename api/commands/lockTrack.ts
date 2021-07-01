@@ -1,4 +1,5 @@
-import { argv } from 'yargs';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers';
 import got from 'got';
 
 import { db } from '../src/db';
@@ -11,8 +12,9 @@ import { findAndCacheLinks } from '../src/linkfinder';
  * NODE_ENV=localprod ts-node api/commands/lockTrack.ts --track NDCA-000146182-001 --spotify 3U2EoofSSuc4ujb7smTqca --update
  */
 
-const trackId = argv.track as string;
-let spotifyId = argv.spotify as string;
+const argv = yargs(hideBin(process.argv)).argv as Record<string, string | undefined>;
+const trackId = argv.track!;
+let spotifyId = argv.spotify!;
 if (spotifyId.includes('open.spotify.com')) {
   spotifyId = spotifyId.split('/track/')[1];
 }
